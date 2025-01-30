@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'diaries',
+    'replies',
 ]
 
 MIDDLEWARE = [
@@ -122,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -140,3 +143,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'users.User'
+
+# Media 파일 설정
+MEDIA_URL = '/media/' # 각 모델의 ImageField에 업로드된 파일의 URL 고정 값
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 실제 파일이 저장되는 경로
