@@ -21,7 +21,7 @@ import os
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
 # BASE_DIR 설정
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 환경 변수 로드
 env = environ.Env()
@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'diaries',
+    'replies',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +70,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # templates 폴더 경로 설정
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -134,9 +137,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# static 파일 설정
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [ 
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'users.User'
+
+# Media 파일 설정
+MEDIA_URL = '/media/' # 각 모델의 ImageField에 업로드된 파일의 URL 고정 값
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 실제 파일이 저장되는 경로

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>On-Record</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
+            <p>당신의 첫 번째 온기록을 축하합니다!</p>
+        {% else %}
+            <li><a href="{% url 'users:login' %}">로그인</a></li>
+            <li><a href="{% url 'users:signup' %}">회원가입</a></li>
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
