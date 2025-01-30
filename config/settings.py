@@ -21,7 +21,7 @@ import os
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
 # BASE_DIR 설정
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 환경 변수 로드
 env = environ.Env()
@@ -70,7 +70,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # templates 폴더 경로 설정
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,7 +137,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# static 파일 설정
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [ 
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
