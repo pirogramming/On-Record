@@ -14,7 +14,7 @@ def signup(request):
       auth.login(request, user)
       return redirect('users:main')
     else:
-      return redirect('users:signup')
+      return render(request, 'users/signup.html', {'form': form}) # 회원가입 에러 메시지 표시
   else:
     form = SignupForm()
     context = {
