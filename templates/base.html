@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static './styles/main.css' %}" />
+    <link rel="stylesheet" href="{% static './css/main.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,11 +18,10 @@
 
   <body>
     <header class="header">
-      <div class="header-left"><a href="{% url 'user:intro2' %}">Pirogrammer Card Game</a><span class="mini">(Team01)</span></div>
+      <div class="header-left"><a href="{% url 'diaries:main' %}">On Record</a></div>
       <div class="header-right">
-        <div class="header_login"><a href="{% url 'game:start_game' %}">게임시작</a></div>
-        <div class="header_signup"><a href="{% url 'ranking:ranking' %}">랭킹보기</a></div>
-        <div class="header_logout"><a href="{% url 'user:logout'%}">로그아웃</a></div>
+        <a href="{% url 'diaries:community' %}">Community</a>
+        <a href="{% url 'diaries:mypage' %}">MyPage</a>
       </div>
     </header>
 

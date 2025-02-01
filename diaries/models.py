@@ -13,13 +13,31 @@ class Diary(models.Model):
         return self.title
 
 
+class Personality(models.Model):
+    type = models.CharField(max_length=20, unique=True) # 성격 유형(ex) 상냥한, 다정한)
+
+    def __str__(self): # 반려친구 등록 시 보이기 위해
+        return self.type
+
 class Friend(models.Model):
+    KIND_CHOICES = [
+        ('dog', '강아지'),
+        ('cat', '고양이'),
+        ('plant', '식물'),
+    ]
+
+    GENDER_CHOICES = [
+        ('male', '남'),
+        ('female', '여'),
+        ('unknown', '없음'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    kind = models.CharField(max_length=50)
+    kind = models.CharField(max_length=10, choices=KIND_CHOICES, default='dog')
     name = models.CharField(max_length=50)
     age = models.PositiveIntegerField()
-    gender = models.CharField(max_length=10)
-    personal = models.TextField(blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
+    personal = models.ManyToManyField(Personality, blank=True) # 여러 개의 성격 선택 가능
     image = models.ImageField(upload_to="friend_images/%Y%m%d", blank=True, null=True)
 
     def __str__(self):
