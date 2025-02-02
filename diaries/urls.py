@@ -8,6 +8,12 @@ app_name = 'diaries'
 urlpatterns = [
     path('', test, name='test'), # 수정 필요
     path('friend_create/', friend_create, name='friend_create'),
+    # 기본 calender를 받아오는 url 라우팅
+    path('calendar/', calendar_view, name='calendar_view'),
+    # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
+    path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
+    # 다이어리 상세 내용을 가져오는 url 라우팅
+    path('diary/<int:year>/<int:month>/<int:day>', diary_view, name='diary_view'),
 ]
 
 if settings.DEBUG:
