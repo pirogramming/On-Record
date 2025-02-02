@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('diaries/', include('diaries.urls')), # 경로 논의 후 수정 필요
     path('replies/', include('replies.urls')), # 경로 논의 후 수정 필요
+    path('accounts/', include('allauth.urls')), # allauth URL 패턴
 ]
 
 if settings.DEBUG:

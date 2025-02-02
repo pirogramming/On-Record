@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,8 +12,9 @@
             <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
             <p>당신의 첫 번째 온기록을 축하합니다!</p>
         {% else %}
-            <li><a href="{% url 'users:login' %}">로그인</a></li>
+            <li><a href="{% url 'users:user_login' %}">로그인</a></li>
             <li><a href="{% url 'users:signup' %}">회원가입</a></li>
+            <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'"><img class="kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>
         {% endif %}
 
         {% block content %}
