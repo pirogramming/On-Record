@@ -4,6 +4,39 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+def get_naver_token(code):
+  url = 'https://nid.naver.com/oauth2.0/token'
+
+  data = {
+    'grant_type': 'authorization_code',
+    'client_id': env('NAVER_CLIENT_ID'),
+    'client_secret': env('NAVER_SECRET'),
+    'code': code,
+  }
+
+  response = requests.post(url, data=data)
+
+  if response.status_code == 200:
+    token_info = response.json()
+    return token_info.get('access_token')
+  else:
+    raise Exception(f"네이버 로그인 오류: {response.status_code} - {response.text}")
+
+def get_naver_user_info(access_token):
+  url = 'https://openapi.naver.com/v1/nid/me'
+
+  headers = {
+    'Authorization': f'Bearer {access_token}',
+  }
+
+  response = requests.get(url, headers=headers)
+
+  if response.status_code == 200:
+    user_info = response.json()
+    return user_info
+  else:
+    raise Exception(f"네이버 사용자 정보 조회 오류: {response.status_code} - {response.text}")
+
 def get_kakao_token(code):
   url = 'https://kauth.kakao.com/oauth/token'
 

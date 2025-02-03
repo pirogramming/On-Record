@@ -1,3 +1,4 @@
+{% load static %}
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,9 @@
         {% else %}
             <li><a href="{% url 'users:user_login' %}">로그인</a></li>
             <li><a href="{% url 'users:signup' %}">회원가입</a></li>
-            <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'"><img class="kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>
+            <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'"><img class="naver" src="{% static 'images/btnG_아이콘원형.png' %}" alt="네이버 로그인"></button>
+            <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'"><img class="kakao" src="{% static 'images/kakao_login_small.png' %}" alt="카카오 로그인"></button>
+            <button type="button" onclick="location.href='{% provider_login_url 'google' %}'"><img class="google" src="{% static 'images/web_light_rd_na@1x.png' %}" alt="구글 로그인"></button>
         {% endif %}
 
         {% block content %}

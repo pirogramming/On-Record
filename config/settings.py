@@ -191,6 +191,10 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
     'google': {
+        'APP': {
+            'client_id': env('GOOGLE_CLIENT_ID'),
+            'secret': env('GOOGLE_SECRET'),
+        },
         'SCOPE': [
             'profile',
             'email',
@@ -214,6 +218,7 @@ LOGIN_REDIRECT_URL = '/' # 로그인 후 연결될 URL
 
 SOCIALACCOUNT_QUERY_EMAIL = True # 소셜 로그인 시 이메일 정보를 가져오도록 설정
 SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 연결될 URL
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 요청 시 즉시 로그아웃

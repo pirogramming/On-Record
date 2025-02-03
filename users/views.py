@@ -3,6 +3,11 @@ from users.forms import SignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from users.models import User
+from django.http import JsonResponse
+from .utils import get_kakao_token, get_kakao_user_info
+import requests
+import environ
+env = environ.Env()
 
 def main(request):
   return render(request, 'users/main.html')
@@ -54,9 +59,6 @@ def logout(request):
 
   return redirect('users:main')
 
-from django.http import JsonResponse
-from .utils import get_kakao_token, get_kakao_user_info
-
 def kakao_callback(request):
   code = request.GET.get('code') # 카카오에서 리다이렉션 시 전달된 'code' 파라미터
   if code:
@@ -89,16 +91,17 @@ def kakao_callback(request):
   else:
     return JsonResponse({'error': 'Invalid code'}, status=400)
 
-import environ
-env = environ.Env()
+def naver_login(request):
+  client_id = env('NAVER_CLIENT_ID')
+  redirect_uri = env('NAVER_REDIRECT_URI')
+  naver_auth_url = f"https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&state=STATE_STRING"
+  return redirect(naver_auth_url)
 
 def kakao_login(request):
   client_id = env('KAKAO_CLIENT_ID')
   redirect_uri = env('KAKAO_REDIRECT_URI')
   kakao_auth_url = f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&prompt=login"
   return redirect(kakao_auth_url)
-
-import requests
 
 def kakao_logout(access_token):
   logout_url = "https://kapi.kakao.com/v1/user/logout"
