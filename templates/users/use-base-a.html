@@ -2,13 +2,13 @@
 
 {% block content %}
 <style>
-  .background-b {
+  .background-a {
     position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../base-b.png'); /* 실제 배경 이미지 경로 */
+    background-image: url('../base-a.png'); /* 실제 배경 이미지 경로 */
     background-size: cover;
     background-position: center;
     z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
@@ -140,7 +140,7 @@
       }
   }
 </style>
-    <div class="background-b"></div>
+    <div class="background-a"></div>
     <div class="container">
         <h1 class="form-title"><strong>{{ user.username }}님의 반려친구</strong>에 대해 알려주세요!</h1>
         <div class="form-body">
