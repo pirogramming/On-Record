@@ -8,6 +8,9 @@ import calendar
 # 테스트용 코드
 from django.http import HttpResponse
 
+#반려동물과 반려식물 중에 선택 처리하는 view
+def pet_or_plant(request):
+    return render(request, 'diaries/pet_or_plant.html')
 # html에 캘린더를 보내주는 view
 def calendar_view(request, year = None, month = None):
     today = date.today()

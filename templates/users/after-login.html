@@ -46,11 +46,6 @@
  .move-form-btn:hover {
     background: #e5b700;
  }
- .friend_create {
-  text-decoration: none; /* 밑줄 제거 */
-  color: inherit; /* 부모의 글씨 색상을 따르도록 설정 (버튼 색상과 같게) */
-}
-  
   @media (max-width: 600px) {
       .container {
           flex-direction: column;
@@ -63,9 +58,7 @@
     <div class="container">
         <h1 class="start-hello">당신의 첫 번째 온기록을 축하합니다!</h1>
         <span>오늘 남긴 기록이 내일의 가장 따뜻한 위로가 될 거에요.<br>앞으로 펼쳐질 당신의 온기록을 응원합니다.</span>
-        <button type="submit" class="move-form-btn">
-          <a href="{% url 'diaries:friend_create' %}" class="friend_create">온기록 시작하기</a>
-        </button>
+        <a href="{% url 'diaries:pet_or_plant' %}" class="move-form-btn">온기록 시작하기</a>
     </div>
     
 {% endblock %}

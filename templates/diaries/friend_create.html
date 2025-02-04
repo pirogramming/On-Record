@@ -143,49 +143,52 @@ input, select {
     <div class="background-b"></div>
     <div class="form-container">
         <h1 class="form-title"><strong>{{ user.username }}님의 반려친구</strong>에 대해 알려주세요!</h1>
-        <div class="form-body">
-          <div class="image-upload">
-            <label for="pet-image">
-                <img id="pet-preview" src="#" alt="미리보기">
-            </label>
-            <input type="file" id="pet-image" name="pet-image" accept="image/*">
-          </div>
-          <div class="form-fields">
-              <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <div class="form-group">
-                      <label>이름</label>
-                      {{ form.name }}
-                  </div>
-                  <div class="form-group">
-                      <label>종류</label>
-                      {{ form.kind }}
-                  </div>
-                  <div class="form-group">
-                      <label>성별</label>
-                      {{ form.gender }}
-                  </div>
-                  <div class="form-group">
-                      <label>나이</label>
-                      {{ form.age }}
-                  </div>
-              </form>
-          </div>
-        </div>
+        <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-body">
+                <div class="image-upload">
+                    <label for="pet-image">
+                        <img id="pet-preview" src="#" alt="미리보기">
+                    </label>
+                    <input type="file" id="pet-image" name="pet-image" accept="image/*">
+                </div>
+                <div class="form-fields">
+                    
+                        <div class="form-group">
+                            <label>이름</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="form-group">
+                            <label>종류</label>
+                            {{ form.kind }}
+                        </div>
+                        <div class="form-group">
+                            <label>성별</label>
+                            {{ form.gender }}
+                        </div>
+                        <div class="form-group">
+                            <label>나이</label>
+                            {{ form.age }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
 
         <!-- 성격과 반려친구 등록 버튼 부분을 중앙에 배치 -->
-        <div class="centered-content">
-          <div class="form-group">
-              <label>성격:</label>
-              <div id="personality-buttons">
-                  {% for personality in form.personal.field.queryset %}
-                      <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
-                  {% endfor %}
-              </div>
-          </div>
-          <input type="hidden" name="personal" id="selected-personalities">
-          <button type="submit" class="submit-btn">반려친구 등록</button>
-        </div>
+            <div class="centered-content">
+                <div class="form-group">
+                    <label>성격:</label>
+                    <div id="personality-buttons">
+                        {% for personality in form.personal.field.queryset %}
+                            <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <input type="hidden" name="personal" id="selected-personalities">
+                <button type="submit" class="submit-btn">반려친구 등록</button>
+            </div>
+        </form>
     </div>
 
     <script>
