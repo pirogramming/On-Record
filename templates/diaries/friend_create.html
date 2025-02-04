@@ -1,0 +1,80 @@
+<form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+        <label>이름:</label>
+        {{ form.name }}
+    </p>
+    <p>
+        <label>종류:</label>
+        {{ form.kind }}
+    </p>
+    <p>
+        <label>사진:</label>
+        {{ form.image }}
+    <p>
+    <p>
+        <label>성격:</label>
+        <div id="personality-buttons">
+            {% for personality in form.personal.field.queryset %}
+                <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
+            {% endfor %}
+        </div>
+    </p>
+    
+    <!-- 실제 선택된 성격을 저장할 input 필드 -->
+    <input type="hidden" name="personal" id="selected-personalities">
+
+    <p>
+        <label>성별:</label>
+        {{ form.gender }}
+    </p>
+
+    <p>
+        <label>나이:</label>
+        {{ form.age }}
+    </p>
+
+    <input type="submit" value="반려친구 등록">
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".personality-btn");
+        const selectedInput = document.getElementById("selected-personalities");
+
+        let selectedValues = new Set();  // 선택된 성격 저장
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                const value = this.getAttribute("data-value");
+
+                if (selectedValues.has(value)) {
+                    selectedValues.delete(value);
+                    this.classList.remove("selected");
+                } else {
+                    selectedValues.add(value);
+                    this.classList.add("selected");
+                }
+
+                selectedInput.value = Array.from(selectedValues).join(",");  // 선택된 값을 숨겨진 input에 저장
+                console.log("🔹 Hidden input value:", selectedInput.value);
+            });
+        });
+    });
+</script>
+
+<style>
+    .personality-btn {
+        border: 1px solid #666;
+        padding: 5px 10px;
+        margin: 5px;
+        background-color: white;
+        cursor: pointer;
+        border-radius: 15px;
+    }
+
+    .personality-btn.selected {
+        background-color: #ffcc00;
+    }
+</style>

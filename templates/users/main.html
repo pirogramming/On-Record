@@ -1,0 +1,27 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>On-Record</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
+            <p>당신의 첫 번째 온기록을 축하합니다!</p>
+            <a href="{% url 'diaries:friend_create' %}">반려친구 등록</a>
+        {% else %}
+            <li><a href="{% url 'users:user_login' %}">로그인</a></li>
+            <li><a href="{% url 'users:signup' %}">회원가입</a></li>
+            <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'"><img class="naver" src="{% static 'images/btnG_아이콘원형.png' %}" alt="네이버 로그인"></button>
+            <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'"><img class="kakao" src="{% static 'images/kakao_login_small.png' %}" alt="카카오 로그인"></button>
+            <button type="button" onclick="location.href='{% provider_login_url 'google' %}'"><img class="google" src="{% static 'images/web_light_rd_na@1x.png' %}" alt="구글 로그인"></button>
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
