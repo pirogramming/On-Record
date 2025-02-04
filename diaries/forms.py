@@ -21,4 +21,4 @@ class DiaryForm(forms.ModelForm):
 
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'image', 'disclosure', 'date', 'mood']
+        fields = ['title', 'weather', 'content', 'friend', 'image', 'disclosure', 'date', 'mood']
