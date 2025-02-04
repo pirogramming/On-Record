@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 app_name = 'diaries'
 
 urlpatterns = [
-    path('', test, name='test'), # 수정 필요
     path('friend_create/', friend_create, name='friend_create'),
     # 기본 calender를 받아오는 url 라우팅
     path('calendar/', calendar_view, name='calendar_view'),
@@ -16,6 +15,7 @@ urlpatterns = [
     path('diary/<int:year>/<int:month>/<int:day>', diary_view, name='diary_view'),
     # 다이어리 상세 내용 불러옴
     path('diaries_detail/<int:pk>', diaries_detail, name='diaries_detail'),
+    path('mypage/', mypage_view, name='mypage'),
 ]
 
 if settings.DEBUG:
