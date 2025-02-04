@@ -1,0 +1,33 @@
+<p>{{ diaries.title }}<p>
+<p>{{ diaries.content }}<p>
+{% if diaries.image %}
+<img src="{{ diaries.image.url }}" alt="일기 이미지">
+{% else %}
+<p>📷 이미지 없음</p>
+{% endif %}
+{% if diaries.weather == 'sunny' %}
+    <p>☀️</p>
+{% elif diaries.weather == 'cloudy' %}
+    <p>☁️</p>
+{% elif diaries.weather == 'rainy' %}
+    <p>🌧️</p>
+{% elif diaries.weather == 'snowy' %}
+    <p>❄️</p>
+{% else %}
+    <p>🌍 날씨 정보 없음</p>
+{% endif %}
+{% if diaries.mood == 'happy' %}
+    <p>😄</p>
+{% elif diaries.mood == 'sad' %}
+    <p>😢</p>
+{% elif diaries.mood == 'angry' %}
+    <p>😡</p>
+{% elif diaries.mood == 'funny' %}
+    <p>🤣</p>
+{% elif diaries.mood == 'tired' %}
+    <p>😪</p>
+{% else %}
+    <p>🌍 기분 정보 없음</p>
+{% endif %}
+<p>{{ diaries.disclosure }}<p>
+<p>{{ diaries.date }}<p>
