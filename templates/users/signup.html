@@ -9,11 +9,15 @@
 
         .signup-container {
             position: relative;
-            width: 700px;
-            height: 500px;
+            width: 1171.8px;
+            height: 639px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-image: url("{% static 'images/container_background.png' %}");
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
         }
 
         .signup-bg {
@@ -30,6 +34,7 @@
             text-align: center;
             width: 100%;
             padding: 20px;
+            margin-left: -500px; /* 왼쪽으로 이동 */
         }
 
         .signup-header {
@@ -44,7 +49,7 @@
         .signup-logo {
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: 70px;
             width: 50px;
             height: auto;
         }
