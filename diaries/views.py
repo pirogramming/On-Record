@@ -127,12 +127,17 @@ def diaries_detail(request, pk):
 # 일기 생성/업데이트
 def diaries_form(request):
     if request.method == 'POST':
-        diaries = get_object_or_404(Diary)
+        # 새로운 Diary 객체 생성 및 폼 데이터 적용
+        diaries = Diary()
         form = DiaryForm(request.POST, request.FILES, instance=diaries)
+        
         if form.is_valid():
             diaries = form.save(commit=False)
-            diaries.user = request.user
-            diaries.save()
+            diaries.user = request.user  # 현재 사용자를 연결
+            diaries.save()  # 새로운 Diary 저장
+
+            # 저장된 Diary의 pk로 Reply 생성
+            create_response(diaries.pk)
             return redirect('diaries:diaries_detail', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
@@ -142,7 +147,6 @@ def diaries_form(request):
             'form': form,
         }
         return render(request, 'diaries/diary-write.html', content)
-
 # 일기 삭제
 def diaries_delete(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
