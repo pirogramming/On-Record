@@ -3,18 +3,18 @@ from users.models import User
 
 class Diary(models.Model):
     WEATHER_CHOICES = [
-        ('sunny', '☀️'),
-        ('cloudy', '☁️'),
-        ('rainy', '🌧'),
-        ('snowy', '❄️'),
+        ( 'sunny', '☀️' ),
+        ( 'cloudy', '☁️' ),
+        ( 'rainy', '🌧' ),
+        ( 'snowy', '❄️' ),
     ]
 
     MOOD_CHOICES = [
-        ('happy', '🥰'),
-        ('sad', '😢'),
-        ('angry', '😡'),
-        ('funny', '🤣'),
-        ('tired', '😪'),
+        ( 'happy' ,  '🥰' ),
+        ( 'sad'   ,  '😢' ),
+        ( 'angry' ,  '😡' ),
+        ( 'funny' ,  '🤣' ),
+        ( 'tired' ,  '😪' ),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,6 +26,7 @@ class Diary(models.Model):
     mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
     weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
 
+    # 누구한테 쓴건지
     def __str__(self):
         return self.title
 

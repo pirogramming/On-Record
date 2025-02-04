@@ -4,9 +4,10 @@ from .models import Personality, Diary
 # 캘린더 관련
 from datetime import date
 import calendar
-
+from replies.views import create_response
 # 테스트용 코드
 from django.http import HttpResponse
+
 
 # html에 캘린더를 보내주는 view
 def calendar_view(request, year = None, month = None):
@@ -116,6 +117,7 @@ def diaries_detail(request, pk):
     if diaries.user == request.user:
         content = {
             'diaries': diaries,
+            'reply' : diaries.reply
         }
         return render(request, 'diaries/diaries_detail.html', content)
     else:
@@ -131,6 +133,8 @@ def diaries_form(request, pk):
             diaries = form.save(commit=False)
             diaries.user = request.user
             diaries.save()
+
+            reply = create_response(pk)
             return redirect('users:main')
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
