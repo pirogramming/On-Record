@@ -1,4 +1,5 @@
 {% extends 'users/main-1.html' %}
+{% load socialaccount %}
 {% load static %}
 {% load socialaccount %}
 
@@ -185,15 +186,16 @@
             </form>
     
             <div class="social-icons">
+                <div class="naver_login">
+                    <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'">
+                        <img class="naver" src="{% static 'images/naver_icon.png' %}" alt="네이버 로그인">
+                    </button>
+                </div>
+
                 <div class="kakao_login">
                     <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'">
                         <img class="kakao" src="{% static 'images/kakao_icon.png' %}" alt="카카오 로그인">
-                    </button>
-                </div>
-                
-                <div class="naver_login">
-                    <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'">
-                        <img class="naver" src="{% static 'images/btnG_아이콘원형.png' %}" alt="네이버 로그인">
+
                     </button>
                 </div>
             
