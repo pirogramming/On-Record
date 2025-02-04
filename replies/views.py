@@ -87,4 +87,3 @@ def create_response(pk):
 
 
   Reply.objects.create(diary = diary , user = current_user , content = reply_text)
-  Reply.save()
