@@ -1,68 +1,19 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Pretendard&display=swap" rel="stylesheet">
-    <title>일기 쓰기</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body, html {
-        width: 100%;
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        font-family: 'Pretendard', sans-serif;
-      }
+{% extends 'base.html' %}
+{% load static %}
 
-      body {
-          padding-top: 70px; /* 네비게이션 바의 높이만큼 여백을 추가 */
-      }
-      
-      /* 배경 이미지 설정 */
-      .background {
+{% block content %}
+    <style>
+      .background-a {
         position: fixed; 
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('companion_form.png'); /* 실제 배경 이미지 경로 */
+        background-image: url("{% static 'images/base-a.png' %}");
         background-size: cover;
         background-position: center;
         z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-      }
-      
-      /* 네비게이션 바 */
-      .header-navbar {
-        position: fixed; /* 네비게이션 바 고정 */
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 30px;
-        background-color: #FFFBED; /* 연한 노란색 */
-        box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.07); /* 피그마에서 설정한 그림자 */
-        z-index: 1; /* 배경 이미지보다 위에 표시 */
-      }
-      
-      .navbar-text {
-        font-size: 18px;
-        margin: 0 10px;
-        color: #FFC100;
-      }
-      span{
-          margin: 0 15px;
-      }
-      .navbar-logo {
-        height: 40px; /* 로고 크기 설정 */
-      }
+    }
       .write-container {
         width: 80%;
           margin: 20px;
@@ -175,17 +126,6 @@
           }
       }
     </style>
-</head>
-<body>
-    <div class="background"></div>
-    <header class="header-navbar">
-        <img class="navbar-logo" src="../온기록-logo.svg" alt="Logo" />
-        <!--<img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />-->
-        <div class="navbar-text">
-            <span>모두의 온기록</span>
-            <span>마이페이지</span>
-        </div>
-    </header>
     <div class="write-container">
       <div class="write-header">
           <div class="today-diary">오늘의 일기</div>
@@ -250,5 +190,3 @@
                     document.getElementById("date").textContent = formatDate();
                 }
         </script>
-</body>
-</html>

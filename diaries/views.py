@@ -57,7 +57,7 @@ def diary_view(request, year, month, day):
         if diary: # 오늘 날짜에 일기가 있을 경우
             return redirect("diaries:diaries_detail", pk = diary.pk)
         else: # 오늘 날짜에 일기가 없을 경우
-            return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
+            return redirect("diaries:diary_view")  # 오늘 날짜로 리디렉션 # 오늘 날짜 -> 일기 작성 페이지
     elif diary:
         return redirect("diaries:diaries_detail", pk = diary.pk) # 해당 날짜 일기 O -> 상세 페이지
     else:
@@ -92,7 +92,7 @@ def friend_create(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('users:main')
+            return redirect('diaries:calendar_view')
         else:
             print("Personality 테이블 내용: ", Personality.objects.all()) # 테이블 내용 출력
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
@@ -101,7 +101,7 @@ def friend_create(request):
             context = {
               'form': form,
             }
-            return render(request, 'users/main.html', context)
+            return render(request, 'diaries/calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
         form = FriendForm()
