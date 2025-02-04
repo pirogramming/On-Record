@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FriendForm
+from .forms import FriendForm, DiaryForm
 from .models import Personality, Diary
 # 캘린더 관련
-from datetime import date, timedelta
+from datetime import date
 import calendar
 
 # 테스트용 코드
@@ -48,10 +48,13 @@ def calendar_view(request, year = None, month = None):
 # 다른 날짜 클릭 => diaries_detail.html로 이동
 def diary_view(request, year, month, day):
     selected_date = date(year, month, day)
-    diary = Diary.objects.filter(date = selected_date).first()
+    diary = Diary.objects.filter(date__date = selected_date).first() # date__date를 이용해 날짜만 비교하도록 함
 
     if selected_date == date.today():
-        return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
+        if diary: # 오늘 날짜에 일기가 있을 경우
+            return redirect("diaries:diaries_detail", pk = diary.pk)
+        else: # 오늘 날짜에 일기가 없을 경우
+            return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
     elif diary:
         return redirect("diaries:diaries_detail", pk = diary.pk) # 해당 날짜 일기 O -> 상세 페이지
     else:
@@ -62,12 +65,6 @@ def test(request):
 
 def main(request):
     return render(request, 'users/main.html')
-
-def mypage(request):
-    return render(request, 'diaries/mypage.html')
-
-def community(request):
-    return render(request, 'diaries/community.html')
 
 def friend_create(request):
     if request.method == 'POST':
@@ -114,3 +111,48 @@ def friend_create(request):
         }
 
         return render(request, 'diaries/friend_create.html', context)
+    
+# 일기 상세 페이지
+def diaries_detail(request, pk):
+    diaries = get_object_or_404(Diary, id=pk)
+
+    if diaries.user == request.user:
+        content = {
+            'diaries': diaries,
+        }
+        return render(request, 'diaries/diaries_detail.html', content)
+    else:
+        # 사용자가 다를 경우 에러 메시지 출력
+        return HttpResponse('사용자가 다릅니다.')
+    
+# 일기 생성/업데이트
+def diaries_form(request, pk):
+    if request.method == 'POST':
+        diaries = get_object_or_404(Diary, id=pk)
+        form = DiaryForm(request.POST, request.FILES, instance=diaries)
+        if form.is_valid():
+            diaries = form.save(commit=False)
+            diaries.user = request.user
+            diaries.save()
+            return redirect('users:main')
+        else:
+            print("Diary 테이블 내용: ", Diary.objects.all())
+    else:
+        form = DiaryForm()
+        content = {
+            'form': form,
+        }
+        return render(request, 'diaries/diaries_form.html', content)
+
+# 일기 삭제
+def diaries_delete(request, pk):
+    diaries = get_object_or_404(Diary, id=pk)
+
+    if diaries:
+        if diaries.user == request.user:
+            diaries.delete()
+            return redirect('users:main')
+        else:
+            return HttpResponse('사용자가 다릅니다.')
+    else:
+        return HttpResponse('해당 일기가 없습니다.')

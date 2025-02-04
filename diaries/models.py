@@ -2,12 +2,29 @@ from django.db import models
 from users.models import User
 
 class Diary(models.Model):
+    WEATHER_CHOICES = [
+        ('sunny', '☀️'),
+        ('cloudy', '☁️'),
+        ('rainy', '🌧'),
+        ('snowy', '❄️'),
+    ]
+
+    MOOD_CHOICES = [
+        ('happy', '🥰'),
+        ('sad', '😢'),
+        ('angry', '😡'),
+        ('funny', '🤣'),
+        ('tired', '😪'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
     image = models.ImageField(upload_to="diary_images/%Y%m%d", blank=True, null=True)
-    disclosure = models.BooleanField(default=True)
+    disclosure = models.BooleanField(default=True) # 공개 여부
     date = models.DateTimeField(auto_now_add=True)
+    mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
+    weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
 
     def __str__(self):
         return self.title

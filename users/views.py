@@ -3,6 +3,9 @@ from users.forms import SignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 
+def test(request):
+  return render(request, 'base.html')
+
 def main(request):
   return render(request, 'users/main.html')
 

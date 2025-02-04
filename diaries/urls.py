@@ -14,6 +14,8 @@ urlpatterns = [
     path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
     # 다이어리 상세 내용을 가져오는 url 라우팅
     path('diary/<int:year>/<int:month>/<int:day>', diary_view, name='diary_view'),
+    # 다이어리 상세 내용 불러옴
+    path('diaries_detail/<int:pk>', diaries_detail, name='diaries_detail'),
 ]
 
 if settings.DEBUG:

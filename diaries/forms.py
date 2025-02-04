@@ -1,5 +1,6 @@
 from django import forms
-from .models import Friend, Personality
+# from django.forms import ModelForm
+from .models import Diary, Friend, Personality
 
 # 반려동물 등록 폼
 class FriendForm(forms.ModelForm):
@@ -12,3 +13,8 @@ class FriendForm(forms.ModelForm):
     class Meta:
         model = Friend
         fields = ['name', 'kind', 'gender', 'age', 'personal', 'image']
+
+class DiaryForm(forms.ModelForm):
+    class Meta:
+        model = Diary
+        fields = ['title', 'weather', 'content', 'image', 'disclosure']
