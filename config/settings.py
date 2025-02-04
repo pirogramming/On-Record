@@ -53,6 +53,13 @@ INSTALLED_APPS = [
     'users',
     'diaries',
     'replies',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount', # 소셜 로그인 사용 시 필요
+    'allauth.socialaccount.providers.naver', # 네이버
+    'allauth.socialaccount.providers.kakao', # 카카오
+    'allauth.socialaccount.providers.google', # 구글
 ]
 
 MIDDLEWARE = [
@@ -63,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # allauth 미들웨어 추가
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -138,7 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # static 파일 설정
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
   BASE_DIR / 'static',
@@ -155,3 +164,61 @@ AUTH_USER_MODEL = 'users.User'
 # Media 파일 설정
 MEDIA_URL = '/media/' # 각 모델의 ImageField에 업로드된 파일의 URL 고정 값
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 실제 파일이 저장되는 경로
+
+# 인증 백엔드 설정(기본 Django 인증 방식 + allauth 인증 방식)
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# from decouple import config
+
+SOCIALACCOUNT_PROVIDERS = {
+    'naver': {
+        'APP': {
+            'client_id': env('NAVER_CLIENT_ID'),
+            'secret': env('NAVER_SECRET'),
+        },
+    },
+    'kakao': {
+        'APP': {
+            'client_id': env('KAKAO_CLIENT_ID'),
+            'secret': env('KAKAO_SECRET'),
+        },
+        'SCOPE': [
+            'account_email',
+            'profile_nickname',
+        ],
+    },
+    'google': {
+        'APP': {
+            'client_id': env('GOOGLE_CLIENT_ID'),
+            'secret': env('GOOGLE_SECRET'),
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    },
+}
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True # 이메일 필수 입력
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # 회원가입 시 이메일 인증을 하도록 설정
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 이메일 확인 링크 클릭 시 자동 인증(SMTP 서버 설정 필요)
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # 이메일을 아이디처럼 사용
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드를 사용하지 않도록 설정
+ACCOUNT_USERNAME_REQUIRED = False
+
+LOGIN_REDIRECT_URL = '/' # 로그인 후 연결될 URL
+
+SOCIALACCOUNT_QUERY_EMAIL = True # 소셜 로그인 시 이메일 정보를 가져오도록 설정
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
+
+ACCOUNT_LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 연결될 URL
+ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 요청 시 즉시 로그아웃

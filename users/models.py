@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from .managers import CustomUserManager  # CustomUserManager import
+from .managers import CustomUserManager # CustomUserManager import
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=20, unique=True)
@@ -16,4 +16,4 @@ class User(AbstractUser):
     objects = CustomUserManager() # CustomUserManager를 사용하도록 설정
 
     def __str__(self):
-        return self.nickname
+        return self.nickname if self.nickname else self.email

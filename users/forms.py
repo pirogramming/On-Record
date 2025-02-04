@@ -6,4 +6,6 @@ from .models import User
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
+        
+        # 회원가입 시 입력받을 필드
         fields = ['nickname', 'email', 'password1', 'password2']
