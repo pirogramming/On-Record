@@ -79,9 +79,6 @@
   gap: 15px;
   margin-left: 20px;
 }
-.form-group {
-    margin: 25px;
-}
 label {
     font-weight: bold;
     margin: 5px;
@@ -153,29 +150,24 @@ input, select {
                     <input type="file" id="pet-image" name="pet-image" accept="image/*">
                 </div>
                 <div class="form-fields">
-                    
-                        <div class="form-group">
-                            <label>이름</label>
-                            {{ form.name }}
-                        </div>
-                        <div class="form-group">
-                            <label>종류</label>
-                            {{ form.kind }}
-                        </div>
-                        <div class="form-group">
-                            <label>성별</label>
-                            {{ form.gender }}
-                        </div>
-                        <div class="form-group">
-                            <label>나이</label>
-                            {{ form.age }}
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label>이름</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label>종류</label>
+                        {{ form.kind }}
+                    </div>
+                    <div class="form-group">
+                        <label>성별</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="form-group">
+                        <label>나이</label>
+                        {{ form.age }}
+                    </div>
                 </div>
             </div>
-        
-
-        <!-- 성격과 반려친구 등록 버튼 부분을 중앙에 배치 -->
             <div class="centered-content">
                 <div class="form-group">
                     <label>성격:</label>
