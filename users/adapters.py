@@ -11,23 +11,26 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         # 이메일 저장
         user.email = valid_email_or_none(data.get("email"))
 
-        # 구글 로그인인 경우 성과 이름을 결합하여 닉네임 생성 시도
-        if sociallogin.account.provider == 'google':
-            first_name = data.get("given_name") # 이름
-            last_name = data.get("family_name") # 성
-            nickname = f"{first_name} {last_name}" if first_name and last_name else first_name or last_name
+        # 소셜 로그인 제공자에 따른 닉네임 설정
+        if sociallogin.account.provider == 'naver':
+            nickname = sociallogin.account.extra_data.get("name")
+        elif sociallogin.account.provider == 'google':
+            nickname = sociallogin.account.extra_data.get("name")
         else:
-            # 네이버 로그인인 경우
-            nickname = data.get("name") or data.get("nickname")  # 닉네임 없으면 이름 사용 시도
+            nickname = None
 
         # 닉네임이 없거나 중복되면 자동 생성
         if not nickname or User.objects.filter(nickname=nickname).exists():
-            base_nickname = f"user_{User.objects.count() + 1}"
+            base_nickname = nickname or "user"  # 닉네임이 없으면 기본값 "user" 사용
             count = 1
-            while User.objects.filter(nickname=base_nickname).exists():
-                base_nickname = f"user_{User.objects.count() + 1}_{count}"
+            new_nickname = base_nickname
+
+            # 닉네임이 중복되면 숫자를 붙여가며 유니크한 닉네임 생성
+            while User.objects.filter(nickname=new_nickname).exists():
+                new_nickname = f"{base_nickname}_{count}"
                 count += 1
-            nickname = base_nickname
+
+            nickname = new_nickname
 
         user.nickname = nickname
         return user
