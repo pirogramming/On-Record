@@ -27,18 +27,6 @@
           padding-top: 70px; /* 네비게이션 바의 높이만큼 여백을 추가 */
       }
       
-      /* 배경 이미지 설정 */
-      .background-a {
-        position: fixed; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('base-a.png'); /* 실제 배경 이미지 경로 */
-        background-size: cover;
-        background-position: center;
-        z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-      }
       
       /* 네비게이션 바 */
       .header-navbar {
@@ -72,7 +60,7 @@
 
   <body>
     <header class="header-navbar">
-        <img class="navbar-logo" src="온기록-logo.svg" alt="Logo" />
+        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
         <div class="navbar-text">
             <span class="All-Record">모두의 온기록</span>
             <span class="My-page">마이페이지</span>

@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def test(request):
   return HttpResponse('test')
+
+def friend_create(request):
+  return render(request, 'diaries/friend_create.html')
