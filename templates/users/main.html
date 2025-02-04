@@ -12,6 +12,7 @@
         {% if user.is_authenticated %}
             <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
             <p>당신의 첫 번째 온기록을 축하합니다!</p>
+            <a href="{% url 'diaries:friend_create' %}">반려친구 등록</a>
         {% else %}
             <li><a href="{% url 'users:user_login' %}">로그인</a></li>
             <li><a href="{% url 'users:signup' %}">회원가입</a></li>
