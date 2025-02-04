@@ -15,6 +15,10 @@ class FriendForm(forms.ModelForm):
         fields = ['name', 'kind', 'gender', 'age', 'personal', 'image']
 
 class DiaryForm(forms.ModelForm):
+    date = forms.DateField(
+        widget = forms.DateInput(attrs = {'type': 'date'})
+    )
+
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'image', 'disclosure']
+        fields = ['title', 'weather', 'content', 'image', 'disclosure', 'date', 'mood']
