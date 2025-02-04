@@ -60,9 +60,6 @@ def diary_view(request, year, month, day):
     else:
         return HttpResponse('test: 해당 날짜 일기 없음') # 해당 날짜에 일기가 없다는 것을 지정
 
-def test(request):
-    return HttpResponse('test')
-
 def main(request):
     return render(request, 'users/main.html')
 
@@ -126,15 +123,15 @@ def diaries_detail(request, pk):
         return HttpResponse('사용자가 다릅니다.')
     
 # 일기 생성/업데이트
-def diaries_form(request, pk):
+def diaries_form(request):
     if request.method == 'POST':
-        diaries = get_object_or_404(Diary, id=pk)
+        diaries = get_object_or_404(Diary)
         form = DiaryForm(request.POST, request.FILES, instance=diaries)
         if form.is_valid():
             diaries = form.save(commit=False)
             diaries.user = request.user
             diaries.save()
-            return redirect('users:main')
+            return redirect('diaries:diaries_detail', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
     else:
@@ -142,7 +139,7 @@ def diaries_form(request, pk):
         content = {
             'form': form,
         }
-        return render(request, 'diaries/diaries_form.html', content)
+        return render(request, 'diaries/diary-write.html', content)
 
 # 일기 삭제
 def diaries_delete(request, pk):
