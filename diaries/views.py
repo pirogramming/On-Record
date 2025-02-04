@@ -60,9 +60,6 @@ def diary_view(request, year, month, day):
     else:
         return HttpResponse('test: 해당 날짜 일기 없음') # 해당 날짜에 일기가 없다는 것을 지정
 
-def test(request):
-    return HttpResponse('test')
-
 def main(request):
     return render(request, 'users/main.html')
 

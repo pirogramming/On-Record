@@ -1,80 +1,214 @@
-<form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p>
-        <label>이름:</label>
-        {{ form.name }}
-    </p>
-    <p>
-        <label>종류:</label>
-        {{ form.kind }}
-    </p>
-    <p>
-        <label>사진:</label>
-        {{ form.image }}
-    <p>
-    <p>
-        <label>성격:</label>
-        <div id="personality-buttons">
-            {% for personality in form.personal.field.queryset %}
-                <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
-            {% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* 배경 이미지 설정 */
+.background-b {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("{% static 'images/base-b.png' %}");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+.form-container {
+    max-width: 800px;
+    margin: 20px;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(30px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.form-title {
+  color: rgba(0,0,0,1);
+  opacity: 1;
+  text-align: center;
+  font-weight: normal;
+  font-size: 28px;
+}
+.form-body {
+  display: flex; 
+  flex-direction: row; /* 왼쪽 오른쪽 배치 */
+  width: 100%; /* 너비를 100%로 */
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.image-upload {
+  position: relative; /* 수정된 부분 */
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+.image-upload input {
+  display: none;
+}
+.image-upload label {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #d9d9d9;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+#pet-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: none; /* 기본적으로 숨김 */
+}
+.form-fields {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 20px;
+}
+.form-group {
+    margin: 25px;
+}
+label {
+    font-weight: bold;
+    margin: 5px;
+}
+input, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#personality-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center; /* 수정된 부분 */
+  width: 100%
+}
+.personality-btn {
+    padding: 5px 10px;
+    border: 1px solid #666;
+    background: white;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.personality-btn.selected {
+    background: #ffcc00;
+}
+.submit-btn {
+    display: block;
+    padding: 5px 20px;
+    background: linear-gradient(60deg, #FFE28A, #FFC100);
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background: #e5b700;
+}
+/* 추가된 스타일 */
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+    <div class="background-b"></div>
+    <div class="form-container">
+        <h1 class="form-title"><strong>{{ user.username }}님의 반려친구</strong>에 대해 알려주세요!</h1>
+        <div class="form-body">
+          <div class="image-upload">
+            <label for="pet-image">
+                <img id="pet-preview" src="#" alt="미리보기">
+            </label>
+            <input type="file" id="pet-image" name="pet-image" accept="image/*">
+          </div>
+          <div class="form-fields">
+              <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label>이름</label>
+                      {{ form.name }}
+                  </div>
+                  <div class="form-group">
+                      <label>종류</label>
+                      {{ form.kind }}
+                  </div>
+                  <div class="form-group">
+                      <label>성별</label>
+                      {{ form.gender }}
+                  </div>
+                  <div class="form-group">
+                      <label>나이</label>
+                      {{ form.age }}
+                  </div>
+              </form>
+          </div>
         </div>
-    </p>
-    
-    <!-- 실제 선택된 성격을 저장할 input 필드 -->
-    <input type="hidden" name="personal" id="selected-personalities">
 
-    <p>
-        <label>성별:</label>
-        {{ form.gender }}
-    </p>
+        <!-- 성격과 반려친구 등록 버튼 부분을 중앙에 배치 -->
+        <div class="centered-content">
+          <div class="form-group">
+              <label>성격:</label>
+              <div id="personality-buttons">
+                  {% for personality in form.personal.field.queryset %}
+                      <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
+                  {% endfor %}
+              </div>
+          </div>
+          <input type="hidden" name="personal" id="selected-personalities">
+          <button type="submit" class="submit-btn">반려친구 등록</button>
+        </div>
+    </div>
 
-    <p>
-        <label>나이:</label>
-        {{ form.age }}
-    </p>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".personality-btn");
+            const selectedInput = document.getElementById("selected-personalities");
+            let selectedValues = new Set();
 
-    <input type="submit" value="반려친구 등록">
-</form>
+            buttons.forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const value = this.getAttribute("data-value");
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll(".personality-btn");
-        const selectedInput = document.getElementById("selected-personalities");
-
-        let selectedValues = new Set();  // 선택된 성격 저장
-
-        buttons.forEach(button => {
-            button.addEventListener("click", function (e) {
-                e.preventDefault();
-                const value = this.getAttribute("data-value");
-
-                if (selectedValues.has(value)) {
-                    selectedValues.delete(value);
-                    this.classList.remove("selected");
-                } else {
-                    selectedValues.add(value);
-                    this.classList.add("selected");
-                }
-
-                selectedInput.value = Array.from(selectedValues).join(",");  // 선택된 값을 숨겨진 input에 저장
-                console.log("🔹 Hidden input value:", selectedInput.value);
+                    if (selectedValues.has(value)) {
+                        selectedValues.delete(value);
+                        this.classList.remove("selected");
+                    } else {
+                        selectedValues.add(value);
+                        this.classList.add("selected");
+                    }
+                    selectedInput.value = Array.from(selectedValues).join(",");
+                });
             });
         });
-    });
-</script>
-
-<style>
-    .personality-btn {
-        border: 1px solid #666;
-        padding: 5px 10px;
-        margin: 5px;
-        background-color: white;
-        cursor: pointer;
-        border-radius: 15px;
-    }
-
-    .personality-btn.selected {
-        background-color: #ffcc00;
-    }
-</style>
+    </script>
+{% endblock %}
