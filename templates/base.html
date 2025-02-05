@@ -62,7 +62,7 @@
         <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
         <div class="navbar-text">
             <span class="All-Record">모두의 온기록</span>
-            <span class="My-page">마이페이지</span>
+            <a href="{% url 'diaries:mypage' user.pk %}">마이페이지</a>
             <a href="{% url 'users:logout' %}">로그아웃</a>
         </div>
     </header>
