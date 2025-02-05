@@ -12,7 +12,7 @@ class FriendForm(forms.ModelForm):
 
     class Meta:
         model = Friend
-        fields = ['name', 'kind', 'gender', 'age', 'personal', 'image']
+        fields = ['name', 'kind', 'gender', 'age', 'personal', 'image', 'pet_fav', 'pet_hate', 'pet_sig']
 
 class DiaryForm(forms.ModelForm):
     class Meta:

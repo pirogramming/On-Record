@@ -159,38 +159,26 @@ input, select {
                         {{ form.kind }}
                     </div>
                     <div class="form-group">
-                        <label>성별</label>
-                        {{ form.gender }}
-                    </div>
-                    <div class="form-group">
-                        <label>나이</label>
+                        <label>생장기간</label>
                         {{ form.age }}
                     </div>
                 </div>
             </div>
             <div class="centered-content">
                 <div class="form-group">
-                    <label>성격:</label>
-                    <div id="personality-buttons">
-                        {% for personality in form.personal.field.queryset %}
-                            <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>반려동물이 가장 좋아하는 것이나 활동은 무엇인가요?</label>
+                    <label>반려식물의 관리상태는 어떤가요?</label>
                     {{ form.pet_fav }}
                 </div>
                 <div class="form-group">
-                    <label>반려동물이 가장 싫어하는 것이나 활동은 무엇인가요?</label>
+                    <label>반려식물의 주요 특징은 어떤 것이 있나요?</label>
                     {{ form.pet_hate }}
                 </div>
                 <div class="form-group">
-                    <label>반려동물의 특별한 특징은 무엇인가요?</label>
+                    <label>반려식물의 어떤 모습을 가장 사랑하시나요?</label>
                     {{ form.pet_sig }}
                 </div>
                 <input type="hidden" name="personal" id="selected-personalities">
-                <button type="submit" class="submit-btn">반려친구 등록</button>
+                <button type="submit" class="submit-btn">반려식물 등록</button>
             </div>
         </form>
     </div>

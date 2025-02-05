@@ -52,17 +52,24 @@ def calendar_view(request, year = None, month = None):
 # 다른 날짜 클릭 => diaries_detail.html로 이동
 def diary_view(request, year, month, day):
     selected_date = date(year, month, day)
-    diary = Diary.objects.filter(date__date = selected_date).first() # date__date를 이용해 날짜만 비교하도록 함
+    today = date.today()
 
-    if selected_date == date.today():
-        if diary: # 오늘 날짜에 일기가 있을 경우
-            return redirect("diaries:diaries_detail", pk = diary.pk)
-        else: # 오늘 날짜에 일기가 없을 경우
-            return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
+    # 미래 날짜 클릭 시 메시지 출력
+    if selected_date > today:
+        return HttpResponse("아직 오지 않은 날입니다.")  
+
+    # 해당 날짜의 일기 검색
+    diary = Diary.objects.filter(date__date=selected_date).first()
+
+    if selected_date == today:
+        if diary:
+            return redirect("diaries:diaries_detail", pk=diary.pk)
+        else:
+            return redirect("diaries:diary_create")  # 오늘 날짜 -> 일기 작성 페이지
     elif diary:
-        return redirect("diaries:diaries_detail", pk = diary.pk) # 해당 날짜 일기 O -> 상세 페이지
+        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
     else:
-        return HttpResponse('test: 해당 날짜 일기 없음') # 해당 날짜에 일기가 없다는 것을 지정
+        return render(request, "diaries/diary_view.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
 
 def main(request):
     return render(request, 'users/main.html')
