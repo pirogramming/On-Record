@@ -17,4 +17,4 @@ class FriendForm(forms.ModelForm):
 class DiaryForm(forms.ModelForm):
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'image', 'disclosure']
+        fields = ['title', 'weather', 'mood', 'content', 'image', 'disclosure']

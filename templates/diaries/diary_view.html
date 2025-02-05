@@ -13,9 +13,8 @@
         background-size: cover;
         background-position: center;
         z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-    }
+      }
       .write-container {
-        width: 80%;
           margin: 20px;
           display: flex;
           flex-wrap: wrap;
@@ -70,8 +69,8 @@
       .diary-content {
         display: flex;
         justify-content: space-between;
-        align-items: center
-        gap: 20px;
+        align-items: center;
+        gap: 30px;
         margin-top: 20px;
         width: 100%;
       }
@@ -84,9 +83,9 @@
           justify-content: center;
           align-items: center;
           border-radius: 10px;
+          background: #FFFFFF;
           box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
           text-align: center;
-          margin: 10px;
       }
 
       .image-upload input {
@@ -118,6 +117,10 @@
         border-radius: 30px;
         cursor: pointer;
         margin-left: auto; 
+        margin-top: 10px
+      }
+      .create-btn:hover{
+        background: #e5b700;
       }
       @media (max-width: 600px) {
           .container {
@@ -126,6 +129,7 @@
           }
       }
     </style>
+    <div class="background-a"></div>
     <div class="write-container">
       <div class="write-header">
           <div class="today-diary">오늘의 일기</div>
@@ -135,37 +139,37 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div style="display: flex; gap: 20px; justify-content: center;">
+        <form method="POST" action="{% if diaries and diaries.pk %}{% url 'diaries:diaries_detail' pk=diaries.pk %}{% else %}#{% endif %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div style="display: flex;     justify-content: space-between;">
+              <div class="form-group">
+                  <label>제목</label>
+                  {{ form.title }}
+              </div>
+              <div class="write-header-a-l">
                   <div class="form-group">
-                      <label>제목</label>
-                      {{ form.title }}
+                      <label>날씨</label>
+                      {{ form.weather }}
                   </div>
-                  <div class="write-header-a-l">
-                    <div class="form-group">
-                        <label>날씨</label>
-                        {{ form.weather }}
-                    </div>
-                    <div class="form-group">
-                        <label>기분</label>
-                        {{ form.mood }}
-                    </div>
+                  <div class="form-group">
+                      <label>기분</label>
+                      {{ form.mood }}
                   </div>
               </div>
-          </form>
-      </div>
-      <div class="diary-content">
-          <div class="image-upload">
-              <label for="id_image">이미지 업로드</label>
-              {{ form.image }}
           </div>
-          <div class="text-input">
-              <label for="id_content">내용</label>
-              {{ form.content }}
+          <div class="diary-content">
+              <div class="image-upload">
+                  <label for="id_image">이미지 업로드</label>
+                  {{ form.image }}
+              </div>
+              <div class="text-input">
+                  <label for="id_content">내용</label>
+                  {{ form.content }}
+              </div>
           </div>
+          <button type="submit" class="create-btn">완료</button>
+        </form>   
       </div>
-      <button type="submit" class="create-btn">완료</button>
     </div>
   
         <script>
