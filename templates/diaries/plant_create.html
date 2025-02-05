@@ -43,7 +43,9 @@
   width: 100%; /* 너비를 100%로 */
   justify-content: space-between;
   align-items: flex-start;
+  margin: 20px;
 }
+
 .image-upload {
   position: relative; /* 수정된 부분 */
   width: 200px;
@@ -116,6 +118,8 @@ input, select {
     font-size: 16px;
     border-radius: 30px;
     cursor: pointer;
+    margin: auto;
+    margin-top: 20px;
 }
 .submit-btn:hover {
     background: #e5b700;
@@ -124,8 +128,6 @@ input, select {
 .centered-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 20px;
 }
 
@@ -140,7 +142,7 @@ input, select {
     <div class="background-b"></div>
     <div class="form-container">
         <h1 class="form-title"><strong>{{ user.username }}님의 반려친구</strong>에 대해 알려주세요!</h1>
-        <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'diaries:plant_create' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
                 <div class="image-upload">
@@ -152,34 +154,33 @@ input, select {
                 <div class="form-fields">
                     <div class="form-group">
                         <label>이름</label>
-                        {{ form.name }}
+                        {{ form.plant_name }}
                     </div>
                     <div class="form-group">
-                        <label>종류</label>
-                        {{ form.kind }}
+                        <label>반려식물 종류</label>
+                        {{ form.plant_kind }}
                     </div>
                     <div class="form-group">
                         <label>생장기간</label>
-                        {{ form.age }}
+                        {{ form.plant_age }}
                     </div>
                 </div>
             </div>
             <div class="centered-content">
                 <div class="form-group">
                     <label>반려식물의 관리상태는 어떤가요?</label>
-                    {{ form.pet_fav }}
+                    {{ form.plant_con }}
                 </div>
                 <div class="form-group">
                     <label>반려식물의 주요 특징은 어떤 것이 있나요?</label>
-                    {{ form.pet_hate }}
+                    {{ form.plant_sig }}
                 </div>
                 <div class="form-group">
                     <label>반려식물의 어떤 모습을 가장 사랑하시나요?</label>
-                    {{ form.pet_sig }}
+                    {{ form.plant_adv }}
                 </div>
-                <input type="hidden" name="personal" id="selected-personalities">
-                <button type="submit" class="submit-btn">반려식물 등록</button>
             </div>
+            <button type="submit" class="submit-btn">반려식물 등록</button>
         </form>
     </div>
 

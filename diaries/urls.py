@@ -8,6 +8,7 @@ app_name = 'diaries'
 urlpatterns = [
     path('pet_or_plant', pet_or_plant, name='pet_or_plant'),
     path('friend_create/', friend_create, name='friend_create'),
+    path('plant_create/', plant_create, name='plant_create'),
     # 기본 calender를 받아오는 url 라우팅
     path('calendar/', calendar_view, name='calendar_view'),
     # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅

@@ -43,6 +43,7 @@
   width: 100%; /* 너비를 100%로 */
   justify-content: space-between;
   align-items: flex-start;
+  margin: 20px;
 }
 .image-upload {
   position: relative; /* 수정된 부분 */
@@ -116,6 +117,8 @@ input, select {
     font-size: 16px;
     border-radius: 30px;
     cursor: pointer;
+    margin: auto;
+    margin-top: 20px;
 }
 .submit-btn:hover {
     background: #e5b700;
@@ -124,8 +127,6 @@ input, select {
 .centered-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 20px;
 }
 
@@ -190,8 +191,8 @@ input, select {
                     {{ form.pet_sig }}
                 </div>
                 <input type="hidden" name="personal" id="selected-personalities">
-                <button type="submit" class="submit-btn">반려친구 등록</button>
             </div>
+            <button type="submit" class="submit-btn">반려친구 등록</button>
         </form>
     </div>
 

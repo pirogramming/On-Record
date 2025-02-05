@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FriendForm, DiaryForm
+from .forms import FriendForm, PlantForm, DiaryForm
 from .models import Personality, Diary
 # 캘린더 관련
 from datetime import date
@@ -119,6 +119,43 @@ def friend_create(request):
         }
 
         return render(request, 'diaries/friend_create.html', context)
+    
+def plant_create(request):
+    if request.method == 'POST':
+        # request가 POST일 때, 이미지와 텍스트를 저장
+        print("🔹 원본 POST 데이터:", request.POST)
+
+        # POST 데이터 복사해서 수정 가능하게 변환
+        post_data = request.POST.copy()
+
+        # 수정된 post_data를 사용해 폼 생성
+        form = PlantForm(post_data, request.FILES)
+        if form.is_valid():
+            plant = form.save(commit=False)
+            plant.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
+            plant.save()
+            
+            # ManyToManyField 자동 저장
+            form.save_m2m()
+
+            return redirect('diaries:calendar_view')
+        else:
+            print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
+            print("POST 데이터:", request.POST)  # ✅ POST 데이터 확인
+            print(form.errors) # 어떤 오류가 발생했는지 출력
+            context = {
+              'form': form,
+            }
+            return render(request, 'diaries/calendar.html', context) 
+    else:
+        # GET 요청일 때 작성 form을 출력
+        form = PlantForm()
+
+        context = {
+          'form': form,
+        }
+
+        return render(request, 'diaries/plant_create.html', context)
     
 # 일기 상세 페이지
 def diaries_detail(request, pk):
