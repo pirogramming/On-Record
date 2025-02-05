@@ -153,3 +153,7 @@ def diaries_delete(request, pk):
             return HttpResponse('사용자가 다릅니다.')
     else:
         return HttpResponse('해당 일기가 없습니다.')
+
+#마이페이지    
+def mypage_view(request):
+    return render(request, 'diaries/mypage.html')
