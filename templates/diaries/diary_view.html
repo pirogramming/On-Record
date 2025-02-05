@@ -135,7 +135,7 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:diary_create' %}" enctype="multipart/form-data">
+          <form method="POST" action="{% url 'diaries:friend_create' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <div style="display: flex; gap: 20px; justify-content: center;">
                   <div class="form-group">
@@ -190,3 +190,4 @@
                     document.getElementById("date").textContent = formatDate();
                 }
         </script>
+        {% endblock %}

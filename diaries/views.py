@@ -4,13 +4,14 @@ from .models import Personality, Diary
 # 캘린더 관련
 from datetime import date
 import calendar
-
+from replies.views import create_response
 # 테스트용 코드
 from django.http import HttpResponse
 
 #반려동물과 반려식물 중에 선택 처리하는 view
 def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
+
 # html에 캘린더를 보내주는 view
 def calendar_view(request, year = None, month = None):
     today = date.today()
@@ -57,7 +58,7 @@ def diary_view(request, year, month, day):
         if diary: # 오늘 날짜에 일기가 있을 경우
             return redirect("diaries:diaries_detail", pk = diary.pk)
         else: # 오늘 날짜에 일기가 없을 경우
-            return redirect("diaries:diary_view")  # 오늘 날짜로 리디렉션 # 오늘 날짜 -> 일기 작성 페이지
+            return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
     elif diary:
         return redirect("diaries:diaries_detail", pk = diary.pk) # 해당 날짜 일기 O -> 상세 페이지
     else:
@@ -119,6 +120,7 @@ def diaries_detail(request, pk):
     if diaries.user == request.user:
         content = {
             'diaries': diaries,
+            'reply' : diaries.reply
         }
         return render(request, 'diaries/diaries_detail.html', content)
     else:
@@ -126,15 +128,20 @@ def diaries_detail(request, pk):
         return HttpResponse('사용자가 다릅니다.')
     
 # 일기 생성/업데이트
-def diaries_form(request, pk):
+def diaries_form(request):
     if request.method == 'POST':
-        diaries = get_object_or_404(Diary, id=pk)
+        # 새로운 Diary 객체 생성 및 폼 데이터 적용
+        diaries = Diary()
         form = DiaryForm(request.POST, request.FILES, instance=diaries)
+        
         if form.is_valid():
             diaries = form.save(commit=False)
-            diaries.user = request.user
-            diaries.save()
-            return redirect('users:main')
+            diaries.user = request.user  # 현재 사용자를 연결
+            diaries.save()  # 새로운 Diary 저장
+
+            # 저장된 Diary의 pk로 Reply 생성
+            create_response(diaries.pk)
+            return redirect('diaries:diaries_detail', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
     else:
@@ -142,8 +149,7 @@ def diaries_form(request, pk):
         content = {
             'form': form,
         }
-        return render(request, 'diaries/diaries_form.html', content)
-
+        return render(request, 'diaries/diary_view.html', content)
 # 일기 삭제
 def diaries_delete(request, pk):
     diaries = get_object_or_404(Diary, id=pk)

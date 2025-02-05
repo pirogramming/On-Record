@@ -119,34 +119,32 @@
                         <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
                     {% endif %}
                     <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url 'diaries:diary_view' year=year month=month day=day %}" class="diary-day">
+                        <a href="{% url 'diaries:diaries_form'  %}" class="diary-day">
                             {{ day }}
                         </a>
-                        {% if day in diary_map %}
-                            <span class="has-diary">📝</span>
-                        {% endif %}
+                        {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
                     </td>
                     {% if day|add:first_day|divisibleby:7 %}
                         </tr><tr> {% comment %} 한 줄 끝나면 줄바꿈 {% endcomment %}
                     {% endif %}
                 {% endfor %}
             </tr>
-        </tbody>
+        <tbody>
     </table>
 </div>
 
 <!-- 연·월 변경 시 GET 요청 -->
 <script>
-document.getElementById("year-select").addEventListener("change", function() {
-    var year = this.value;
-    var month = document.getElementById("month-select").value;
-    window.location.href = `/calendar/${year}/${month}/`;
-});
-document.getElementById("month-select").addEventListener("change", function() {
-    var year = document.getElementById("year-select").value;
-    var month = this.value;
-    window.location.href = `/calendar/${year}/${month}/`;
-});
-</script>
+    document.getElementById("year-select").addEventListener("change", function() {
+        var year = this.value;
+        var month = document.getElementById("month-select").value;
+        window.location.href = `/calendar/${year}/${month}/`;
+    });
+    document.getElementById("month-select").addEventListener("change", function() {
+        var year = document.getElementById("year-select").value;
+        var month = this.value;
+        window.location.href = `/calendar/${year}/${month}/`;
+    });
+    </script>
 
 {% endblock %}
