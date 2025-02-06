@@ -1,33 +1,6 @@
 from django.db import models
 from users.models import User
-
-class Diary(models.Model):
-    WEATHER_CHOICES = [
-        ('sunny', '☀️'),
-        ('cloudy', '☁️'),
-        ('rainy', '🌧'),
-        ('snowy', '❄️'),
-    ]
-
-    MOOD_CHOICES = [
-        ('happy', '🥰'),
-        ('sad', '😢'),
-        ('angry', '😡'),
-        ('funny', '🤣'),
-        ('tired', '😪'),
-    ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    image = models.ImageField(upload_to="diary_images/%Y%m%d", blank=True, null=True)
-    disclosure = models.BooleanField(default=True) # 공개 여부
-    date = models.DateTimeField(auto_now_add=True)
-    mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
-    weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
-
-    def __str__(self):
-        return self.title
+from django.utils import timezone
 
 
 class Personality(models.Model):
@@ -35,6 +8,7 @@ class Personality(models.Model):
 
     def __str__(self): # 반려친구 등록 시 보이기 위해
         return self.type
+
 
 class Friend(models.Model):
     KIND_CHOICES = [
@@ -59,6 +33,37 @@ class Friend(models.Model):
 
     def __str__(self):
         return self.name
+
+class Diary(models.Model):
+    WEATHER_CHOICES = [
+        ( 'sunny', '☀️' ),
+        ( 'cloudy', '☁️' ),
+        ( 'rainy', '🌧' ),
+        ( 'snowy', '❄️' ),
+    ]
+
+    MOOD_CHOICES = [
+        ( 'happy' ,  '🥰' ),
+        ( 'sad'   ,  '😢' ),
+        ( 'angry' ,  '😡' ),
+        ( 'funny' ,  '🤣' ),
+        ( 'tired' ,  '😪' ),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    image = models.ImageField(upload_to="diary_images/%Y%m%d", blank=True, null=True)
+    disclosure = models.BooleanField(default=True) # 공개 여부
+    date = models.DateTimeField(blank=True, null=True, default=timezone.now) # 기본 값을 현재 시간으로 설정
+    mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
+    weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
+    friend = models.ForeignKey(Friend , on_delete=models.CASCADE , null=True , blank=True)
+    # 누구한테 쓴건지
+    def __str__(self):
+        return self.title
+
+
 
 
 class Like(models.Model):

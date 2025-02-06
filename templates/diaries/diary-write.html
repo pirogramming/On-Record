@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -179,8 +180,8 @@
 <body>
     <div class="background"></div>
     <header class="header-navbar">
-        <img class="navbar-logo" src="../온기록-logo.svg" alt="Logo" />
-        <!--<img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />-->
+        {% comment %} <img class="navbar-logo" src="../온기록-logo.svg" alt="Logo" /> {% endcomment %}
+        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
         <div class="navbar-text">
             <span>모두의 온기록</span>
             <span>마이페이지</span>
@@ -195,9 +196,11 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:diary_create' %}" enctype="multipart/form-data">
+          <form method="POST" action="{% url 'diaries:diaries_form' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <div style="display: flex; gap: 20px; justify-content: center;">
+                  <label>날짜: </label>
+                  {{ form.date }}
                   <div class="form-group">
                       <label>제목</label>
                       {{ form.title }}
@@ -211,9 +214,13 @@
                         <label>기분</label>
                         {{ form.mood }}
                     </div>
+                    
+                    <div class="form-group">
+                      <label>누구에게 쓰실 지.</label>
+                      {{ form.friend }}
+                  </div>
                   </div>
               </div>
-          </form>
       </div>
       <div class="diary-content">
           <div class="image-upload">
@@ -227,6 +234,7 @@
       </div>
       <button type="submit" class="create-btn">완료</button>
     </div>
+  </form>
   
         <script>
                 function formatDate() {

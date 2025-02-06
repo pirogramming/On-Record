@@ -1,6 +1,7 @@
 {% extends 'users/main-1.html' %}
 {% load static %}
-{% load socialaccount %}
+{% load socialaccount%}
+
 
 {% block content %}
 <!DOCTYPE html>
@@ -180,6 +181,7 @@
             </form>
     
             <div class="social-icons">
+
                 <div class="naver_login">
                     <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'"><img class="naver" src="{% static 'images/naver_icon.png' %}" alt="네이버 로그인"></button>
                 </div>

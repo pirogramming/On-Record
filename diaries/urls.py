@@ -11,6 +11,8 @@ urlpatterns = [
     path('calendar/', calendar_view, name='calendar_view'),
     # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
     path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
+    # 일기 생성 페이지
+    path('diaries_create', diaries_form, name='diaries_form'),
     # 다이어리 상세 내용을 가져오는 url 라우팅
     path('diary/<int:year>/<int:month>/<int:day>', diary_view, name='diary_view'),
     # 다이어리 상세 내용 불러옴
