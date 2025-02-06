@@ -1,12 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block style %}
-<link rel="stylesheet" href="{% static 'css/friend-list.css' %}">
-{% endblock %}
-
 {% block content %}
-<<<<<<< HEAD:templates/diaries/friend-list.html
 
 <style>
     * {
@@ -129,8 +124,6 @@
         background: #e5b700;
     }
 </style>
-=======
->>>>>>> 14fa6050e5ce6cb0a4ab92ef60168329415b0551:templates/users/friend-list.html
 </head>
 <body>
 <div class="slider-container">
@@ -158,10 +151,37 @@
         {% endfor %}
     </div>
 </div>
-<<<<<<< HEAD:templates/diaries/friend-list.html
 
 {% endblock %}
-=======
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/friend-list.css' %}">
+{% endblock %}
+
+{% block content %}
+</head>
+<body>
+<div class="slider-container">
+    <div class="slider">
+        {% for diary in diaries %}
+        <div class="homepage-container">
+            <div class="homepage-content">
+                <div class="pet-profile">
+                    <img src="images/cat.jpg" alt="반려동물 사진">
+                </div>
+                <p class="pet-name">{{ diary.pet_name }}</p>
+                <p class="home-description">
+                    지금까지 {{ diary.record_count }}개의 온기록을 남기셨어요!<br>
+                    소중한 오늘을 기록하고 따뜻해지세요.
+                </p>
+                <a href="#" class="move-form-btn">온기록 남기기</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 </body>
 {% endblock %}
->>>>>>> 14fa6050e5ce6cb0a4ab92ef60168329415b0551:templates/users/friend-list.html
