@@ -142,8 +142,6 @@
           <form method="POST" action="{% url 'diaries:create_diaries' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <div style="display: flex; gap: 20px; justify-content: center;">
-                  <label>날짜: </label>
-                  {{ form.date }}
                   <div class="form-group">
                       <label>제목</label>
                       {{ form.title }}
@@ -158,7 +156,7 @@
                         {{ form.mood }}
                     </div>
                     <div class="form-group">
-                      <label>누구에게 쓰실 지.</label>
+                      <label>누구에게 쓰실 건가요?</label>
                       {{ form.friend }}
                   </div>
                   </div>
