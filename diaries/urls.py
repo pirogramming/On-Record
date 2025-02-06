@@ -31,6 +31,12 @@ urlpatterns = [
 
     path('diaries_create', diaries_form, name='diaries_form'),
     # 일기 생성 페이지
+
+    # 일기 수정 페이지
+    path('diaries_update/<int:pk>', diaries_update, name='diaries_update'),
+
+    # 일기 삭제 페이지
+    path('diaries_delete/<int:pk>', diaries_delete, name='diaries_delete'),
     # 다이어리 상세 내용을 가져오는 url 라우팅
 
     
