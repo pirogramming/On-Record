@@ -9,9 +9,6 @@ import requests
 import environ
 env = environ.Env()
 
-def test(request):
-  return render(request, 'base.html')
-
 def main(request):
   return render(request, 'users/main.html')
 
