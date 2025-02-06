@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/friend-list.css' %}">
+{% endblock %}
+
 {% block content %}
+<<<<<<< HEAD:templates/diaries/friend-list.html
 
 <style>
     * {
@@ -124,6 +129,8 @@
         background: #e5b700;
     }
 </style>
+=======
+>>>>>>> 14fa6050e5ce6cb0a4ab92ef60168329415b0551:templates/users/friend-list.html
 </head>
 <body>
 <div class="slider-container">
@@ -151,5 +158,10 @@
         {% endfor %}
     </div>
 </div>
+<<<<<<< HEAD:templates/diaries/friend-list.html
 
 {% endblock %}
+=======
+</body>
+{% endblock %}
+>>>>>>> 14fa6050e5ce6cb0a4ab92ef60168329415b0551:templates/users/friend-list.html

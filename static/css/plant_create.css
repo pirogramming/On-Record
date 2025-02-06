@@ -11,9 +11,8 @@
   z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
 }
 
-.pet-form-container {
+.plant-form-container {
     max-width: 800px;
-    margin-top: 135px;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

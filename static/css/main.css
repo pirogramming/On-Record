@@ -1,62 +1,100 @@
-/* 기본 스타일 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', sans-serif;
+:root {
+  --primary-yellow: #FFC100; 
+  --light-yellow: #FFE28A; 
+  --hover-yellow: #e5b700; 
+  --white: #FFFFFF;
+  --light-gray: #d9d9d9;
+  --dark-gray: var(--dark-gray); 
+  --shadow-yellow: rgba(229, 188, 63, 0.8);
+  --red:#ff6347;
 }
 
 body, html {
-    width: 100%;
-    height: 100%;
-    background-image: url("../images/mypage_bg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 화면에서 스크롤이 생기지 않도록 */
 }
 
-/* 네비게이션 바 */
-.header-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
-    background-color: #FFFBED;
-    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.07);
+body {
+  background: linear-gradient(60deg, #FFBF00, var(--white));
 }
 
-.navbar-logo {
-    height: 40px;
-}
-
-.navbar-text {
-    display: flex;
-    gap: 15px;
-}
-
-.navbar-text span {
-    font-size: 18px;
-    color: #FFC100;
-}
-
-.navbar-text a {
-    text-decoration: none;
-    color: #FFC100;
-    font-weight: bold;
+.background-a {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-a.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
 }
 
 .container {
-    width: 100%;
-    max-width: 1200px;
+  background-image: url("/static/images/move-form.png");
+  width: 900px;
+  height: 480px; /* 기본 크기 확보 */
+  margin: 20px;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    margin-top: 80px; /* 네비게이션 바와 간격 */
-    display: flex;
-    justify-content: center;
+  }
+}
+
+.main-page {
+  margin: 100px;
+  color: white;
+}
+
+.main-text {
+  margin: 20px;
+}
+
+.logo {
+  width: 200px;
+  height: 163px;
+  margin: 30px;
+}
+
+.main-btn {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+.login-btn, .signup-btn {
+  display: block;
+  padding: 5px 20px;
+  background: linear-gradient(-60deg, var(--light-yellow), var(--white));
+  border: none;
+  color: #FFC003;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-btn:hover, .signup-btn:hover {
+  background:var(--white);
 }
