@@ -20,12 +20,14 @@
         background: #FFFBED;
     }
 
-    /* 슬라이더 전체 */
-    .slider-container {
+        /* 슬라이더 컨테이너 - 전체 중앙 정렬 */
+        .slider-container {
         position: relative;
-        width: 90%;
+        width: 100%;
         max-width: 900px;
         overflow: hidden;
+        display: flex;
+        justify-content: center; /* 중앙 정렬 */
     }
 
     /* 가로 스크롤 가능한 카드 리스트 */
@@ -37,6 +39,7 @@
         scroll-behavior: smooth;
         padding: 20px 0;
         cursor: grab;
+        justify-content: center; /* 내부 카드도 중앙 정렬 */
     }
 
     .slider::-webkit-scrollbar {
@@ -125,23 +128,28 @@
 <body>
 <div class="slider-container">
     <div class="slider">
-        {% for diary in diaries %}
+        {% for pet in pets %}
         <div class="homepage-container">
             <div class="homepage-content">
                 <div class="pet-profile">
-                    <img src="images/cat.jpg" alt="반려동물 사진">
+                    <img src="{% if pet.image %}{{ pet.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려동물 사진">
                 </div>
-                <p class="pet-name">{{ diary.pet_name }}</p>
+                <p class="pet-name">{{ pet.name }}</p>
                 <p class="home-description">
-                    지금까지 {{ diary.record_count }}개의 온기록을 남기셨어요!<br>
-                    소중한 오늘을 기록하고 따뜻해지세요.
+                    지금까지 00개의 온기록을 남기셨어요!<br>
+                    {{ pet.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>
-                <a href="#" class="move-form-btn">온기록 남기기</a>
+                <a href="{% url 'diaries:diary_write' %}" class="move-form-btn">
+                    {% if pet.id in diary_map %}
+                        온기록 보기
+                    {% else %}
+                        온기록 남기기
+                    {% endif %}
+                </a>           
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-</body>
 
 {% endblock %}

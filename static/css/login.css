@@ -1,0 +1,126 @@
+/* 로그인 컨테이너 */
+.login-container {
+    position: relative;
+    width: 700px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.login-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    margin-left: -300px;
+}
+
+/* 제목 */
+.login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFC100;
+}
+
+.login-underline {
+    width: 200px;
+    height: 3px;
+    background-color: #FFC100;
+    border-radius: 2px;
+    opacity: 30%;
+    margin: 10px auto 20px auto;
+}
+
+/* 입력 폼 */
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.login-input {
+    width: 80%;
+    max-width: 320px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.login-input:focus {
+    border: 2px solid #FFC100;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+    width: 80%;
+    max-width: 320px;
+    padding: 14px;
+    background: linear-gradient(60deg, #FFE28A, #FFC100);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: #e5b700;
+}
+
+/* 소셜 로그인 버튼 */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.social-btn img {
+    width: 100%;
+    height: 100%;
+}
+
+.kakao { background-color: #FEE500; }
+.naver { background-color: #03C75A; }
+.google { background-color: white; border: 1px solid #ccc; }
+
+.social-btn:hover {
+    opacity: 0.8;
+}
