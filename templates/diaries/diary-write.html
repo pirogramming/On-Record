@@ -1,198 +1,141 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Pretendard&display=swap" rel="stylesheet">
-    <title>일기 쓰기</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body, html {
-        width: 100%;
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        font-family: 'Pretendard', sans-serif;
-      }
 
-      body {
-          padding-top: 70px; /* 네비게이션 바의 높이만큼 여백을 추가 */
-      }
-      
-      /* 배경 이미지 설정 */
-      .background {
-        position: fixed; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('companion_form.png'); /* 실제 배경 이미지 경로 */
-        background-size: cover;
-        background-position: center;
-        z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-      }
-      
-      /* 네비게이션 바 */
-      .header-navbar {
-        position: fixed; /* 네비게이션 바 고정 */
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 30px;
-        background-color: #FFFBED; /* 연한 노란색 */
-        box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.07); /* 피그마에서 설정한 그림자 */
-        z-index: 1; /* 배경 이미지보다 위에 표시 */
-      }
-      
-      .navbar-text {
-        font-size: 18px;
-        margin: 0 10px;
-        color: #FFC100;
-      }
-      span{
-          margin: 0 15px;
-      }
-      .navbar-logo {
-        height: 40px; /* 로고 크기 설정 */
-      }
-      .write-container {
-        width: 80%;
-          margin: 20px;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
-          align-items: center;
-          justify-content: center;
+{% block content %}
+<style>
+  .background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("{% static 'images/base-a.png' %}");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  }
+  .write-container {
+      margin: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .write-header, .write-header-a {
+    display: flex;
+    justify-content: space-between; /* 이 부분을 추가 */
+    align-items: center;
+    width: 100%;
+  }
+  .write-header-l, .write-header-a-l{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  .today-diary {
+    color: rgba(0,0,0,1);
+    opacity: 1;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 28px;
+  }
+  #date{
+    color: #FFC100;
+    opacity: 1;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+  }
+  label {
+    font-weight: bold;
+    margin: 5px;
+}
+  .public-btn {
+      padding: 5px 20px; /* 패딩을 추가 */
+      background-color: #FFC100;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+  }
+  .public-btn:hover {
+      background: #e5b700;
+  }
+  .diary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .image-upload, .text-input {
+      width: 500px; /* 정사각형 크기 */
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background: #FFFFFF;
+      box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
+      text-align: center;
+  }
+
+  .image-upload input {
+      display: none;
+  }
+
+  .image-upload label {
+      cursor: pointer;
+      color: #666;
+  }
+
+  .text-input textarea {
+      width: 90%;
+      height: 80%;
+      border: none;
+      outline: none;
+      resize: none;
+      background: transparent;
+      font-size: 16px;
+      padding: 10px;
+  }
+  .create-btn{
+    display: block;
+    padding: 5px 20px;
+    background: #FFC100;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-left: auto; 
+    margin-top: 10px
+  }
+  .create-btn:hover{
+    background: #e5b700;
+  }
+  @media (max-width: 600px) {
+      .container {
           flex-direction: column;
-      }
-      .write-header, .write-header-a {
-        display: flex;
-        justify-content: space-between; /* 이 부분을 추가 */
-        align-items: center;
-        width: 100%;
-      }
-      .write-header-l, .write-header-a-l{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-
-      }
-      .today-diary {
-        color: rgba(0,0,0,1);
-        opacity: 1;
-        text-align: center;
-        font-weight: bolder;
-        font-size: 28px;
-      }
-      #date{
-        color: #FFC100;
-        opacity: 1;
-        text-align: center;
-        font-weight: normal;
-        font-size: 18px;
-      }
-      label {
-        font-weight: bold;
-        margin: 5px;
-    }
-      .open-btn {
-          padding: 5px 20px; /* 패딩을 추가 */
-          background-color: #FFC100;
-          border: none;
-          color: white;
-          font-size: 16px;
-          border-radius: 30px;
-          cursor: pointer;
-      }
-      .open-btn:hover {
-          background: #e5b700;
-      }
-      .diary-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center
-        gap: 20px;
-        margin-top: 20px;
-        width: 100%;
-      }
-
-      .image-upload, .text-input {
-          width: 500px; /* 정사각형 크기 */
-          height: 500px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
           align-items: center;
-          border-radius: 10px;
-          box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
-          text-align: center;
-          margin: 10px;
       }
+  }
+</style>
 
-      .image-upload input {
-          display: none;
-      }
-
-      .image-upload label {
-          cursor: pointer;
-          color: #666;
-      }
-
-      .text-input textarea {
-          width: 90%;
-          height: 80%;
-          border: none;
-          outline: none;
-          resize: none;
-          background: transparent;
-          font-size: 16px;
-          padding: 10px;
-      }
-      .create-btn{
-        display: block;
-        padding: 5px 20px;
-        background: #FFC100;
-        border: none;
-        color: white;
-        font-size: 16px;
-        border-radius: 30px;
-        cursor: pointer;
-        margin-left: auto; 
-      }
-      @media (max-width: 600px) {
-          .container {
-              flex-direction: column;
-              align-items: center;
-          }
-      }
-    </style>
-</head>
-<body>
-    <div class="background"></div>
-    <header class="header-navbar">
-        {% comment %} <img class="navbar-logo" src="../온기록-logo.svg" alt="Logo" /> {% endcomment %}
-        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
-        <div class="navbar-text">
-            <span>모두의 온기록</span>
-            <span>마이페이지</span>
-        </div>
-    </header>
+    <div class="background-a"></div>
     <div class="write-container">
       <div class="write-header">
           <div class="today-diary">오늘의 일기</div>
           <div class="write-header-l">
               <h1 id="date"></h1>
-              <button class="open-btn" onclick="toggleContent()">전체공개</button>
+              <button class="public-btn">전체공개</button>
           </div>
       </div>
       <div class="write-header-a">
@@ -214,7 +157,6 @@
                         <label>기분</label>
                         {{ form.mood }}
                     </div>
-                    
                     <div class="form-group">
                       <label>누구에게 쓰실 지.</label>
                       {{ form.friend }}
@@ -258,5 +200,4 @@
                     document.getElementById("date").textContent = formatDate();
                 }
         </script>
-</body>
-</html>
+{% endblock %}

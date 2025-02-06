@@ -9,14 +9,7 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         user = super().populate_user(request, sociallogin, data)
 
         # 이메일 저장
-        email = valid_email_or_none(data.get("email"))
-
-        # 이메일이 이미 존재하는지 확인
-        if email:
-            try:
-                user = User.objects.get(email=email)  # 이메일로 기존 유저를 찾음
-            except User.DoesNotExist:
-                user.email = email  # 존재하지 않으면 새로 할당
+        user.email = valid_email_or_none(sociallogin.account.extra_data.get("email"))
 
         # 소셜 로그인 제공자에 따른 닉네임 설정
         if sociallogin.account.provider == 'naver':
@@ -40,6 +33,4 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
             nickname = new_nickname
 
         user.nickname = nickname
-        user.save()
-
         return user

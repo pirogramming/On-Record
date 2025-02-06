@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+      .background-a {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/base-a.png' %}");
+        background-size: cover;
+        background-position: center;
+        z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+      }
+      .write-container {
+          margin: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+      }
+      .write-header, .write-header-a {
+        display: flex;
+        justify-content: space-between; /* 이 부분을 추가 */
+        align-items: center;
+        width: 100%;
+      }
+      .write-header-l, .write-header-a-l{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+
+      }
+      .today-diary {
+        color: rgba(0,0,0,1);
+        opacity: 1;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 28px;
+      }
+      #date{
+        color: #FFC100;
+        opacity: 1;
+        text-align: center;
+        font-weight: normal;
+        font-size: 18px;
+      }
+      label {
+        font-weight: bold;
+        margin: 5px;
+    }
+      .open-btn {
+          padding: 5px 20px; /* 패딩을 추가 */
+          background-color: #FFC100;
+          border: none;
+          color: white;
+          font-size: 16px;
+          border-radius: 30px;
+          cursor: pointer;
+      }
+      .open-btn:hover {
+          background: #e5b700;
+      }
+      .diary-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .image-upload, .text-input {
+          width: 500px; /* 정사각형 크기 */
+          height: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+          background: #FFFFFF;
+          box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
+          text-align: center;
+      }
+
+      .image-upload input {
+          display: none;
+      }
+
+      .image-upload label {
+          cursor: pointer;
+          color: #666;
+      }
+
+      .text-input textarea {
+          width: 90%;
+          height: 80%;
+          border: none;
+          outline: none;
+          resize: none;
+          background: transparent;
+          font-size: 16px;
+          padding: 10px;
+      }
+      .create-btn{
+        display: block;
+        padding: 5px 20px;
+        background: #FFC100;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 30px;
+        cursor: pointer;
+        margin-left: auto; 
+        margin-top: 10px
+      }
+      .create-btn:hover{
+        background: #e5b700;
+      }
+      @media (max-width: 600px) {
+          .container {
+              flex-direction: column;
+              align-items: center;
+          }
+      }
+    </style>
+    <div class="background-a"></div>
+    <div class="write-container">
+      <div class="write-header">
+          <div class="today-diary">오늘의 일기</div>
+          <div class="write-header-l">
+              <h1 id="date"></h1>
+              <button class="open-btn" onclick="toggleContent()">전체공개</button>
+          </div>
+      </div>
+      <div class="write-header-a">
+        <form method="POST" action="{% if diaries and diaries.pk %}{% url 'diaries:diaries_detail' pk=diaries.pk %}{% else %}#{% endif %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div style="display: flex;     justify-content: space-between;">
+              <div class="form-group">
+                  <label>제목</label>
+                  {{ form.title }}
+              </div>
+              <div class="write-header-a-l">
+                  <div class="form-group">
+                      <label>날씨</label>
+                      {{ form.weather }}
+                  </div>
+                  <div class="form-group">
+                      <label>기분</label>
+                      {{ form.mood }}
+                  </div>
+              </div>
+          </div>
+          <div class="diary-content">
+              <div class="image-upload">
+                  <label for="id_image">이미지 업로드</label>
+                  {{ form.image }}
+              </div>
+              <div class="text-input">
+                  <label for="id_content">내용</label>
+                  {{ form.content }}
+              </div>
+          </div>
+          <button type="submit" class="create-btn">완료</button>
+        </form>   
+      </div>
+    </div>
+  
+        <script>
+                function formatDate() {
+                    const today = new Date();
+                    
+                    // 년, 월, 일 추출
+                    const year = today.getFullYear();
+                    const month = String(today.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
+                    const day = String(today.getDate()).padStart(2, '0');
+                    
+                    // 요일 추출
+                    const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                    const dayOfWeek = daysOfWeek[today.getDay()];
+                    
+                    // 포맷팅된 날짜
+                    const formattedDate = `${year}/${month}/${day} ${dayOfWeek}`;
+                    return formattedDate;
+                }
+
+                window.onload = function() {
+                    document.getElementById("date").textContent = formatDate();
+                }
+        </script>
+        {% endblock %}

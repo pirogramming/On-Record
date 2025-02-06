@@ -1,6 +1,6 @@
 from django import forms
 # from django.forms import ModelForm
-from .models import Diary, Friend, Personality
+from .models import Diary, Friend, Personality, Plant
 
 # 반려동물 등록 폼
 class FriendForm(forms.ModelForm):
@@ -12,8 +12,14 @@ class FriendForm(forms.ModelForm):
 
     class Meta:
         model = Friend
-        fields = ['name', 'kind', 'gender', 'age', 'personal', 'image']
+        fields = ['name', 'kind', 'gender', 'age', 'personal', 'image', 'pet_fav', 'pet_hate', 'pet_sig']
 
+class PlantForm(forms.ModelForm):
+
+    class Meta:
+        model = Plant
+        fields = ['plant_kind', 'plant_name', 'plant_age', 'plant_image', 'plant_con', 'plant_sig', 'plant_adv']
+    
 class DiaryForm(forms.ModelForm):
     date = forms.DateField(
         widget = forms.DateInput(attrs = {'type': 'date'})
@@ -21,4 +27,4 @@ class DiaryForm(forms.ModelForm):
 
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'friend', 'image', 'disclosure', 'date', 'mood']
+        fields = ['title', 'weather', 'content', 'friend','image', 'disclosure', 'date', 'mood']
