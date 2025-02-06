@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FriendForm, DiaryForm
+from .forms import FriendForm, PlantForm, DiaryForm
 from .models import Personality, Diary
 # 캘린더 관련
 from datetime import date
 import calendar
-
+from replies.views import create_response
 # 테스트용 코드
 from django.http import HttpResponse
+
+#반려동물과 반려식물 중에 선택 처리하는 view
+def pet_or_plant(request):
+    return render(request, 'diaries/pet_or_plant.html')
 
 # html에 캘린더를 보내주는 view
 def calendar_view(request, year = None, month = None):
@@ -48,17 +52,24 @@ def calendar_view(request, year = None, month = None):
 # 다른 날짜 클릭 => diaries_detail.html로 이동
 def diary_view(request, year, month, day):
     selected_date = date(year, month, day)
-    diary = Diary.objects.filter(date__date = selected_date).first() # date__date를 이용해 날짜만 비교하도록 함
+    today = date.today()
 
-    if selected_date == date.today():
-        if diary: # 오늘 날짜에 일기가 있을 경우
-            return redirect("diaries:diaries_detail", pk = diary.pk)
-        else: # 오늘 날짜에 일기가 없을 경우
-            return redirect("diaries:diary_create") # 오늘 날짜 -> 일기 작성 페이지
+    # 미래 날짜 클릭 시 메시지 출력
+    if selected_date > today:
+        return HttpResponse("아직 오지 않은 날입니다.")  
+
+    # 해당 날짜의 일기 검색
+    diary = Diary.objects.filter(date__date=selected_date).first()
+
+    if selected_date == today:
+        if diary:
+            return redirect("diaries:diaries_detail", pk=diary.pk)
+        else:
+            return redirect("diaries:diary_create")  # 오늘 날짜 -> 일기 작성 페이지
     elif diary:
-        return redirect("diaries:diaries_detail", pk = diary.pk) # 해당 날짜 일기 O -> 상세 페이지
+        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
     else:
-        return HttpResponse('test: 해당 날짜 일기 없음') # 해당 날짜에 일기가 없다는 것을 지정
+        return render(request, "diaries/diary_view.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
 
 def main(request):
     return render(request, 'users/main.html')
@@ -89,7 +100,7 @@ def friend_create(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('users:main')
+            return redirect('diaries:calendar_view')
         else:
             print("Personality 테이블 내용: ", Personality.objects.all()) # 테이블 내용 출력
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
@@ -98,7 +109,7 @@ def friend_create(request):
             context = {
               'form': form,
             }
-            return render(request, 'users/main.html', context)
+            return render(request, 'diaries/calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
         form = FriendForm()
@@ -109,6 +120,43 @@ def friend_create(request):
 
         return render(request, 'diaries/friend_create.html', context)
     
+def plant_create(request):
+    if request.method == 'POST':
+        # request가 POST일 때, 이미지와 텍스트를 저장
+        print("🔹 원본 POST 데이터:", request.POST)
+
+        # POST 데이터 복사해서 수정 가능하게 변환
+        post_data = request.POST.copy()
+
+        # 수정된 post_data를 사용해 폼 생성
+        form = PlantForm(post_data, request.FILES)
+        if form.is_valid():
+            plant = form.save(commit=False)
+            plant.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
+            plant.save()
+            
+            # ManyToManyField 자동 저장
+            form.save_m2m()
+
+            return redirect('diaries:calendar_view')
+        else:
+            print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
+            print("POST 데이터:", request.POST)  # ✅ POST 데이터 확인
+            print(form.errors) # 어떤 오류가 발생했는지 출력
+            context = {
+              'form': form,
+            }
+            return render(request, 'diaries/calendar.html', context) 
+    else:
+        # GET 요청일 때 작성 form을 출력
+        form = PlantForm()
+
+        context = {
+          'form': form,
+        }
+
+        return render(request, 'diaries/plant_create.html', context)
+    
 # 일기 상세 페이지
 def diaries_detail(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
@@ -116,6 +164,7 @@ def diaries_detail(request, pk):
     if diaries.user == request.user:
         content = {
             'diaries': diaries,
+            'reply' : diaries.reply
         }
         return render(request, 'diaries/diaries_detail.html', content)
     else:
@@ -123,15 +172,20 @@ def diaries_detail(request, pk):
         return HttpResponse('사용자가 다릅니다.')
     
 # 일기 생성/업데이트
-def diaries_form(request, pk):
+def diaries_form(request):
     if request.method == 'POST':
-        diaries = get_object_or_404(Diary, id=pk)
+        # 새로운 Diary 객체 생성 및 폼 데이터 적용
+        diaries = Diary()
         form = DiaryForm(request.POST, request.FILES, instance=diaries)
+        
         if form.is_valid():
             diaries = form.save(commit=False)
-            diaries.user = request.user
-            diaries.save()
-            return redirect('users:main')
+            diaries.user = request.user  # 현재 사용자를 연결
+            diaries.save()  # 새로운 Diary 저장
+
+            # 저장된 Diary의 pk로 Reply 생성
+            create_response(diaries.pk)
+            return redirect('diaries:diaries_detail', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
     else:
@@ -139,8 +193,7 @@ def diaries_form(request, pk):
         content = {
             'form': form,
         }
-        return render(request, 'diaries/diaries_form.html', content)
-
+        return render(request, 'diaries/diary_view.html', content)
 # 일기 삭제
 def diaries_delete(request, pk):
     diaries = get_object_or_404(Diary, id=pk)

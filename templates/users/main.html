@@ -106,6 +106,7 @@
     <body>
         
         {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
             {% include 'users/after-login.html' %}
         {% else %}
         <div class="main-page">
