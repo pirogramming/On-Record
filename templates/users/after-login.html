@@ -17,9 +17,7 @@
   .container {
     background-image: url("{% static 'images/move-form.png' %}");
     width: 900px;
-    height: 480px; /* 기본 크기 확보 */
-    margin: 20px;
-    padding: 50px;
+    height: 480px;
     border-radius: 15px;
     box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.6);
     display: flex;
@@ -28,9 +26,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
     background-size: cover;
     background-position: center;
+ }
+ .container span{
+  margin-bottom: auto;
+ }
+ .start-hello{
+  margin-top: auto;
  }
   .move-form-btn {
     display: block;
@@ -41,7 +44,6 @@
     font-size: 16px;
     border-radius: 30px;
     cursor: pointer;
-    margin-top: 230px;
  }
  .move-form-btn:hover {
     background: #e5b700;

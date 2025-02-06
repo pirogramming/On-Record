@@ -15,9 +15,8 @@
   background-position: center;
   z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
 }
-.form-container {
+.plant-form-container {
     max-width: 800px;
-    margin: 20px;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -25,7 +24,6 @@
     backdrop-filter: blur(30px);
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -42,7 +40,7 @@
   flex-direction: row; /* 왼쪽 오른쪽 배치 */
   width: 100%; /* 너비를 100%로 */
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin: 20px;
 }
 
@@ -140,7 +138,7 @@ input, select {
 </style>
 
     <div class="background-b"></div>
-    <div class="form-container">
+    <div class="plant-form-container">
         <h1 class="form-title"><strong>{{ user.nickname }}님의 반려친구</strong>에 대해 알려주세요!</h1>
         <form method="POST" action="{% url 'diaries:plant_create' %}" enctype="multipart/form-data">
             {% csrf_token %}
