@@ -14,35 +14,42 @@
       background-position: center;
       z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
     }
-    .diary-container {
-      width: 80%;
-        margin: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    .detail-container {
+      max-width: 800px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
     }
-    .write-header, .write-header-a {
+    .detail-header{
       display: flex;
       justify-content: space-between; /* 이 부분을 추가 */
       align-items: center;
       width: 100%;
     }
-    .write-header-l, .write-header-a-l{
+    .detail-header-l{
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 15px;
-
     }
-    .today-diary {
-      color: rgba(0,0,0,1);
-      opacity: 1;
-      text-align: center;
-      font-weight: bolder;
-      font-size: 28px;
+    .public-btn {
+      padding: 5px 20px; /* 패딩을 추가 */
+      background-color: #FFC100;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .public-btn:hover {
+        background: #e5b700;
     }
     #date{
       color: #FFC100;
@@ -51,73 +58,48 @@
       font-weight: normal;
       font-size: 18px;
     }
-    label {
-      font-weight: bold;
-      margin: 5px;
-  }
-    .open-btn {
-        padding: 5px 20px; /* 패딩을 추가 */
-        background-color: #FFC100;
-        border: none;
-        color: white;
-        font-size: 16px;
-        border-radius: 30px;
-        cursor: pointer;
-    }
-    .open-btn:hover {
-        background: #e5b700;
-    }
-    .diary-content {
+    .detail-content {
       display: flex;
       justify-content: space-between;
-      align-items: center
-      gap: 20px;
+      align-items: center;
       margin-top: 20px;
       width: 100%;
     }
 
-    .image-upload, .text-input {
-        width: 500px; /* 정사각형 크기 */
+    .detail-image, .detail-text {
+        width: 500px; 
         height: 500px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        border-radius: 10px;
-        box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
-        text-align: center;
-        margin: 10px;
     }
-
-    .image-upload input {
-        display: none;
+    .detail-text h3, .detail-image h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        margin-right: auto;
     }
-
-    .image-upload label {
-        cursor: pointer;
-        color: #666;
+    
+    .diary-metadata {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        margin-right: auto;
+        margin-bottom: 10px;
     }
-
-    .text-input textarea {
-        width: 90%;
-        height: 80%;
-        border: none;
-        outline: none;
-        resize: none;
-        background: transparent;
-        font-size: 16px;
-        padding: 10px;
+    .diary-description {
+        line-height: 1.6;
     }
-    .create-btn{
-      display: block;
-      padding: 5px 20px;
-      background: #FFC100;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-left: auto; 
+    .disclosure{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 10px;
+      border-radius: 50px;
+      box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+      margin-bottom: 20px;
     }
     @media (max-width: 600px) {
         .container {
@@ -125,43 +107,88 @@
             align-items: center;
         }
     }
+    .bis{
+      display: flex;
+    }
+    .bis-l{
+      margin-left: auto;
+    }
+    .bi{
+      display: inline-block;
+      color: #FFC100;
+      font-size: 25px;
+      margin: 10px;
+    }
   </style>
-  <div class="background-a"></div>
-  <div class="diary-container">
-    <p>{{ diaries.title }}<p>
-    <p>{{ diaries.content }}<p>
-    {% if diaries.image %}
-    <img src="{{ diaries.image.url }}" alt="일기 이미지">
-    {% else %}
-    <p>📷 이미지 없음</p>
-    {% endif %}
-    {% if diaries.weather == 'sunny' %}
-        <p>☀️</p>
-    {% elif diaries.weather == 'cloudy' %}
-        <p>☁️</p>
-    {% elif diaries.weather == 'rainy' %}
-        <p>🌧️</p>
-    {% elif diaries.weather == 'snowy' %}
-        <p>❄️</p>
-    {% else %}
-        <p>🌍 날씨 정보 없음</p>
-    {% endif %}
-    {% if diaries.mood == 'happy' %}
-        <p>😄</p>
-    {% elif diaries.mood == 'sad' %}
-        <p>😢</p>
-    {% elif diaries.mood == 'angry' %}
-        <p>😡</p>
-    {% elif diaries.mood == 'funny' %}
-        <p>🤣</p>
-    {% elif diaries.mood == 'tired' %}
-        <p>😪</p>
-    {% else %}
-        <p>🌍 기분 정보 없음</p>
-    {% endif %}
-    <p>{{ diaries.disclosure }}<p>
-    <p>{{ diaries.date }}<p>
 
-    <p>{{reply.content}}
+  <div class="background-a"></div>
+  <div class="detail-container">
+    <div class="detail-header">
+      <h1 class="detail-title">
+        <p>{{ diaries.title }}<p>
+      </h1>
+      <div class="detail-header-l">
+        <p id="date">{{ diaries.date }}<p>
+        <button class="public-btn">전체공개</button>
+      </div>
+    </div>
+    
+    <div class="detail-content">
+      <div class="detail-image">
+        <h3>오늘의 사진</h3>
+        {% if diaries.image %}
+        <p>{{ diaries.content }}</p>
+        {% else %}
+        <p>📷 이미지 없음</p>
+        {% endif %}
+      </div>
+      <div class="detail-text">
+        <h3>오늘의 하루</h3>
+        <div class="diary-metadata">
+          <div class="weather">
+            {% if diaries.weather == 'sunny' %}
+                <p>날씨: ☀️</p>
+            {% elif diaries.weather == 'cloudy' %}
+                <p>날씨: ☁️</p>
+            {% elif diaries.weather == 'rainy' %}
+                <p>날씨: 🌧️</p>
+            {% elif diaries.weather == 'snowy' %}
+                <p>날씨: ❄️</p>
+            {% else %}
+                <p>🌍 날씨 정보 없음</p>
+            {% endif %}
+          </div>
+          <div class="mood">
+            {% if diaries.mood == 'happy' %}
+                <p>기분: 😄</p>
+            {% elif diaries.mood == 'sad' %}
+                <p>기분: 😢</p>
+            {% elif diaries.mood == 'angry' %}
+                <p>기분: 😡</p>
+            {% elif diaries.mood == 'funny' %}
+                <p >기분: 🤣</p>
+            {% elif diaries.mood == 'tired' %}
+                <p>기분: 😪</p>
+            {% else %}
+                <p>🌍 기분 정보 없음</p>
+            {% endif %}
+          </div>
+        </div>
+        <p>{{ diaries.content }}<p>
+      </div>
+    </div>
   </div>
-{% endblock %}
+  <div class="bis">
+    <i class="bi bi-heart-fill"></i>
+    <div class="bis-l">
+      <i class="bi bi-share-fill"></i>
+      <i class="bi bi-pencil-square"></i>
+      <i class="bi bi-trash3-fill"></i>
+    </div>
+  </div>
+  <p class="disclosure">
+    {{ diaries.disclosure }}
+    {{reply.content}}
+  </p>
+  {% endblock %}
+

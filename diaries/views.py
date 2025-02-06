@@ -213,7 +213,6 @@ def diaries_form(request):
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
 
-
     else:        
         request_day = int(request.GET.get('day'))
         request_month = int(request.GET.get('month'))
