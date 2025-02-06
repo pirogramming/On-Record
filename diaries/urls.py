@@ -19,6 +19,7 @@ urlpatterns = [
     path('diary/<int:year>/<int:month>/<int:day>/', diary_view, name='diary_view'),
     # 다이어리 상세 내용 불러옴
     path('diaries_detail/<int:pk>', diaries_detail, name='diaries_detail'),
+    path('mypage/', mypage_view, name='mypage'),
 ]
 
 if settings.DEBUG:

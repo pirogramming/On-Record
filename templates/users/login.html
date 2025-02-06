@@ -6,30 +6,31 @@
         /* 로그인 컨테이너 */
         .login-container {
             position: relative;
-            width: 700px;
-            height: 400px;
+            width: 846px;
+            height: 461px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .login-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            background-image: url("{% static 'images/container_background.png' %}");
+            background-size: cover;
+            background-position: center;
             border-radius: 15px;
         }
 
+        /* 기존 배경 스타일 제거 */
+        .login-bg {
+            display: none; /* 기존 배경 이미지 요소 숨김 */
+        }
+
+        /* 로그인 내용 (form 등) */
         .login-content {
             position: relative;
             z-index: 2;
             text-align: center;
             width: 100%;
             padding: 20px;
-            margin-left: -300px; /* 왼쪽으로 이동 */
+            margin-left: -300px; /* 기존과 동일한 위치 */
         }
-
         /* 제목 영역 (로그인 + 로고) */
         .login-header {
             position: relative;
@@ -42,8 +43,8 @@
 
         .login-logo {
             position: absolute;
-            top: 20px; /* 컨테이너 상단 모서리에 배치 */
-            left: 20px; /* 왼쪽 모서리에 배치 */
+            top: -15px; /* 컨테이너 상단 모서리에 배치 */
+            left: 200px; /* 왼쪽 모서리에 배치 */
             width: 50px;
             height: auto;
         }
