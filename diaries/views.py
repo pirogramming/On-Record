@@ -197,7 +197,7 @@ def diaries_form(request):
             'form': form,
         }
 
-        return render(request, 'diaries/diary_view.html', content)
+        return render(request, 'diaries/diary-write.html', content)
 
 # 일기 삭제
 def diaries_delete(request, pk):
