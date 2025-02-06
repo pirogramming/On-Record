@@ -18,7 +18,6 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        display: flex;
         justify-content: center;
         align-items: center;
     }
@@ -49,10 +48,13 @@
 
     /* 마이페이지 컨테이너 */
     .mypage-profile {
-        max-width: 600px;
-        width: 90%;
+        max-width: none;
+        width: 100%;
         padding: 40px;
         text-align: center;
+        display: block;
+        position: relative;
+        min-height: 600px; /* 최소 높이 설정 (변동 방지) */
     }
 
     /* 제목 */
@@ -60,6 +62,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 50px;
         margin-bottom: 10px;
     }
 
@@ -78,12 +81,13 @@
         flex-direction: column;
         align-items: center;
         gap: 10px;
+        position: relative;
     }
 
     /* 프로필 사진 */
     .user-profile {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         background-color: #FFC100;
         display: flex;
@@ -91,6 +95,7 @@
         align-items: center;
         position: relative;
         overflow: hidden;
+        margin-bottom: 15px;
     }
 
     .user-profile img {
@@ -122,7 +127,7 @@
     }
 
     .user-name {
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
         color: #FFC100;
         max-width: 200px;
@@ -138,36 +143,43 @@
         cursor: pointer;
     }
 
-    /* 반려친구 관리 컨테이너 */
+    /* 반려친구 관리 제목 및 추가 버튼 */
+    
     .pet-container {
         width: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 4px 10px #FFC100;
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0px 5px 20px #e5b700;
+        margin-top: 30px;
     }
 
     .pet-management-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 20px; /* 간격 증가 */
+        gap: 500px;
     }
 
     .pet-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
         color: #FFC100;
+        margin-right: auto; /* 버튼과의 간격 조절 */
     }
 
     .add-btn {
         background: #FFC100;
         color: white;
         border: none;
-        padding: 10px 15px;
+        padding: 10px 20px;
         border-radius: 20px;
         cursor: pointer;
         font-weight: bold;
+        font-size: 15px;
         transition: background 0.3s;
     }
 
@@ -175,11 +187,14 @@
         background: #e5b700;
     }
 
-    /* 반려친구 리스트 */
     .pet-list {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
+        width: 100%;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
     }
 
     .pet-box {
@@ -188,8 +203,8 @@
         align-items: center;
         background: white;
         padding: 12px 15px;
-        border-radius: 10px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        box-shadow: 0px 2px 5px #e5b700;
     }
 
     .pet-info {
@@ -332,10 +347,12 @@
         <div class="pet-container">
             <div class="pet-management-header">
                 <h2 class="pet-title">반려친구 관리</h2>
-                <button class="add-btn" id="add-pet-btn">반려친구 추가</button>
+                <button class="add-btn" id="add-pet-btn">추가</button>
             </div>
-        
+            
             <div class="pet-list" id="pet-list"></div>
+        </div>
+
         </div>
         
         <script>
