@@ -19,6 +19,12 @@ class PlantForm(forms.ModelForm):
     class Meta:
         model = Plant
         fields = ['plant_kind', 'plant_name', 'plant_age', 'plant_image', 'plant_con', 'plant_sig', 'plant_adv']
+        widgets = {
+            'plant_age': forms.NumberInput(attrs={'placeholder': '개월 수를 입력하세요'}),
+            'plant_con': forms.TextInput(attrs={'placeholder': '요즘 이파리가 시들시들해요'}),
+            'plant_sig': forms.TextInput(attrs={'placeholder': '꽃 향기가 좋아요'}),
+            'plant_adv': forms.TextInput(attrs={'placeholder': '한결같이 우리집 베란다에 있는 모습'}),
+        }
     
 class DiaryForm(forms.ModelForm):
     date = forms.DateField(
