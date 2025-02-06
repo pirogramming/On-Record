@@ -34,7 +34,6 @@
     flex-direction: row;
     align-items: center;
     gap: 15px;
-
   }
   .today-diary {
     color: rgba(0,0,0,1);
@@ -54,7 +53,7 @@
     font-weight: bold;
     margin: 5px;
 }
-  .open-btn {
+  .public-btn {
       padding: 5px 20px; /* 패딩을 추가 */
       background-color: #FFC100;
       border: none;
@@ -63,7 +62,7 @@
       border-radius: 30px;
       cursor: pointer;
   }
-  .open-btn:hover {
+  .public-btn:hover {
       background: #e5b700;
   }
   .diary-content {
@@ -136,7 +135,7 @@
           <div class="today-diary">오늘의 일기</div>
           <div class="write-header-l">
               <h1 id="date"></h1>
-              <button class="open-btn" onclick="toggleContent()">전체공개</button>
+              <button class="public-btn">전체공개</button>
           </div>
       </div>
       <div class="write-header-a">
