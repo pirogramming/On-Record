@@ -220,7 +220,6 @@ SOCIALACCOUNT_QUERY_EMAIL = True # 소셜 로그인 시 이메일 정보를 가�
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 
-SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 연결될 URL
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 요청 시 즉시 로그아웃
 SOCIALACCOUNT_LOGIN_ON_GET = True # 소셜 로그인 요청 시 즉시 로그인

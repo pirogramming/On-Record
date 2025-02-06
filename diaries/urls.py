@@ -31,10 +31,6 @@ urlpatterns = [
 
     path('diaries_create', diaries_form, name='diaries_form'),
     # 일기 생성 페이지
-
-
-
-
     # 다이어리 상세 내용을 가져오는 url 라우팅
 
     

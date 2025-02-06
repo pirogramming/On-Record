@@ -120,6 +120,7 @@
                     {% endif %}
                     <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
                         <a href="{% url "diaries:diaries_form" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
+
                             {{ day }}
                         </a>
                         {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
