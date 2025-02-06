@@ -46,9 +46,13 @@
         font-size: 18px;
         margin: 0 10px;
         color: #FFC100;
+        text-decoration: none;
       }
-      span{
-          margin: 0 15px;
+
+      a {
+        color: inherit; /* 부모 요소의 색상과 동일하게 */
+        text-decoration: none; /* 밑줄 제거 */
+        margin: 0 15px;
       }
       .navbar-logo {
         height: 40px; /* 로고 크기 설정 */
@@ -59,11 +63,13 @@
 
   <body>
     <header class="header-navbar">
-        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
+        <a href="{% url 'users:main' %}">
+            <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />
+        </a>
         <div class="navbar-text">
-            <span class="All-Record">모두의 온기록</span>
-            <li><a href="{% url 'users:logout' %}">로그아웃</a></li>
+            <a class="All-Record">모두의 온기록</a>
             <a href="{% url 'diaries:mypage' user.pk %}">마이페이지</a>
+            <a href="{% url 'users:logout' %}">로그아웃</a>
         </div>
     </header>
 
