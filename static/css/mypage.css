@@ -28,7 +28,7 @@
 .user-info {
     margin: 20px 0;
     font-size: 18px;
-    color: #FFC100;
+    color: var(--primary-yellow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +81,7 @@
 .user-name {
     font-size: 25px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     max-width: 200px;
     text-align: center;
     border: none;
@@ -102,7 +102,7 @@
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0px 5px 20px #e5b700;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
     margin-top: 30px;
 }
 
@@ -118,12 +118,12 @@
 .pet-title {
     font-size: 24px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn {
-    background: #FFC100;
+    background: var(--primary-yellow);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -135,7 +135,7 @@
 }
 
 .add-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 .pet-list {
@@ -155,7 +155,7 @@
     background: white;
     padding: 12px 15px;
     border-radius: 30px;
-    box-shadow: 0px 2px 5px #e5b700;
+    box-shadow: 0px 2px 5px var(--hover-yellow);
 }
 
 .pet-info {

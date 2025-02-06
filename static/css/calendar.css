@@ -54,7 +54,7 @@ td:hover {
 }
 
 .today {
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     font-weight: bold;
     border-radius: 50%;
 }
@@ -71,7 +71,7 @@ td:hover {
 }
 
 .has-diary {
-    color: #ff6347; /* 일기가 있는 날짜는 빨간색 */
+    color: var(--red); /* 일기가 있는 날짜는 빨간색 */
 }
 
 /* 달력의 요일 스타일 */

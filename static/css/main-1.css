@@ -1,3 +1,14 @@
+:root {
+  --primary-yellow: #FFC100; 
+  --light-yellow: #FFE28A; 
+  --hover-yellow: #e5b700; 
+  --white: #FFFFFF;
+  --light-gray: #d9d9d9;
+  --dark-gray: var(--dark-gray); 
+  --shadow-yellow: rgba(229, 188, 63, 0.8);
+  --red:#ff6347;
+}
+
 * {
   margin: 0;
   padding: 0;

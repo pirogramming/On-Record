@@ -1,3 +1,14 @@
+:root {
+  --primary-yellow: #FFC100; 
+  --light-yellow: #FFE28A; 
+  --hover-yellow: #e5b700; 
+  --white: #FFFFFF;
+  --light-gray: #d9d9d9;
+  --dark-gray: var(--dark-gray); 
+  --shadow-yellow: rgba(229, 188, 63, 0.8);
+  --red:#ff6347;
+}
+
 body, html {
   width: 100vw;
   height: 100vh;
@@ -5,7 +16,7 @@ body, html {
 }
 
 body {
-  background: linear-gradient(60deg, #FFBF00, #FFFFFF);
+  background: linear-gradient(60deg, #FFBF00, var(--white));
 }
 
 .background-a {
@@ -75,7 +86,7 @@ li {
 .login-btn, .signup-btn {
   display: block;
   padding: 5px 20px;
-  background: linear-gradient(-60deg, #FFE28A, #FFFFFF);
+  background: linear-gradient(-60deg, var(--light-yellow), var(--white));
   border: none;
   color: #FFC003;
   font-size: 16px;
@@ -85,5 +96,5 @@ li {
 }
 
 .login-btn:hover, .signup-btn:hover {
-  background:#FFFFFF;
+  background:var(--white);
 }

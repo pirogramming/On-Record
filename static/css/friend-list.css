@@ -67,7 +67,7 @@ body, html {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,7 +85,7 @@ body, html {
 .pet-name {
     font-size: 20px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     margin-bottom: 20px;
 }
 

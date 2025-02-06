@@ -59,7 +59,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #d9d9d9;
+    background: var(--light-gray);
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -104,7 +104,7 @@ input, select {
 
 .personality-btn {
     padding: 5px 10px;
-    border: 1px solid #666;
+    border: 1px solid var(--dark-gray);
     background: white;
     border-radius: 15px;
     cursor: pointer;
@@ -117,7 +117,7 @@ input, select {
 .submit-btn {
     display: block;
     padding: 5px 20px;
-    background: linear-gradient(60deg, #FFE28A, #FFC100);
+    background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
     color: white;
     font-size: 16px;
@@ -128,7 +128,7 @@ input, select {
 }
 
 .submit-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 /* 추가된 스타일 */
