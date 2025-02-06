@@ -1,47 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/pet_or_plant.css' %}">
+{% endblock %}
+
 {% block content %}
-<style>
-/* 배경 이미지 설정 */
-.background-b {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("{% static 'images/base-b.png' %}");
-  background-size: cover;
-  background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-}
-.select-container {
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 500px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
-.select_pet, .select_plant{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.select_pet_img, .select_plant_img{
-    width: 300px;
-    height: 300px;
-}
-
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-</style>
-
     <div class="background-b"></div>
     <div class="select-container">
         <a href="{% url 'diaries:friend_create' %}" class="select_pet">
@@ -54,7 +18,4 @@
             <span><strong>반려식물</strong>과 온기록하기</span>
         </a>
     </div>
-
-
-
 {% endblock %}
