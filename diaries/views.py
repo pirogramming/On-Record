@@ -10,73 +10,15 @@ from replies.views import create_response
 from django.http import HttpResponse
 
 
-#반려동물과 반려식물 중에 선택 처리하는 view
+from datetime import datetime, time
+from django.utils import timezone
+
+
+#01 반려동물과 반려식물 중에 선택 처리하는 view
 def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
 
-
-# html에 캘린더를 보내주는 view
-def calendar_view(request, year = None, month = None):
-    today = date.today()
-
-    # URL에서 연도와 월을 받아오지 않았을 때, 오늘 날짜로 설정
-    year_range = list(range(2020, 2031))
-    month_range = list(range(1, 13))
-    year = int(year) if year else today.year
-    month = int(month) if month else today.month
-
-    # 해당 월의 1일과 마지막 날짜 가져오기
-    first_day, num_days = calendar.monthrange(year, month)
-    first_date = date(year, month, 1)
-    last_date = date(year, month, num_days)
-    # 해당 월의 일자를 리스트 형태로 클라이언트에게 전달
-    days = list(range(1, num_days + 1))
-
-    # 해당 월의 모든 일기 조회(first_date와 last_date 사이의 정보를 가지고 오도록 구현)
-    diaries = Diary.objects.filter(date__range = (first_date, last_date))
-
-    # 날짜별 일기 매핑
-    diary_map = {diary.date.day: diary for diary in diaries}
-
-    context = {
-        "year_range": year_range,
-        "month_range": month_range,
-        "year": year,
-        "month": month,
-        "today": today,
-        "first_day": first_day,
-        "days": days,
-        "diary_map": diary_map,
-    }
-    return render(request, "diaries/calendar.html", context)
-
-# 캘린더에서 날짜 클릭 시 해당 날짜에 해당하는 일기로 이동하도록 하는 로직
-# 오늘 날짜 클릭 => friend_create.html로 이동
-# 다른 날짜 클릭 => diaries_detail.html로 이동
-def diary_view(request, year, month, day):
-    selected_date = date(year, month, day)
-    today = date.today()
-
-    # 미래 날짜 클릭 시 메시지 출력
-    if selected_date > today:
-        return HttpResponse("아직 오지 않은 날입니다.")  
-
-    # 해당 날짜의 일기 검색
-    diary = Diary.objects.filter(date__date=selected_date).first()
-
-    if selected_date == today:
-        if diary:
-            return redirect("diaries:diaries_detail", pk=diary.pk)
-        else:
-            return redirect("diaries:diary_create")  # 오늘 날짜 -> 일기 작성 페이지
-    elif diary:
-        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
-    else:
-        return render(request, "diaries/diary_view.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
-
-def main(request):
-    return render(request, 'users/main.html')
-
+#02 반려동물 생성하는 view
 def friend_create(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
@@ -122,7 +64,8 @@ def friend_create(request):
         }
 
         return render(request, 'diaries/friend_create.html', context)
-    
+
+#03 반려식물 생성하는 view
 def plant_create(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
@@ -159,8 +102,68 @@ def plant_create(request):
         }
 
         return render(request, 'diaries/plant_create.html', context)
+
+#04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
+def calendar_view(request, year = None, month = None):
+    today = date.today()
+
+    # URL에서 연도와 월을 받아오지 않았을 때, 오늘 날짜로 설정
+    year_range = list(range(2020, 2031))
+    month_range = list(range(1, 13))
+
+    year = int(year) if year else today.year
     
-# 일기 상세 페이지
+    month = int(month) if month else today.month
+
+    # 해당 월의 1일과 마지막 날짜 가져오기
+    first_day, num_days = calendar.monthrange(year, month)
+    first_date = date(year, month, 1)
+    last_date = date(year, month, num_days)
+    # 해당 월의 일자를 리스트 형태로 클라이언트에게 전달
+    days = list(range(1, num_days + 1))
+
+    # 해당 월의 모든 일기 조회(first_date와 last_date 사이의 정보를 가지고 오도록 구현)
+    diaries = Diary.objects.filter(date__range = (first_date, last_date))
+
+    # 날짜별 일기 매핑
+    diary_map = {diary.date.day: diary for diary in diaries}
+
+    context = {
+        "year_range": year_range,
+        "month_range": month_range,
+        "year": year,
+        "month": month,
+        "today": today,
+        "first_day": first_day,
+        "days": days,
+        "diary_map": diary_map,
+    }
+    return render(request, "diaries/calendar.html", context)
+
+#05 04에서 날짜 클릭시 다이어리 작성 페이지로 이동
+def diary_view(request, year, month, day):
+    selected_date = date(year, month, day)
+    today = date.today()
+
+    # 미래 날짜 클릭 시 메시지 출력
+    if selected_date > today:
+        return HttpResponse("아직 오지 않은 날입니다.")  
+
+    # 해당 날짜의 일기 검색
+    diary = Diary.objects.filter(date__date=selected_date).first()
+
+    #캘린더 로직 이상함
+    if selected_date == today:
+        if diary: #오늘이고 다이어리가 존재한다면 -> 상세페이지로 
+            return redirect("diaries:diaries_detail", pk=diary.pk)
+        else: #오늘인데 다이어리가 존재하지 않는다면 -> 다이어리리 작성 페이지로
+            return redirect("diaries:")  
+    elif diary:
+        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
+    else:
+        return render(request, "diaries/diary_write.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
+
+#06 05에서 작성완료 -> 다이어리 상세페이지
 def diaries_detail(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
@@ -173,17 +176,35 @@ def diaries_detail(request, pk):
     else:
         # 사용자가 다를 경우 에러 메시지 출력
         return HttpResponse('사용자가 다릅니다.')
+
+
+def main(request):
+    return render(request, 'users/main.html')
+
+# 일기 상세 페이지
+
     
 # 일기 생성/업데이트
 def diaries_form(request):
+    today = timezone.now().date().day
     if request.method == 'POST':
         # 새로운 Diary 객체 생성 및 폼 데이터 적용
         diaries = Diary()
         form = DiaryForm(request.POST, request.FILES, instance=diaries)
-        
+        date_str = request.POST.get('date')
+        selected_date = datetime.strptime(date_str , '%Y-%m-%d')
+
         if form.is_valid():
             diaries = form.save(commit=False)
             diaries.user = request.user  # 현재 사용자를 연결
+            diaries.date = datetime(
+                year = selected_date.year,
+                month = selected_date.month,
+                day = selected_date.day,
+                hour =12,
+                minute = 0,
+                second = 0 
+            )
             diaries.save()  # 새로운 Diary 저장
 
             # 저장된 Diary의 pk로 Reply 생성
@@ -191,13 +212,33 @@ def diaries_form(request):
             return redirect('diaries:diaries_detail', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
-    else:
-        form = DiaryForm()
-        content = {
-            'form': form,
-        }
 
-        return render(request, 'diaries/diary_view.html', content)
+
+    else:        
+        request_day = int(request.GET.get('day'))
+        request_month = int(request.GET.get('month'))
+        request_year = int(request.GET.get('year'))
+
+        if request_day != today:     
+            request_time = time(12,0,0)
+        else :
+            request_time = timezone.now().time()
+        try:
+            
+            diary = Diary.objects.get(
+                date__day = request_day,
+                date__month = request_month,
+                date__year = request_year,
+                date__time = request_time
+                ) #오늘 작성된 일기를 가져옴
+            return redirect("diaries:diaries_detail", pk=diary.pk)
+        except Diary.DoesNotExist:
+            form = DiaryForm()
+            content = {
+                'form': form,
+            }
+
+            return render(request, 'diaries/diary-write.html', content)
 
 # 일기 삭제
 def diaries_delete(request, pk):
