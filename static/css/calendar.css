@@ -1,0 +1,82 @@
+/* 배경 이미지 설정 */
+.background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/base-a.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+.calender-container {
+    margin-top: 50px;
+}
+
+/* 드롭다운 스타일 */
+select {
+    padding: 8px 16px;
+    margin: 0 30px;
+    font-size: 30px;
+    font-weight: bold;
+    border: none;  /* 테두리 제거 */
+    background-color: transparent;  /* 배경색 제거 */
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+}
+
+/* 캘린더 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 40px;
+    text-align: center;
+    font-size: 18px;
+    width: 14.28%; /* 7일이 균등하게 나누어짐 */
+}
+
+td {
+    transition: background-color 0.3s ease;
+}
+
+td:hover {
+    box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.);
+    border-radius: 50%;
+}
+
+.today {
+    background-color: var(--primary-yellow);
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.diary-day {
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+.diary-day:hover {
+    text-decoration: underline;
+}
+
+.has-diary {
+    color: var(--red); /* 일기가 있는 날짜는 빨간색 */
+}
+
+/* 달력의 요일 스타일 */
+.day-name {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}

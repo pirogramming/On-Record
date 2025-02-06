@@ -1,0 +1,143 @@
+.background-a {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-a.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+.diaries_detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 135px;
+}
+
+.detail-container {
+  max-width: 900px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between; /* 이 부분을 추가 */
+  align-items: center;
+  width: 100%;
+}
+
+.detail-header-l {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.public-btn {
+  padding: 5px 20px; /* 패딩을 추가 */
+  background-color: var(--primary-yellow);
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.public-btn:hover {
+    background: var(--hover-yellow);
+}
+
+#date {
+  color: var(--primary-yellow);
+  opacity: 1;
+  text-align: center;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.detail-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.detail-image, .detail-text {
+    width: 500px; 
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.detail-text h3, .detail-image h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-right: auto;
+}
+
+.diary-metadata {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.diary-description {
+    line-height: 1.6;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 15px;
+  border-radius: 50px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  margin-bottom: 20px;
+  max-width: 900px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.bis {
+  display: flex;
+  width: 100%;
+}
+
+.bis-l {
+  margin-left: auto;
+}
+
+.bi {
+  display: inline-block;
+  color: var(--primary-yellow);
+  font-size: 25px;
+  margin: 10px;
+}
+
+.bi:hover {
+  color: var(--hover-yellow);
+}
