@@ -1,0 +1,375 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* 기본 스타일 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Pretendard', sans-serif;
+    }
+
+    body, html {
+        width: 100%;
+        height: 100%;
+        background-image: url("images/mypage_bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 네비게이션 바 */
+    .header-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+        background-color: #FFFBED;
+        box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.07);
+    }
+
+    .navbar-logo {
+        height: 40px;
+    }
+
+    .navbar-text span {
+        margin: 0 15px;
+        font-size: 18px;
+        color: #FFC100;
+    }
+
+    /* 마이페이지 컨테이너 */
+    .mypage-profile {
+        max-width: 600px;
+        width: 90%;
+        padding: 40px;
+        text-align: center;
+    }
+
+    /* 제목 */
+    .mypage-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .mypage-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    /* 유저 정보 */
+    .user-info {
+        margin: 20px 0;
+        font-size: 18px;
+        color: #FFC100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* 프로필 사진 */
+    .user-profile {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #FFC100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .user-profile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* 프로필 수정 버튼 */
+    .edit-profile-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    /* 유저 이름 수정 가능하도록 */
+    .user-name-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .user-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFC100;
+        max-width: 200px;
+        text-align: center;
+        border: none;
+        outline: none;
+        background: transparent;
+    }
+
+    .edit-name-btn {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    /* 반려친구 관리 컨테이너 */
+    .pet-container {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px #FFC100;
+    }
+
+    .pet-management-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .pet-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFC100;
+    }
+
+    .add-btn {
+        background: #FFC100;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    .add-btn:hover {
+        background: #e5b700;
+    }
+
+    /* 반려친구 리스트 */
+    .pet-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pet-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 12px 15px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .pet-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .pet-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .pet-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* 버튼 영역 */
+    .pet-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .edit-btn, .delete-btn {
+        border: none;
+        padding: 8px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    .edit-btn {
+        background: #FFEBB0;
+        color: #444;
+    }
+
+    .edit-btn:hover {
+        background: #FFD75C;
+    }
+
+    .delete-btn {
+        background: #FF6B6B;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background: #E54E4E;
+    }
+
+    /* 반응형 */
+    @media (max-width: 600px) {
+        .mypage-profile {
+            width: 95%;
+            padding: 30px;
+        }
+
+        .pet-box {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .pet-actions {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+</style>
+<body>
+    <header class="header-navbar">
+        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo">
+        <div class="navbar-text">
+            <span>모두의 온기록</span>
+            <a href="{% url 'diaries:mypage' user.pk %}">마이페이지</a>
+        </div>
+    </header>
+
+    <div class="mypage-profile">
+        <!-- 제목 -->
+        <div class="mypage-header">
+            <h1 class="mypage-title">마이페이지</h1>
+        </div>
+
+        <!-- 유저 정보 -->
+        <div class="user-info">
+            <div class="user-profile">
+                <div class="user_profile_img">
+                    {% if user.profile_image.url != '' %}
+                    <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+                    {% else %}
+                    <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
+                    {% endif %}
+                </div>
+                <!-- label 안에 아이콘 추가 -->
+                <label for="profile-upload" class="edit-profile-btn">
+                    <img src="{% static 'images/edit_icon.png' %}" alt="프로필 수정 버튼">
+                </label>
+                <input type="file" id="profile-upload" class="profile-upload" accept="image/*" style="display: none;">
+            </div>
+            
+            <script>
+                document.getElementById("profile-upload").addEventListener("change", function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById("profile-image").src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            </script>
+
+            <div class="user-name-container">
+                <p class="user-name" id="user-name">{{ user.nickname }}</p>
+                <img src="{% static 'images/edit_icon.png' %}" alt="이름 수정" class="edit-name-btn" id="edit-name-btn">
+            </div>
+
+            <script>
+                document.getElementById("edit-name-btn").addEventListener("click", function() {
+                    const nameField = document.getElementById("user-name");
+
+                    if (nameField.contentEditable === "true") {
+                        nameField.contentEditable = "false";
+                        nameField.style.border = "none";  // 수정 모드 해제 시 테두리 제거
+                    } else {
+                        nameField.contentEditable = "true";
+                        nameField.focus(); // 자동으로 커서 이동
+                        nameField.style.border = "1px solid #FFC100";  // 수정 모드 시 테두리 추가
+                    }
+                });
+            </script>
+            <p>{{ user.email }}</p>
+        </div>
+
+        <div class="pet-container">
+            <div class="pet-management-header">
+                <h2 class="pet-title">반려친구 관리</h2>
+                <button class="add-btn" id="add-pet-btn">반려친구 추가</button>
+            </div>
+        
+            <div class="pet-list" id="pet-list"></div>
+        </div>
+        
+        <script>
+            let petCount = 0; // 반려친구 숫자 카운트
+            const petList = document.getElementById("pet-list");
+            const addPetBtn = document.getElementById("add-pet-btn");
+        
+            addPetBtn.addEventListener("click", function () {
+                petCount++;
+        
+                // 새로운 반려친구 요소 생성
+                const petBox = document.createElement("div");
+                petBox.classList.add("pet-box");
+        
+                petBox.innerHTML = `
+                    <div class="pet-info">
+                        <img src="images/pet_icon${(petCount % 3) + 1}.png" alt="반려친구 아이콘" class="pet-icon">
+                        <span class="pet-name">반려친구 ${petCount}</span>
+                    </div>
+                    <div class="pet-actions">
+                        <button class="edit-btn" onclick="location.href='edit_pet.html?id=${petCount}'">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+                `;
+        
+                // 삭제 버튼 기능 추가
+                petBox.querySelector(".delete-btn").addEventListener("click", function () {
+                    petBox.remove();
+                });
+        
+                // 리스트에 추가
+                petList.appendChild(petBox);
+            });
+        </script>
+    </div>
+</body>
+{% endblock %}

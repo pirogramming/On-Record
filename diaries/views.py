@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FriendForm, DiaryForm
-from .models import Personality, Diary
+from .models import User, Personality, Diary
 # 캘린더 관련
 from datetime import date
 import calendar
@@ -159,3 +159,13 @@ def diaries_delete(request, pk):
             return HttpResponse('사용자가 다릅니다.')
     else:
         return HttpResponse('해당 일기가 없습니다.')
+
+#마이페이지    
+def mypage_view(request, pk):
+    user = User.objects.get(id=pk)
+    diaries = Diary.objects.filter(user=user)
+    context = {
+        'user': user,
+        'diaries': diaries,
+    }
+    return render(request, 'diaries/mypage.html', context)
