@@ -25,6 +25,11 @@ urlpatterns = [
     path('diaries_detail/<int:pk>', diaries_detail, name='diaries_detail'),
 
 
+    # 07: 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    path('friend-list/', friend_list, name='friend_list'),
+
+    path('diary_write/', diary_write, name='diary_write'),
+
     # path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
     # # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
 
@@ -36,6 +41,7 @@ urlpatterns = [
     
     # 다이어리 상세 내용 불러옴
     path('mypage/<int:pk>', mypage_view, name='mypage'),
+
 ]
 
 if settings.DEBUG:
