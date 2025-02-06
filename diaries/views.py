@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FriendForm, PlantForm, DiaryForm
-from .models import Personality, Diary
+from .models import User, Personality, Diary
+
 # 캘린더 관련
 from datetime import date
 import calendar
@@ -8,9 +9,11 @@ from replies.views import create_response
 # 테스트용 코드
 from django.http import HttpResponse
 
+
 #반려동물과 반려식물 중에 선택 처리하는 view
 def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
+
 
 # html에 캘린더를 보내주는 view
 def calendar_view(request, year = None, month = None):
@@ -193,7 +196,9 @@ def diaries_form(request):
         content = {
             'form': form,
         }
+
         return render(request, 'diaries/diary_view.html', content)
+
 # 일기 삭제
 def diaries_delete(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
@@ -208,5 +213,11 @@ def diaries_delete(request, pk):
         return HttpResponse('해당 일기가 없습니다.')
 
 #마이페이지    
-def mypage_view(request):
-    return render(request, 'diaries/mypage.html')
+def mypage_view(request, pk):
+    user = User.objects.get(id=pk)
+    diaries = Diary.objects.filter(user=user)
+    context = {
+        'user': user,
+        'diaries': diaries,
+    }
+    return render(request, 'diaries/mypage.html', context)

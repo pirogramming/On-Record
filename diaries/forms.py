@@ -21,6 +21,10 @@ class PlantForm(forms.ModelForm):
         fields = ['plant_kind', 'plant_name', 'plant_age', 'plant_image', 'plant_con', 'plant_sig', 'plant_adv']
     
 class DiaryForm(forms.ModelForm):
+    date = forms.DateField(
+        widget = forms.DateInput(attrs = {'type': 'date'})
+    )
+
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'mood', 'content', 'image', 'disclosure']
+        fields = ['title', 'weather', 'content', 'friend','image', 'disclosure', 'date', 'mood']
