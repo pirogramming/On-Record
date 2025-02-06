@@ -139,7 +139,7 @@
           </div>
       </div>
       <div class="write-header-a">
-        <form method="POST" action="{% if diaries and diaries.pk %}{% url 'diaries:diaries_detail' pk=diaries.pk %}{% else %}#{% endif %}" enctype="multipart/form-data">
+        <form method="POST" action="{% if diaries and diaries.pk %}{% url 'diaries:deatil_diaries' pk=diaries.pk %}{% else %}#{% endif %}" enctype="multipart/form-data">
           {% csrf_token %}
           <div style="display: flex;     justify-content: space-between;">
               <div class="form-group">

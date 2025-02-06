@@ -139,7 +139,7 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:diaries_form' %}" enctype="multipart/form-data">
+          <form method="POST" action="{% url 'diaries:create_diaries' %}" enctype="multipart/form-data">
               {% csrf_token %}
               <div style="display: flex; gap: 20px; justify-content: center;">
                   <label>날짜: </label>

@@ -19,7 +19,7 @@ def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
 
 #02 반려동물 생성하는 view
-def friend_create(request):
+def create_friend(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
         print("🔹 원본 POST 데이터:", request.POST)
@@ -45,7 +45,7 @@ def friend_create(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('diaries:calendar_view')
+            return redirect('diaries:calendar')
         else:
             print("Personality 테이블 내용: ", Personality.objects.all()) # 테이블 내용 출력
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
@@ -66,7 +66,7 @@ def friend_create(request):
         return render(request, 'diaries/friend_create.html', context)
 
 #03 반려식물 생성하는 view
-def plant_create(request):
+def create_plant(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
         print("🔹 원본 POST 데이터:", request.POST)
@@ -84,7 +84,7 @@ def plant_create(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('diaries:calendar_view')
+            return redirect('diaries:calendar')
         else:
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
             print("POST 데이터:", request.POST)  # ✅ POST 데이터 확인
@@ -104,7 +104,7 @@ def plant_create(request):
         return render(request, 'diaries/plant_create.html', context)
 
 #04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
-def calendar_view(request, year = None, month = None):
+def calendar(request, year = None, month = None):
     today = date.today()
 
     # URL에서 연도와 월을 받아오지 않았을 때, 오늘 날짜로 설정
@@ -140,52 +140,8 @@ def calendar_view(request, year = None, month = None):
     }
     return render(request, "diaries/calendar.html", context)
 
-#05 04에서 날짜 클릭시 다이어리 작성 페이지로 이동
-def diary_view(request, year, month, day):
-    selected_date = date(year, month, day)
-    today = date.today()
-
-    # 미래 날짜 클릭 시 메시지 출력
-    if selected_date > today:
-        return HttpResponse("아직 오지 않은 날입니다.")  
-
-    # 해당 날짜의 일기 검색
-    diary = Diary.objects.filter(date__date=selected_date).first()
-
-    #캘린더 로직 이상함
-    if selected_date == today:
-        if diary: #오늘이고 다이어리가 존재한다면 -> 상세페이지로 
-            return redirect("diaries:diaries_detail", pk=diary.pk)
-        else: #오늘인데 다이어리가 존재하지 않는다면 -> 다이어리리 작성 페이지로
-            return redirect("diaries:")  
-    elif diary:
-        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
-    else:
-        return render(request, "diaries/diary_write.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
-
-#06 05에서 작성완료 -> 다이어리 상세페이지
-def diaries_detail(request, pk):
-    diaries = get_object_or_404(Diary, id=pk)
-
-    if diaries.user == request.user:
-        content = {
-            'diaries': diaries,
-            'reply' : diaries.reply
-        }
-        return render(request, 'diaries/diaries_detail.html', content)
-    else:
-        # 사용자가 다를 경우 에러 메시지 출력
-        return HttpResponse('사용자가 다릅니다.')
-
-
-def main(request):
-    return render(request, 'users/main.html')
-
-# 일기 상세 페이지
-
-    
-# 일기 생성/업데이트
-def diaries_form(request):
+#05 다이어리 생성
+def create_diaries(request):
     today = timezone.now().date().day
     if request.method == 'POST':
         # 새로운 Diary 객체 생성 및 폼 데이터 적용
@@ -209,7 +165,7 @@ def diaries_form(request):
 
             # 저장된 Diary의 pk로 Reply 생성
             create_response(diaries.pk)
-            return redirect('diaries:diaries_detail', pk=diaries.pk)
+            return redirect('diaries:detail_diaries', pk=diaries.pk)
         else:
             print("Diary 테이블 내용: ", Diary.objects.all())
 
@@ -230,7 +186,7 @@ def diaries_form(request):
                 date__year = request_year,
                 date__time = request_time
                 ) #오늘 작성된 일기를 가져옴
-            return redirect("diaries:diaries_detail", pk=diary.pk)
+            return redirect("diaries:detail_diaries", pk=diary.pk)
         except Diary.DoesNotExist:
             form = DiaryForm()
             content = {
@@ -239,8 +195,32 @@ def diaries_form(request):
 
             return render(request, 'diaries/diary-write.html', content)
 
-# 일기 삭제
-def diaries_delete(request, pk):
+#06 다이어리 상세페이지
+def detail_diaries(request, pk):
+    diaries = get_object_or_404(Diary, id=pk)
+
+    if diaries.user == request.user:
+        content = {
+            'diaries': diaries,
+            'reply' : diaries.reply
+        }
+        return render(request, 'diaries/diaries_detail.html', content)
+    else:
+        # 사용자가 다를 경우 에러 메시지 출력
+        return HttpResponse('사용자가 다릅니다.')
+
+#07 마이페이지    
+def mypage(request, pk):
+    user = User.objects.get(id=pk)
+    diaries = Diary.objects.filter(user=user)
+    context = {
+        'user': user,
+        'diaries': diaries,
+    }
+    return render(request, 'diaries/mypage.html', context)
+
+#08 다이어리 삭제
+def delete_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
     if diaries:
@@ -252,12 +232,34 @@ def diaries_delete(request, pk):
     else:
         return HttpResponse('해당 일기가 없습니다.')
 
-#마이페이지    
-def mypage_view(request, pk):
-    user = User.objects.get(id=pk)
-    diaries = Diary.objects.filter(user=user)
-    context = {
-        'user': user,
-        'diaries': diaries,
-    }
-    return render(request, 'diaries/mypage.html', context)
+#09 다이어리 수정(미구현현)
+def update_diaries(request, pk):
+    pass
+
+
+
+#????????
+def diary_view(request, year, month, day):
+    selected_date = date(year, month, day)
+    today = date.today()
+
+    # 미래 날짜 클릭 시 메시지 출력
+    if selected_date > today:
+        return HttpResponse("아직 오지 않은 날입니다.")  
+
+    # 해당 날짜의 일기 검색
+    diary = Diary.objects.filter(date__date=selected_date).first()
+
+    #캘린더 로직 이상함
+    if selected_date == today:
+        if diary: #오늘이고 다이어리가 존재한다면 -> 상세페이지로 
+            return redirect("diaries:diaries_detail", pk=diary.pk)
+        else: #오늘인데 다이어리가 존재하지 않는다면 -> 다이어리리 작성 페이지로
+            return redirect("diaries:")  
+    elif diary:
+        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
+    else:
+        return render(request, "diaries/diary_write.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
+
+def main(request):
+    return render(request, 'users/main.html')

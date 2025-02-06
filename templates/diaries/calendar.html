@@ -122,8 +122,8 @@
                         <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
                     {% endif %}
                     <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url "diaries:diaries_form" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
-
+                        <a href="{% url "diaries:create_diaries" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
+                                        {% comment %} 이 부분 수정 진짜 필요 -> views를 수정해야함 -> 함수 다분화 시켜야 할듯듯 {% endcomment %}
                             {{ day }}
                         </a>
                         {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
