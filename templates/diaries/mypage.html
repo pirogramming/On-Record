@@ -264,11 +264,10 @@
 </style>
 <body>
     <header class="header-navbar">
-        <img class="navbar-logo" src="../온기록-logo.svg" alt="Logo">
-        <!--<img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo" />-->
+        <img class="navbar-logo" src="{% static 'images/온기록-logo.svg' %}" alt="Logo">
         <div class="navbar-text">
             <span>모두의 온기록</span>
-            <span>마이페이지</span>
+            <a href="{% url 'diaries:mypage' user.pk %}">마이페이지</a>
         </div>
     </header>
 
@@ -281,10 +280,16 @@
         <!-- 유저 정보 -->
         <div class="user-info">
             <div class="user-profile">
-                <div class="user_profile_img"></div>
+                <div class="user_profile_img">
+                    {% if user.profile_image.url != '' %}
+                    <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+                    {% else %}
+                    <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
+                    {% endif %}
+                </div>
                 <!-- label 안에 아이콘 추가 -->
                 <label for="profile-upload" class="edit-profile-btn">
-                    <img src="images/edit_icon.png" alt="프로필 수정 버튼">
+                    <img src="{% static 'images/edit_icon.png' %}" alt="프로필 수정 버튼">
                 </label>
                 <input type="file" id="profile-upload" class="profile-upload" accept="image/*" style="display: none;">
             </div>
@@ -303,8 +308,8 @@
             </script>
 
             <div class="user-name-container">
-                <p class="user-name" id="user-name">USER_name</p>
-                <img src="images/edit_icon.png" alt="이름 수정" class="edit-name-btn" id="edit-name-btn">
+                <p class="user-name" id="user-name">{{ user.nickname }}</p>
+                <img src="{% static 'images/edit_icon.png' %}" alt="이름 수정" class="edit-name-btn" id="edit-name-btn">
             </div>
 
             <script>
@@ -321,7 +326,7 @@
                     }
                 });
             </script>
-            <p>username@gmail.com</p>
+            <p>{{ user.email }}</p>
         </div>
 
         <div class="pet-container">
