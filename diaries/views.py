@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FriendForm, PlantForm, DiaryForm
-from .models import User, Personality, Diary
+from .models import User, Personality, Diary, Friend, Plant
 
 # 캘린더 관련
 from datetime import date
@@ -256,8 +256,29 @@ def diaries_delete(request, pk):
 def mypage_view(request, pk):
     user = User.objects.get(id=pk)
     diaries = Diary.objects.filter(user=user)
+    friends = Friend.objects.filter(user=user)
     context = {
         'user': user,
         'diaries': diaries,
+        'friends': friends,
     }
     return render(request, 'diaries/mypage.html', context)
+
+# 일기 수정
+def diaries_update(request, pk):
+    if request.method == 'GET':
+        diaries = Diary.objects.get(id=pk)
+        form = DiaryForm(instance=diaries)
+        context = {
+            'form': form,
+            'diaries': diaries,
+        }
+        return render(request, 'diaries/diaries_update.html', context)
+    else:
+        diaries = Diary.objects.get(id=pk)
+        form = DiaryForm(request.POST, request.FILES, instance=diaries)
+        if form.is_valid():
+            form.save()
+            return redirect('diaries:diaries_detail', pk)
+        else:
+            return HttpResponse('다시 시도해주세요.')

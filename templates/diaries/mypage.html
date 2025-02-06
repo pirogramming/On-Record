@@ -299,7 +299,14 @@
                 <button class="add-btn" id="add-pet-btn">추가</button>
             </div>
             
-            <div class="pet-list" id="pet-list"></div>
+            <div class="pet-list" id="pet-list">
+                <!-- 반려친구 리스트 -->
+                {% for f in friends %}
+                    <p>{{ f.name }}</p>
+                {% empty %}
+                    <p>등록된 반려친구가 없습니다.</p>
+                {% endfor %}
+            </div>
         </div>
 
         </div>
