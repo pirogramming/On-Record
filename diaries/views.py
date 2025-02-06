@@ -257,10 +257,16 @@ def mypage_view(request, pk):
     user = User.objects.get(id=pk)
     diaries = Diary.objects.filter(user=user)
     friends = Friend.objects.filter(user=user)
+    plants = Plant.objects.filter(user=user)
+
+    combined_list = list(friends) + list(plants)
+
     context = {
         'user': user,
         'diaries': diaries,
         'friends': friends,
+        'plants': plants,
+        'combined_list': combined_list,
     }
     return render(request, 'diaries/mypage.html', context)
 
