@@ -320,7 +320,6 @@ def friend_list(request):
     else:
         selected_date = None  # 날짜 정보가 없으면 None
 
-    
     user = request.user
     pets = Pet.objects.filter(user=user)
     plants = Plant.objects.filter(user=user)
@@ -330,7 +329,7 @@ def friend_list(request):
         'user': user,
         'pets': pets,
         'plants': plants,
-        'friends':friends,
+        'friends': friends,
         'selected_date': selected_date,
     }
 
