@@ -77,7 +77,7 @@ class Diary(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to="diary_images/%Y%m%d", blank=True, null=True)
     disclosure = models.BooleanField(default=True) # 공개 여부
-    date = models.DateTimeField(blank=True, null=True, default=timezone.now) # 기본 값을 현재 시간으로 설정
+    date = models.DateField(blank=True, null=True) # 기본 값을 현재 시간으로 설정
     mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
     weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
     pet = models.ForeignKey(Pet , on_delete=models.CASCADE , null=True , blank=True)

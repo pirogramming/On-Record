@@ -269,16 +269,6 @@ def detail_diaries_by_pet_date(request , pet_id , selected_date):
         }
     return render(request, 'diaries/diaries_detail.html', content)
 
-#07 마이페이지    
-def mypage(request, pk):
-    user = User.objects.get(id=pk)
-    diaries = Diary.objects.filter(user=user)
-    context = {
-        'user': user,
-        'diaries': diaries,
-    }
-    return render(request, 'diaries/mypage.html', context)
-
 #08 다이어리 삭제
 def delete_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
@@ -300,7 +290,7 @@ def main(request):
     return render(request, 'users/main.html')
 
 #마이페이지    
-def mypage_view(request, pk):
+def mypage(request, pk):
     user = User.objects.get(id=pk)
     diaries = Diary.objects.filter(user=user)
     pets = Pet.objects.filter(user=user)

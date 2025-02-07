@@ -42,8 +42,8 @@ urlpatterns = [
     #12
     path('create_diaries' , create_diaries , name = 'create_diaries'),
 
-    #13 수정 필요
-    # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
+    #13
+    path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
 ]
 
 if settings.DEBUG:
