@@ -24,16 +24,17 @@ urlpatterns = [
     #06 다이어리 상세 페이지 
     path('diaries_detail/<int:pk>', diaries_detail, name='diaries_detail'),
 
+    # 07: 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    path('friend-list/', friend_list, name='friend_list'),
 
+    path('diary_write/', diary_write, name='diary_write'),
     # path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
     # # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
-
-
     path('diaries_create', diaries_form, name='diaries_form'),
+
+
     # 일기 생성 페이지
     # 다이어리 상세 내용을 가져오는 url 라우팅
-
-    
     # 다이어리 상세 내용 불러옴
     path('mypage/<int:pk>', mypage_view, name='mypage'),
 ]

@@ -4,14 +4,13 @@ body, html {
     display: flex;  
     justify-content: center; 
     align-items: center; 
-    background: #FFFBED;
+    background: var(--background-yellow);
 }
 
 /* 슬라이더 전체 */
 .slider-container {
     position: relative;
-    width: 100%;
-    max-width: 900px;
+    max-width: 1400px;
     overflow: hidden;
     display: flex;
     justify-content: center;

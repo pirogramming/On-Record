@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FriendForm, PlantForm, DiaryForm
-from .models import User, Personality, Diary
+from .models import User, Personality, Diary, Friend
 
 # 캘린더 관련
 from datetime import date
@@ -261,3 +261,31 @@ def mypage_view(request, pk):
         'diaries': diaries,
     }
     return render(request, 'diaries/mypage.html', context)
+
+#캘린더 날짜 선택시 반려친구 리스트
+def friend_list(request):
+    # GET 요청에서 날짜 정보 가져오기
+    day = request.GET.get("day")
+    month = request.GET.get("month")
+    year = request.GET.get("year")
+
+    # 날짜가 있을 경우 YYYY-MM-DD로 변환
+    if day and month and year:
+        selected_date = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+    else:
+        selected_date = None  # 날짜 정보가 없으면 None
+
+    pets = Friend.objects.all()  # 반려동물 목록 불러오기
+    return render(request, 'diaries/friend_list.html', {'pets': pets, 'selected_date': selected_date})
+    
+
+from django.shortcuts import render, get_object_or_404
+from .models import Friend
+
+def diary_write(request):
+    friend = Friend.objects.filter(user=request.user).first()
+    
+    if not friend:
+        return render(request, 'diaries/diary-write.html', {'error': '친구 정보가 없습니다.'})
+
+    return render(request, 'diaries/diary-write.html', {'friend': friend})
