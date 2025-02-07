@@ -33,6 +33,11 @@ urlpatterns = [
     # 07: 달력에서 날짜 클릭 시 friend-list 페이지로 이동
     path('friend-list/', friend_list, name='friend_list'),
 
+    path('diary_write/', diary_write, name='diary_write'),
+
+    # path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
+    # # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
+
     #09 다이어리 수정 ( views 미구현 )
     path('update_diaries/<int:pk>', update_diaries, name='update_diaries'),
 
@@ -44,6 +49,11 @@ urlpatterns = [
 
     #13
     path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')]
+    
+    # 다이어리 상세 내용 불러옴
+    path('mypage/<int:pk>', mypage_view, name='mypage'),
+
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

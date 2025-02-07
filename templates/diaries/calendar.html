@@ -45,6 +45,7 @@
                         <a href="{% url 'diaries:friend_list' %}?day={{ day }}&month={{ month }}&year={{ year }}" class="diary-day">
                             {{ day }}
                         </a>
+                        
                         {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
                     </td>
                     {% if day|add:first_day|divisibleby:7 %}
