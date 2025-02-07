@@ -42,7 +42,7 @@
                         <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
                     {% endif %}
                     <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url "diaries:diaries_form" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
+                        <a href="{% url "diaries:create_diaries" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
 
                             {{ day }}
                         </a>

@@ -16,7 +16,7 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:diaries_update' diaries.id %}" enctype="multipart/form-data">
+          <form method="POST" action="{% url 'diaries:update_diaries' diaries.id %}" enctype="multipart/form-data">
               {% csrf_token %}
               <div style="display: flex; gap: 20px; justify-content: center;">
                   <label>날짜: </label>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                       <label>누구에게 쓰실 지.</label>
-                      {{ form.friend }}
+                      {{ form.pet }}
                   </div>
                   </div>
               </div>
