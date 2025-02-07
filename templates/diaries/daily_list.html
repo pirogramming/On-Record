@@ -9,7 +9,7 @@
         {% if item.has_diary %}
             <!-- 파란색: 다이어리 작성한 친구 -->
             <li>
-                <a href="{% url 'diaries:detail_diaries' item.friend.id %}" class="written">
+                <a href="{% url 'diaries:detail_diaries_by_friend_date' item.friend.id selected_date|date:'Ymd' %}" class="written">
                     {{ item.friend.name }} - 다이어리 있음
                 </a>
             </li>
