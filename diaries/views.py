@@ -252,6 +252,23 @@ def detail_diaries(request, pk):
         # 사용자가 다를 경우 에러 메시지 출력
         return HttpResponse('사용자가 다릅니다.')
 
+def detail_diaries_by_friend_date(request , friend_id , selected_date):
+    user = request.user
+    date_str = str(selected_date)
+    date = datetime.strptime(date_str , "%Y%m%d").date()
+    friend = Friend.objects.get(id = friend_id)
+    
+    diaries = Diary.objects.get(
+        user = user,
+        friend = friend,
+        date = date
+    )
+    content = {
+            'diaries': diaries,
+            'reply' : diaries.reply
+        }
+    return render(request, 'diaries/diaries_detail.html', content)
+
 #07 마이페이지    
 def mypage(request, pk):
     user = User.objects.get(id=pk)
