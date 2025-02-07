@@ -48,7 +48,7 @@
 .signup-title {
     font-size: 28px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     text-align: center;
     margin-top: 50px;
 }
@@ -56,7 +56,7 @@
 .signup-underline {
     width: 200px;
     height: 3px;
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     border-radius: 2px;
     opacity: 30%;
     margin: 10px auto 20px auto;
@@ -84,14 +84,14 @@
 }
 
 .signup-input:focus {
-    border: 2px solid #FFC100;
+    border: 2px solid var(--primary-yellow);
 }
 
 .signup-btn {
     width: 80%;
     max-width: 320px;
     padding: 14px;
-    background: linear-gradient(60deg, #FFE28A, #FFC100);
+    background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
     color: white;
     font-size: 18px;
@@ -102,7 +102,7 @@
 }
 
 .signup-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 .social-icons {

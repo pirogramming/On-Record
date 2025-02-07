@@ -47,7 +47,7 @@
 
 .public-btn {
   padding: 5px 20px; /* 패딩을 추가 */
-  background-color: #FFC100;
+  background-color: var(--primary-yellow);
   border: none;
   color: white;
   font-size: 16px;
@@ -56,11 +56,11 @@
 }
 
 .public-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 #date {
-  color: #FFC100;
+  color: var(--primary-yellow);
   opacity: 1;
   text-align: center;
   font-weight: normal;
@@ -133,11 +133,11 @@
 
 .bi {
   display: inline-block;
-  color: #FFC100;
+  color: var(--primary-yellow);
   font-size: 25px;
   margin: 10px;
 }
 
 .bi:hover {
-  color: #e5b700;
+  color: var(--hover-yellow);
 }

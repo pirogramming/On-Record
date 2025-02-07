@@ -1,3 +1,15 @@
+.background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/base-a.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
 /* 마이페이지 컨테이너 */
 .mypage-profile {
     max-width: none;
@@ -21,14 +33,14 @@
 .mypage-title {
     font-size: 28px;
     font-weight: bold;
-    color: #000000;
+    color: var(--text-black);
 }
 
 /* 유저 정보 */
 .user-info {
     margin: 20px 0;
     font-size: 18px;
-    color: #FFC100;
+    color: var(--primary-yellow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +53,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,6 +81,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    z-index: 10;
 }
 
 /* 유저 이름 수정 가능하도록 */
@@ -81,7 +94,7 @@
 .user-name {
     font-size: 25px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     max-width: 200px;
     text-align: center;
     border: none;
@@ -102,7 +115,7 @@
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0px 5px 20px #e5b700;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
     margin-top: 30px;
 }
 
@@ -118,12 +131,12 @@
 .friends-list-title {
     font-size: 24px;
     font-weight: bold;
-    color: #FFC100;
+    color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn {
-    background: #FFC100;
+    background: var(--primary-yellow);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -135,7 +148,7 @@
 }
 
 .add-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 .friends-list-list {

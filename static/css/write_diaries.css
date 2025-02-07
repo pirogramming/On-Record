@@ -43,7 +43,7 @@
 }
 
 #date {
-  color: #FFC100;
+  color: var(--primary-yellow);
   opacity: 1;
   text-align: center;
   font-weight: normal;
@@ -57,7 +57,7 @@ label {
 
 .public-btn {
     padding: 5px 20px; /* 패딩을 추가 */
-    background-color: #FFC100;
+    background-color: var(--primary-yellow);
     border: none;
     color: white;
     font-size: 16px;
@@ -66,7 +66,7 @@ label {
 }
 
 .public-btn:hover {
-    background: #e5b700;
+    background: var(--hover-yellow);
 }
 
 .diary-content {
@@ -86,8 +86,8 @@ label {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background: #FFFFFF;
-    box-shadow: 0 4px 50px 5px rgba(229, 188, 63, 0.8);
+    background: var(--white);
+    box-shadow: 0 4px 50px 5px var(--shadow-yellow);
     text-align: center;
 }
 
@@ -97,7 +97,7 @@ label {
 
 .image-upload label {
     cursor: pointer;
-    color: #666;
+    color: var(--dark-gray);
 }
 
 .text-input textarea {
@@ -114,7 +114,7 @@ label {
 .create-btn {
   display: block;
   padding: 5px 20px;
-  background: #FFC100;
+  background: var(--primary-yellow);
   border: none;
   color: white;
   font-size: 16px;
@@ -125,7 +125,7 @@ label {
 }
 
 .create-btn:hover {
-  background: #e5b700;
+  background: var(--hover-yellow);
 }
 
 @media (max-width: 600px) {

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/friend_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="slider-container">
+    <div class="slider">
+        {% for pet in pets %}
+        <div class="homepage-container">
+            <div class="homepage-content">
+                <div class="pet-profile">
+                    <img src="{% if pet.image %}{{ pet.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려동물 사진">
+                </div>
+                <p class="pet-name">{{ pet.name }}</p>
+                <p class="home-description">
+                    지금까지 00개의 온기록을 남기셨어요!<br>
+                    {{ pet.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
+                </p>
+                <a href="{% url 'diaries:write_diaries' %}" class="move-form-btn">
+                    {% if pet.id in diary_map %}
+                        온기록 보기
+                    {% else %}
+                        온기록 남기기
+                    {% endif %}
+                </a>           
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
