@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .utils import get_kakao_token, get_kakao_user_info
 import requests
 import environ
-from diaries.models import Friend, Plant
+from diaries.models import Pet, Plant
 env = environ.Env()
 
 def main(request):
@@ -37,11 +37,11 @@ def user_login(request):
       user = form.get_user()
       auth.login(request, user)
     
-      has_pet = Friend.objects.filter(user=user).exists()      
+      has_pet = Pet.objects.filter(user=user).exists()      
       has_plant = Plant.objects.filter(user=user).exists()
 
       if has_pet or has_plant:
-        return redirect('diaries:calendar_view')
+        return redirect('diaries:view_calendar')
       else:
         return redirect('users:main')
       

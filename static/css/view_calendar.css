@@ -60,7 +60,7 @@ td:hover {
     font-weight: bold;
     text-decoration: none;
     display: block;
-    color: black;
+    color: var(--text-black);
     margin: 10px;
 }
 

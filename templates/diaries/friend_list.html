@@ -19,7 +19,7 @@
                     지금까지 00개의 온기록을 남기셨어요!<br>
                     {{ pet.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>
-                <a href="{% url 'diaries:diary_write' %}" class="move-form-btn">
+                <a href="{% url 'diaries:write_diaries' %}" class="move-form-btn">
                     {% if pet.id in diary_map %}
                         온기록 보기
                     {% else %}
