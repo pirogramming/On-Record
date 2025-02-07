@@ -56,7 +56,7 @@
 }
 
 /* 반려동물 프로필 */
-.pet-profile, .plant-profile {
+.friend-profile {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -69,13 +69,13 @@
     margin: 0 auto 20px; /* 가로축 중앙 정렬 */
 }
 
-.pet-profile img, .plant-profile img {
+.friend-profile img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.pet-name, .plant-name {
+.friend-name{
     font-size: 20px;
     font-weight: bold;
     color: var(--primary-yellow);
