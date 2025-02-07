@@ -16,7 +16,7 @@ urlpatterns = [
     path('create_plant/', create_plant, name='create_plant'),
 
     #04 캘린더 라우팅
-    path('calendar/', calendar, name='calendar'),
+    path('view_calendar/', view_calendar, name='view_calendar'),
 
     #05 다이어리 생성 페이지
     path('create_diaries', create_diaries, name='create_diaries'),
@@ -32,6 +32,15 @@ urlpatterns = [
 
     #09 다이어리 수정 ( views 미구현 )
     path('update_diaries/<int:pk>', update_diaries, name='update_diaries'),
+
+    #10 
+    path('check_diaries_GET' , check_diaries_GET , name="check_diaries_GET"),
+
+    #11
+    path('write_diaries' , write_diaries , name="write_diaries"),
+
+    #12
+    path('create_diaries' , create_diaries , name = 'create_diaries')
 ]
 
 if settings.DEBUG:

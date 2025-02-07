@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FriendForm, PlantForm, DiaryForm
-from .models import User, Personality, Diary
+from .models import User, Personality, Diary,Friend
 
 # 캘린더 관련
 from datetime import date
@@ -45,7 +45,7 @@ def create_friend(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('diaries:calendar')
+            return redirect('diaries:view_calendar')
         else:
             print("Personality 테이블 내용: ", Personality.objects.all()) # 테이블 내용 출력
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
@@ -54,7 +54,7 @@ def create_friend(request):
             context = {
               'form': form,
             }
-            return render(request, 'diaries/calendar.html', context) 
+            return render(request, 'diaries/view_calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
         form = FriendForm()
@@ -104,7 +104,7 @@ def create_plant(request):
         return render(request, 'diaries/plant_create.html', context)
 
 #04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
-def calendar(request, year = None, month = None):
+def view_calendar(request, year = None, month = None):
     today = date.today()
 
     # URL에서 연도와 월을 받아오지 않았을 때, 오늘 날짜로 설정
@@ -140,60 +140,103 @@ def calendar(request, year = None, month = None):
     }
     return render(request, "diaries/calendar.html", context)
 
-#05 다이어리 생성
-def create_diaries(request):
-    today = timezone.now().date().day
+#05 
+from datetime import date
+from django.shortcuts import render
+from .models import Friend, Diary
+# 05 -1 : 캘린더에서 날짜를 선택했을 경우
+def check_diaries_GET(request):
+    request_day = int(request.GET.get('day'))
+    request_month = int(request.GET.get('month'))
+    request_year = int(request.GET.get('year'))
+    selected_date = date(request_year, request_month, request_day)
+
+    # 현재 사용자에게 연결된 모든 친구 목록 가져오기
+    friends = Friend.objects.filter(user=request.user)
+
+    # 각 친구에 대해 다이어리 작성 여부 체크
+    friends_with_status = []
+    for friend in friends:
+        has_diary = check_already_written(selected_date, request.user, friend)
+    
+        friends_with_status.append({
+            'friend': friend,
+            'has_diary': has_diary,
+        })
+
+    return render(request, 'diaries/daily_list.html', {
+        'selected_date': selected_date,
+        'friends_with_status': friends_with_status,
+    })
+
+from django.core.exceptions import ObjectDoesNotExist  # 예외 처리용
+#05-2 중복 검사
+def check_already_written(date , user ,friend):
+    return Diary.objects.filter(
+            date=date,
+            user=user,
+            friend = friend
+        ).exists()
+
+from datetime import date
+from django.shortcuts import render
+from .forms import DiaryForm
+from datetime import date
+from django.shortcuts import render
+from .forms import DiaryForm
+#다이어리 쓰는 화면 렌더링
+def write_diaries(request):
+    form = DiaryForm()
+
+    # GET 파라미터에서 날짜 정보 가져오기
+    day = int(request.GET.get('day'))
+    month = int(request.GET.get('month'))
+    year = int(request.GET.get('year'))
+
+    # 날짜 객체 생성
+    selected_date = date(year, month, day)
+
+    content = {
+        'form': form,
+        'selected_date': selected_date
+    }
+    return render(request, 'diaries/diary-write.html', content)
+
+# 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
+def create_diaries(request): #다이어리를 db에 생성하는 함수post 요청으로 day,month,year를 넘겨줘야함, 현재는 생성 시간은 지금 시간으로로
     if request.method == 'POST':
-        # 새로운 Diary 객체 생성 및 폼 데이터 적용
-        diaries = Diary()
-        form = DiaryForm(request.POST, request.FILES, instance=diaries)
-        date_str = request.POST.get('date')
-        selected_date = datetime.strptime(date_str , '%Y-%m-%d')
+        
+        post_data = request.POST.copy()
+        post_data['date'] = datetime(
+            year=int(request.GET.get('year')),
+            month=int(request.GET.get('month')),
+            day=int(request.GET.get('day'))
+        ).date()
+
+        form = DiaryForm(post_data, request.FILES)
 
         if form.is_valid():
             diaries = form.save(commit=False)
             diaries.user = request.user  # 현재 사용자를 연결
-            diaries.date = datetime(
-                year = selected_date.year,
-                month = selected_date.month,
-                day = selected_date.day,
-                hour =12,
-                minute = 0,
-                second = 0 
-            )
+            
             diaries.save()  # 새로운 Diary 저장
 
             # 저장된 Diary의 pk로 Reply 생성
             create_response(diaries.pk)
+
             return redirect('diaries:detail_diaries', pk=diaries.pk)
-        else:
-            print("Diary 테이블 내용: ", Diary.objects.all())
 
-    else:        
-        request_day = int(request.GET.get('day'))
-        request_month = int(request.GET.get('month'))
-        request_year = int(request.GET.get('year'))
+        else: 
+            print(form.errors)
+            return redirect('diaries:view_calendar')
 
-        if request_day != today:     
-            request_time = time(12,0,0)
-        else :
-            request_time = timezone.now().time()
-        try:
-            
-            diary = Diary.objects.get(
-                date__day = request_day,
-                date__month = request_month,
-                date__year = request_year,
-                date__time = request_time
-                ) #오늘 작성된 일기를 가져옴
-            return redirect("diaries:detail_diaries", pk=diary.pk)
-        except Diary.DoesNotExist:
-            form = DiaryForm()
-            content = {
-                'form': form,
-            }
 
-            return render(request, 'diaries/diary-write.html', content)
+
+
+
+
+
+
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):

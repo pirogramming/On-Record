@@ -139,8 +139,9 @@
           </div>
       </div>
       <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:create_diaries' %}" enctype="multipart/form-data">
+          <form method="POST" action="{% url 'diaries:create_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
               {% csrf_token %}
+            
               <div style="display: flex; gap: 20px; justify-content: center;">
                   <div class="form-group">
                       <label>제목</label>
