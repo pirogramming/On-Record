@@ -62,6 +62,9 @@ def create_response(pk):
 나이 : "{current_animal.age}"
 성별 : "{current_animal.gender}"
 성격 : "{personalities}"
+좋아하는 것 : "{current_animal.pet_fav}"
+싫어하는 것 : "{current_animal.pet_hate}"
+특징 : "{current_animal.pet_sig}"
 
 ##- 다음의 일기 내용을 보고 반려동물의 입장에서 위의 조건을 만족하도록 답장을 작성.
 """},

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<body>
+    <div class="background-a"></div>
     <div class="mypage-profile">
         <!-- 제목 -->
         <div class="mypage-header">
@@ -58,63 +58,29 @@
                     } else {
                         nameField.contentEditable = "true";
                         nameField.focus(); // 자동으로 커서 이동
-                        nameField.style.border = "1px solid #FFC100";  // 수정 모드 시 테두리 추가
+                        nameField.style.border = "1px solid var(--primary-yellow)";  // 수정 모드 시 테두리 추가
                     }
                 });
             </script>
             <p>{{ user.email }}</p>
         </div>
 
-        <div class="pet-container">
-            <div class="pet-management-header">
-                <h2 class="pet-title">반려친구 관리</h2>
-                <button class="add-btn" id="add-pet-btn">추가</button>
+        <div class="friends-list">
+            <div class="friends-list-management-header">
+                <h2 class="friends-list-title">반려친구 관리</h2>
+                <button class="add-btn" id="add-friends-list-btn">
+                    <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
+                </button>
             </div>
             
-            <div class="pet-list" id="pet-list">
+            <div class="friends-list-list" id="friends-list-list">
                 <!-- 반려친구 리스트 -->
                 {% for f in friends %}
-                    <p>{{ f.name }}</p>
+                    <p><a href="{% url 'diaries:pet_or_plant' %}">{{ f.name }}</a></p> <!-- url 수정하기 -->
                 {% empty %}
                     <p>등록된 반려친구가 없습니다.</p>
                 {% endfor %}
             </div>
         </div>
-
-        </div>
-        
-        <script>
-            let petCount = 0; // 반려친구 숫자 카운트
-            const petList = document.getElementById("pet-list");
-            const addPetBtn = document.getElementById("add-pet-btn");
-        
-            addPetBtn.addEventListener("click", function () {
-                petCount++;
-        
-                // 새로운 반려친구 요소 생성
-                const petBox = document.createElement("div");
-                petBox.classList.add("pet-box");
-        
-                petBox.innerHTML = `
-                    <div class="pet-info">
-                        <img src="images/pet_icon${(petCount % 3) + 1}.png" alt="반려친구 아이콘" class="pet-icon">
-                        <span class="pet-name">반려친구 ${petCount}</span>
-                    </div>
-                    <div class="pet-actions">
-                        <button class="edit-btn" onclick="location.href='edit_pet.html?id=${petCount}'">수정</button>
-                        <button class="delete-btn">삭제</button>
-                    </div>
-                `;
-        
-                // 삭제 버튼 기능 추가
-                petBox.querySelector(".delete-btn").addEventListener("click", function () {
-                    petBox.remove();
-                });
-        
-                // 리스트에 추가
-                petList.appendChild(petBox);
-            });
-        </script>
     </div>
-</body>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+<link rel="stylesheet" href="{% static 'css/view_calendar.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -42,10 +42,10 @@
                         <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
                     {% endif %}
                     <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url "diaries:diaries_form" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
-
+                        <a href="{% url 'diaries:friend_list' %}?day={{ day }}&month={{ month }}&year={{ year }}" class="diary-day">
                             {{ day }}
                         </a>
+                        
                         {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
                     </td>
                     {% if day|add:first_day|divisibleby:7 %}
