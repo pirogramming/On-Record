@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/diary_view.css' %}">
+<link rel="stylesheet" href="{% static 'css/diary_write.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -12,42 +12,48 @@
           <div class="today-diary">오늘의 일기</div>
           <div class="write-header-l">
               <h1 id="date"></h1>
-              <button class="open-btn" onclick="toggleContent()">전체공개</button>
+              <button class="public-btn">전체공개</button>
           </div>
       </div>
       <div class="write-header-a">
-        <form method="POST" action="{% if diaries and diaries.pk %}{% url 'diaries:diaries_detail' pk=diaries.pk %}{% else %}#{% endif %}" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div style="display: flex;     justify-content: space-between;">
-              <div class="form-group">
-                  <label>제목</label>
-                  {{ form.title }}
-              </div>
-              <div class="write-header-a-l">
+          <form method="POST" action="{% url 'diaries:update_diaries' diaries.id %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div style="display: flex; gap: 20px; justify-content: center;">
+                  <label>날짜: </label>
+                  {{ form.date }}
                   <div class="form-group">
-                      <label>날씨</label>
-                      {{ form.weather }}
+                      <label>제목</label>
+                      {{ form.title }}
                   </div>
-                  <div class="form-group">
-                      <label>기분</label>
-                      {{ form.mood }}
+                  <div class="write-header-a-l">
+                    <div class="form-group">
+                        <label>날씨</label>
+                        {{ form.weather }}
+                    </div>
+                    <div class="form-group">
+                        <label>기분</label>
+                        {{ form.mood }}
+                    </div>
+                    <div class="form-group">
+                      <label>누구에게 쓰실 지.</label>
+                      {{ form.pet }}
+                  </div>
                   </div>
               </div>
-          </div>
-          <div class="diary-content">
-              <div class="image-upload">
-                  <label for="id_image">이미지 업로드</label>
-                  {{ form.image }}
-              </div>
-              <div class="text-input">
-                  <label for="id_content">내용</label>
-                  {{ form.content }}
-              </div>
-          </div>
-          <button type="submit" class="create-btn">완료</button>
-        </form>   
       </div>
+      <div class="diary-content">
+          <div class="image-upload">
+              <label for="id_image">이미지 업로드</label>
+              {{ form.image }}
+          </div>
+          <div class="text-input">
+              <label for="id_content">내용</label>
+              {{ form.content }}
+          </div>
+      </div>
+      <button type="submit" class="create-btn">수정 완료</button>
     </div>
+  </form>
   
         <script>
                 function formatDate() {

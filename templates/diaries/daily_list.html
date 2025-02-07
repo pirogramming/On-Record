@@ -1,0 +1,25 @@
+<style>
+    .written { color: blue; text-decoration: none; }
+    .not-written { color: red; text-decoration: none; }
+    li { margin-bottom: 10px; }
+</style>
+<h2>{{ selected_date }}의 친구 다이어리 목록</h2>
+<ul>
+    {% for item in friends_with_status %}
+        {% if item.has_diary %}
+            <!-- 파란색: 다이어리 작성한 친구 -->
+            <li>
+                <a href="{% url 'diaries:detail_diaries_by_friend_date' item.friend.id selected_date|date:'Ymd' %}" class="written">
+                    {{ item.friend.name }} - 다이어리 있음
+                </a>
+            </li>
+        {% else %}
+            <!-- 빨간색: 다이어리 작성 안 한 친구 -->
+            <li>
+                <a href="{% url 'diaries:write_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" class="not-written">
+                    {{ item.friend.name }} - 다이어리 없음
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
