@@ -96,7 +96,7 @@
 }
 
 /* 반려친구 관리 제목 및 추가 버튼 */
-.combined-list {
+.friends-list {
     width: 100%;
     max-width: 1200px;
     background: rgba(255, 255, 255, 0.9);
@@ -106,7 +106,7 @@
     margin-top: 30px;
 }
 
-.combined-list-management-header {
+.friends-list-management-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +115,7 @@
     gap: 500px;
 }
 
-.combined-list-title {
+.friends-list-title {
     font-size: 24px;
     font-weight: bold;
     color: #FFC100;
@@ -138,7 +138,7 @@
     background: #e5b700;
 }
 
-.combined-list-list {
+.friends-list-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -148,80 +148,10 @@
     border-radius: 20px;
 }
 
-.pet-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 12px 15px;
-    border-radius: 30px;
-    box-shadow: 0px 2px 5px #e5b700;
-}
-
-.pet-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.pet-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.pet-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* 버튼 영역 */
-.pet-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.edit-btn, .delete-btn {
-    border: none;
-    padding: 8px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.edit-btn {
-    background: #FFEBB0;
-    color: #444;
-}
-
-.edit-btn:hover {
-    background: #FFD75C;
-}
-
-.delete-btn {
-    background: #FF6B6B;
-    color: white;
-}
-
-.delete-btn:hover {
-    background: #E54E4E;
-}
-
 /* 반응형 */
 @media (max-width: 600px) {
     .mypage-profile {
         width: 95%;
         padding: 30px;
-    }
-    .pet-box {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .pet-actions {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
     }
 }
