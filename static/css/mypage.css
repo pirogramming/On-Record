@@ -81,6 +81,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    z-index: 10;
 }
 
 /* 유저 이름 수정 가능하도록 */
