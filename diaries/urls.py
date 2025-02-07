@@ -29,6 +29,9 @@ urlpatterns = [
 
     #08 다이어리 삭제 페이지
     path('delete_diaries/<int:pk>', delete_diaries, name='delete_diaries'),
+  
+    # 07: 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    path('friend-list/', friend_list, name='friend_list'),
 
     #09 다이어리 수정 ( views 미구현 )
     path('update_diaries/<int:pk>', update_diaries, name='update_diaries'),
@@ -39,12 +42,8 @@ urlpatterns = [
     #11
     path('write_diaries' , write_diaries , name="write_diaries"),
 
-    #12
-    path('create_diaries' , create_diaries , name = 'create_diaries'),
-
     #13
-    path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
-]
+    path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

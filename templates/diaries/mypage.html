@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<body>
+    <div class="background-a"></div>
     <div class="mypage-profile">
         <!-- 제목 -->
         <div class="mypage-header">
@@ -58,7 +58,7 @@
                     } else {
                         nameField.contentEditable = "true";
                         nameField.focus(); // 자동으로 커서 이동
-                        nameField.style.border = "1px solid #FFC100";  // 수정 모드 시 테두리 추가
+                        nameField.style.border = "1px solid var(--primary-yellow)";  // 수정 모드 시 테두리 추가
                     }
                 });
             </script>
@@ -83,8 +83,5 @@
                 {% endfor %}
             </div>
         </div>
-
-        </div>
     </div>
-</body>
 {% endblock %}
