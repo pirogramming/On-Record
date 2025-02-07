@@ -1,148 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/plant_create.css' %}">
+{% endblock %}
+
 {% block content %}
-<style>
-/* 배경 이미지 설정 */
-.background-b {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("{% static 'images/base-b.png' %}");
-  background-size: cover;
-  background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-}
-.form-container {
-    max-width: 800px;
-    margin: 20px;
-    padding: 50px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(30px);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.form-title {
-  color: rgba(0,0,0,1);
-  opacity: 1;
-  text-align: center;
-  font-weight: normal;
-  font-size: 28px;
-}
-.form-body {
-  display: flex; 
-  flex-direction: row; /* 왼쪽 오른쪽 배치 */
-  width: 100%; /* 너비를 100%로 */
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 20px;
-}
-
-.image-upload {
-  position: relative; /* 수정된 부분 */
-  width: 200px;
-  height: 200px;
-  flex-shrink: 0;
-  margin-right: 20px;
-}
-.image-upload input {
-  display: none;
-}
-.image-upload label {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: #d9d9d9;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    overflow: hidden;
-}
-#pet-preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: none; /* 기본적으로 숨김 */
-}
-.form-fields {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-left: 20px;
-}
-label {
-    font-weight: bold;
-    margin: 5px;
-}
-input, select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#personality-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center; /* 수정된 부분 */
-  width: 100%
-}
-.personality-btn {
-    padding: 5px 10px;
-    border: 1px solid #666;
-    background: white;
-    border-radius: 15px;
-    cursor: pointer;
-}
-.personality-btn.selected {
-    background: #ffcc00;
-}
-.submit-btn {
-    display: block;
-    padding: 5px 20px;
-    background: linear-gradient(60deg, #FFE28A, #FFC100);
-    border: none;
-    color: white;
-    font-size: 16px;
-    border-radius: 30px;
-    cursor: pointer;
-    margin: auto;
-    margin-top: 20px;
-}
-.submit-btn:hover {
-    background: #e5b700;
-}
-/* 추가된 스타일 */
-.centered-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-</style>
-
     <div class="background-b"></div>
-    <div class="form-container">
+    <div class="plant-form-container">
         <h1 class="form-title"><strong>{{ user.nickname }}님의 반려친구</strong>에 대해 알려주세요!</h1>
-        <form method="POST" action="{% url 'diaries:plant_create' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'diaries:create_plant' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
                 <div class="image-upload">

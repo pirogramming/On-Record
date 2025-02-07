@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FriendForm, PlantForm, DiaryForm
-from .models import User, Personality, Diary,Friend
+from .forms import PetForm, PlantForm, DiaryForm
+from .models import User, Personality, Diary, Pet, Plant
 
 # 캘린더 관련
 from datetime import date
@@ -19,7 +19,7 @@ def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
 
 #02 반려동물 생성하는 view
-def create_friend(request):
+def create_pet(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
         print("🔹 원본 POST 데이터:", request.POST)
@@ -36,11 +36,11 @@ def create_friend(request):
         post_data.setlist("personal", selected_personalities) # Django 폼이 올바르게 인식하도록 수정
 
         # 수정된 post_data를 사용해 폼 생성
-        form = FriendForm(post_data, request.FILES)
+        form = PetForm(post_data, request.FILES)
         if form.is_valid():
-            friend = form.save(commit=False)
-            friend.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
-            friend.save()
+            pet = form.save(commit=False)
+            pet.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
+            pet.save()
             
             # ManyToManyField 자동 저장
             form.save_m2m()
@@ -57,13 +57,13 @@ def create_friend(request):
             return render(request, 'diaries/view_calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
-        form = FriendForm()
+        form = PetForm()
 
         context = {
           'form': form,
         }
 
-        return render(request, 'diaries/friend_create.html', context)
+        return render(request, 'diaries/create_pet.html', context)
 
 #03 반려식물 생성하는 view
 def create_plant(request):
@@ -101,7 +101,7 @@ def create_plant(request):
           'form': form,
         }
 
-        return render(request, 'diaries/plant_create.html', context)
+        return render(request, 'diaries/create_plant.html', context)
 
 #04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
 def view_calendar(request, year = None, month = None):
@@ -143,7 +143,7 @@ def view_calendar(request, year = None, month = None):
 #05 
 from datetime import date
 from django.shortcuts import render
-from .models import Friend, Diary
+from .models import Pet, Diary
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
 def check_diaries_GET(request):
     request_day = int(request.GET.get('day'))
@@ -152,30 +152,30 @@ def check_diaries_GET(request):
     selected_date = date(request_year, request_month, request_day)
 
     # 현재 사용자에게 연결된 모든 친구 목록 가져오기
-    friends = Friend.objects.filter(user=request.user)
+    pets = Pet.objects.filter(user=request.user)
 
     # 각 친구에 대해 다이어리 작성 여부 체크
-    friends_with_status = []
-    for friend in friends:
-        has_diary = check_already_written(selected_date, request.user, friend)
+    pets_with_status = []
+    for pet in pets:
+        has_diary = check_already_written(selected_date, request.user, pet)
     
-        friends_with_status.append({
-            'friend': friend,
+        pets_with_status.append({
+            'pet': pet,
             'has_diary': has_diary,
         })
 
     return render(request, 'diaries/daily_list.html', {
         'selected_date': selected_date,
-        'friends_with_status': friends_with_status,
+        'pets_with_status': pets_with_status,
     })
 
 from django.core.exceptions import ObjectDoesNotExist  # 예외 처리용
 #05-2 중복 검사
-def check_already_written(date , user ,friend):
+def check_already_written(date , user , pet):
     return Diary.objects.filter(
             date=date,
             user=user,
-            friend = friend
+            pet = pet,
         ).exists()
 
 from datetime import date
@@ -200,7 +200,7 @@ def write_diaries(request):
         'form': form,
         'selected_date': selected_date
     }
-    return render(request, 'diaries/diary-write.html', content)
+    return render(request, 'diaries/write_diaries.html', content)
 
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수post 요청으로 day,month,year를 넘겨줘야함, 현재는 생성 시간은 지금 시간으로로
@@ -252,15 +252,15 @@ def detail_diaries(request, pk):
         # 사용자가 다를 경우 에러 메시지 출력
         return HttpResponse('사용자가 다릅니다.')
 
-def detail_diaries_by_friend_date(request , friend_id , selected_date):
+def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
     date_str = str(selected_date)
     date = datetime.strptime(date_str , "%Y%m%d").date()
-    friend = Friend.objects.get(id = friend_id)
+    pet = Pet.objects.get(id = pet_id)
     
     diaries = Diary.objects.get(
         user = user,
-        friend = friend,
+        pet = pet,
         date = date
     )
     content = {
@@ -268,16 +268,6 @@ def detail_diaries_by_friend_date(request , friend_id , selected_date):
             'reply' : diaries.reply
         }
     return render(request, 'diaries/diaries_detail.html', content)
-
-#07 마이페이지    
-def mypage(request, pk):
-    user = User.objects.get(id=pk)
-    diaries = Diary.objects.filter(user=user)
-    context = {
-        'user': user,
-        'diaries': diaries,
-    }
-    return render(request, 'diaries/mypage.html', context)
 
 #08 다이어리 삭제
 def delete_diaries(request, pk):
@@ -296,30 +286,23 @@ def delete_diaries(request, pk):
 def update_diaries(request, pk):
     pass
 
-
-
-#????????
-def diary_view(request, year, month, day):
-    selected_date = date(year, month, day)
-    today = date.today()
-
-    # 미래 날짜 클릭 시 메시지 출력
-    if selected_date > today:
-        return HttpResponse("아직 오지 않은 날입니다.")  
-
-    # 해당 날짜의 일기 검색
-    diary = Diary.objects.filter(date__date=selected_date).first()
-
-    #캘린더 로직 이상함
-    if selected_date == today:
-        if diary: #오늘이고 다이어리가 존재한다면 -> 상세페이지로 
-            return redirect("diaries:diaries_detail", pk=diary.pk)
-        else: #오늘인데 다이어리가 존재하지 않는다면 -> 다이어리리 작성 페이지로
-            return redirect("diaries:")  
-    elif diary:
-        return redirect("diaries:diaries_detail", pk=diary.pk)  # 해당 날짜 일기 O -> 상세 페이지
-    else:
-        return render(request, "diaries/diary_write.html", {"selected_date": selected_date})  # 일기가 없을 경우 diary_view.html 보여줌
-
 def main(request):
     return render(request, 'users/main.html')
+
+#마이페이지    
+def mypage(request, pk):
+    user = User.objects.get(id=pk)
+    diaries = Diary.objects.filter(user=user)
+    pets = Pet.objects.filter(user=user)
+    plants = Plant.objects.filter(user=user)
+
+    combined_list = list(pets) + list(plants)
+
+    context = {
+        'user': user,
+        'diaries': diaries,
+        'pets': pets,
+        'plants': plants,
+        'combined_list': combined_list,
+    }
+    return render(request, 'diaries/mypage.html', context)
