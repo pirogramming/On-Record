@@ -1,62 +1,69 @@
-body, html {
+/* 배경 스타일 */
+.background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: flex;  
-    justify-content: center; 
-    align-items: center; 
-    background: var(--background-yellow);
+    background-image: url("/static/images/base-a.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
 }
 
-/* 슬라이더 전체 */
+/* 슬라이더 컨테이너 */
 .slider-container {
     position: relative;
-    max-width: 1400px;
+    width: 100%;
+    max-width: 1000px; /* 최대 너비 조정 */
     overflow: hidden;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-/* 가로 스크롤 가능한 카드 리스트 */
+/* 슬라이더 */
 .slider {
     display: flex;
-    gap: 20px;
+    gap: 15px; /* 카드 간격 조정 */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    align-items: center;
     padding: 20px 0;
     cursor: grab;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 /* 개별 카드 */
 .homepage-container {
-    flex: 0 0 500px;
+    flex: 0 0 300px; /* 카드 너비 줄이기 */
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+    box-shadow: 0px 4px 15px rgba(230, 190, 90, 0.6);
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* 내부 요소를 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
     scroll-snap-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease, z-index 0.4s ease;
+    z-index: 1;
 }
 
-.homepage-container:hover {
-    transform: scale(1.03);
-}
-
-.homepage-content {
-    text-align: center;
-    margin-top: 20px;
+/* 현재 선택된 카드 강조 */
+.homepage-container.active {
+    transform: scale(1.05);
+    z-index: 100;
+    box-shadow: 0px 6px 25px rgba(230, 190, 90, 1);
 }
 
 /* 반려동물 프로필 */
 .pet-profile {
-    width: 150px;
-    height: 150px;
+    width: 120px; /* 크기 줄이기 */
+    height: 120px;
     border-radius: 50%;
     background-color: var(--primary-yellow);
     display: flex;
@@ -64,25 +71,40 @@ body, html {
     align-items: center;
     position: relative;
     overflow: hidden;
-    margin: 0 auto 20px; /* 가로축 중앙 정렬 */
+    margin: 0 auto 15px; /* 간격 조정 */
 }
 
+/* 반려동물 이미지 */
 .pet-profile img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* 반려동물 이름 */
 .pet-name {
-    font-size: 20px;
+    font-size: 22px; /* 크기 키우기 */
     font-weight: bold;
-    color: var(--primary-yellow);
-    margin-bottom: 20px;
+    color: var(--primary-yellow); /* 노란색 변경 */
+    margin-bottom: 10px;
 }
 
-.home-description {
-    font-size: 16px;
-    line-height: 2;
-    color: var(--text-black);
-    margin-bottom: 20px;
+/* 온기록 남기기 버튼 */
+.move-form-btn {
+    display: inline-block;
+    background-color: var(--primary-yellow);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
+    margin-top: 15px;
+}
+
+.move-form-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
 }

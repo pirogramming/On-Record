@@ -30,7 +30,7 @@ urlpatterns = [
     #08 다이어리 삭제 페이지
     path('delete_diaries/<int:pk>', delete_diaries, name='delete_diaries'),
 
-    path('diary_write/', diary_write, name='diary_write'),
+    # path('diary_write/', diary_write, name='diary_write'),
 
     # path('calendar/<int:year>/<int:month>', calendar_view, name='calendar_view'),
     # # 날짜와 월을 받았을 때 calender를 업데이트하는 url 라우팅
