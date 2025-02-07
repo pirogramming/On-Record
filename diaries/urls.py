@@ -10,7 +10,7 @@ urlpatterns = [
     path('pet_or_plant', pet_or_plant, name='pet_or_plant'), 
 
     #02 01에서 동물을 누르는 액션
-    path('friend_create/', friend_create, name='friend_create'),
+    path('pet_create/', create_pet, name='pet_create'),
 
     #03 01에서 식물을 누르는 액션    
     path('plant_create/', plant_create, name='plant_create'),

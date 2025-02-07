@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FriendForm, PlantForm, DiaryForm
-from .models import User, Personality, Diary, Friend, Plant
+from .forms import PetForm, PlantForm, DiaryForm
+from .models import User, Personality, Diary, Pet, Plant
 
 # 캘린더 관련
 from datetime import date
@@ -19,7 +19,7 @@ def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
 
 #02 반려동물 생성하는 view
-def friend_create(request):
+def create_pet(request):
     if request.method == 'POST':
         # request가 POST일 때, 이미지와 텍스트를 저장
         print("🔹 원본 POST 데이터:", request.POST)
@@ -36,11 +36,11 @@ def friend_create(request):
         post_data.setlist("personal", selected_personalities) # Django 폼이 올바르게 인식하도록 수정
 
         # 수정된 post_data를 사용해 폼 생성
-        form = FriendForm(post_data, request.FILES)
+        form = PetForm(post_data, request.FILES)
         if form.is_valid():
-            friend = form.save(commit=False)
-            friend.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
-            friend.save()
+            pet = form.save(commit=False)
+            pet.user = request.user # 현재 로그인한 사용자를 user 필드에 저장
+            pet.save()
             
             # ManyToManyField 자동 저장
             form.save_m2m()
@@ -57,13 +57,13 @@ def friend_create(request):
             return render(request, 'diaries/calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
-        form = FriendForm()
+        form = PetForm()
 
         context = {
           'form': form,
         }
 
-        return render(request, 'diaries/friend_create.html', context)
+        return render(request, 'diaries/pet_create.html', context)
 
 #03 반려식물 생성하는 view
 def plant_create(request):
@@ -256,15 +256,15 @@ def diaries_delete(request, pk):
 def mypage_view(request, pk):
     user = User.objects.get(id=pk)
     diaries = Diary.objects.filter(user=user)
-    friends = Friend.objects.filter(user=user)
+    pets = Pet.objects.filter(user=user)
     plants = Plant.objects.filter(user=user)
 
-    combined_list = list(friends) + list(plants)
+    combined_list = list(pets) + list(plants)
 
     context = {
         'user': user,
         'diaries': diaries,
-        'friends': friends,
+        'pets': pets,
         'plants': plants,
         'combined_list': combined_list,
     }
