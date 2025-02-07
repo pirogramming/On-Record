@@ -322,10 +322,15 @@ def friend_list(request):
 
     user = request.user
     pets = Pet.objects.filter(user=user)
+    plants = Plant.objects.filter(user=user)
+
+    friends = list(pets) + list(plants)
 
     content = {
         'user': user,
         'pets': pets,
+        'plants': plants,
+        'friends': friends,
         'selected_date': selected_date,
     }
 
