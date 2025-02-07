@@ -10,7 +10,7 @@ from replies.views import create_response
 from django.http import HttpResponse
 
 
-from datetime import datetime, time
+from datetime import datetime
 from django.utils import timezone
 
 
@@ -84,7 +84,7 @@ def create_plant(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('diaries:calendar')
+            return redirect('diaries:view_calendar')
         else:
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
             print("POST 데이터:", request.POST)  # ✅ POST 데이터 확인
@@ -92,7 +92,7 @@ def create_plant(request):
             context = {
               'form': form,
             }
-            return render(request, 'diaries/calendar.html', context) 
+            return render(request, 'diaries/view_calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
         form = PlantForm()
@@ -138,12 +138,13 @@ def view_calendar(request, year = None, month = None):
         "days": days,
         "diary_map": diary_map,
     }
-    return render(request, "diaries/calendar.html", context)
+    return render(request, "diaries/view_calendar.html", context)
 
 #05 
 from datetime import date
 from django.shortcuts import render
 from .models import Pet, Diary
+
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
 def check_diaries_GET(request):
     request_day = int(request.GET.get('day'))
@@ -170,6 +171,7 @@ def check_diaries_GET(request):
     })
 
 from django.core.exceptions import ObjectDoesNotExist  # 예외 처리용
+
 #05-2 중복 검사
 def check_already_written(date , user , pet):
     return Diary.objects.filter(
@@ -184,6 +186,7 @@ from .forms import DiaryForm
 from datetime import date
 from django.shortcuts import render
 from .forms import DiaryForm
+
 #다이어리 쓰는 화면 렌더링
 def write_diaries(request):
     form = DiaryForm()
@@ -229,14 +232,6 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수post 요�
         else: 
             print(form.errors)
             return redirect('diaries:view_calendar')
-
-
-
-
-
-
-
-
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
@@ -296,14 +291,14 @@ def mypage(request, pk):
     pets = Pet.objects.filter(user=user)
     plants = Plant.objects.filter(user=user)
 
-    combined_list = list(pets) + list(plants)
+    friends = list(pets) + list(plants)
 
     context = {
         'user': user,
         'diaries': diaries,
         'pets': pets,
         'plants': plants,
-        'combined_list': combined_list,
+        'friends': friends,
     }
     return render(request, 'diaries/mypage.html', context)
 
@@ -320,5 +315,5 @@ def friend_list(request):
     else:
         selected_date = None  # 날짜 정보가 없으면 None
 
-    pets = Friend.objects.all()  # 반려동물 목록 불러오기
+    pets = Pet.objects.all()  # 반려동물 목록 불러오기
     return render(request, 'diaries/friend_list.html', {'pets': pets, 'selected_date': selected_date})

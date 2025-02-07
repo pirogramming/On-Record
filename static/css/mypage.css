@@ -33,7 +33,7 @@
 .mypage-title {
     font-size: 28px;
     font-weight: bold;
-    color: #000000;
+    color: var(--text-black);
 }
 
 /* 유저 정보 */

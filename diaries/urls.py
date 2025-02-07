@@ -29,9 +29,6 @@ urlpatterns = [
 
     #08 다이어리 삭제 페이지
     path('delete_diaries/<int:pk>', delete_diaries, name='delete_diaries'),
-  
-    # 07: 달력에서 날짜 클릭 시 friend-list 페이지로 이동
-    path('friend-list/', friend_list, name='friend_list'),
 
     path('diary_write/', diary_write, name='diary_write'),
 
@@ -47,12 +44,13 @@ urlpatterns = [
     #11
     path('write_diaries' , write_diaries , name="write_diaries"),
 
-    #13
-    path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')]
-    
-    # 다이어리 상세 내용 불러옴
-    path('mypage/<int:pk>', mypage_view, name='mypage'),
+    #12
+    path('create_diaries' , create_diaries , name = 'create_diaries'),
 
+    #13 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    path('friend_list/', friend_list, name='friend_list'),
+
+    # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
 ]
 
 if settings.DEBUG:
