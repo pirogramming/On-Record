@@ -108,7 +108,7 @@
 }
 
 /* 반려친구 관리 제목 및 추가 버튼 */
-.pet-container {
+.combined-list {
     width: 100%;
     max-width: 1200px;
     background: rgba(255, 255, 255, 0.9);
@@ -118,7 +118,7 @@
     margin-top: 30px;
 }
 
-.pet-management-header {
+.combined-list-management-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -127,7 +127,7 @@
     gap: 500px;
 }
 
-.pet-title {
+.combined-list-title {
     font-size: 24px;
     font-weight: bold;
     color: var(--primary-yellow);
@@ -150,7 +150,7 @@
     background: var(--hover-yellow);
 }
 
-.pet-list {
+.combined-list-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
