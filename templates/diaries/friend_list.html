@@ -6,30 +6,75 @@
 {% endblock %}
 
 {% block content %}
+<div class="background-a"></div>
 <div class="slider-container">
+    <!-- 왼쪽 버튼 -->
+    <button class="slider-btn left-btn" onclick="moveSlide(-1)">&#10094;</button>
+
     <div class="slider">
-        {% for pet in pets %}
+        {% for friend in friends %}
         <div class="homepage-container">
             <div class="homepage-content">
                 <div class="pet-profile">
-                    <img src="{% if pet.image %}{{ pet.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려동물 사진">
+                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구구 사진">
                 </div>
-                <p class="pet-name">{{ pet.name }}</p>
+                <p class="pet-name">{{ friend.name }}</p>
                 <p class="home-description">
                     지금까지 00개의 온기록을 남기셨어요!<br>
-                    {{ pet.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
-                </p>
-                <a href="{% url 'diaries:write_diaries' %}" class="move-form-btn">
-                    {% if pet.id in diary_map %}
-                        온기록 보기
+                    {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
+                </p>         
+                    {% if friend.id in diary_map %}
+                        <a href="{% url 'diaries:view_calendar' %}" class="move-form-btn">
+                            온기록 보기
+                        </a>
                     {% else %}
-                        온기록 남기기
-                    {% endif %}
-                </a>           
+                        <a href="{% url 'diaries:view_calendar' %}" class="move-form-btn">
+                            온기록 남기기
+                        </a>
+                    {% endif %}   
             </div>
         </div>
         {% endfor %}
     </div>
+
+    <!-- 오른쪽 버튼 -->
+    <button class="slider-btn right-btn" onclick="moveSlide(1)">&#10095;</button>
 </div>
+
+<!-- JavaScript 추가 -->
+<script>
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.homepage-container');
+    const slider = document.querySelector('.slider');
+
+    function moveSlide(direction) {
+        const totalCards = cards.length;
+
+        // 현재 선택된 카드 스타일 초기화
+        cards[currentIndex].classList.remove('active');
+
+        // 방향에 따라 인덱스 변경
+        currentIndex += direction;
+        if (currentIndex < 0) {
+            currentIndex = totalCards - 1;
+        } else if (currentIndex >= totalCards) {
+            currentIndex = 0;
+        }
+
+        // 새로운 카드에 효과 추가
+        cards[currentIndex].classList.add('active');
+
+        // 스크롤 애니메이션 적용 (중앙 정렬)
+        const offset = cards[currentIndex].offsetLeft - (slider.clientWidth - cards[currentIndex].clientWidth) / 2;
+        slider.scrollTo({ left: offset, behavior: 'smooth' });
+    }
+
+    // 첫 번째 카드 기본 활성화
+    document.addEventListener('DOMContentLoaded', () => {
+        if (cards.length > 0) {
+            cards[0].classList.add('active');
+        }
+    });
+</script>
 
 {% endblock %}
