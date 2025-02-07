@@ -10,11 +10,15 @@
 
         .signup-container {
             position: relative;
-            width: 700px;
-            height: 500px;
+            width: 1171.8px;
+            height: 639px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-image: url("{% static 'images/container_background.png' %}");
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
         }
 
         .signup-bg {
@@ -31,6 +35,7 @@
             text-align: center;
             width: 100%;
             padding: 20px;
+            margin-left: -500px; /* 왼쪽으로 이동 */
         }
 
         .signup-header {
@@ -45,7 +50,7 @@
         .signup-logo {
             position: absolute;
             top: 20px;
-            left: 20px;
+            left: 70px;
             width: 50px;
             height: auto;
         }
@@ -130,8 +135,9 @@
         }
 
         .social-btn img {
-            width: 100%;
-            height: 100%;
+            width: 50%;
+            height: 50%;
+            border-radius: 2px;
         }
 
         .kakao {
@@ -176,21 +182,21 @@
             </form>
     
             <div class="social-icons">
-                <div class="kakao_login">
-                    <button type="button" onclick="location.href='{% provider_login_url 'kakao' %}'">
-                        <img class="kakao" src="{% static 'images/kakao_icon.png' %}" alt="카카오 로그인">
+                <div class="naver_login">
+                    <button type="button" class="social-btn naver" onclick="location.href='{% provider_login_url 'naver' %}'">
+                        <img src="{% static 'images/naver.png' %}" alt="네이버 로그인">
                     </button>
                 </div>
-                
-                <div class="naver_login">
-                    <button type="button" onclick="location.href='{% provider_login_url 'naver' %}'">
-                        <img class="naver" src="{% static 'images/btnG_아이콘원형.png' %}" alt="네이버 로그인">
+
+                <div class="kakao_login">
+                    <button type="button" class="social-btn kakao" onclick="location.href='{% provider_login_url 'kakao' %}'">
+                        <img src="{% static 'images/kakao.png' %}" alt="카카오 로그인">
                     </button>
                 </div>
             
                 <div class="google_login">
-                    <button type="button" class="social-btn google">
-                        <img src="{% static 'images/google_icon.png' %}" alt="구글 로그인" />
+                    <button type="button" class="social-btn google" onclick="location.href='{% provider_login_url 'google' %}'">
+                        <img src="{% static 'images/google.png' %}" alt="구글 로그인">
                     </button>
                 </div>
             </div>

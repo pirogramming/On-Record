@@ -1,53 +1,154 @@
-<!-- 연·월 선택 드롭다운 -->
-<select id="year-select">
-    {% for y in year_range %}
-        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
-    {% endfor %}
-</select>
-<select id="month-select">
-    {% for m in month_range %}
-        <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
-    {% endfor %}
-</select>
+{% extends 'base.html' %}
+{% load static %}
 
-<!-- 캘린더 UI -->
-<table>
-    <tr>
-        <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-    </tr>
-    <tr>
-        {% for day in days %}
-            {% if day == 1 %}
-                <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
-            {% endif %}
-            <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                <a href="{% url 'diaries:diary_view' year=year month=month day=day %}">
-                    {{ day }}
-                </a>
-                {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
-            </td>
-            {% if day|add:first_day|divisibleby:7 %}
-                </tr><tr> {% comment %} 한 줄 끝나면 줄바꿈 {% endcomment %}
-            {% endif %}
-        {% endfor %}
-    </tr>
-</table>
-
-<!-- 오늘 날짜 스타일 -->
+{% block content %}
 <style>
-.today { background-color: yellow; font-weight: bold; }
+    /* 배경 이미지 설정 */
+    .background-a {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/base-a.png' %}");
+        background-size: cover;
+        background-position: center;
+        z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+    }
+    .calender-container{
+        margin-top: 50px;
+    }
+    /* 드롭다운 스타일 */
+    select {
+        padding: 8px 16px;
+        margin: 0 30px;
+        font-size: 30px;
+        font-weight: bold;
+        border: none;  /* 테두리 제거 */
+        background-color: transparent;  /* 배경색 제거 */
+        cursor: pointer;
+    }
+
+    select:focus {
+        outline: none;
+    }
+
+    /* 캘린더 테이블 스타일 */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 40px;
+        text-align: center;
+        font-size: 18px;
+        width: 14.28%; /* 7일이 균등하게 나누어짐 */
+    }
+
+    td {
+        transition: background-color 0.3s ease;
+    }
+
+    td:hover {
+        box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.);
+        border-radius: 50%;
+    }
+
+    .today {
+        background-color: #FFC100;
+        font-weight: bold;
+        border-radius: 50%;
+    }
+
+    .diary-day {
+        font-weight: bold;
+        text-decoration: none;
+        display: block;
+        color: black;
+    }
+
+    .diary-day:hover {
+        text-decoration: underline;
+    }
+
+    .has-diary {
+        color: #ff6347; /* 일기가 있는 날짜는 빨간색 */
+    }
+
+    /* 달력의 요일 스타일 */
+    .day-name {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+    }
 </style>
+
+<div class="background-a"></div>
+
+<div class="calender-container">
+    <!-- 연·월 선택 드롭다운 -->
+    <div class="dropdowns">
+        <select id="year-select">
+            {% for y in year_range %}
+                <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select>
+        <select id="month-select">
+            {% for m in month_range %}
+                <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- 캘린더 UI -->
+    <table>
+        <thead>
+            <tr>
+                <th class="day-name">일</th>
+                <th class="day-name">월</th>
+                <th class="day-name">화</th>
+                <th class="day-name">수</th>
+                <th class="day-name">목</th>
+                <th class="day-name">금</th>
+                <th class="day-name">토</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for day in days %}
+                    {% if day == 1 %}
+                        <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                    {% endif %}
+                    <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
+                        <a href="{% url "diaries:check_diaries_GET" %}?day={{day}}&month={{month}}&year={{year}}" class="diary-day">
+                                        {% comment %} 이 부분 수정 진짜 필요 -> views를 수정해야함 -> 함수 다분화 시켜야 할듯듯 {% endcomment %}
+                            {{ day }}
+                        </a>
+                        {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
+                    </td>
+                    {% if day|add:first_day|divisibleby:7 %}
+                        </tr><tr> {% comment %} 한 줄 끝나면 줄바꿈 {% endcomment %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        <tbody>
+    </table>
+</div>
 
 <!-- 연·월 변경 시 GET 요청 -->
 <script>
-document.getElementById("year-select").addEventListener("change", function() {
-    var year = this.value;
-    var month = document.getElementById("month-select").value;
-    window.location.href = `/calendar/${year}/${month}/`;
-});
-document.getElementById("month-select").addEventListener("change", function() {
-    var year = document.getElementById("year-select").value;
-    var month = this.value;
-    window.location.href = `/calendar/${year}/${month}/`;
-});
-</script>
+    document.getElementById("year-select").addEventListener("change", function() {
+        var year = this.value;
+        var month = document.getElementById("month-select").value;
+        window.location.href = `/calendar/${year}/${month}/`;
+    });
+    document.getElementById("month-select").addEventListener("change", function() {
+        var year = document.getElementById("year-select").value;
+        var month = this.value;
+        window.location.href = `/calendar/${year}/${month}/`;
+    });
+    </script>
+
+{% endblock %}
