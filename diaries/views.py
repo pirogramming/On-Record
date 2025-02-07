@@ -315,5 +315,7 @@ def friend_list(request):
     else:
         selected_date = None  # 날짜 정보가 없으면 None
 
-    pets = Pet.objects.all()  # 반려동물 목록 불러오기
-    return render(request, 'diaries/friend_list.html', {'pets': pets, 'selected_date': selected_date})
+    pets = Pet.objects.all() 
+    plants = Plant.objects.all()
+
+    return render(request, 'diaries/friend_list.html', {'pets': pets, 'plants': plants,  'selected_date': selected_date})
