@@ -7,31 +7,31 @@
 
 {% block content %}
 <div class="background-a"></div>
-
-<!-- 슬라이더 컨테이너 -->
 <div class="slider-container">
     <!-- 왼쪽 버튼 -->
     <button class="slider-btn left-btn" onclick="moveSlide(-1)">&#10094;</button>
 
     <div class="slider">
-        {% for pet in pets %}
+        {% for friend in friends %}
         <div class="homepage-container">
             <div class="homepage-content">
                 <div class="pet-profile">
-                    <img src="{% if pet.image %}{{ pet.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려동물 사진">
+                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구구 사진">
                 </div>
-                <p class="pet-name">{{ pet.name }}</p>
+                <p class="pet-name">{{ friend.name }}</p>
                 <p class="home-description">
                     지금까지 00개의 온기록을 남기셨어요!<br>
-                    {{ pet.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
-                </p>
-                <a href="{% url 'diaries:write_diaries' %}" class="move-form-btn">
-                    {% if pet.id in diary_map %}
-                        온기록 보기
+                    {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
+                </p>         
+                    {% if friend.id in diary_map %}
+                        <a href="{% url 'diaries:view_calendar' %}" class="move-form-btn">
+                            온기록 보기
+                        </a>
                     {% else %}
-                        온기록 남기기
-                    {% endif %}
-                </a>           
+                        <a href="{% url 'diaries:view_calendar' %}" class="move-form-btn">
+                            온기록 남기기
+                        </a>
+                    {% endif %}   
             </div>
         </div>
         {% endfor %}
