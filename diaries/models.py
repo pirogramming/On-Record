@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+from users.models import User   
 
 
 class Personality(models.Model):
@@ -34,9 +34,9 @@ class Pet(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
     personal = models.ManyToManyField(Personality, blank=True) # 여러 개의 성격 선택 가능
     image = models.ImageField(upload_to="pet_images/%Y%m%d", blank=True, null=True)
-    pet_fav = models.CharField(max_length=50, default="당근 간식을 가장 좋아해요")
-    pet_hate = models.CharField(max_length=50, default="낯선 사람을 정말 싫어해요")
-    pet_sig = models.CharField(max_length=50, default="눈이 정말 똘망똘망해요")
+    pet_fav = models.CharField(max_length=50, blank=False, null=False)
+    pet_hate = models.CharField(max_length=50, blank=False, null=False)
+    pet_sig = models.CharField(max_length=50, blank=False, null=False)
 
     def __str__(self):
         return self.name

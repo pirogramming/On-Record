@@ -13,9 +13,13 @@ class PetForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = ['name', 'kind', 'gender', 'age', 'personal', 'image', 'pet_fav', 'pet_hate', 'pet_sig']
+        widgets = {
+            'pet_fav': forms.TextInput(attrs={'placeholder': '당근 간식을 가장 좋아해요'}),
+            'pet_hate': forms.TextInput(attrs={'placeholder': '낯선 사람을 정말 싫어해요'}),
+            'pet_sig': forms.TextInput(attrs={'placeholder': '눈이 정말 똘망똘망해요'}),
+        }
 
 class PlantForm(forms.ModelForm):
-
     class Meta:
         model = Plant
         fields = ['kind', 'name', 'age', 'image', 'plant_con', 'plant_sig', 'plant_adv']
