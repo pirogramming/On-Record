@@ -17,9 +17,11 @@ body, html {
 /* 슬라이더 전체 */
 .slider-container {
     position: relative;
-    width: 90%;
+    width: 100%;
     max-width: 900px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 /* 가로 스크롤 가능한 카드 리스트 */
@@ -31,10 +33,7 @@ body, html {
     scroll-behavior: smooth;
     padding: 20px 0;
     cursor: grab;
-}
-
-.slider::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨김 */
+    justify-content: center;
 }
 
 /* 개별 카드 */

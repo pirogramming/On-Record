@@ -1,12 +1,16 @@
 :root {
   --primary-yellow: #FFC100; 
-  --light-yellow: #FFE28A; 
+  --light-yellow: #FFE28A;
+  --background-yellow: #FFFBED;
   --hover-yellow: #e5b700; 
   --white: #FFFFFF;
   --light-gray: #d9d9d9;
   --dark-gray: #666; 
   --shadow-yellow: rgba(229, 188, 63, 0.8);
   --red:#ff6347;
+  --diary-one: #FFF0C4;
+  --diary-half: #FEE8A5;
+  --diary-full:  #FFE083;
 }
 
 * {
