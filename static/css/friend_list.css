@@ -1,25 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', sans-serif;
-}
-
 body, html {
     width: 100%;
     height: 100%;
     display: flex;  
     justify-content: center; 
     align-items: center; 
-    background: #FFFBED;
+    background: var(--background-yellow);
 }
 
 /* 슬라이더 전체 */
 .slider-container {
     position: relative;
-    width: 90%;
-    max-width: 900px;
+    max-width: 1400px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 /* 가로 스크롤 가능한 카드 리스트 */
@@ -31,10 +25,7 @@ body, html {
     scroll-behavior: smooth;
     padding: 20px 0;
     cursor: grab;
-}
-
-.slider::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨김 */
+    justify-content: center;
 }
 
 /* 개별 카드 */
