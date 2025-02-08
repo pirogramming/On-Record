@@ -153,7 +153,7 @@ def view_calendar(request, year = None, month = None):
         "year": year,
         "month": month,
         "today": today,
-        "first_day": first_day,
+        "first_day": first_day + 1,
         "days": days,
         "diary_map": diary_map, # 날짜별 작성된 일기 개수
         "total_friends": total_friends, # 반려친구 총 수
