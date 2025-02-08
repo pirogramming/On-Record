@@ -81,12 +81,12 @@
     document.getElementById("year-select").addEventListener("change", function() {
         var year = this.value;
         var month = document.getElementById("month-select").value;
-        window.location.href = `/calendar/${year}/${month}/`;
+        window.location.href = `/diaries/view_calendar/${year}/${month}/`;
     });
     document.getElementById("month-select").addEventListener("change", function() {
         var year = document.getElementById("year-select").value;
         var month = this.value;
-        window.location.href = `/calendar/${year}/${month}/`;
+        window.location.href = `/diaries/view_calendar/${year}/${month}/`;
     });
     </script>
 
