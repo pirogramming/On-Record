@@ -9,3 +9,9 @@ class SignupForm(UserCreationForm):
         
         # 회원가입 시 입력받을 필드
         fields = ['nickname', 'email', 'password1', 'password2']
+
+# 프로필 수정 폼
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['nickname', 'profile_image']

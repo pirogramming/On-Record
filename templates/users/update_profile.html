@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post" action={% url "users:update_profile" %} enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>프로필 수정</h2>
+        <p>{{ form.nickname }}</p>
+        <p>{{ form.profile_image }}</p>
+        <button type="submit">수정 완료</button>
+    </form>
+{% endblock %}
