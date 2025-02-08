@@ -6,11 +6,33 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post" action={% url "users:update_profile" %} enctype="multipart/form-data">
+    <form method="post" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>프로필 수정</h2>
         <p>{{ form.nickname }}</p>
-        <p>{{ form.profile_image }}</p>
+
+        <label for="profile_image">
+            <img id="profile_preview" src="{{ user.profile_image.url }}" alt="미리보기">
+        </label>
+        <input type="file" id="profile_image" name="profile_image" accept="image/*">
+        
         <button type="submit">수정 완료</button>
     </form>
+
+    <script>
+        document.getElementById("profile_image").addEventListener("change", function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+    
+            reader.onload = function() {
+                var imgElement = document.getElementById("profile_preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
+            };
+    
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
+            }
+        });
+    </script>
 {% endblock %}
