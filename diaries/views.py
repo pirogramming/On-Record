@@ -209,7 +209,7 @@ from django.shortcuts import render
 from .forms import DiaryForm
 
 #다이어리 쓰는 화면 렌더링
-def write_diaries(request):
+def render_diaries(request):
     form = DiaryForm()
 
     # GET 파라미터에서 날짜 정보 가져오기

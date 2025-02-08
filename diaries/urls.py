@@ -40,7 +40,7 @@ urlpatterns = [
     path('check_diaries_GET' , check_diaries_GET , name="check_diaries_GET"),
 
     #11
-    path('write_diaries' , write_diaries , name="write_diaries"),
+    path('render_diaries' , render_diaries , name="render_diaries"),
 
     #12
     path('create_diaries' , create_diaries , name = 'create_diaries'),

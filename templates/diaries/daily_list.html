@@ -16,7 +16,7 @@
         {% else %}
             <!-- 빨간색: 다이어리 작성 안 한 친구 -->
             <li>
-                <a href="{% url 'diaries:write_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" class="not-written">
+                <a href="{% url 'diaries:render_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" class="not-written">
                     {{ item.friend.name }} - 다이어리 없음
                 </a>
             </li>
