@@ -10,7 +10,7 @@ from replies.views import create_response
 from django.http import HttpResponse
 
 
-from datetime import datetime, time
+from datetime import datetime
 from django.utils import timezone
 
 
@@ -84,7 +84,7 @@ def create_plant(request):
             # ManyToManyField 자동 저장
             form.save_m2m()
 
-            return redirect('diaries:calendar')
+            return redirect('diaries:view_calendar')
         else:
             print("폼 에러:", form.errors)  # ✅ 폼 오류 확인
             print("POST 데이터:", request.POST)  # ✅ POST 데이터 확인
@@ -92,7 +92,7 @@ def create_plant(request):
             context = {
               'form': form,
             }
-            return render(request, 'diaries/calendar.html', context) 
+            return render(request, 'diaries/view_calendar.html', context) 
     else:
         # GET 요청일 때 작성 form을 출력
         form = PlantForm()
@@ -103,6 +103,8 @@ def create_plant(request):
 
         return render(request, 'diaries/create_plant.html', context)
 
+from collections import defaultdict
+
 #04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
 def view_calendar(request, year = None, month = None):
     today = date.today()
@@ -112,21 +114,38 @@ def view_calendar(request, year = None, month = None):
     month_range = list(range(1, 13))
 
     year = int(year) if year else today.year
-    
     month = int(month) if month else today.month
 
     # 해당 월의 1일과 마지막 날짜 가져오기
     first_day, num_days = calendar.monthrange(year, month)
     first_date = date(year, month, 1)
     last_date = date(year, month, num_days)
+
     # 해당 월의 일자를 리스트 형태로 클라이언트에게 전달
     days = list(range(1, num_days + 1))
 
-    # 해당 월의 모든 일기 조회(first_date와 last_date 사이의 정보를 가지고 오도록 구현)
-    diaries = Diary.objects.filter(date__range = (first_date, last_date))
+    user = request.user
+
+    if user.is_authenticated:
+        # 반려 동물과 반려 식물 개수를 합산
+        total_friends = Pet.objects.filter(user=user).count() + Plant.objects.filter(user=user).count()
+        # 로그인한 유저의 Diary만 가져옴
+        diaries = Diary.objects.filter(user=user, date__range=(first_date, last_date))
+    else:
+        total_friends = 0
+        diaries = Diary.objects.none()
 
     # 날짜별 일기 매핑
-    diary_map = {diary.date.day: diary for diary in diaries}
+    diary_map = defaultdict(int)
+
+    for diary in diaries:
+        if diary.date: # 날짜가 있는 경우
+            diary_map[diary.date.day] += 1 # 해당 날짜에 쓴 일기 개수 증가
+
+    diary_ratios = {}
+    if total_friends > 0:
+        for day, count in diary_map.items():
+            diary_ratios[day] = count / total_friends
 
     context = {
         "year_range": year_range,
@@ -134,16 +153,19 @@ def view_calendar(request, year = None, month = None):
         "year": year,
         "month": month,
         "today": today,
-        "first_day": first_day,
+        "first_day": first_day + 1,
         "days": days,
-        "diary_map": diary_map,
+        "diary_map": diary_map, # 날짜별 작성된 일기 개수
+        "total_friends": total_friends, # 반려친구 총 수
+        "diary_ratios": diary_ratios, # 날짜별 작성된 일기 비율
     }
-    return render(request, "diaries/calendar.html", context)
+    return render(request, "diaries/view_calendar.html", context)
 
 #05 
 from datetime import date
 from django.shortcuts import render
 from .models import Pet, Diary
+
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
 def check_diaries_GET(request):
     request_day = int(request.GET.get('day'))
@@ -170,6 +192,7 @@ def check_diaries_GET(request):
     })
 
 from django.core.exceptions import ObjectDoesNotExist  # 예외 처리용
+
 #05-2 중복 검사
 def check_already_written(date , user , pet):
     return Diary.objects.filter(
@@ -184,8 +207,9 @@ from .forms import DiaryForm
 from datetime import date
 from django.shortcuts import render
 from .forms import DiaryForm
+
 #다이어리 쓰는 화면 렌더링
-def write_diaries(request):
+def render_diaries(request):
     form = DiaryForm()
 
     # GET 파라미터에서 날짜 정보 가져오기
@@ -229,14 +253,6 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수post 요�
         else: 
             print(form.errors)
             return redirect('diaries:view_calendar')
-
-
-
-
-
-
-
-
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
@@ -296,14 +312,14 @@ def mypage(request, pk):
     pets = Pet.objects.filter(user=user)
     plants = Plant.objects.filter(user=user)
 
-    combined_list = list(pets) + list(plants)
+    friends = list(pets) + list(plants)
 
     context = {
         'user': user,
         'diaries': diaries,
         'pets': pets,
         'plants': plants,
-        'combined_list': combined_list,
+        'friends': friends,
     }
     return render(request, 'diaries/mypage.html', context)
 
@@ -320,5 +336,18 @@ def friend_list(request):
     else:
         selected_date = None  # 날짜 정보가 없으면 None
 
-    pets = Friend.objects.all()  # 반려동물 목록 불러오기
-    return render(request, 'diaries/friend_list.html', {'pets': pets, 'selected_date': selected_date})
+    user = request.user
+    pets = Pet.objects.filter(user=user)
+    plants = Plant.objects.filter(user=user)
+
+    friends = list(pets) + list(plants)
+
+    content = {
+        'user': user,
+        'pets': pets,
+        'plants': plants,
+        'friends': friends,
+        'selected_date': selected_date,
+    }
+
+    return render(request, 'diaries/friend_list.html', content)
