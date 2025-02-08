@@ -17,8 +17,8 @@
         <div class="user-info">
             <div class="user-profile">
                 <div class="user_profile_img">
-                    {% if user.profile_image.url != '' %}
-                    <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+                    {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
                     {% else %}
                     <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
                     {% endif %}

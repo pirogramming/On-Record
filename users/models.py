@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager # CustomUserManager import
+from django.conf import settings
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=20, unique=True)
-    profile_image = models.ImageField(upload_to="profile_images/%Y%m%d", blank=True, null=True)
+    profile_image = models.ImageField(upload_to="profile_images/%Y%m%d", blank=True, null=True, default="images/base-user-image.png")
 
     # id를 이메일로 사용하기 위한 설정
     username = None # 기존 username 필드 제거
