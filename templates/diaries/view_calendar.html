@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% load static %}
 
 {% block style %}
@@ -36,24 +37,42 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr>  {# 첫 번째 행 시작 #}
                 {% for day in days %}
                     {% if day == 1 %}
                         <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
                     {% endif %}
-                    <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url 'diaries:friend_list' %}?day={{ day }}&month={{ month }}&year={{ year }}" class="diary-day">
-                            {{ day }}
-                        </a>
-                        
-                        {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
-                    </td>
+
+                    {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
+                        {% if total_friends > 0 %}
+                            {% if diary_count == 0 %}
+                                <td> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
+                            {% elif diary_ratios|get_item:day == 1 %}
+                                <td style="background-color: var(--diary-full); border-radius: 50%;"> {# 모든 반려친구에게 일기를 쓴 경우 #}
+                            {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
+                                <td style="background-color: var(--diary-one); border-radius: 50%;">
+                            {% elif diary_ratios|get_item:day < 1 %}
+                                <td style="background-color: var(--diary-half); border-radius: 50%;">
+                            {% else %}
+                                <td> {# 그 외에는 기본 색상 #}
+                            {% endif %}
+                        {% else %}
+                            <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
+                        {% endif %}
+                    
+                            <a href="{% url 'diaries:friend_list' %}?day={{ day }}&month={{ month }}&year={{ year }}" class="diary-day">
+                                {{ day }}
+                            </a>
+                        </td>
+                    
+                    {% endwith %}
+                
                     {% if day|add:first_day|divisibleby:7 %}
-                        </tr><tr> {% comment %} 한 줄 끝나면 줄바꿈 {% endcomment %}
+                        </tr><tr>  {# 7일마다 줄 바꿈 #}
                     {% endif %}
                 {% endfor %}
             </tr>
-        <tbody>
+        </tbody>
     </table>
 </div>
 

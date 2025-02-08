@@ -103,6 +103,8 @@ def create_plant(request):
 
         return render(request, 'diaries/create_plant.html', context)
 
+from collections import defaultdict
+
 #04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
 def view_calendar(request, year = None, month = None):
     today = date.today()
@@ -112,26 +114,38 @@ def view_calendar(request, year = None, month = None):
     month_range = list(range(1, 13))
 
     year = int(year) if year else today.year
-    
     month = int(month) if month else today.month
 
     # 해당 월의 1일과 마지막 날짜 가져오기
     first_day, num_days = calendar.monthrange(year, month)
     first_date = date(year, month, 1)
     last_date = date(year, month, num_days)
+
     # 해당 월의 일자를 리스트 형태로 클라이언트에게 전달
     days = list(range(1, num_days + 1))
 
     user = request.user
 
     if user.is_authenticated:
+        # 반려 동물과 반려 식물 개수를 합산
+        total_friends = Pet.objects.filter(user=user).count() + Plant.objects.filter(user=user).count()
         # 로그인한 유저의 Diary만 가져옴
         diaries = Diary.objects.filter(user=user, date__range=(first_date, last_date))
     else:
+        total_friends = 0
         diaries = Diary.objects.none()
 
     # 날짜별 일기 매핑
-    diary_map = {diary.date.day: diary for diary in diaries}
+    diary_map = defaultdict(int)
+
+    for diary in diaries:
+        if diary.date: # 날짜가 있는 경우
+            diary_map[diary.date.day] += 1 # 해당 날짜에 쓴 일기 개수 증가
+
+    diary_ratios = {}
+    if total_friends > 0:
+        for day, count in diary_map.items():
+            diary_ratios[day] = count / total_friends
 
     context = {
         "year_range": year_range,
@@ -141,7 +155,9 @@ def view_calendar(request, year = None, month = None):
         "today": today,
         "first_day": first_day,
         "days": days,
-        "diary_map": diary_map,
+        "diary_map": diary_map, # 날짜별 작성된 일기 개수
+        "total_friends": total_friends, # 반려친구 총 수
+        "diary_ratios": diary_ratios, # 날짜별 작성된 일기 비율
     }
     return render(request, "diaries/view_calendar.html", context)
 
