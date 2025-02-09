@@ -40,7 +40,9 @@
             <tr>  {# 첫 번째 행 시작 #}
                 {% for day in days %}
                     {% if day == 1 %}
-                        <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                        {% if first_day != 7 %}
+                            <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                        {% endif %}
                     {% endif %}
 
                     {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
