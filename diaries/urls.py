@@ -42,10 +42,7 @@ urlpatterns = [
     #11
     path('render_diaries' , render_diaries , name="render_diaries"),
 
-    #12
-    path('create_diaries' , create_diaries , name = 'create_diaries'),
-
-    #13 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    #12 달력에서 날짜 클릭 시 friend-list 페이지로 이동
     path('friend_list/', friend_list, name='friend_list'),
 
     # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')

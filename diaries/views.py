@@ -161,11 +161,6 @@ def view_calendar(request, year = None, month = None):
     }
     return render(request, "diaries/view_calendar.html", context)
 
-#05 
-from datetime import date
-from django.shortcuts import render
-from .models import Pet, Diary
-
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
 def check_diaries_GET(request):
     request_day = int(request.GET.get('day'))
@@ -201,12 +196,9 @@ def check_already_written(date , user , pet):
             pet = pet,
         ).exists()
 
-from datetime import date
 from django.shortcuts import render
 from .forms import DiaryForm
 from datetime import date
-from django.shortcuts import render
-from .forms import DiaryForm
 
 #다이어리 쓰는 화면 렌더링
 def render_diaries(request):
@@ -221,37 +213,42 @@ def render_diaries(request):
 
     content = {
         'form': form,
-        'selected_date': selected_date
+        'selected_date': selected_date,
     }
     return render(request, 'diaries/write_diaries.html', content)
 
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
-def create_diaries(request): #다이어리를 db에 생성하는 함수post 요청으로 day,month,year를 넘겨줘야함, 현재는 생성 시간은 지금 시간으로로
+def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
     if request.method == 'POST':
-        
-        post_data = request.POST.copy()
-        post_data['date'] = datetime(
-            year=int(request.GET.get('year')),
-            month=int(request.GET.get('month')),
-            day=int(request.GET.get('day'))
-        ).date()
+        try:
+            post_data = request.POST.copy()
+            post_data['date'] = datetime(
+                year=int(request.POST.get('year')),
+                month=int(request.POST.get('month')),
+                day=int(request.POST.get('day'))
+            ).date()
 
-        form = DiaryForm(post_data, request.FILES)
+            form = DiaryForm(post_data, request.FILES)
 
-        if form.is_valid():
-            diaries = form.save(commit=False)
-            diaries.user = request.user  # 현재 사용자를 연결
+            if form.is_valid():
+                diaries = form.save(commit=False)
+                diaries.user = request.user # 현재 사용자 연결
+                diaries.save() # 새로운 Diary 저장
             
-            diaries.save()  # 새로운 Diary 저장
+                # 저장된 Diary의 pk로 Reply 생성
+                create_response(diaries.pk)
 
-            # 저장된 Diary의 pk로 Reply 생성
-            create_response(diaries.pk)
-
-            return redirect('diaries:detail_diaries', pk=diaries.pk)
-
-        else: 
-            print(form.errors)
+                return redirect('diaries:detail_diaries', pk=diaries.pk)
+            else:
+                print(form.errors)
+                return redirect('diaries:view_calendar')
+        except (ValueError, TypeError) as e:
+            print(f"Error parsing date: {e}")
             return redirect('diaries:view_calendar')
+    
+    # GET 요청일 때
+    form = DiaryForm()
+    return render(request, 'diaries/write_diaries.html', {'form': form})
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):

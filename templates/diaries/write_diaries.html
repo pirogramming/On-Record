@@ -9,7 +9,7 @@
     <div class="background-a"></div>
     <div class="write-container">
         <!-- form을 여기서 시작 -->
-        <form method="POST" action="{% url 'diaries:write_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'diaries:create_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="write-header">
                 <div class="today-diary">오늘의 일기</div>
@@ -59,7 +59,6 @@
                     {{ form.content }}
                 </div>
             </div>
-            <a href="{% url 'diaries:diaries_detail' %}" class="move-form-btn">
             <button type="submit" class="create-btn">완료</button>
         </form>
     </div>
