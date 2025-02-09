@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+<link rel="stylesheet" href="{% static 'css/mypage.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
@@ -18,20 +18,29 @@
             <div class="user-profile">
                 <div class="user_profile_img">
                     {% if user.profile_image.url != '' %}
-                    <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+                    <img src="{{ user.profile_image.url }}" alt="프로필 사진">
                     {% else %}
-                    <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
+                    <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
                     {% endif %}
                 </div>
+                <!-- 프로필 수정 버튼 -->
+                <label for="profile-upload" class="edit-profile-btn">
+                    <img src="{% static 'images/edit_icon.png' %}" alt="프로필 수정">
+                </label>
                 <input type="file" id="profile-upload" class="profile-upload" accept="image/*" style="display: none;">
             </div>
-            <p class="user-name">{{ user.nickname }}</p>
+
+            <div class="user-name-container">
+                <p class="user-name" id="user-name">{{ user.nickname }}</p>
+                <img src="{% static 'images/edit_icon.png' %}" alt="이름 수정" class="edit-name-btn" id="edit-name-btn">
+            </div>
             <p>{{ user.email }}</p>
             <button class="add-btn" id="edit-profile-btn">
                 <a href="{% url 'users:render_profile' user.pk %}">마이프로필 수정</a>
             </button>
         </div>
 
+        <!-- 반려친구 리스트 -->
         <div class="friends-list">
             <div class="friends-list-management-header">
                 <h2 class="friends-list-title">반려친구 관리</h2>
@@ -39,13 +48,20 @@
                     <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
                 </button>
             </div>
-            
+
             <div class="friends-list-list" id="friends-list-list">
-                <!-- 반려친구 리스트 -->
                 {% for f in friends %}
-                    <p><a href="{% url 'diaries:pet_or_plant' %}">{{ f.name }}</a></p> <!-- url 수정하기 -->
+                <div class="friend-item" id="friend-{{ f.id }}">
+                    <div class="friend-info">
+                        <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="edit-btn" onclick="editFriend({{ f.id }})">수정</button>
+                        <button class="delete-btn" onclick="deleteFriend({{ f.id }})">삭제</button>
+                    </div>
+                </div>
                 {% empty %}
-                    <p>등록된 반려친구가 없습니다.</p>
+                <p class="no-friends">등록된 반려친구가 없습니다.</p>
                 {% endfor %}
             </div>
         </div>
@@ -63,17 +79,31 @@
             }
         });
 
-        document.getElementById("edit-name-btn").addEventListener("click", function() {
-            const nameField = document.getElementById("user-name");
+        function editFriend(friendId) {
+            window.location.href = `/diaries/edit_pet/${friendId}/`;  // 수정 페이지로 이동
+        }
 
-            if (nameField.contentEditable === "true") {
-                nameField.contentEditable = "false";
-                nameField.style.border = "none";  // 수정 모드 해제 시 테두리 제거
-            } else {
-                nameField.contentEditable = "true";
-                nameField.focus(); // 자동으로 커서 이동
-                nameField.style.border = "1px solid var(--primary-yellow)";  // 수정 모드 시 테두리 추가
+        function deleteFriend(friendId) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                fetch(`/diaries/delete_pet/${friendId}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken()
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById(`friend-${friendId}`).remove();
+                    } else {
+                        alert("삭제 실패");
+                    }
+                });
             }
-        });
+        }
+
+        function getCSRFToken() {
+            return document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1];
+        }
     </script>
 {% endblock %}
