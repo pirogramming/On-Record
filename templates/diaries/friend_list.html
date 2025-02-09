@@ -25,11 +25,11 @@
                     {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>         
                     {% if friend.id in diary_map %}
-                        <a href="{% url 'diaries:detail_diaries' %}" class="move-form-btn">
+                        <a href="{% url 'diaries:diaries_detail' %}" class="move-form-btn">
                             온기록 보기
                         </a>
                     {% else %}
-                        <a href="{% url 'diaries:create_diaries' %}" class="move-form-btn">
+                        <a href="{% url 'diaries:write_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}" class="move-form-btn">
                             온기록 남기기
                         </a>
                     {% endif %}   

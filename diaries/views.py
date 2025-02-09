@@ -201,7 +201,6 @@ def write_diaries(request):
     month = int(request.GET.get('month'))
     year = int(request.GET.get('year'))
 
-    # 날짜 객체 생성
     selected_date = date(year, month, day)
 
     content = {
