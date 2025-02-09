@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseForbidden
 from .forms import PetForm, PlantForm, DiaryForm
 from .models import User, Personality, Diary, Pet, Plant
 
@@ -219,11 +220,11 @@ def render_diaries(request):
 
     selected_date = date(year, month, day)
 
-    content = {
+    context = {
         'form': form,
         'selected_date': selected_date
     }
-    return render(request, 'diaries/write_diaries.html', content)
+    return render(request, 'diaries/write_diaries.html', context)
 
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수post 요청으로 day,month,year를 넘겨줘야함, 현재는 생성 시간은 지금 시간으로로
@@ -258,11 +259,11 @@ def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
     if diaries.user == request.user:
-        content = {
+        context = {
             'diaries': diaries,
             'reply' : diaries.reply
         }
-        return render(request, 'diaries/diaries_detail.html', content)
+        return render(request, 'diaries/diaries_detail.html', context)
     else:
         # 사용자가 다를 경우 에러 메시지 출력
         return HttpResponse('사용자가 다릅니다.')
@@ -278,11 +279,11 @@ def detail_diaries_by_pet_date(request , pet_id , selected_date):
         pet = pet,
         date = date
     )
-    content = {
+    context = {
             'diaries': diaries,
             'reply' : diaries.reply
         }
-    return render(request, 'diaries/diaries_detail.html', content)
+    return render(request, 'diaries/diaries_detail.html', context)
 
 #08 다이어리 삭제
 def delete_diaries(request, pk):
@@ -380,7 +381,7 @@ def friend_list(request):
             else:
                 friend_diary_pk[friend.id] = None # 일기가 없으면 None
 
-    content = {
+    context = {
         'user': user,
         'friends': friends,
         'selected_date': selected_date,
@@ -389,4 +390,78 @@ def friend_list(request):
         'friend_diary_pk': friend_diary_pk,
     }
 
-    return render(request, 'diaries/friend_list.html', content)
+    return render(request, 'diaries/friend_list.html', context)
+
+# 마이페이지 -> 반려친구 수정 시 수정페이지로 연결하는 로직
+def update_pet(request, pk):
+    pet = get_object_or_404(Pet, id=pk)  # ✅ 해당 ID의 Pet이 없으면 404 반환
+
+    # ✅ GET 요청: 기존 정보가 포함된 폼을 사용자에게 보여줌
+    if request.method == 'GET':
+        if pet.user != request.user:
+            return HttpResponseForbidden("권한이 없습니다.")  # ✅ 403 Forbidden 반환
+
+        form = PetForm(instance=pet)  # 기존 데이터를 포함한 폼 생성
+
+        context = {
+            'form': form,
+            'pet': pet,
+        }
+        return render(request, "diaries/update_pet.html", context)
+
+    # ✅ POST 요청: 사용자가 수정한 정보를 저장
+    elif request.method == 'POST':
+        if pet.user != request.user:
+            return HttpResponseForbidden("권한이 없습니다.")  # ✅ 403 Forbidden 반환
+
+        # POST 데이터 복사해서 수정 가능하게 변환
+        post_data = request.POST.copy()
+
+        # "1,3,4" → ["1", "3", "4"] 변환
+        selected_personalities = post_data.get("personal", "").split(",")
+        selected_personalities = [int(pid) for pid in selected_personalities if pid.isdigit()]
+        print("🔹 변환된 personal ID 리스트:", selected_personalities)
+
+        # ✅ ManyToMany 필드 수정
+        post_data.setlist("personal", selected_personalities) # Django 폼이 올바르게 인식하도록 수정
+
+        # ✅ 기존 pet 객체를 기반으로 폼 생성 (새 객체가 아닌 기존 객체를 수정)
+        form = PetForm(post_data, request.FILES, instance=pet)
+        if form.is_valid():
+            updated_pet = form.save(commit=False)  # ✅ DB 저장 전 수정된 pet 객체 가져오기
+            updated_pet.user = request.user  # ✅ 현재 로그인한 사용자 연결
+            updated_pet.save()  # ✅ 수정된 내용 저장
+
+            # ✅ ManyToManyField 반영
+            updated_pet.personal.set(Personality.objects.filter(id__in=selected_personalities))
+            form.save_m2m()  # ✅ ManyToMany 관계 저장
+
+            return redirect("diaries:mypage", request.user.id)  # ✅ 저장 후 캘린더 페이지로 이동
+        else:
+            print(form.errors)  # 디버깅용 에러 출력
+            return render(request, "diaries/update_pet.html", {"form": form, "pet": pet})
+
+    return HttpResponseForbidden("잘못된 요청 방식입니다.")  # ✅ GET, POST 외 다른 요청 방식을 차단
+    
+def update_plant(request, pk):
+    plant = Plant.objects.get(id=pk)
+    if plant.user == request.user:
+        if request.method == 'POST':
+            form = PlantForm(request.POST, request.FILES, instance=plant)
+            if form.is_valid():
+                plant = form.save(commit=False)
+                plant.user = request.user
+                plant.save()
+                return redirect('diaries:mypage', pk=request.user.pk)
+            else:
+                return HttpResponse('폼이 유효하지 않습니다.')
+        else:
+            form = PlantForm(instance=plant)
+            context = {
+                'form': form,
+                'plant': plant,
+            }
+            return render(request, 'diaries/update_plant.html', context)
+    
+    else:
+        return HttpResponse('권한이 없습니다.')

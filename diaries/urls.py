@@ -48,6 +48,12 @@ urlpatterns = [
     #13 달력에서 날짜 클릭 시 friend-list 페이지로 이동
     path('friend_list/', friend_list, name='friend_list'),
 
+    #14 마이페이지 -> 반려동물 수정 시 반려동물 수정 페이지로 이동
+    path('update_pet/<int:pk>/', update_pet, name='update_pet'),
+
+    #15 마이페이지 -> 식물 수정 시 식물 수정 페이지로 이동
+    path('update_plant/<int:pk>/', update_plant, name='update_plant'),
+
     # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
 ]
 

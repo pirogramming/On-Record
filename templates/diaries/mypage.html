@@ -50,7 +50,7 @@
                         <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
                     </div>
                     <div class="friend-actions">
-                        <button class="edit-btn" onclick="editFriend({{ f.id }})">수정</button>
+                        <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
                         <button class="delete-btn" onclick="deleteFriend({{ f.id }})">삭제</button>
                     </div>
                 </div>
@@ -73,8 +73,12 @@
             }
         });
 
-        function editFriend(friendId) {
-            window.location.href = `/diaries/edit_pet/${friendId}/`;  // 수정 페이지로 이동
+        function editFriend(friendId, type) {
+            if (type === "pet") {
+                window.location.href = `/diaries/update_pet/${friendId}/`;  // 동물 편집
+            } else if (type === "plant") {
+                window.location.href = `/diaries/update_plant/${friendId}/`;  // 식물 편집
+            }
         }
 
         function deleteFriend(friendId) {
