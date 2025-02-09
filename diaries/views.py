@@ -9,9 +9,7 @@ from replies.views import create_response
 # 테스트용 코드
 from django.http import HttpResponse
 
-
 from datetime import datetime
-from django.utils import timezone
 
 
 #01 반려동물과 반려식물 중에 선택 처리하는 view
@@ -220,35 +218,26 @@ def render_diaries(request):
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
     if request.method == 'POST':
-        try:
-            post_data = request.POST.copy()
-            post_data['date'] = datetime(
-                year=int(request.POST.get('year')),
-                month=int(request.POST.get('month')),
-                day=int(request.POST.get('day'))
-            ).date()
+        
+        post_data = request.POST.copy()
+        post_data['date'] = datetime(
+            year=int(request.GET.get('year')),
+            month=int(request.GET.get('month')),
+            day=int(request.GET.get('day'))
+        ).date()
+        form = DiaryForm(post_data, request.FILES)
+        if form.is_valid():
+            diaries = form.save(commit=False)
+            diaries.user = request.user  # 현재 사용자를 연결
 
-            form = DiaryForm(post_data, request.FILES)
+            diaries.save()  # 새로운 Diary 저장
+            # 저장된 Diary의 pk로 Reply 생성
+            create_response(diaries.pk)
 
-            if form.is_valid():
-                diaries = form.save(commit=False)
-                diaries.user = request.user # 현재 사용자 연결
-                diaries.save() # 새로운 Diary 저장
-            
-                # 저장된 Diary의 pk로 Reply 생성
-                create_response(diaries.pk)
-
-                return redirect('diaries:detail_diaries', pk=diaries.pk)
-            else:
-                print(form.errors)
-                return redirect('diaries:view_calendar')
-        except (ValueError, TypeError) as e:
-            print(f"Error parsing date: {e}")
+            return redirect('diaries:detail_diaries', pk=diaries.pk)
+        else: 
+            print(form.errors)
             return redirect('diaries:view_calendar')
-    
-    # GET 요청일 때
-    form = DiaryForm()
-    return render(request, 'diaries/write_diaries.html', {'form': form})
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
