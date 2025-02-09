@@ -208,7 +208,7 @@ SOCIALACCOUNT_PROVIDERS = {
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True # 이메일 필수 입력
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'optional' # 회원가입 시 이메일 인증을 하도록 설정
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 이메일 확인 링크 클릭 시 자동 인증(SMTP 서버 설정 필요)
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # 이메일을 아이디처럼 사용
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # username 필드를 사용하지 않도록 설정

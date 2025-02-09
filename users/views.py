@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from users.forms import SignupForm
+from users.forms import SignupForm, ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from users.models import User
@@ -7,10 +7,8 @@ from django.http import JsonResponse
 from .utils import get_kakao_token, get_kakao_user_info
 import requests
 import environ
+from diaries.models import Pet, Plant
 env = environ.Env()
-
-def test(request):
-  return render(request, 'base.html')
 
 def main(request):
   return render(request, 'users/main.html')
@@ -38,7 +36,15 @@ def user_login(request):
     if form.is_valid():
       user = form.get_user()
       auth.login(request, user)
-      return redirect('users:main')
+    
+      has_pet = Pet.objects.filter(user=user).exists()      
+      has_plant = Plant.objects.filter(user=user).exists()
+
+      if has_pet or has_plant:
+        return redirect('diaries:view_calendar')
+      else:
+        return redirect('users:main')
+      
     else:
       context = {
         'form': form,
@@ -117,3 +123,25 @@ def kakao_logout(access_token):
   else:
     print(f"Failed to logout: {response.json()}")
     return None
+  
+  # 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
+def render_profile(request, pk):
+    user = User.objects.get(id=pk)
+    form = ProfileForm(instance=user)
+    context = {
+        'form': form,
+        'user': user,
+    }
+    return render(request, 'users/update_profile.html', context) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)
+
+# 프로필 수정 로직(마이페이지 -> 프로필 수정 form에서 '완료' 버튼 클릭 시 실행)
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid(): # 폼 유효성 검사
+            form.save()
+            return redirect('diaries:mypage', pk=user.pk)
+        return redirect('diaries:mypage', pk=user.pk)
+    else:
+      return redirect('diaries:mypage', pk=user.pk) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)

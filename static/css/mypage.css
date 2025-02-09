@@ -1,0 +1,231 @@
+.background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/base-a.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+/* 마이페이지 컨테이너 */
+.mypage-profile {
+    max-width: none;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    display: block;
+    position: relative;
+    min-height: 600px;
+    margin-top: 80px;
+}
+
+/* 제목 */
+.mypage-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.mypage-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-black);
+}
+
+/* 유저 정보 */
+.user-info {
+    margin: 20px 0;
+    font-size: 18px;
+    color: var(--primary-yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* 프로필 사진 */
+.user-profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--primary-yellow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+    margin-top: 80px;
+}
+
+.user-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 유저 이름 수정 가능하도록 */
+.user-name-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-name {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--primary-yellow);
+    max-width: 200px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+p {
+    margin: 0;
+}
+
+
+/* 반려친구 관리 제목 및 추가 버튼 */
+.friends-list {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
+    margin-top: 30px;
+}
+
+.friends-list-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px; /* 간격 증가 */
+    gap: 500px;
+}
+
+.friends-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-yellow);
+    margin-right: auto; /* 버튼과의 간격 조절 */
+}
+
+.add-btn, .edit-profile-btn {
+    background: var(--primary-yellow);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.add-btn:hover {
+    background: var(--hover-yellow);
+}
+
+.friends-list-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 반려친구 호버 효과 */
+.friend-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+}
+
+
+/* 반려친구 이름 */
+.friend-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-black);
+    text-align: center;
+    display: block;
+}
+
+/* 수정 및 삭제 버튼 */
+.friend-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 수정 버튼 */
+.edit-btn {
+    background: #FFD75C;
+    color: #444;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+}
+
+.edit-btn:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
+
+/* 삭제 버튼 */
+.delete-btn {
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
+}
+
+.delete-btn:hover {
+    background: #E54E4E;
+    transform: scale(1.05);
+}
+
+/* 반려친구가 없을 때 메시지 */
+.no-friends {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+}
+
+/* 반응형 */
+@media (max-width: 500px) {
+    .mypage-profile {
+        width: 95%;
+        padding: 30px;
+    }
+}
