@@ -16,7 +16,7 @@
         <div class="homepage-container">
             <div class="homepage-content">
                 <div class="pet-profile">
-                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구구 사진">
+                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구 사진">
                 </div>
                 <p class="pet-name">{{ friend.name }}</p>
                 <p class="home-description">
