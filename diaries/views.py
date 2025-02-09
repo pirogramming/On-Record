@@ -442,7 +442,8 @@ def update_pet(request, pk):
             return render(request, "diaries/update_pet.html", {"form": form, "pet": pet})
 
     return HttpResponseForbidden("잘못된 요청 방식입니다.")  # ✅ GET, POST 외 다른 요청 방식을 차단
-    
+
+# 마이페이지 -> 반려식물 수정 시 수정페이지로 연결하는 로직    
 def update_plant(request, pk):
     plant = Plant.objects.get(id=pk)
     if plant.user == request.user:
@@ -465,7 +466,8 @@ def update_plant(request, pk):
     
     else:
         return HttpResponse('권한이 없습니다.')
-    
+
+# 마이페이지 -> 반려동물 삭제 시 삭제페이지로 연결하는 로직    
 def delete_pet(request, pk):
     if request.method == "DELETE":  # ✅ DELETE 요청만 처리
         pet = get_object_or_404(Pet, id=pk)
@@ -479,6 +481,7 @@ def delete_pet(request, pk):
 
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
 
+# 마이페이지 -> 식물 삭제 시 삭제페이지로 연결하는 로직
 def delete_plant(request, pk):
     if request.method == "DELETE":  # ✅ DELETE 요청만 처리
         plant = get_object_or_404(Plant, id=pk)

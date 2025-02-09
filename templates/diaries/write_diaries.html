@@ -16,10 +16,10 @@
                 <div class="write-header-l">
                     <h1 id="date"></h1>
                     <button type="button" id="toggle-disclosure" class="public-btn" data-status="{{ form.disclosure.value }}">
-                        {% if form.disclosure.value %}
-                            비공개
-                        {% else %}
+                        {% if form.disclosure.value == True %}
                             전체공개
+                        {% else %}
+                            비공개
                         {% endif %}
                     </button>
                     {{ form.disclosure }}
@@ -65,15 +65,38 @@
     </div>
 
     <script>
-        function formatDate() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-            const dayOfWeek = daysOfWeek[today.getDay()];
-            document.getElementById("date").textContent = `${year}/${month}/${day} ${dayOfWeek}`;
+        // ✅ URL에서 특정 파라미터 값을 가져오는 함수
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
+
+        // ✅ URL에서 year, month, day 값을 가져옴
+        const year = getQueryParam("year");
+        const month = getQueryParam("month");
+        const day = getQueryParam("day");
+
+        // ✅ JavaScript에서 날짜를 표시하는 함수
+        function formatDate() {
+            // URL에서 가져온 날짜가 없으면 현재 날짜를 사용
+            const today = new Date();
+            const selectedYear = year || today.getFullYear();
+            const selectedMonth = month || (today.getMonth() + 1); // JS에서 월은 0부터 시작하므로 +1 필요
+            const selectedDay = day || today.getDate();
+
+            // ✅ 날짜 형식 맞추기 (2자리 숫자)
+            const formattedMonth = String(selectedMonth).padStart(2, '0');
+            const formattedDay = String(selectedDay).padStart(2, '0');
+
+            // ✅ 요일 계산
+            const dateObj = new Date(selectedYear, selectedMonth - 1, selectedDay); // JS는 월이 0부터 시작
+            const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const dayOfWeek = daysOfWeek[dateObj.getDay()];
+
+            // ✅ HTML 요소에 날짜 출력
+            document.getElementById("date").textContent = `${selectedYear}/${formattedMonth}/${formattedDay} ${dayOfWeek}`;
+        }
+
 
         document.addEventListener("DOMContentLoaded", function () {
             formatDate();
