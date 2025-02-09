@@ -12,7 +12,6 @@ from django.http import HttpResponse
 
 from datetime import datetime
 
-
 #01 반려동물과 반려식물 중에 선택 처리하는 view
 def pet_or_plant(request):
     return render(request, 'diaries/pet_or_plant.html')
