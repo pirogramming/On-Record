@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="background-a"></div>
+    <div class="mypage-profile">
+        <div class="mypage-header">마이프로필 수정</div>
+        <div class="user-info">
+            <div class="user-profile">
+                <form method="post" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="user_profile_img">
+                        {% if user.profile_image.url != '' %}
+                        <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+                        {% else %}
+                        <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
+                        {% endif %}
+                    </div>
+                    <input type="file" id="profile_image" name="profile_image" accept="image/*">
+                    <p class="user-name">{{ form.nickname }}</p>
+                    <p>{{ user.email }}</p>
+                    <button class="complete-edit-btn">
+                        <a href="{% url 'diaries:mypage' user.pk %}">수정완료</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("profile_image").addEventListener("change", function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+    
+            reader.onload = function() {
+                var imgElement = document.getElementById("profile_preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
+            };
+    
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
+            }
+        });
+    </script>
+{% endblock %}
