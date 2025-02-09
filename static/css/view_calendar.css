@@ -45,15 +45,15 @@ th, td {
     width: 14.28%; /* 7일이 균등하게 나누어짐 */
 }
 
-td:hover {
-    box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.);
-    border-radius: 50%;
+th{
+    padding-bottom: 0;
 }
 
 .today {
     background-color: var(--primary-yellow);
     font-weight: bold;
     border-radius: 50%;
+    box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.3);
 }
 
 .diary-day {

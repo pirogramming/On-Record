@@ -122,8 +122,13 @@ def view_calendar(request, year = None, month = None):
     # 해당 월의 일자를 리스트 형태로 클라이언트에게 전달
     days = list(range(1, num_days + 1))
 
-    # 해당 월의 모든 일기 조회(first_date와 last_date 사이의 정보를 가지고 오도록 구현)
-    diaries = Diary.objects.filter(date__range = (first_date, last_date))
+    user = request.user
+
+    if user.is_authenticated:
+        # 로그인한 유저의 Diary만 가져옴
+        diaries = Diary.objects.filter(user=user, date__range=(first_date, last_date))
+    else:
+        diaries = Diary.objects.none()
 
     # 날짜별 일기 매핑
     diary_map = {diary.date.day: diary for diary in diaries}
@@ -196,7 +201,6 @@ def write_diaries(request):
     month = int(request.GET.get('month'))
     year = int(request.GET.get('year'))
 
-    # 날짜 객체 생성
     selected_date = date(year, month, day)
 
     content = {
@@ -315,5 +319,17 @@ def friend_list(request):
     else:
         selected_date = None  # 날짜 정보가 없으면 None
 
-    pets = Pet.objects.all()  # 반려동물 목록 불러오기
-    return render(request, 'diaries/friend_list.html', {'pets': pets, 'selected_date': selected_date})
+    user = request.user
+    pets = Pet.objects.filter(user=user)
+    plants = Plant.objects.filter(user=user)
+    friends = list(pets) + list(plants)
+
+    content = {
+        'user': user,
+        'pets': pets,
+        'plants': plants,
+        'friends': friends,
+        'selected_date': selected_date,
+    }
+
+    return render(request, 'diaries/friend_list.html', content)

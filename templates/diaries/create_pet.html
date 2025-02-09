@@ -86,5 +86,20 @@
                 });
             });
         });
+
+        document.getElementById("pet-image").addEventListener("change", function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+    
+            reader.onload = function() {
+                var imgElement = document.getElementById("pet-preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
+            };
+    
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
+            }
+        });
     </script>
 {% endblock %}

@@ -59,29 +59,12 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    margin-bottom: 15px;
 }
 
 .user-profile img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* 프로필 수정 버튼 */
-.edit-profile-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 25px;
-    height: 25px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 10;
 }
 
 /* 유저 이름 수정 가능하도록 */
@@ -102,14 +85,13 @@
     background: transparent;
 }
 
-.edit-name-btn {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+p {
+    margin: 0;
 }
 
+
 /* 반려친구 관리 제목 및 추가 버튼 */
-.combined-list {
+.friends-list {
     width: 100%;
     max-width: 1200px;
     background: rgba(255, 255, 255, 0.9);
@@ -119,7 +101,7 @@
     margin-top: 30px;
 }
 
-.combined-list-management-header {
+.friends-list-management-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -128,30 +110,29 @@
     gap: 500px;
 }
 
-.combined-list-title {
+.friends-list-title {
     font-size: 24px;
     font-weight: bold;
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
-.add-btn {
+.add-btn, .edit-profile-btn {
     background: var(--primary-yellow);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
-    transition: background 0.3s;
 }
 
 .add-btn:hover {
     background: var(--hover-yellow);
 }
 
-.combined-list-list {
+.friends-list-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -161,80 +142,10 @@
     border-radius: 20px;
 }
 
-.pet-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 12px 15px;
-    border-radius: 30px;
-    box-shadow: 0px 2px 5px var(--hover-yellow);
-}
-
-.pet-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.pet-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.pet-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* 버튼 영역 */
-.pet-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.edit-btn, .delete-btn {
-    border: none;
-    padding: 8px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.edit-btn {
-    background: #FFEBB0;
-    color: #444;
-}
-
-.edit-btn:hover {
-    background: #FFD75C;
-}
-
-.delete-btn {
-    background: #FF6B6B;
-    color: white;
-}
-
-.delete-btn:hover {
-    background: #E54E4E;
-}
-
 /* 반응형 */
 @media (max-width: 600px) {
     .mypage-profile {
         width: 95%;
         padding: 30px;
-    }
-    .pet-box {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .pet-actions {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
     }
 }
