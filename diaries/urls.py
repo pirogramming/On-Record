@@ -54,6 +54,12 @@ urlpatterns = [
     #15 마이페이지 -> 식물 수정 시 식물 수정 페이지로 이동
     path('update_plant/<int:pk>/', update_plant, name='update_plant'),
 
+    #16 마이페이지 -> 반려동물 삭제 시 반려동물 삭제 페이지로 이동
+    path('delete_pet/<int:pk>/', delete_pet, name='delete_pet'),
+
+    #17 마이페이지 -> 식물 삭제 시 식물 삭제 페이지로 이동
+    path('delete_plant/<int:pk>/', delete_plant, name='delete_plant'),
+
     # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
 ]
 

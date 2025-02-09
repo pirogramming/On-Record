@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from .forms import PetForm, PlantForm, DiaryForm
 from .models import User, Personality, Diary, Pet, Plant
 
@@ -465,3 +465,29 @@ def update_plant(request, pk):
     
     else:
         return HttpResponse('권한이 없습니다.')
+    
+def delete_pet(request, pk):
+    if request.method == "DELETE":  # ✅ DELETE 요청만 처리
+        pet = get_object_or_404(Pet, id=pk)
+
+        # ✅ 삭제 권한 확인 (본인의 반려동물만 삭제 가능)
+        if pet.user != request.user:
+            return HttpResponseForbidden("권한이 없습니다.")
+
+        pet.delete()  # ✅ DB에서 삭제
+        return JsonResponse({"success": True})  # ✅ 성공 응답
+
+    return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
+
+def delete_plant(request, pk):
+    if request.method == "DELETE":  # ✅ DELETE 요청만 처리
+        plant = get_object_or_404(Plant, id=pk)
+
+        # ✅ 삭제 권한 확인 (본인의 반려동물만 삭제 가능)
+        if plant.user != request.user:
+            return HttpResponseForbidden("권한이 없습니다.")
+
+        plant.delete()  # ✅ DB에서 삭제
+        return JsonResponse({"success": True})  # ✅ 성공 응답
+
+    return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)

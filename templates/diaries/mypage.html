@@ -51,7 +51,7 @@
                     </div>
                     <div class="friend-actions">
                         <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
-                        <button class="delete-btn" onclick="deleteFriend({{ f.id }})">삭제</button>
+                        <button class="delete-btn" onclick="deleteFriend({{ f.id }}, '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
                     </div>
                 </div>
                 {% empty %}
@@ -81,22 +81,39 @@
             }
         }
 
-        function deleteFriend(friendId) {
+        function deleteFriend(friendId, type) {
             if (confirm("정말 삭제하시겠습니까?")) {
-                fetch(`/diaries/delete_pet/${friendId}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRFToken": getCSRFToken()
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`friend-${friendId}`).remove();
-                    } else {
-                        alert("삭제 실패");
-                    }
-                });
+                if (type === "pet") {
+                    fetch(`/diaries/delete_pet/${friendId}/`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken()
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`friend-${friendId}`).remove();
+                        } else {
+                            alert("삭제 실패");
+                        }
+                    });
+                } else if (type === "plant") {
+                    fetch(`/diaries/delete_plant/${friendId}/`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken()
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`friend-${friendId}`).remove();
+                        } else {
+                            alert("삭제 실패");
+                        }
+                    });
+                }
             }
         }
 
