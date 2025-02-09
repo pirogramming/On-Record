@@ -297,7 +297,7 @@ def delete_diaries(request, pk):
     else:
         return HttpResponse('해당 일기가 없습니다.')
 
-#09 다이어리 수정(미구현현)
+#09 다이어리 수정(미구현)
 def update_diaries(request, pk):
     pass
 
