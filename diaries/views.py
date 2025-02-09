@@ -297,7 +297,7 @@ def delete_diaries(request, pk):
     else:
         return HttpResponse('해당 일기가 없습니다.')
 
-#09 다이어리 수정(미구현현)
+#09 다이어리 수정(미구현)
 def update_diaries(request, pk):
     pass
 
@@ -340,12 +340,53 @@ def friend_list(request):
     plants = Plant.objects.filter(user=user)
     friends = list(pets) + list(plants)
 
+    # 전체 일기 개수
+    friend_total_diary_count = {}
+    # 친구별 작성된 일기 개수
+    friend_diary_count ={}
+    # 일기 pk 저장용
+    friend_diary_pk = {}
+
+    for friend in friends:
+        # 전체 일기 개수 가져오기
+        if isinstance(friend, Pet):
+            total_count = Diary.objects.filter(user=user, pet=friend).count()
+        elif isinstance(friend, Plant):
+            total_count = Diary.objects.filter(user=user, plant=friend).count()
+        else:
+            total_count = 0
+        
+        friend_total_diary_count[friend.id] = total_count
+
+    # 선택한 날짜에 작성된 일기 개수 가져오기
+    if selected_date:
+        for friend in friends:
+            if isinstance(friend, Pet):
+                diary = Diary.objects.filter(user=user, pet=friend, date=selected_date).first()
+            elif isinstance(friend, Plant):
+                diary = Diary.objects.filter(user=user, plant=friend, date=selected_date).first()
+            else:
+                diary = None
+            
+            friend_diary_count[friend.id] = Diary.objects.filter(
+                user=user,
+                pet=friend if isinstance(friend, Pet) else None,
+                plant=friend if isinstance(friend, Plant) else None,
+                date=selected_date
+            ).count()
+
+            if diary:
+                friend_diary_pk[friend.id] = diary.pk # 해당 반려친구의 일기 pk 저장
+            else:
+                friend_diary_pk[friend.id] = None # 일기가 없으면 None
+
     content = {
         'user': user,
-        'pets': pets,
-        'plants': plants,
         'friends': friends,
         'selected_date': selected_date,
+        'friend_total_diary_count': friend_total_diary_count,
+        'friend_diary_count': friend_diary_count,
+        'friend_diary_pk': friend_diary_pk,
     }
 
     return render(request, 'diaries/friend_list.html', content)
