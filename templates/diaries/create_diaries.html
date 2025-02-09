@@ -51,8 +51,12 @@
 
             <div class="diary-content">
                 <div class="image-upload">
-                    <label for="id_image">이미지 업로드</label>
+                    <label for="form-image">
+                        <img id="form-preview" src="#" alt="이미지 업로드">
+                    </label>
+                    <input type="file" id="form-image" name="image" accept="image/*">
                     {{ form.image }}
+
                 </div>
                 <div class="text-input">
                     <label for="id_content">내용</label>
@@ -116,6 +120,21 @@
         
                 console.log("Updated disclosureField.value:", disclosureField.value); // 디버깅 확인
             });
-        });        
+        });
+
+        document.getElementById("form-image").addEventListener("change", function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+    
+            reader.onload = function() {
+                var imgElement = document.getElementById("form-preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
+            };
+    
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
+            }
+        });
     </script>
 {% endblock %}

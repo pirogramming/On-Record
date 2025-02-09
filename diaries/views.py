@@ -214,7 +214,7 @@ def render_diaries(request):
         'form': form,
         'selected_date': selected_date,
     }
-    return render(request, 'diaries/write_diaries.html', context)
+    return render(request, 'diaries/create_diaries.html', context)
 
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
