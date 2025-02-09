@@ -8,72 +8,115 @@
 {% block content %}
     <div class="background-a"></div>
     <div class="write-container">
-      <div class="write-header">
-          <div class="today-diary">오늘의 일기</div>
-          <div class="write-header-l">
-              <h1 id="date"></h1>
-              <button class="public-btn">전체공개</button>
-          </div>
-      </div>
-      <div class="write-header-a">
-          <form method="POST" action="{% url 'diaries:create_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
-              {% csrf_token %}
-            
-              <div style="display: flex; gap: 20px; justify-content: center;">
-                  <div class="form-group">
-                      <label>제목</label>
-                      {{ form.title }}
-                  </div>
-                  <div class="write-header-a-l">
-                    <div class="form-group">
-                        <label>날씨</label>
-                        {{ form.weather }}
-                    </div>
-                    <div class="form-group">
-                        <label>기분</label>
-                        {{ form.mood }}
-                    </div>
-                    <div class="form-group">
-                      <label>누구에게 쓰실 건가요?</label>
-                      {{ form.friend }}
-                  </div>
-                  </div>
-              </div>
-      </div>
-      <div class="diary-content">
-          <div class="image-upload">
-              <label for="id_image">이미지 업로드</label>
-              {{ form.image }}
-          </div>
-          <div class="text-input">
-              <label for="id_content">내용</label>
-              {{ form.content }}
-          </div>
-      </div>
-      <button type="submit" class="create-btn">완료</button>
-    </div>
-  </form>
-  
-        <script>
-                function formatDate() {
-                    const today = new Date();
-                    
-                    // 년, 월, 일 추출
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
-                    const day = String(today.getDate()).padStart(2, '0');
-                    
-                    // 요일 추출
-                    const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-                    const dayOfWeek = daysOfWeek[today.getDay()];
-                    
-                    // 포맷팅된 날짜
-                    const formattedDate = `${year}/${month}/${day} ${dayOfWeek}`;
-                    return formattedDate;
-                }
+        <!-- form을 여기서 시작 -->
+        <form method="POST" action="{% url 'diaries:write_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="write-header">
+                <div class="today-diary">오늘의 일기</div>
+                <div class="write-header-l">
+                    <h1 id="date"></h1>
+                    <button type="button" id="toggle-disclosure" class="public-btn" data-status="{{ form.disclosure.value }}">
+                        {% if form.disclosure.value == True %}
+                            전체공개
+                        {% else %}
+                            비공개
+                        {% endif %}
+                    </button>
+                    {{ form.disclosure }}
+                </div>
+            </div>
 
-                window.onload = function() {
-                    document.getElementById("date").textContent = formatDate();
-                }
-        </script>
+            <div class="write-header-a">
+                <div style="display: flex; gap: 20px; justify-content: center;">
+                    <div class="form-group">
+                        <label>제목</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="write-header-a-l">
+                        <div class="form-group">
+                            <label>날씨</label>
+                            {{ form.weather }}
+                        </div>
+                        <div class="form-group">
+                            <label>기분</label>
+                            {{ form.mood }}
+                        </div>
+                        <div class="form-group">
+                            <label>누구에게 쓰실 건가요?</label>
+                            {{ form.friend }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diary-content">
+                <div class="image-upload">
+                    <label for="id_image">이미지 업로드</label>
+                    {{ form.image }}
+                </div>
+                <div class="text-input">
+                    <label for="id_content">내용</label>
+                    {{ form.content }}
+                </div>
+            </div>
+            <a href="{% url 'diaries:diaries_detail' %}" class="move-form-btn">
+            <button type="submit" class="create-btn">완료</button>
+        </form>
+    </div>
+
+    <script>
+        // ✅ URL에서 특정 파라미터 값을 가져오는 함수
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // ✅ URL에서 year, month, day 값을 가져옴
+        const year = getQueryParam("year");
+        const month = getQueryParam("month");
+        const day = getQueryParam("day");
+
+        // ✅ JavaScript에서 날짜를 표시하는 함수
+        function formatDate() {
+            // URL에서 가져온 날짜가 없으면 현재 날짜를 사용
+            const today = new Date();
+            const selectedYear = year || today.getFullYear();
+            const selectedMonth = month || (today.getMonth() + 1); // JS에서 월은 0부터 시작하므로 +1 필요
+            const selectedDay = day || today.getDate();
+
+            // ✅ 날짜 형식 맞추기 (2자리 숫자)
+            const formattedMonth = String(selectedMonth).padStart(2, '0');
+            const formattedDay = String(selectedDay).padStart(2, '0');
+
+            // ✅ 요일 계산
+            const dateObj = new Date(selectedYear, selectedMonth - 1, selectedDay); // JS는 월이 0부터 시작
+            const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const dayOfWeek = daysOfWeek[dateObj.getDay()];
+
+            // ✅ HTML 요소에 날짜 출력
+            document.getElementById("date").textContent = `${selectedYear}/${formattedMonth}/${formattedDay} ${dayOfWeek}`;
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            formatDate();
+            const toggleBtn = document.getElementById("toggle-disclosure");
+            const disclosureField = document.getElementById("id_disclosure");
+        
+            toggleBtn.addEventListener("click", function () {
+                let currentStatus = toggleBtn.getAttribute("data-status") === "True";
+                let newStatus = !currentStatus; // 상태 반전
+        
+                console.log("Before change:", currentStatus); // 디버깅용
+                console.log("New status:", newStatus); // 디버깅용
+        
+                toggleBtn.textContent = newStatus ? "비공개" : "전체공개";
+                disclosureField.checked = newStatus; // 체크 상태 변경
+                disclosureField.value = newStatus ? "true" : "false"; // value 변경
+                toggleBtn.setAttribute("data-status", newStatus);
+        
+                console.log("Updated disclosureField.value:", disclosureField.value); // 디버깅 확인
+            });
+        });        
+    </script>
 {% endblock %}
