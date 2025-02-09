@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/mydiary-list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+    <div class="background-b"></div>
+    <h1 class="title">모두의 온기록</h1>
+    
+    <div class="header">
+        <button class="friend-btn">{{ diary.pet_name }}</button>
+        <button class="add-diary-btn">온기록 남기기</button>
+    </div>
+
+    <div class="container">
+        <div class="diary-list">
+            {% if diaries %}
+                {% for diary in diaries %}
+                <div class="diary-card">
+                    <div class="diary-image">
+                        <img src="{{ diary.image_url|default:'images/default.jpg' }}" alt="오늘의 사진">
+                    </div>
+                    <div class="diary-info">
+                        <h2 class="diary-title">{{ form.title }}</h2>
+                        <p class="diary-preview">
+                            {{ diaries.content|slice:":47" }}...
+                        </p>
+                    </div>
+                    <div class="diary-actions">
+                        <button class="like-btn" onclick="increaseLike(this)">
+                            <img src="images/like-icon.png" alt="좋아요">
+                            <span class="like-count">{{ diary.likes }}</span>
+                        </button>
+                        <button class="comment-btn">
+                            <img src="images/comment-icon.png" alt="댓글">
+                            <span>{{ diary.comments_count }}</span>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #999; grid-column: span 3;">등록된 온기록이 없습니다.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
