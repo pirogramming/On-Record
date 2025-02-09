@@ -35,6 +35,10 @@ class DiaryForm(forms.ModelForm):
         widget = forms.DateInput(attrs = {'type': 'date'})
     )
 
+    disclosure = forms.BooleanField(
+        required=False, widget=forms.HiddenInput()
+    )
+
     class Meta:
         model = Diary
         fields = ['title', 'weather', 'content', 'pet','image', 'disclosure', 'date', 'mood']

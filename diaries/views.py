@@ -217,7 +217,6 @@ def render_diaries(request):
     month = int(request.GET.get('month'))
     year = int(request.GET.get('year'))
 
-    # 날짜 객체 생성
     selected_date = date(year, month, day)
 
     content = {
@@ -339,7 +338,6 @@ def friend_list(request):
     user = request.user
     pets = Pet.objects.filter(user=user)
     plants = Plant.objects.filter(user=user)
-
     friends = list(pets) + list(plants)
 
     content = {
