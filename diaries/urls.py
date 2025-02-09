@@ -42,10 +42,7 @@ urlpatterns = [
     #11
     path('render_diaries' , render_diaries , name="render_diaries"),
 
-    #12
-    path('create_diaries' , create_diaries , name = 'create_diaries'),
-
-    #13 달력에서 날짜 클릭 시 friend-list 페이지로 이동
+    #12 달력에서 날짜 클릭 시 friend-list 페이지로 이동
     path('friend_list/', friend_list, name='friend_list'),
 
     #14 마이페이지 -> 반려동물 수정 시 반려동물 수정 페이지로 이동
