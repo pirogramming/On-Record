@@ -1,6 +1,6 @@
 from django import forms
 # from django.forms import ModelForm
-from .models import Diary, Pet, Personality, Plant
+from .models import Pet, Personality, Plant, Diary
 
 # 반려동물 등록 폼
 class PetForm(forms.ModelForm):
@@ -41,4 +41,4 @@ class DiaryForm(forms.ModelForm):
 
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'pet','image', 'disclosure', 'date', 'mood']
+        fields = ['title', 'weather', 'content', 'pet', 'plant', 'image', 'disclosure', 'date', 'mood']

@@ -15,7 +15,7 @@ def create_response(pk):
   diary = Diary.objects.get(id = pk)
 
   current_user = diary.user
-  current_animal = diary.friend
+  current_animal = diary.pet
   
 
   ps = current_animal.personal.all()
