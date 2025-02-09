@@ -124,21 +124,9 @@ def kakao_logout(access_token):
     print(f"Failed to logout: {response.json()}")
     return None
   
-<<<<<<< HEAD
-<<<<<<< HEAD
 # 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
 def render_profile(request):
     user = request.user
-=======
-  # 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
-def render_profile(request, pk):
-    user = User.objects.get(id=pk)
->>>>>>> origin/front
-=======
-# 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
-def render_profile(request):
-    user = request.user
->>>>>>> origin/feature/hjs
     form = ProfileForm(instance=user)
     context = {
         'form': form,

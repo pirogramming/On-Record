@@ -17,59 +17,21 @@
         <div class="user-info">
             <div class="user-profile">
                 <div class="user_profile_img">
-<<<<<<< HEAD
-<<<<<<< HEAD
                     {% if user.profile_image %}
                     <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
-=======
-                    {% if user.profile_image.url != '' %}
-                    <img src="{{ user.profile_image.url }}" alt="프로필 사진">
->>>>>>> origin/front
-=======
-                    {% if user.profile_image %}
-                    <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
->>>>>>> origin/feature/hjs
                     {% else %}
                     <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
                     {% endif %}
                 </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </div>
-            
-=======
-                <!-- 프로필 수정 버튼 -->
-                <label for="profile-upload" class="edit-profile-btn">
-                    <img src="{% static 'images/edit_icon.png' %}" alt="프로필 수정">
-                </label>
-                <input type="file" id="profile-upload" class="profile-upload" accept="image/*" style="display: none;">
-            </div>
-
->>>>>>> origin/front
-            <div class="user-name-container">
-                <p class="user-name" id="user-name">{{ user.nickname }}</p>
-            </div>
-<<<<<<< HEAD
-=======
             </div>
             
             <div class="user-name-container">
                 <p class="user-name" id="user-name">{{ user.nickname }}</p>
             </div>
->>>>>>> origin/feature/hjs
 
             <p>{{ user.email }}</p>
             <button class="edit-btn" id="edit-profile-btn">
                 <a href="{% url 'users:render_profile' %}">프로필 수정</a>
-<<<<<<< HEAD
-=======
-            <p>{{ user.email }}</p>
-            <button class="add-btn" id="edit-profile-btn">
-                <a href="{% url 'users:render_profile' user.pk %}">마이프로필 수정</a>
-            </button>
->>>>>>> origin/front
-=======
->>>>>>> origin/feature/hjs
         </div>
 
         <!-- 반려친구 리스트 -->

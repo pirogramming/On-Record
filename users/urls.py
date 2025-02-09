@@ -9,14 +9,6 @@ urlpatterns = [
     path('user_login/', user_login, name='user_login'),
     path('logout/', logout, name='logout'),
     path('accounts/kakao/login/callback/', kakao_callback, name='kakao_callback'),
-<<<<<<< HEAD
-<<<<<<< HEAD
     path('render_profile/', render_profile, name='render_profile'),
-=======
-    path('render_profile/<int:pk>', render_profile, name='render_profile'),
->>>>>>> origin/front
-=======
-    path('render_profile/', render_profile, name='render_profile'),
->>>>>>> origin/feature/hjs
     path('update_profile/', update_profile, name='update_profile'),
 ]
