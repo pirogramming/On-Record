@@ -59,7 +59,7 @@
                     <label>반려동물의 특별한 특징은 무엇인가요?</label>
                     {{ form.pet_sig }}
                 </div>
-                <input type="hidden" name="personal" id="selected-personalities">
+                <input type="hidden" name="personal" id="selected-personalities" value="{{ form.personal.value|join:',' }}">
             </div>
             <button type="submit" class="submit-btn">반려친구 수정</button>
         </form>
@@ -69,20 +69,29 @@
         document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.querySelectorAll(".personality-btn");
             const selectedInput = document.getElementById("selected-personalities");
-            let selectedValues = new Set();
-
+        
+            // ✅ 기존 성격(personality) 값 가져오기
+            let selectedValues = new Set(selectedInput.value ? selectedInput.value.split(",") : []);
+        
             buttons.forEach(button => {
+                const value = button.getAttribute("data-value");
+        
+                // ✅ 기존 선택된 성격 버튼 활성화
+                if (selectedValues.has(value)) {
+                    button.classList.add("selected");
+                }
+        
                 button.addEventListener("click", function (e) {
                     e.preventDefault();
-                    const value = this.getAttribute("data-value");
-
+        
                     if (selectedValues.has(value)) {
                         selectedValues.delete(value);
-                        this.classList.remove("selected");
+                        button.classList.remove("selected");
                     } else {
                         selectedValues.add(value);
-                        this.classList.add("selected");
+                        button.classList.add("selected");
                     }
+        
                     selectedInput.value = Array.from(selectedValues).join(",");
                 });
             });
