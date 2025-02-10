@@ -4,6 +4,7 @@ from .models import Like,Comment
 from django.http import JsonResponse
 import json
 
+
 def render_communities_main(request):
     diaries = Diary.objects.filter(disclosure = True)
     context = {
@@ -56,17 +57,3 @@ def add_comment(request, pk):
         return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
 
     return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
-
-from .models import Diary, Like, Comment
-
-def diary_detail(request, pk):
-    diary = get_object_or_404(Diary, pk=pk)
-    likes_count = Like.objects.filter(diary=diary).count()
-    comments = Comment.objects.filter(diary=diary).select_related('comment_user').values('content', 'comment_user__nickname')
-
-    context = {
-        'diary': diary,
-        'likes_count': likes_count,
-        'comments': comments,
-    }
-    return render(request, 'diaries/diaries_detail.html', context)

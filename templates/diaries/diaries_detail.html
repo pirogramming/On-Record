@@ -12,7 +12,7 @@
   <div class="detail-container">
     <div class="detail-header">
       <h1 class="detail-title">
-        <p>{{ diareis.title }}</p>
+        <p>{{ diaries.title }}</p>
       </h1>
       <div class="detail-header-l">
         <p id="date">{{ diaries.date }}<p>
@@ -25,14 +25,14 @@
         </button>
       </div>
     </div>
-    
+
     <div class="detail-content">
       <div class="detail-image">
         <h3>오늘의 사진</h3>
         {% if diaries.image %}
         <p>{{ diaries.image }}</p>
         {% else %}
-        <p>📷 이미지 없음</p>
+        <p>\ud83d\udcf7 이미지 없음</p>
         {% endif %}
       </div>
       <div class="detail-text">
@@ -71,11 +71,21 @@
       </div>
     </div>
   </div>
-
+  <div>
+    {{reply.content}}
+  </div>
   <!-- 좋아요 및 공유 버튼 -->
   <div class="bis">
-    <i class="bi bi-heart-fill"></i>
-    <div class="bis-r">
+    <button class="like-btn" data-diary-id="{{ diaries.id }}">
+      ❤️ 좋아요
+    </button>
+    <span>
+      <span class="like-count" id="like-count-{{ diaries.id }}">
+        좋아요 개수 : {{ diaries.like_set.count }}
+      </span>
+    </span>
+
+    <div class="bis-l">
       <i class="bi bi-share-fill"></i>
       <form action="#" enctype="multipart/form-data">
         {% csrf_token %}
@@ -91,73 +101,98 @@
   <!-- 댓글 섹션 -->
   <div class="comments-section">
     <h3>댓글</h3>
-    <ul id="comments-list">
+    <ul id="comments-list-{{ diaries.id }}">
       {% for comment in comments %}
         <li>{{ comment.comment_user__nickname }}: {{ comment.content }}</li>
       {% endfor %}
     </ul>
 
     <!-- 댓글 입력 폼 -->
-    <input type="text" id="comment-input" placeholder="댓글을 입력하세요">
-    <button id="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+    <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
+    <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  document.addEventListener('DOMContentLoaded', function () {
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     // 좋아요 버튼 클릭 이벤트
-    document.querySelector('.like-btn').addEventListener('click', function () {
-        const diaryId = this.getAttribute('data-diary-id');
+    document.querySelectorAll('.like-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const diaryId = button.getAttribute('data-diary-id');
 
         fetch(`/communities/toggle_like/${diaryId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          }
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('좋아요 요청 실패');
+          }
+          return response.json();
+        })
         .then(data => {
-            document.getElementById('like-count').textContent = data.like_count;
-            this.textContent = data.status === 'liked' ? '❤️ 좋아요 취소' : '❤️ 좋아요';
+          // 좋아요 개수 업데이트
+          document.getElementById(`like-count-${diaryId}`).textContent = `좋아요 개수 : ${data.like_count}`;
+          // 버튼 텍스트 변경
+          button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
         })
-        .catch(error => console.error('좋아요 처리 중 오류:', error));
+        .catch(error => {
+          console.error('좋아요 처리 중 오류:', error);
+          alert('좋아요 처리 중 오류가 발생했습니다.');
+        });
+      });
     });
 
     // 댓글 등록 버튼 클릭 이벤트
-    document.getElementById('add-comment-btn').addEventListener('click', function () {
-        const diaryId = this.getAttribute('data-diary-id');
-        const commentInput = document.getElementById('comment-input');
+    document.querySelectorAll('.add-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const diaryId = button.getAttribute('data-diary-id');
+        const commentInput = document.getElementById(`comment-input-${diaryId}`);
         const commentContent = commentInput.value.trim();
 
         if (!commentContent) {
-            alert('댓글을 입력하세요.');
-            return;
+          alert('댓글을 입력하세요.');
+          return;
         }
 
         fetch(`/communities/add_comment/${diaryId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify({ comment: commentContent })
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify({ comment: commentContent })
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('댓글 추가 요청 실패');
+          }
+          return response.json();
+        })
         .then(data => {
-            document.getElementById('comments-list').innerHTML = '';
-            data.whole_comments.forEach(comment => {
-                document.getElementById('comments-list').innerHTML += `
-                    <li>${comment.comment_user__nickname}: ${comment.content}</li>`;
-            });
+          // 댓글 리스트 초기화 후 다시 렌더링
+          const commentsList = document.getElementById(`comments-list-${diaryId}`);
+          commentsList.innerHTML = '';
+          data.whole_comments.forEach(comment => {
+            commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+          });
 
-            commentInput.value = '';
+          // 입력창 초기화
+          commentInput.value = '';
         })
-        .catch(error => console.error('댓글 추가 중 오류:', error));
+        .catch(error => {
+          console.error('댓글 추가 중 오류:', error);
+          alert('댓글 추가 중 오류가 발생했습니다.');
+        });
+      });
     });
-});
+  });
 </script>
 
 {% endblock %}
