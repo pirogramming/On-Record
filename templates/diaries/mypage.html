@@ -47,7 +47,11 @@
                 {% for f in friends %}
                 <div class="friend-item" id="friend-{{ f.id }}">
                     <div class="friend-info">
-                        <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
+                        <a href="{% url 'diaries:mydiary_list' f.id %}"
+                            class="friend-name"
+                            data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                            {{ f.name }}
+                        </a>
                     </div>
                     <div class="friend-actions">
                         <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>

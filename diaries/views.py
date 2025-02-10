@@ -479,3 +479,27 @@ def delete_plant(request, pk):
         return JsonResponse({"success": True})  # ✅ 성공 응답
 
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
+
+from django.contrib.auth.decorators import login_required
+
+# 반려친구에게 쓴 일기 목록
+@login_required
+def mydiary_list(request, friend_id):
+    friend = Pet.objects.filter(id=friend_id, user=request.user).first() or \
+                Plant.objects.filter(id=friend_id, user=request.user).first()
+
+    if not friend:
+        return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
+
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    if isinstance(friend, Pet):
+        diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
+    else:
+        diaries = Diary.objects.filter(user=request.user, plant=friend).order_by('-date')
+
+    context = {
+        'diaries': diaries,
+        'friend_name': friend.name,
+    }
+
+    return render(request, 'diaries/mydiary_list.html', context)
