@@ -76,6 +76,7 @@
           <!-- 수정/저장 버튼 -->
           <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">댓글 수정하기</button>
           <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+          <a href="{% url 'communities:delete_comment' comment.id %}">댓글 지우기</a>
         </li>
       {% endfor %}
     </ul>
@@ -153,8 +154,15 @@
           const commentsList = document.getElementById(`comments-list-${diaryId}`);
           commentsList.innerHTML = '';
           data.whole_comments.forEach(comment => {
-            commentsList.innerHTML += `<li id="comment-item-${comment.id}"><span id="comment-text-${comment.id}">${comment.comment_user__nickname}: ${comment.content}</span></li>`;
-          });
+            commentsList.innerHTML += `
+            <li id="comment-item-${comment.id}">
+                <span id="comment-text-${comment.id}">${comment.nickname}: ${comment.content}</span>
+                <input type="text" class="comment-edit-input" id="comment-edit-${comment.id}" value="${comment.content}" style="display:none;" />
+                <button class="edit-comment-btn" data-comment-id="${comment.id}">댓글 수정하기</button>
+                <button class="save-comment-btn" data-comment-id="${comment.id}" style="display:none;">저장</button>
+                <a href="${comment.delete_url}">댓글 지우기</a>
+            </li>`;
+        });
 
           // 입력창 초기화
           commentInput.value = '';
@@ -226,5 +234,4 @@
     });
   });
 </script>
-
 {% endblock %}
