@@ -15,7 +15,7 @@
                 <div class="today-diary">오늘의 일기</div>
                 <div class="write-header-l">
                     <h1 id="date"></h1>
-                    <button type="button" id="toggle-disclosure" class="public-btn" data-status="{{ form.disclosure.value }}">
+                    <button type="button" id="toggle-disclosure" class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
                         {% if form.disclosure.value == True %}
                             전체공개
                         {% else %}
@@ -104,18 +104,20 @@
         document.addEventListener("DOMContentLoaded", function () {
             formatDate();
             const toggleBtn = document.getElementById("toggle-disclosure");
-            const disclosureField = document.getElementById("id_disclosure");
+            const disclosureField = document.getElementById("id_disclosure"); 
         
             toggleBtn.addEventListener("click", function () {
-                let currentStatus = toggleBtn.getAttribute("data-status") === "True";
+                let currentStatus = disclosureField.checked; 
                 let newStatus = !currentStatus; 
+        
+                console.log("현재 상태:", currentStatus);
         
                 toggleBtn.textContent = newStatus ? "비공개" : "전체공개";
                 disclosureField.checked = newStatus; 
                 disclosureField.value = newStatus ? "true" : "false"; 
-                toggleBtn.setAttribute("data-status", newStatus);
             });
         });
+        
 
         document.getElementById("form-image").addEventListener("change", function(event) {
             var input = event.target;

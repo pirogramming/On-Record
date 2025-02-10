@@ -16,8 +16,13 @@
       </h1>
       <div class="detail-header-l">
         <p id="date">{{ diaries.date }}<p>
-        <button class="public-btn">전체공개</button>
-        {{ diaries.disclosure }}
+        <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
+          {% if diaries.disclosure.value == True %}
+              전체공개
+          {% else %}
+              비공개
+          {% endif %}
+        </button>
       </div>
     </div>
     
@@ -25,7 +30,7 @@
       <div class="detail-image">
         <h3>오늘의 사진</h3>
         {% if diaries.image %}
-        <p>{{ diaries.content }}</p>
+        <p>{{ diaries.image }}</p>
         {% else %}
         <p>📷 이미지 없음</p>
         {% endif %}
@@ -62,12 +67,13 @@
             {% endif %}
           </div>
         </div>
+        <p>{{ diaries.content }}</p>
       </div>
     </div>
   </div>
   <div class="bis">
     <i class="bi bi-heart-fill"></i>
-    <div class="bis-l">
+    <div class="bis-r">
       <i class="bi bi-share-fill"></i>
       <form action="{% url 'diaries:update_diaries' diaries.id %}" enctype="multipart/form-data">
         {% csrf_token %}
