@@ -26,7 +26,11 @@
                     <div class="diary-info">
                         <h2 class="diary-title">{{ diary.title }}</h2>
                         <p class="diary-preview">
+                            {% if diary.content|length > 47 %}
                             {{ diary.content|slice:":47" }}...
+                            {% else %}
+                            {{ diary.content }}
+                            {% endif %}
                         </p>
                     </div>
                     <div class="diary-actions">
