@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('diaries', '0006_remove_like_diary_remove_like_diary_user_and_more'),
+        ('diaries', '0007_remove_like_diary_remove_like_diary_user_and_more'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
