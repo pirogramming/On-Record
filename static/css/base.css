@@ -47,7 +47,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  background-color: #FFFBED; /* 연한 노란색 */
+  background-color: #FFD75C; 
   box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.07); /* 피그마에서 설정한 그림자 */
   z-index: 1; /* 배경 이미지보다 위에 표시 */
 }
@@ -55,7 +55,7 @@ body {
 .navbar-text {
   font-size: 18px;
   margin: 0 10px;
-  color: var(--primary-yellow);
+  color: var(--white);
   text-decoration: none;
 }
 

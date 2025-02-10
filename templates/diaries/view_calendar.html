@@ -7,79 +7,105 @@
 {% endblock %}
 
 {% block content %}
-<div class="background-a"></div>
-<div class="calender-container">
-    <!-- 연·월 선택 드롭다운 -->
-    <div class="dropdowns">
-        <select id="year-select">
-            {% for y in year_range %}
-                <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
-            {% endfor %}
-        </select>
-        <select id="month-select">
-            {% for m in month_range %}
-                <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <!-- 캘린더 UI -->
-    <table>
-        <thead>
-            <tr>
-                <th class="day-name">일</th>
-                <th class="day-name">월</th>
-                <th class="day-name">화</th>
-                <th class="day-name">수</th>
-                <th class="day-name">목</th>
-                <th class="day-name">금</th>
-                <th class="day-name">토</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>  {# 첫 번째 행 시작 #}
-                {% for day in days %}
-                    {% if day == 1 %}
-                        {% if first_day != 7 %}
-                            <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
-                        {% endif %}
-                    {% endif %}
-
-                    {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
-                        {% if total_friends > 0 %}
-                            {% if diary_count == 0 %}
-                                <td> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
-                            {% elif diary_ratios|get_item:day == 1 %}
-                                <td style="background-color: var(--diary-full); border-radius: 50%;"> {# 모든 반려친구에게 일기를 쓴 경우 #}
-                            {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
-                                <td style="background-color: var(--diary-one); border-radius: 50%;">
-                            {% elif diary_ratios|get_item:day < 1 %}
-                                <td style="background-color: var(--diary-half); border-radius: 50%;">
-                            {% else %}
-                                <td> {# 그 외에는 기본 색상 #}
-                            {% endif %}
-                        {% else %}
-                            <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
-                        {% endif %}
-                    
-                        <a href="#" 
-                            class="diary-day"
-                            data-year="{{ year }}"
-                            data-month="{{ month }}"
-                            data-day="{{ day }}">
-                            {{ day }}
-                        </a>
-                        </td>
-                    
-                    {% endwith %}
-                
-                    {% if day|add:first_day|divisibleby:7 %}
-                        </tr><tr>  {# 7일마다 줄 바꿈 #}
-                    {% endif %}
+<div class="background"></div>
+<div class="calender-and-friends">
+    <div class="calender-container">
+        <!-- 연·월 선택 드롭다운 -->
+        <div class="dropdowns">
+            <select id="year-select">
+                {% for y in year_range %}
+                    <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
                 {% endfor %}
-            </tr>
-        </tbody>
-    </table>
+            </select>
+            <select id="month-select">
+                {% for m in month_range %}
+                    <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- 캘린더 UI -->
+        <table>
+            <thead>
+                <tr>
+                    <th class="day-name">일</th>
+                    <th class="day-name">월</th>
+                    <th class="day-name">화</th>
+                    <th class="day-name">수</th>
+                    <th class="day-name">목</th>
+                    <th class="day-name">금</th>
+                    <th class="day-name">토</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>  {# 첫 번째 행 시작 #}
+                    {% for day in days %}
+                        {% if day == 1 %}
+                            {% if first_day != 7 %}
+                                <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                            {% endif %}
+                        {% endif %}
+
+                        {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
+                            {% if total_friends > 0 %}
+                                {% if diary_count == 0 %}
+                                    <td> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
+                                {% elif diary_ratios|get_item:day == 1 %}
+                                    <td style="background-color: var(--diary-full); border-radius: 50%;"> {# 모든 반려친구에게 일기를 쓴 경우 #}
+                                {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
+                                    <td style="background-color: var(--diary-one); border-radius: 50%;">
+                                {% elif diary_ratios|get_item:day < 1 %}
+                                    <td style="background-color: var(--diary-half); border-radius: 50%;">
+                                {% else %}
+                                    <td> {# 그 외에는 기본 색상 #}
+                                {% endif %}
+                            {% else %}
+                                <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
+                            {% endif %}
+                        
+                            <a href="#" 
+                                class="diary-day"
+                                data-year="{{ year }}"
+                                data-month="{{ month }}"
+                                data-day="{{ day }}">
+                                {{ day }}
+                            </a>
+                            </td>
+                        
+                        {% endwith %}
+                    
+                        {% if day|add:first_day|divisibleby:7 %}
+                            </tr><tr>  {# 7일마다 줄 바꿈 #}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="friends-list">
+        <div class="friends-list-management-header">
+            <h2 class="friends-list-title">당신의 반려친구</h2>
+            <button class="add-btn" id="add-friends-list-btn">
+                <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
+            </button>
+        </div>
+
+        <div class="friends-list-list" id="friends-list-list">
+            {% for f in friends %}
+            <div class="friend-item" id="friend-{{ f.id }}">
+                <div class="friend-info">
+                    <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
+                </div>
+                <div class="friend-actions">
+                    <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
+                    <button class="delete-btn" onclick="deleteFriend({{ f.id }}, '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="no-friends">등록된 반려친구가 없습니다.</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 <!-- 연·월 변경 시 GET 요청 -->
@@ -123,6 +149,65 @@
             });
         });
     });
+
+    document.getElementById("profile-upload").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("profile-image").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function editFriend(friendId, type) {
+        if (type === "pet") {
+            window.location.href = `/diaries/update_pet/${friendId}/`;  // 동물 편집
+        } else if (type === "plant") {
+            window.location.href = `/diaries/update_plant/${friendId}/`;  // 식물 편집
+        }
+    }
+
+    function deleteFriend(friendId, type) {
+        if (confirm("정말 삭제하시겠습니까?")) {
+            if (type === "pet") {
+                fetch(`/diaries/delete_pet/${friendId}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken()
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById(`friend-${friendId}`).remove();
+                    } else {
+                        alert("삭제 실패");
+                    }
+                });
+            } else if (type === "plant") {
+                fetch(`/diaries/delete_plant/${friendId}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken()
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById(`friend-${friendId}`).remove();
+                    } else {
+                        alert("삭제 실패");
+                    }
+                });
+            }
+        }
+    }
+
+    function getCSRFToken() {
+        return document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1];
+    }
 </script>
 
 {% endblock %}
