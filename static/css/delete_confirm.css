@@ -1,0 +1,76 @@
+.background-a {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-a.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+/* 전체 컨테이너 정렬 */
+h2, p, form {
+  text-align: center;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 40px;
+  color: #333;
+}
+
+p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* 버튼 컨테이너 */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 탈퇴 버튼 */
+form button {
+  background: #FF4D4D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0px 3px 6px rgba(255, 77, 77, 0.5);
+  width: 180px;
+}
+
+form button:hover {
+  background: #CC0000;
+  transform: scale(1.05);
+}
+
+/* 취소 링크 */
+form a {
+  text-decoration: none;
+  background: #ddd;
+  color: #333;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+  width: 180px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+form a:hover {
+  background: #bbb;
+}
