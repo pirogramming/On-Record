@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% load static %}
 
 {% block style %}
@@ -15,23 +16,30 @@
         {% for friend in friends %}
         <div class="homepage-container">
             <div class="homepage-content">
-                <div class="friend-profile">
-                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_friend.jpg' %}{% endif %}" alt="반려친구구 사진">
+                <div class="pet-profile">
+                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구 사진">
                 </div>
                 <p class="friend-name">{{ friend.name }}</p>
 
                 <p class="home-description">
-                    지금까지 00개의 온기록을 남기셨어요!<br>
+                    지금까지 {{ friend_total_diary_count|get_item:friend.id|default:0 }}개의 온기록을 남기셨어요!<br>
                     {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
-                </p>         
-                    {% if friend.id in diary_map %}
-                        <a href="{% url 'diaries:diaries_detail' %}" class="move-form-btn">
+                </p>
+                    {% if friend_diary_count|get_item:friend.id > 0 %}
+                    <form method="POST" action="{% url 'diaries:detail_diaries' friend_diary_pk|get_item:friend.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="move-form-btn">
                             온기록 보기
-                        </a>
+                        </button>
+                    </form>
+                    
                     {% else %}
-                        <a href="{% url 'diaries:write_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}" class="move-form-btn">
+                    <form method="POST" action="{% url 'diaries:render_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}">
+                        {% csrf_token %}
+                        <button type="submit" class="move-form-btn">
                             온기록 남기기
-                        </a>
+                        </button>
+                    </form>
                     {% endif %}   
             </div>
         </div>

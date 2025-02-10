@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/create_plant.css' %}">
+<link rel="stylesheet" href="{% static 'css/create_pet.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="background-b"></div>
-    <div class="plant-form-container">
+    <div class="pet-form-container">
         <h1 class="form-title"><strong>{{ user.nickname }}님의 반려친구</strong>에 대해 알려주세요!</h1>
-        <form method="POST" action="{% url 'diaries:create_plant' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'diaries:update_pet' pet.id %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
                 <div class="image-upload">
@@ -17,6 +17,7 @@
                         <img id="pet-preview" src="#" alt="미리보기">
                     </label>
                     <input type="file" id="pet-image" name="image" accept="image/*">
+                    {{ form.image }}
                 </div>
                 <div class="form-fields">
                     <div class="form-group">
@@ -24,30 +25,43 @@
                         {{ form.name }}
                     </div>
                     <div class="form-group">
-                        <label>반려식물 종류</label>
+                        <label>종류</label>
                         {{ form.kind }}
                     </div>
                     <div class="form-group">
-                        <label>생장기간</label>
+                        <label>성별</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="form-group">
+                        <label>나이</label>
                         {{ form.age }}
                     </div>
                 </div>
             </div>
             <div class="centered-content">
                 <div class="form-group">
-                    <label>반려식물의 관리상태는 어떤가요?</label>
-                    {{ form.plant_con }}
+                    <label>성격:</label>
+                    <div id="personality-buttons">
+                        {% for personality in form.personal.field.queryset %}
+                            <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>반려식물의 주요 특징은 어떤 것이 있나요?</label>
-                    {{ form.plant_sig }}
+                    <label>반려동물이 가장 좋아하는 것이나 활동은 무엇인가요?</label>
+                    {{ form.pet_fav }}
                 </div>
                 <div class="form-group">
-                    <label>반려식물의 어떤 모습을 가장 사랑하시나요?</label>
-                    {{ form.plant_adv }}
+                    <label>반려동물이 가장 싫어하는 것이나 활동은 무엇인가요?</label>
+                    {{ form.pet_hate }}
                 </div>
+                <div class="form-group">
+                    <label>반려동물의 특별한 특징은 무엇인가요?</label>
+                    {{ form.pet_sig }}
+                </div>
+                <input type="hidden" name="personal" id="selected-personalities">
             </div>
-            <button type="submit" class="submit-btn">반려식물 등록</button>
+            <button type="submit" class="submit-btn">반려친구 수정</button>
         </form>
     </div>
 

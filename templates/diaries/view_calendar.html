@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% load static %}
 
 {% block style %}
@@ -36,24 +37,48 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr>  {# 첫 번째 행 시작 #}
                 {% for day in days %}
                     {% if day == 1 %}
-                        <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                        {% if first_day != 7 %}
+                            <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                        {% endif %}
                     {% endif %}
-                    <td class="{% if day == today.day and month == today.month and year == today.year %}today{% endif %}">
-                        <a href="{% url 'diaries:friend_list' %}?day={{ day }}&month={{ month }}&year={{ year }}" class="diary-day">
+
+                    {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
+                        {% if total_friends > 0 %}
+                            {% if diary_count == 0 %}
+                                <td> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
+                            {% elif diary_ratios|get_item:day == 1 %}
+                                <td style="background-color: var(--diary-full); border-radius: 50%;"> {# 모든 반려친구에게 일기를 쓴 경우 #}
+                            {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
+                                <td style="background-color: var(--diary-one); border-radius: 50%;">
+                            {% elif diary_ratios|get_item:day < 1 %}
+                                <td style="background-color: var(--diary-half); border-radius: 50%;">
+                            {% else %}
+                                <td> {# 그 외에는 기본 색상 #}
+                            {% endif %}
+                        {% else %}
+                            <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
+                        {% endif %}
+                    
+                        <a href="#" 
+                            class="diary-day"
+                            data-year="{{ year }}"
+                            data-month="{{ month }}"
+                            data-day="{{ day }}">
                             {{ day }}
                         </a>
-                        
-                        {% if day in diary_map %} 📝 {% endif %} {# 해당 날짜에 일기 있음 표시 #}
-                    </td>
+                        </td>
+                    
+                    {% endwith %}
+                
                     {% if day|add:first_day|divisibleby:7 %}
-                        </tr><tr> {% comment %} 한 줄 끝나면 줄바꿈 {% endcomment %}
+                        </tr><tr>  {# 7일마다 줄 바꿈 #}
                     {% endif %}
                 {% endfor %}
             </tr>
-        <tbody>
+        </tbody>
     </table>
 </div>
 
@@ -62,13 +87,42 @@
     document.getElementById("year-select").addEventListener("change", function() {
         var year = this.value;
         var month = document.getElementById("month-select").value;
-        window.location.href = `/calendar/${year}/${month}/`;
+        window.location.href = `/diaries/view_calendar/${year}/${month}/`;
     });
     document.getElementById("month-select").addEventListener("change", function() {
         var year = document.getElementById("year-select").value;
         var month = this.value;
-        window.location.href = `/calendar/${year}/${month}/`;
+        window.location.href = `/diaries/view_calendar/${year}/${month}/`;
     });
-    </script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // 오늘 날짜 가져오기
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 초기화
+    
+        // 캘린더의 날짜 버튼을 가져오기 (날짜를 클릭할 요소의 클래스를 사용)
+        const dateButtons = document.querySelectorAll(".diary-day");
+        dateButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                // 버튼에 저장된 날짜 값 가져오기 (data-date 속성 활용)
+                const selectedYear = this.getAttribute("data-year");
+                const selectedMonth = this.getAttribute("data-month");
+                const selectedDay = this.getAttribute("data-day");
+    
+                // 선택된 날짜를 Date 객체로 변환
+                const selectedDate = new Date(selectedYear, selectedMonth - 1, selectedDay); // JS는 월이 0부터 시작
+    
+                // ✅ 선택한 날짜가 오늘 이후라면 경고창 표시
+                if (selectedDate > today) {
+                    event.preventDefault(); // 기본 동작 방지 (페이지 이동 X)
+                    alert("미래의 날짜에는 일기를 쓸 수 없습니다.");
+                } else {
+                    // ✅ 미래가 아니라면 원래 동작 수행 (페이지 이동)
+                    window.location.href = `/diaries/friend_list/?year=${selectedYear}&month=${selectedMonth}&day=${selectedDay}`;
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock %}
