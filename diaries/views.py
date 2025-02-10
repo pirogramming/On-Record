@@ -197,6 +197,8 @@ def check_already_written(date , user , pet):
 from django.shortcuts import render
 from .forms import DiaryForm
 from datetime import date
+from communities.models import Like,Comment
+
 
 #다이어리 쓰는 화면 렌더링
 def render_diaries(request):
@@ -266,10 +268,15 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
+    likes_count = Like.objects.filter(diary=diaries).count()
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('content', 'comment_user__nickname')
 
     context = {
         'diaries': diaries,
-        'reply' : diaries.reply
+        'reply' : diaries.reply,
+        'likes_count': likes_count,
+        'comments': comments
+        
     }
     
     return render(request, 'diaries/diaries_detail.html', context)
