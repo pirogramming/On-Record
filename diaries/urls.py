@@ -7,7 +7,7 @@ app_name = 'diaries'
 
 urlpatterns = [
     #01 온기록 시작하기 누르면 나오는 화면 : 동물 식물 중 선택하기
-    path('pet_or_plant', pet_or_plant, name='pet_or_plant'), 
+    path('pet_or_plant/', pet_or_plant, name='pet_or_plant'), 
 
     #02 01에서 동물을 누르는 액션
     path('create_pet/', create_pet, name='create_pet'),
@@ -28,22 +28,22 @@ urlpatterns = [
     path("toggle_disclosure/<int:diary_id>/", toggle_disclosure, name="toggle_disclosure"),
     
     #06 다이어리 상세 페이지 
-    path('detail_diaries/<int:pk>', detail_diaries, name='detail_diaries'),
+    path('detail_diaries/<int:pk>/', detail_diaries, name='detail_diaries'),
 
     #07 마이 페이지
-    path('mypage/<int:pk>', mypage, name='mypage'),
+    path('mypage/<int:pk>/', mypage, name='mypage'),
 
     #08 다이어리 삭제 페이지
-    path('delete_diaries/<int:pk>', delete_diaries, name='delete_diaries'),
+    path('delete_diaries/<int:pk>/', delete_diaries, name='delete_diaries'),
 
     #09 다이어리 수정 ( views 미구현 )
-    path('update_diaries/<int:pk>', update_diaries, name='update_diaries'),
+    path('update_diaries/<int:pk>/', update_diaries, name='update_diaries'),
 
     #10 
-    path('check_diaries_GET' , check_diaries_GET , name="check_diaries_GET"),
+    path('check_diaries_GET/' , check_diaries_GET , name="check_diaries_GET"),
 
     #11
-    path('render_diaries' , render_diaries , name="render_diaries"),
+    path('render_diaries/' , render_diaries , name="render_diaries"),
 
     #12 달력에서 날짜 클릭 시 friend-list 페이지로 이동
     path('friend_list/', friend_list, name='friend_list'),
