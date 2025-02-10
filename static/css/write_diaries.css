@@ -89,6 +89,7 @@ label {
     background: var(--white);
     box-shadow: 0 4px 50px 5px var(--shadow-yellow);
     text-align: center;
+    overflow: hidden;
 }
 
 .image-upload input {
@@ -99,7 +100,19 @@ label {
     cursor: pointer;
     color: var(--dark-gray);
 }
+#form-preview {
+  width: 100%; 
+  height: 100%;  
+  object-fit: cover;  
+}
 
+#form-image {
+  position: absolute;
+  opacity: 0; 
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
 .text-input textarea {
     width: 90%;
     height: 80%;

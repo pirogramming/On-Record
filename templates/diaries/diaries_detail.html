@@ -12,7 +12,7 @@
   <div class="detail-container">
     <div class="detail-header">
       <h1 class="detail-title">
-        <p>{{ diareis.title }}</p>
+        <p>{{ diaries.title }}</p>
       </h1>
       <div class="detail-header-l">
         <p id="date">{{ diaries.date }}<p>
@@ -29,12 +29,15 @@
     <div class="detail-content">
       <div class="detail-image">
         <h3>오늘의 사진</h3>
-        {% if diaries.image %}
-        <p>{{ diaries.image }}</p>
-        {% else %}
-        <p>📷 이미지 없음</p>
-        {% endif %}
+        <div class="detail-image-container">
+          {% if diaries.image %}
+          <img src="{{ diaries.image }}" alt="일기 사진" />
+          {% else %}
+          <p>📷 이미지 없음</p>
+          {% endif %}
+        </div>
       </div>
+
       <div class="detail-text">
         <h3>오늘의 하루</h3>
         <div class="diary-metadata">

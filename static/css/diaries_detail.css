@@ -72,12 +72,19 @@
 }
 
 .detail-image, .detail-text {
-    width: 500px; 
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+  width: 500px; 
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.detail-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .detail-text h3, .detail-image h3 {
