@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     {% block style %}
     {% endblock %}
     <title>On-Record</title>
@@ -20,7 +21,7 @@
             <img class="navbar-logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
         </a>
         <div class="navbar-text">
-            <a class="All-Record">모두의 온기록</a>
+            <a href= "{% url 'communities:render_communities_main' %}" class="All-Record">모두의 온기록</a>
             <a href="{% url 'diaries:mypage' user.pk %}">마이페이지</a>
             <a href="{% url 'users:logout' %}">로그아웃</a>
         </div>

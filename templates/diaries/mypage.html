@@ -17,27 +17,21 @@
         <div class="user-info">
             <div class="user-profile">
                 <div class="user_profile_img">
-                    {% if user.profile_image.url != '' %}
-                    <img src="{{ user.profile_image.url }}" alt="프로필 사진">
+                    {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
                     {% else %}
                     <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
                     {% endif %}
                 </div>
-                <!-- 프로필 수정 버튼 -->
-                <label for="profile-upload" class="edit-profile-btn">
-                    <img src="{% static 'images/edit_icon.png' %}" alt="프로필 수정">
-                </label>
-                <input type="file" id="profile-upload" class="profile-upload" accept="image/*" style="display: none;">
             </div>
-
+            
             <div class="user-name-container">
                 <p class="user-name" id="user-name">{{ user.nickname }}</p>
-                <img src="{% static 'images/edit_icon.png' %}" alt="이름 수정" class="edit-name-btn" id="edit-name-btn">
             </div>
+
             <p>{{ user.email }}</p>
-            <button class="add-btn" id="edit-profile-btn">
-                <a href="{% url 'users:render_profile' user.pk %}">마이프로필 수정</a>
-            </button>
+            <button class="edit-btn" id="edit-profile-btn">
+                <a href="{% url 'users:render_profile' %}">프로필 수정</a>
         </div>
 
         <!-- 반려친구 리스트 -->
@@ -53,11 +47,15 @@
                 {% for f in friends %}
                 <div class="friend-item" id="friend-{{ f.id }}">
                     <div class="friend-info">
-                        <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
+                        <a href="{% url 'diaries:mydiary_list' f.id %}"
+                            class="friend-name"
+                            data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                            {{ f.name }}
+                        </a>
                     </div>
                     <div class="friend-actions">
-                        <button class="edit-btn" onclick="editFriend({{ f.id }})">수정</button>
-                        <button class="delete-btn" onclick="deleteFriend({{ f.id }})">삭제</button>
+                        <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
+                        <button class="delete-btn" onclick="deleteFriend({{ f.id }}, '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
                     </div>
                 </div>
                 {% empty %}
@@ -65,6 +63,12 @@
                 {% endfor %}
             </div>
         </div>
+
+        {% if user.is_authenticated %}
+        <div class="delete-account">
+          <a href="{% url 'users:delete_user' %}">회원 탈퇴</a>
+        </div>
+        {% endif %}
     </div>
 
     <script>
@@ -79,26 +83,47 @@
             }
         });
 
-        function editFriend(friendId) {
-            window.location.href = `/diaries/edit_pet/${friendId}/`;  // 수정 페이지로 이동
+        function editFriend(friendId, type) {
+            if (type === "pet") {
+                window.location.href = `/diaries/update_pet/${friendId}/`;  // 동물 편집
+            } else if (type === "plant") {
+                window.location.href = `/diaries/update_plant/${friendId}/`;  // 식물 편집
+            }
         }
 
-        function deleteFriend(friendId) {
+        function deleteFriend(friendId, type) {
             if (confirm("정말 삭제하시겠습니까?")) {
-                fetch(`/diaries/delete_pet/${friendId}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRFToken": getCSRFToken()
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`friend-${friendId}`).remove();
-                    } else {
-                        alert("삭제 실패");
-                    }
-                });
+                if (type === "pet") {
+                    fetch(`/diaries/delete_pet/${friendId}/`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken()
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`friend-${friendId}`).remove();
+                        } else {
+                            alert("삭제 실패");
+                        }
+                    });
+                } else if (type === "plant") {
+                    fetch(`/diaries/delete_plant/${friendId}/`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken()
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`friend-${friendId}`).remove();
+                        } else {
+                            alert("삭제 실패");
+                        }
+                    });
+                }
             }
         }
 

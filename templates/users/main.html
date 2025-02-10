@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
         <title>On-Record</title>
     </head>
     <body>
@@ -15,7 +16,7 @@
             {% include 'users/after-login.html' %}
         {% else %}
         <div class="main-page">
-            <img class="logo" src="{% static 'images/온기록-logo(1).png' %}" alt="Logo" />
+            <img class="logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
             <div class="main-text">
                 <h1>온 - 기록</h1>
                 <span>반려친구와의 소중한 일상을 기록하고<br>감성 가득한 답장까지 받아보세요.</span>

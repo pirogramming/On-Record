@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from users.forms import SignupForm, ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from users.models import User
 from django.http import JsonResponse
@@ -124,9 +125,9 @@ def kakao_logout(access_token):
     print(f"Failed to logout: {response.json()}")
     return None
   
-  # 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
-def render_profile(request, pk):
-    user = User.objects.get(id=pk)
+# 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
+def render_profile(request):
+    user = request.user
     form = ProfileForm(instance=user)
     context = {
         'form': form,
@@ -145,3 +146,15 @@ def update_profile(request):
         return redirect('diaries:mypage', pk=user.pk)
     else:
       return redirect('diaries:mypage', pk=user.pk) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)
+
+@login_required
+def delete_user(request):
+  user = request.user
+
+  if request.method == 'POST':
+    user.delete()
+    auth.logout(request)
+
+    return redirect('users:main')
+
+  return render(request, 'users/delete_confirm.html')

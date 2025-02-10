@@ -1,5 +1,5 @@
 /* 배경 이미지 설정 */
-.background-a {
+.background {
     position: fixed; 
     top: 0;
     left: 0;
@@ -8,11 +8,18 @@
     background-color:var(--background-yellow);
     background-size: cover;
     background-position: center;
-    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+    z-index: -1; 
+}
+
+.calender-and-friends {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 .calender-container {
-    margin-top: 50px;
+    padding: 20px;
 }
 
 /* 드롭다운 스타일 */
@@ -22,8 +29,8 @@ select {
     margin-top: 60px;
     font-size: 30px;
     font-weight: bold;
-    border: none;  /* 테두리 제거 */
-    background-color: transparent;  /* 배경색 제거 */
+    border: none; 
+    background-color: transparent;  
     cursor: pointer;
 }
 
@@ -57,9 +64,9 @@ th{
 }
 
 .diary-day {
+    display: block;
     font-weight: bold;
     text-decoration: none;
-    display: block;
     color: var(--text-black);
     margin: 10px;
 }
@@ -77,4 +84,143 @@ th{
     font-weight: bold;
     font-size: 18px;
     color: #333;
+}
+
+.friends-list {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
+    margin-top: 170px;
+}
+
+.friends-list-management-header{
+    display: flex;
+    gap: 50px;
+    padding-bottom: 10px;
+}
+
+.friends-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-yellow);
+    margin-right: auto; /* 버튼과의 간격 조절 */
+}
+
+.add-btn, .edit-profile-btn {
+    background: var(--primary-yellow);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.add-btn:hover {
+    background: var(--hover-yellow);
+}
+
+.friends-list-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* 반려친구 호버 효과 */
+.friend-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+}
+
+
+/* 반려친구 이름 */
+.friend-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-black);
+    text-align: center;
+    display: block;
+}
+
+/* 수정 및 삭제 버튼 */
+.friend-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 수정 버튼 */
+.edit-btn {
+    background: #FFD75C;
+    color: #444;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+}
+
+.edit-btn:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
+
+/* 삭제 버튼 */
+.delete-btn {
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
+}
+
+.delete-btn:hover {
+    background: #E54E4E;
+    transform: scale(1.05);
+}
+
+/* 반려친구가 없을 때 메시지 */
+.no-friends {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+}
+
+.delete-account {
+    position: absolute;
+    font-size: 15px;
+    color: var(--primary-yellow);
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .mypage-profile {
+        width: 95%;
+        padding: 30px;
+    }
 }
