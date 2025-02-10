@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden, JsonResponse
 from .forms import PetForm, PlantForm, DiaryForm
 from .models import User, Personality, Diary, Pet, Plant
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # 캘린더 관련
 from datetime import date
@@ -284,6 +286,21 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
             'selected_date': selected_date,
         }
         return render(request, 'diaries/create_diaries.html', context)
+
+# 일기 생성 페이지에서 공개여부 버튼 클릭시 공개/비공개 여부를 처리하는 로직
+@csrf_exempt  # CSRF 토큰을 검사하지 않도록 설정 (AJAX 요청에서는 필요)
+def toggle_disclosure(request, diary_id):
+    if request.method == "POST":
+        try:
+            diary = Diary.objects.get(id=diary_id, user=request.user)  # 현재 로그인한 사용자의 데이터만 변경 가능
+            data = json.loads(request.body)
+            diary.disclosure = data.get("disclosure", diary.disclosure)
+            diary.save()
+
+            return JsonResponse({"success": True, "disclosure": diary.disclosure})
+        except Diary.DoesNotExist:
+            return JsonResponse({"success": False, "error": "일기를 찾을 수 없습니다."}, status=404)
+    return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):

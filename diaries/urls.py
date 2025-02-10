@@ -23,6 +23,9 @@ urlpatterns = [
 
     #05 다이어리 생성 페이지
     path('create_diaries/', create_diaries, name='create_diaries'),
+
+    # 다이어리 공개 비공개 전환
+    path("toggle_disclosure/<int:diary_id>/", toggle_disclosure, name="toggle_disclosure"),
     
     #06 다이어리 상세 페이지 
     path('detail_diaries/<int:pk>', detail_diaries, name='detail_diaries'),
