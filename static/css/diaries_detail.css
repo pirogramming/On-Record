@@ -29,6 +29,7 @@
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  margin-bottom: 30px;
 }
 
 .detail-header {
@@ -110,11 +111,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: var(--white);
   padding: 30px;
-  border-radius: 50px;
+  border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-  margin-bottom: 20px;
   max-width: 900px;
 }
 
@@ -128,14 +128,20 @@
 .bis {
   display: flex;
   width: 100%;
+  align-items: center;
+  margin: 20px;
 }
 
+.like-btn{
+  background: none;
+  border: none;
+}
 .bis-r {
   margin-left: auto;
   display: flex;
 }
 
-.bi {
+.bi, .like-count {
   display: inline-block;
   color: var(--primary-yellow);
   font-size: 25px;
@@ -146,4 +152,91 @@
 
 .bi:hover {
   color: var(--hover-yellow);
+}
+
+/* 댓글 섹션 스타일 */
+.comments-section {
+  width: 100%;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comments-section h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 댓글 리스트 */
+.comments-list{
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list-li {
+  background: white;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comments-list-span {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.comment-edit-input {
+  width: 80%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: none;
+}
+
+/* 댓글 입력창 */
+.comment-input {
+  width: 85%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.add-comment-btn {
+  width: 12%;
+  padding: 8px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-comment-btn:hover {
+  background: #45a049;
+}
+
+/* 댓글 버튼 */
+.edit-comment-btn, .save-comment-btn, .delete-comment-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 3px 6px;
+}
+
+.edit-comment-btn:hover, .save-comment-btn:hover, .delete-comment-btn:hover {
+  text-decoration: underline;
+}
+
+.delete-comment-btn {
+  color: red;
 }

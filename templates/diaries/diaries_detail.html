@@ -74,21 +74,19 @@
       </div>
     </div>
   </div>
-  <div>
+  <div class="reply">
     {{reply.content}}
   </div>
   <!-- 좋아요 및 공유 버튼 -->
   <div class="bis">
     <button class="like-btn" data-diary-id="{{ diaries.id }}">
-      ❤️ 좋아요
+      <i class="bi bi-heart"></i>
     </button>
-    <span>
-      <span class="like-count" id="like-count-{{ diaries.id }}">
-        좋아요 개수 : {{ diaries.like_set.count }}
-      </span>
+    <span class="like-count" id="like-count-{{ diaries.id }}">
+      {{ diaries.like_set.count }}
     </span>
 
-    <div class="bis-l">
+    <div class="bis-r">
       <i class="bi bi-share-fill"></i>
       <form action="#" enctype="multipart/form-data">
         {% csrf_token %}
@@ -104,18 +102,21 @@
   <!-- 댓글 섹션 -->
   <div class="comments-section">
     <h3>댓글</h3>
-    <ul id="comments-list-{{ diaries.id }}">
-
+    <ul class="comments-list" id="comments-list-{{ diaries.id }}">
       {% for comment in comments %}
-        <li id="comment-item-{{ comment.id }}">
-          <span id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
+        <li class="comments-list-li" id="comment-item-{{ comment.id }}">
+          <span class="comments-list-span" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
           <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
           <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
 
           <!-- 수정/저장 버튼 -->
-          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">댓글 수정하기</button>
+          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+            <i class="bi bi-pencil-square"></i>
+          </button>
           <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
-          <a href="{% url 'communities:delete_comment' comment.id %}">댓글 지우기</a>
+          <a href="{% url 'communities:delete_comment' comment.id %}">
+            <i class="bi bi-trash3-fill"></i>
+          </a>
         </li>
       {% endfor %}
     </ul>
@@ -151,9 +152,14 @@
         })
         .then(data => {
           // 좋아요 개수 업데이트
-          document.getElementById(`like-count-${diaryId}`).textContent = `좋아요 개수 : ${data.like_count}`;
+          document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
           // 버튼 텍스트 변경
-          button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
+          if (data.status === 'liked') {
+            button.innerHTML = '<i class="bi bi-heart-fill"></i>';
+          } else {
+            button.innerHTML = '<i class="bi bi-heart"></i>';
+          }
+
         })
         .catch(error => {
           console.error('좋아요 처리 중 오류:', error);
