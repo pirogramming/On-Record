@@ -94,9 +94,9 @@
         {% csrf_token %}
         <button type="submit" class="bi bi-pencil-square"></button>
       </form>
-      <form action="#" method="post" enctype="multipart/form-data">
+      <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <button type="submit" class="bi bi-trash3-fill"></button>
+        <button type="submit" class="bi bi-trash3-fill" id="delete-btn"></button>
       </form>
     </div>
   </div>
@@ -160,6 +160,18 @@
           alert('좋아요 처리 중 오류가 발생했습니다.');
         });
       });
+    });
+
+    // 삭제 버튼 클릭 이벤트
+    const deleteBtn = document.getElementById("delete-btn");
+    const deleteForm = document.getElementById("delete-form");
+
+    deleteBtn.addEventListener("click", function (event) {
+        event.preventDefault(); // 기본 제출 동작 막기
+        const confirmDelete = confirm("정말 삭제하시겠습니까?");
+        if (confirmDelete) {
+            deleteForm.submit(); // 확인을 누르면 폼 제출 (삭제 진행)
+        }
     });
 
     // 댓글 등록 버튼 클릭 이벤트

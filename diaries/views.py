@@ -314,7 +314,7 @@ def detail_diaries(request, pk):
         'comments': comments
     }
     
-    return render(request, 'diaries/diaries_detail.html', context)
+    return render(request, 'diaries/detail_diaries.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
