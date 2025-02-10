@@ -31,7 +31,7 @@
         <h3>오늘의 사진</h3>
         <div class="detail-image-container">
           {% if diaries.image %}
-          <img src="{{ diaries.image }}" alt="일기 사진" />
+          <img src="{{ diaries.image.url }}" alt="일기 사진" />
           {% else %}
           <p>📷 이미지 없음</p>
           {% endif %}
