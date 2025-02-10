@@ -12,20 +12,25 @@
   <div class="detail-container">
     <div class="detail-header">
       <h1 class="detail-title">
-        <p>{{ diaries.title }}<p>
+        <p>{{ diaries.title }}</p>
       </h1>
       <div class="detail-header-l">
         <p id="date">{{ diaries.date }}<p>
-        <button class="public-btn">전체공개</button>
-        {{ diaries.disclosure }}
+        <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
+          {% if diaries.disclosure.value == True %}
+              전체공개
+          {% else %}
+              비공개
+          {% endif %}
+        </button>
       </div>
     </div>
-    
+
     <div class="detail-content">
       <div class="detail-image">
         <h3>오늘의 사진</h3>
         {% if diaries.image %}
-        <p>{{ diaries.content }}</p>
+        <p>{{ diaries.image }}</p>
         {% else %}
         <p>📷 이미지 없음</p>
         {% endif %}
@@ -62,25 +67,200 @@
             {% endif %}
           </div>
         </div>
+        <p>{{ diaries.content }}</p>
       </div>
     </div>
   </div>
+  <div>
+    {{reply.content}}
+  </div>
+  <!-- 좋아요 및 공유 버튼 -->
   <div class="bis">
-    <i class="bi bi-heart-fill"></i>
+    <button class="like-btn" data-diary-id="{{ diaries.id }}">
+      ❤️ 좋아요
+    </button>
+    <span>
+      <span class="like-count" id="like-count-{{ diaries.id }}">
+        좋아요 개수 : {{ diaries.like_set.count }}
+      </span>
+    </span>
+
     <div class="bis-l">
       <i class="bi bi-share-fill"></i>
-      <form action="{% url 'diaries:update_diaries' diaries.id %}" enctype="multipart/form-data">
+      <form action="#" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="submit" class="bi bi-pencil-square"></button>
       </form>
-      <form action="{% url 'diaries:delete_diaries' diaries.id %}" method="post" enctype="multipart/form-data">
+      <form action="#" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="submit" class="bi bi-trash3-fill"></button>
       </form>
     </div>
   </div>
-  <p class="reply">
-    {{reply.content}}
-  </p>
+
+  <!-- 댓글 섹션 -->
+  <div class="comments-section">
+    <h3>댓글</h3>
+    <ul id="comments-list-{{ diaries.id }}">
+
+      {% for comment in comments %}
+        <li id="comment-item-{{ comment.id }}">
+          <span id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
+          <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
+          <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
+
+          <!-- 수정/저장 버튼 -->
+          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">댓글 수정하기</button>
+          <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- 댓글 입력 폼 -->
+    <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
+    <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    // 좋아요 버튼 클릭 이벤트
+    document.querySelectorAll('.like-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const diaryId = button.getAttribute('data-diary-id');
+
+        fetch(`/communities/toggle_like/${diaryId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('좋아요 요청 실패');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // 좋아요 개수 업데이트
+          document.getElementById(`like-count-${diaryId}`).textContent = `좋아요 개수 : ${data.like_count}`;
+          // 버튼 텍스트 변경
+          button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
+        })
+        .catch(error => {
+          console.error('좋아요 처리 중 오류:', error);
+          alert('좋아요 처리 중 오류가 발생했습니다.');
+        });
+      });
+    });
+
+    // 댓글 등록 버튼 클릭 이벤트
+    document.querySelectorAll('.add-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const diaryId = button.getAttribute('data-diary-id');
+        const commentInput = document.getElementById(`comment-input-${diaryId}`);
+        const commentContent = commentInput.value.trim();
+
+        if (!commentContent) {
+          alert('댓글을 입력하세요.');
+          return;
+        }
+
+        fetch(`/communities/add_comment/${diaryId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify({ comment: commentContent })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('댓글 추가 요청 실패');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // 댓글 리스트 초기화 후 다시 렌더링
+          const commentsList = document.getElementById(`comments-list-${diaryId}`);
+          commentsList.innerHTML = '';
+          data.whole_comments.forEach(comment => {
+            commentsList.innerHTML += `<li id="comment-item-${comment.id}"><span id="comment-text-${comment.id}">${comment.comment_user__nickname}: ${comment.content}</span></li>`;
+          });
+
+          // 입력창 초기화
+          commentInput.value = '';
+        })
+        .catch(error => {
+          console.error('댓글 추가 중 오류:', error);
+          alert('댓글 추가 중 오류가 발생했습니다.');
+        });
+      });
+    });
+
+    // 댓글 수정 버튼 클릭 이벤트
+    document.querySelectorAll('.edit-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const commentId = button.getAttribute('data-comment-id');
+
+        // 기존 댓글 텍스트 숨기기
+        document.getElementById(`comment-text-${commentId}`).style.display = 'none';
+
+        // 수정 입력창과 저장 버튼 보이기
+        document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
+        document.querySelector(`.save-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
+
+        // 수정 버튼 숨기기
+        button.style.display = 'none';
+      });
+    });
+
+    // 댓글 저장 버튼 클릭 이벤트
+    document.querySelectorAll('.save-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const commentId = button.getAttribute('data-comment-id');
+        const newCommentContent = document.getElementById(`comment-edit-${commentId}`).value.trim();
+
+        if (!newCommentContent) {
+          alert('댓글 내용을 입력하세요.');
+          return;
+        }
+
+        fetch(`/communities/update_comment/${commentId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify({ content: newCommentContent })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('댓글 수정 요청 실패');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // 댓글 텍스트 업데이트
+          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}: ${data.content}`;
+
+          // 원래 상태로 되돌리기
+          document.getElementById(`comment-text-${commentId}`).style.display = 'inline';
+          document.getElementById(`comment-edit-${commentId}`).style.display = 'none';
+          button.style.display = 'none';
+          document.querySelector(`.edit-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
+        })
+        .catch(error => {
+          console.error('댓글 수정 중 오류:', error);
+          alert('댓글 수정 중 오류가 발생했습니다.');
+        });
+      });
+    });
+  });
+</script>
+
 {% endblock %}

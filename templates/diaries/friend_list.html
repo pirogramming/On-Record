@@ -26,9 +26,9 @@
                     {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>
                     {% if friend_diary_count|get_item:friend.id > 0 %}
-                    <form method="POST" action="{% url 'diaries:detail_diaries' friend_diary_pk|get_item:friend.id %}">
+                    <form method="POST" action="{% url 'diaries:detail_diaries' friend_diary_pk|get_item:friend.id%}">
                         {% csrf_token %}
-                        <button type="submit" class="move-form-btn">
+                        <button type="submit" class="move-detail-btn">
                             온기록 보기
                         </button>
                     </form>
@@ -36,7 +36,7 @@
                     {% else %}
                     <form method="POST" action="{% url 'diaries:render_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}">
                         {% csrf_token %}
-                        <button type="submit" class="move-form-btn">
+                        <button type="submit" class="move-write-btn">
                             온기록 남기기
                         </button>
                     </form>

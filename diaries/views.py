@@ -129,6 +129,9 @@ def view_calendar(request, year = None, month = None):
         total_friends = Pet.objects.filter(user=user).count() + Plant.objects.filter(user=user).count()
         # 로그인한 유저의 Diary만 가져옴
         diaries = Diary.objects.filter(user=user, date__range=(first_date, last_date))
+        pets = Pet.objects.filter(user=user)
+        plants = Plant.objects.filter(user=user)
+        friends = list(pets) + list(plants)
     else:
         total_friends = 0
         diaries = Diary.objects.none()
@@ -144,6 +147,19 @@ def view_calendar(request, year = None, month = None):
     if total_friends > 0:
         for day, count in diary_map.items():
             diary_ratios[day] = count / total_friends
+    
+    friend_total_diary_count = {}
+
+    for friend in friends:
+        # 전체 일기 개수 가져오기
+        if isinstance(friend, Pet):
+            total_count = Diary.objects.filter(user=user, pet=friend).count()
+        elif isinstance(friend, Plant):
+            total_count = Diary.objects.filter(user=user, plant=friend).count()
+        else:
+            total_count = 0
+        
+        friend_total_diary_count[friend.id] = total_count
 
     context = {
         "year_range": year_range,
@@ -156,7 +172,11 @@ def view_calendar(request, year = None, month = None):
         "diary_map": diary_map, # 날짜별 작성된 일기 개수
         "total_friends": total_friends, # 반려친구 총 수
         "diary_ratios": diary_ratios, # 날짜별 작성된 일기 비율
+        "friends": friends, # 반려친구 목록
+        "friend_total_diary_count": friend_total_diary_count, # 반려친구별 전체 일기 개수
     }
+
+
     return render(request, "diaries/view_calendar.html", context)
 
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
@@ -197,10 +217,12 @@ def check_already_written(date , user , pet):
 from django.shortcuts import render
 from .forms import DiaryForm
 from datetime import date
+from communities.models import Like,Comment
+
 
 #다이어리 쓰는 화면 렌더링
 def render_diaries(request):
-    form = DiaryForm()
+    form = DiaryForm(user=request.user)
 
     # GET 파라미터에서 날짜 정보 가져오기
     day = int(request.GET.get('day'))
@@ -218,16 +240,24 @@ def render_diaries(request):
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
     if request.method == 'POST':
-        
         post_data = request.POST.copy()
         post_data['date'] = datetime(
             year=int(request.GET.get('year')),
             month=int(request.GET.get('month')),
             day=int(request.GET.get('day'))
         ).date()
-        form = DiaryForm(post_data, request.FILES)
+        form = DiaryForm(post_data, request.FILES, user=request.user)
         if form.is_valid():
-            diaries = form.save(commit=False)
+            diaries = form.save(commit=False) # Diary 객체 생성(저장 x)
+
+            friends_value = form.cleaned_data['friends']  # 선택한 반려친구 정보 가져오기
+            if friends_value.startswith('pet-'):
+                diaries.pet = Pet.objects.get(id=int(friends_value.split('-')[1]))
+                diaries.plant = None  # Plant 필드는 None으로 설정
+            elif friends_value.startswith('plant-'):
+                diaries.plant = Plant.objects.get(id=int(friends_value.split('-')[1]))
+                diaries.pet = None  # Pet 필드는 None으로 설정
+
             diaries.user = request.user  # 현재 사용자를 연결
 
             diaries.save()  # 새로운 Diary 저장
@@ -238,20 +268,36 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
         else: 
             print(form.errors)
             return redirect('diaries:view_calendar')
+        
+    else:
+        form = DiaryForm(user=request.user)
+
+        # GET 파라미터에서 날짜 정보 가져오기
+        day = int(request.GET.get('day'))
+        month = int(request.GET.get('month'))
+        year = int(request.GET.get('year'))
+
+        selected_date = date(year, month, day)
+
+        context = {
+            'form': form,
+            'selected_date': selected_date,
+        }
+        return render(request, 'diaries/create_diaries.html', context)
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
-
-    if diaries.user == request.user:
-        context = {
-            'diaries': diaries,
-            'reply' : diaries.reply
-        }
-        return render(request, 'diaries/diaries_detail.html', context)
-    else:
-        # 사용자가 다를 경우 에러 메시지 출력
-        return HttpResponse('사용자가 다릅니다.')
+    likes_count = Like.objects.filter(diary=diaries).count()
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
+    context = {
+        'diaries': diaries,
+        'reply' : diaries.reply,
+        'likes_count': likes_count,
+        'comments': comments
+    }
+    
+    return render(request, 'diaries/diaries_detail.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
@@ -479,3 +525,27 @@ def delete_plant(request, pk):
         return JsonResponse({"success": True})  # ✅ 성공 응답
 
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
+
+from django.contrib.auth.decorators import login_required
+
+# 반려친구에게 쓴 일기 목록
+@login_required
+def mydiary_list(request, friend_id):
+    friend = Pet.objects.filter(id=friend_id, user=request.user).first() or \
+                Plant.objects.filter(id=friend_id, user=request.user).first()
+
+    if not friend:
+        return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
+
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    if isinstance(friend, Pet):
+        diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
+    else:
+        diaries = Diary.objects.filter(user=request.user, plant=friend).order_by('-date')
+
+    context = {
+        'diaries': diaries,
+        'friend_name': friend.name,
+    }
+
+    return render(request, 'diaries/mydiary_list.html', context)

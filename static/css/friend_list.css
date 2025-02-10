@@ -88,7 +88,7 @@
 }
 
 /* 온기록 남기기 버튼 */
-.move-form-btn {
+.move-detail-btn, .move-write-btn {
     display: inline-block;
     background-color: var(--primary-yellow);
     color: white;
@@ -99,6 +99,7 @@
     font-size: 14px;
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
     margin-top: 15px;
+    outline: none;
 }
 
 .move-form-btn:hover {

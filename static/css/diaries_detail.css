@@ -55,10 +55,6 @@
   cursor: pointer;
 }
 
-.public-btn:hover {
-    background: var(--hover-yellow);
-}
-
 #date {
   color: var(--primary-yellow);
   opacity: 1;
@@ -108,7 +104,7 @@
   align-items: center;
   justify-content: center;
   background: white;
-  padding: 15px;
+  padding: 30px;
   border-radius: 50px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
   margin-bottom: 20px;
@@ -127,8 +123,9 @@
   width: 100%;
 }
 
-.bis-l {
+.bis-r {
   margin-left: auto;
+  display: flex;
 }
 
 .bi {
@@ -136,6 +133,8 @@
   color: var(--primary-yellow);
   font-size: 25px;
   margin: 10px;
+  background: none;
+  border: none;
 }
 
 .bi:hover {

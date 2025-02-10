@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'users',
     'diaries',
     'replies',
+    'communities',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
