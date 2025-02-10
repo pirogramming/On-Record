@@ -200,7 +200,7 @@ from datetime import date
 
 #다이어리 쓰는 화면 렌더링
 def render_diaries(request):
-    form = DiaryForm()
+    form = DiaryForm(user=request.user)
 
     # GET 파라미터에서 날짜 정보 가져오기
     day = int(request.GET.get('day'))
@@ -218,16 +218,24 @@ def render_diaries(request):
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
     if request.method == 'POST':
-        
         post_data = request.POST.copy()
         post_data['date'] = datetime(
             year=int(request.GET.get('year')),
             month=int(request.GET.get('month')),
             day=int(request.GET.get('day'))
         ).date()
-        form = DiaryForm(post_data, request.FILES)
+        form = DiaryForm(post_data, request.FILES, user=request.user)
         if form.is_valid():
-            diaries = form.save(commit=False)
+            diaries = form.save(commit=False) # Diary 객체 생성(저장 x)
+
+            friends_value = form.cleaned_data['friends']  # 선택한 반려친구 정보 가져오기
+            if friends_value.startswith('pet-'):
+                diaries.pet = Pet.objects.get(id=int(friends_value.split('-')[1]))
+                diaries.plant = None  # Plant 필드는 None으로 설정
+            elif friends_value.startswith('plant-'):
+                diaries.plant = Plant.objects.get(id=int(friends_value.split('-')[1]))
+                diaries.pet = None  # Pet 필드는 None으로 설정
+
             diaries.user = request.user  # 현재 사용자를 연결
 
             diaries.save()  # 새로운 Diary 저장
@@ -238,6 +246,22 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
         else: 
             print(form.errors)
             return redirect('diaries:view_calendar')
+        
+    else:
+        form = DiaryForm(user=request.user)
+
+        # GET 파라미터에서 날짜 정보 가져오기
+        day = int(request.GET.get('day'))
+        month = int(request.GET.get('month'))
+        year = int(request.GET.get('year'))
+
+        selected_date = date(year, month, day)
+
+        context = {
+            'form': form,
+            'selected_date': selected_date,
+        }
+        return render(request, 'diaries/create_diaries.html', context)
 
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
