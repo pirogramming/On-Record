@@ -3,6 +3,8 @@ from diaries.models import Diary
 from .models import Like,Comment
 from django.http import JsonResponse
 import json
+from django.urls import reverse
+
 
 
 def render_communities_main(request):
@@ -44,19 +46,22 @@ def add_comment(request, pk):
             return JsonResponse({'error': '댓글 내용을 입력하세요.'}, status=400)
 
         diary = get_object_or_404(Diary, id=pk)
-
-        # 댓글 저장
         comment = Comment.objects.create(diary=diary, content=comment_content, comment_user=request.user)
 
-        # 전체 댓글 가져오기 (외래키 정보 포함)
-        whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user').values(
-            'id', 'content', 'comment_user__nickname'
-        )
-        comment_count = whole_comments.count()
+        # 전체 댓글 목록 반환 (URL 포함)
+        whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user')
+        comment_list = [
+            {
+                'id': c.id,
+                'content': c.content,
+                'nickname': c.comment_user.nickname,
+                'delete_url': reverse('communities:delete_comment', kwargs={'pk': c.id})  # URL 생성
+            }
+            for c in whole_comments
+        ]
 
-        return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
+        return JsonResponse({'whole_comments': comment_list, 'comment_count': len(comment_list)})
 
-    return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
 
 def delete_comment(request,pk):
     target_comment = Comment.objects.get(id=pk)
