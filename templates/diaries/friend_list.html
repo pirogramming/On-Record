@@ -16,13 +16,19 @@
         {% for friend in friends %}
         <div class="homepage-container">
             <div class="homepage-content">
-                <div class="pet-profile">
-                    <img src="{% if friend.image %}{{ friend.image.url }}{% else %}{% static 'images/default_pet.jpg' %}{% endif %}" alt="반려친구 사진">
+                <div class="friend-profile">
+                    <div class="friend_profile_img">
+                        {% if friend.image %}
+                        <img src="{{  friend.image.url }}" alt="반려친구 사진" />
+                        {% else %}
+                        <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                        {% endif %}
+                    </div>
                 </div>
-                <p class="friend-name">{{ friend.name }}</p>
 
+                <p class="friend-name">{{ friend.name }}</p>
                 <p class="home-description">
-                    지금까지 {{ friend_total_diary_count|get_item:friend.id|default:0 }}개의 온기록을 남기셨어요!<br>
+                    지금까지 <strong>{{ friend_total_diary_count|get_item:friend.id|default:0 }}개</strong>의 온기록을 남기셨어요!<br>
                     {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>
                     {% if friend_diary_count|get_item:friend.id > 0 %}
@@ -82,6 +88,17 @@
     document.addEventListener('DOMContentLoaded', () => {
         if (cards.length > 0) {
             cards[0].classList.add('active');
+        }
+    });
+
+    document.getElementById("profile-upload").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("profile-image").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     });
 </script>
