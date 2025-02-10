@@ -22,7 +22,7 @@ urlpatterns = [
     path('view_calendar/<int:year>/<int:month>/', view_calendar, name='calendar_view'),
 
     #05 다이어리 생성 페이지
-    path('create_diaries', create_diaries, name='create_diaries'),
+    path('create_diaries/', create_diaries, name='create_diaries'),
     
     #06 다이어리 상세 페이지 
     path('detail_diaries/<int:pk>', detail_diaries, name='detail_diaries'),
