@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from users.forms import SignupForm
+from users.forms import SignupForm, ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from users.models import User
 from django.http import JsonResponse
@@ -123,3 +124,37 @@ def kakao_logout(access_token):
   else:
     print(f"Failed to logout: {response.json()}")
     return None
+  
+# 프로필 수정 페이지 렌더링 로직(마이페이지 -> 프로필 수정 버튼 클릭 시 실행)
+def render_profile(request):
+    user = request.user
+    form = ProfileForm(instance=user)
+    context = {
+        'form': form,
+        'user': user,
+    }
+    return render(request, 'users/update_profile.html', context) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)
+
+# 프로필 수정 로직(마이페이지 -> 프로필 수정 form에서 '완료' 버튼 클릭 시 실행)
+def update_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid(): # 폼 유효성 검사
+            form.save()
+            return redirect('diaries:mypage', pk=user.pk)
+        return redirect('diaries:mypage', pk=user.pk)
+    else:
+      return redirect('diaries:mypage', pk=user.pk) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)
+
+@login_required
+def delete_user(request):
+  user = request.user
+
+  if request.method == 'POST':
+    user.delete()
+    auth.logout(request)
+
+    return redirect('users:main')
+
+  return render(request, 'users/delete_confirm.html')

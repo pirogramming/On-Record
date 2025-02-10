@@ -61,7 +61,7 @@
 }
 
 /* 반려동물 프로필 */
-.pet-profile, .plant-profile {
+.friend-profile {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -74,13 +74,13 @@
     margin: 0 auto 15px; /* 간격 조정 */
 }
 
-.pet-profile img, .plant-profile img {
+.friend-profile img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.pet-name, .plant-name {
+.friend-name{
     font-size: 20px;
     font-weight: bold;
     color: var(--primary-yellow); /* 노란색 변경 */
@@ -88,7 +88,7 @@
 }
 
 /* 온기록 남기기 버튼 */
-.move-form-btn {
+.move-detail-btn, .move-write-btn {
     display: inline-block;
     background-color: var(--primary-yellow);
     color: white;
@@ -99,6 +99,7 @@
     font-size: 14px;
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
     margin-top: 15px;
+    outline: none;
 }
 
 .move-form-btn:hover {

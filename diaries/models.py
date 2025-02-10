@@ -79,24 +79,10 @@ class Diary(models.Model):
     date = models.DateField(blank=True, null=True) # 기본 값을 현재 시간으로 설정
     mood = models.CharField(max_length=10, choices=MOOD_CHOICES, default='happy')
     weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
-    pet = models.ForeignKey(Pet , on_delete=models.CASCADE , null=True , blank=True)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, null=True, blank=True)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, null=True, blank=True)
     # 누구한테 쓴건지
     def __str__(self):
         return self.title
 
 
-
-
-class Like(models.Model):
-    diary = models.ForeignKey(Diary, on_delete=models.CASCADE)
-    diary_user = models.ForeignKey(User, related_name="diary_user", on_delete=models.CASCADE)
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    like_user = models.ForeignKey(User, related_name="like_user", on_delete=models.CASCADE)
-
-
-class Comment(models.Model):
-    diary = models.ForeignKey(Diary, on_delete=models.CASCADE)
-    diary_user = models.ForeignKey(User, related_name="comment_diary_user", on_delete=models.CASCADE)
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    comment_user = models.ForeignKey(User, related_name="comment_user", on_delete=models.CASCADE)
-    content = models.TextField()

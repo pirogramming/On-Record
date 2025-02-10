@@ -1,6 +1,6 @@
 from django import forms
 # from django.forms import ModelForm
-from .models import Diary, Pet, Personality, Plant
+from .models import Pet, Personality, Plant, Diary
 
 # 반려동물 등록 폼
 class PetForm(forms.ModelForm):
@@ -32,9 +32,32 @@ class PlantForm(forms.ModelForm):
     
 class DiaryForm(forms.ModelForm):
     date = forms.DateField(
-        widget = forms.DateInput(attrs = {'type': 'date'})
+        widget=forms.DateInput(attrs={'type': 'date'})
     )
+
+    disclosure = forms.BooleanField(
+        required=False, widget=forms.HiddenInput()
+    )
+
+    # ✅ Pet과 Plant를 하나의 필드에서 선택하도록 커스텀 필드 생성
+    friends = forms.ChoiceField(choices=[], required=True, label="누구에게 쓰실 건가요?")
 
     class Meta:
         model = Diary
-        fields = ['title', 'weather', 'content', 'pet','image', 'disclosure', 'date', 'mood']
+        fields = ['title', 'weather', 'content', 'image', 'disclosure', 'date', 'mood', 'friends']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # ✅ 현재 사용자 가져오기
+        print(user)
+        super().__init__(*args, **kwargs)
+
+        if user:
+        # ✅ Pet과 Plant 데이터를 가져와서 choices에 추가
+            pets = Pet.objects.filter(user=user)
+            plants = Plant.objects.filter(user=user)
+
+            pet_choices = [(f'pet-{p.id}', f'🐶 {p.name}') for p in pets]  # 동물 구분
+            plant_choices = [(f'plant-{p.id}', f'🌿 {p.name}') for p in plants]  # 식물 구분
+
+            # ✅ 최종적으로 하나의 choices 리스트로 결합
+            self.fields['friends'].choices = [('none', '선택하세요')] + pet_choices + plant_choices
