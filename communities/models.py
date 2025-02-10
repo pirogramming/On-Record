@@ -12,6 +12,6 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    diary = models.ForeignKey(Diary, on_delete=models.CASCADE , related_name='comment')
+    diary = models.ForeignKey(Diary, on_delete=models.CASCADE , related_name='diary')
     comment_user = models.ForeignKey(User, related_name="comment_user", on_delete=models.CASCADE)
     content = models.TextField()

@@ -32,7 +32,7 @@
         {% if diaries.image %}
         <p>{{ diaries.image }}</p>
         {% else %}
-        <p>\ud83d\udcf7 이미지 없음</p>
+        <p>📷 이미지 없음</p>
         {% endif %}
       </div>
       <div class="detail-text">
@@ -102,8 +102,17 @@
   <div class="comments-section">
     <h3>댓글</h3>
     <ul id="comments-list-{{ diaries.id }}">
+
       {% for comment in comments %}
-        <li>{{ comment.comment_user__nickname }}: {{ comment.content }}</li>
+        <li id="comment-item-{{ comment.id }}">
+          <span id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
+          <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
+          <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
+
+          <!-- 수정/저장 버튼 -->
+          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">댓글 수정하기</button>
+          <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+        </li>
       {% endfor %}
     </ul>
 
@@ -180,7 +189,7 @@
           const commentsList = document.getElementById(`comments-list-${diaryId}`);
           commentsList.innerHTML = '';
           data.whole_comments.forEach(comment => {
-            commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+            commentsList.innerHTML += `<li id="comment-item-${comment.id}"><span id="comment-text-${comment.id}">${comment.comment_user__nickname}: ${comment.content}</span></li>`;
           });
 
           // 입력창 초기화
@@ -189,6 +198,65 @@
         .catch(error => {
           console.error('댓글 추가 중 오류:', error);
           alert('댓글 추가 중 오류가 발생했습니다.');
+        });
+      });
+    });
+
+    // 댓글 수정 버튼 클릭 이벤트
+    document.querySelectorAll('.edit-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const commentId = button.getAttribute('data-comment-id');
+
+        // 기존 댓글 텍스트 숨기기
+        document.getElementById(`comment-text-${commentId}`).style.display = 'none';
+
+        // 수정 입력창과 저장 버튼 보이기
+        document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
+        document.querySelector(`.save-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
+
+        // 수정 버튼 숨기기
+        button.style.display = 'none';
+      });
+    });
+
+    // 댓글 저장 버튼 클릭 이벤트
+    document.querySelectorAll('.save-comment-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const commentId = button.getAttribute('data-comment-id');
+        const newCommentContent = document.getElementById(`comment-edit-${commentId}`).value.trim();
+
+        if (!newCommentContent) {
+          alert('댓글 내용을 입력하세요.');
+          return;
+        }
+
+        fetch(`/communities/update_comment/${commentId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify({ content: newCommentContent })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('댓글 수정 요청 실패');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // 댓글 텍스트 업데이트
+          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}: ${data.content}`;
+
+          // 원래 상태로 되돌리기
+          document.getElementById(`comment-text-${commentId}`).style.display = 'inline';
+          document.getElementById(`comment-edit-${commentId}`).style.display = 'none';
+          button.style.display = 'none';
+          document.querySelector(`.edit-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
+        })
+        .catch(error => {
+          console.error('댓글 수정 중 오류:', error);
+          alert('댓글 수정 중 오류가 발생했습니다.');
         });
       });
     });

@@ -57,3 +57,53 @@ def add_comment(request, pk):
         return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
 
     return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
+
+def delete_comment(request,pk):
+    target_comment = Comment.objects.get(id=pk)
+    target_comment.delete()
+
+
+    whole_comments = Comment.objects.filter(diary=target_comment.diary).select_related('comment_user').values(
+        'id', 'content', 'comment_user__nickname'
+    )
+    comment_count = whole_comments.count()
+
+    # ajax 구현 염두에 두고 json responser 객체 리턴return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
+    return redirect('diaries:detail_diaries', pk=target_comment.diary.pk)
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import json
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import json
+
+def update_comment(request, pk):
+    if request.method == 'POST':
+        # 댓글 객체 가져오기
+        comment = get_object_or_404(Comment, id=pk)
+
+        # 요청 데이터에서 새 댓글 내용 추출
+        try:
+            body = json.loads(request.body)
+            new_content = body.get('content', '').strip()
+        except json.JSONDecodeError:
+            return JsonResponse({'error': '잘못된 JSON 데이터입니다.'}, status=400)
+
+        # 새 댓글 내용이 비어 있는지 확인
+        if not new_content:
+            return JsonResponse({'error': '댓글 내용을 입력하세요.'}, status=400)
+
+        # 댓글 업데이트 및 저장
+        comment.content = new_content
+        comment.save()
+
+        # JSON 응답 반환
+        return JsonResponse({
+            'id': comment.id,
+            'content': comment.content,
+            'nickname': comment.comment_user.nickname  # 닉네임 포함
+        })
+
+    return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
