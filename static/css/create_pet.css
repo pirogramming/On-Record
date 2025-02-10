@@ -105,10 +105,11 @@ input, select {
 
 .personality-btn {
     padding: 5px 10px;
-    border: 1px solid var(--dark-gray);
+    border: 1px solid #ccc;
     background: white;
-    border-radius: 15px;
+    border-radius: 30px;
     cursor: pointer;
+    width: calc(20% - 10px);
 }
 
 .personality-btn.selected {
