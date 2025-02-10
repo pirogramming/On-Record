@@ -37,6 +37,7 @@
                     <form method="POST" action="{% url 'diaries:render_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}">
                         {% csrf_token %}
                         <button type="submit" class="move-form-btn">
+
                             온기록 남기기
                         </button>
                     </form>

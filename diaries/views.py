@@ -267,15 +267,12 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
-    if diaries.user == request.user:
-        context = {
-            'diaries': diaries,
-            'reply' : diaries.reply
-        }
-        return render(request, 'diaries/diaries_detail.html', context)
-    else:
-        # 사용자가 다를 경우 에러 메시지 출력
-        return HttpResponse('사용자가 다릅니다.')
+    context = {
+        'diaries': diaries,
+        'reply' : diaries.reply
+    }
+    
+    return render(request, 'diaries/diaries_detail.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
@@ -503,3 +500,27 @@ def delete_plant(request, pk):
         return JsonResponse({"success": True})  # ✅ 성공 응답
 
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
+
+from django.contrib.auth.decorators import login_required
+
+# 반려친구에게 쓴 일기 목록
+@login_required
+def mydiary_list(request, friend_id):
+    friend = Pet.objects.filter(id=friend_id, user=request.user).first() or \
+                Plant.objects.filter(id=friend_id, user=request.user).first()
+
+    if not friend:
+        return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
+
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    if isinstance(friend, Pet):
+        diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
+    else:
+        diaries = Diary.objects.filter(user=request.user, plant=friend).order_by('-date')
+
+    context = {
+        'diaries': diaries,
+        'friend_name': friend.name,
+    }
+
+    return render(request, 'diaries/mydiary_list.html', context)
