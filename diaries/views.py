@@ -269,14 +269,12 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
-    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('content', 'comment_user__nickname')
-
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
     context = {
         'diaries': diaries,
         'reply' : diaries.reply,
         'likes_count': likes_count,
         'comments': comments
-        
     }
     
     return render(request, 'diaries/diaries_detail.html', context)
