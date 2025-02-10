@@ -147,6 +147,19 @@ def view_calendar(request, year = None, month = None):
     if total_friends > 0:
         for day, count in diary_map.items():
             diary_ratios[day] = count / total_friends
+    
+    friend_total_diary_count = {}
+
+    for friend in friends:
+        # 전체 일기 개수 가져오기
+        if isinstance(friend, Pet):
+            total_count = Diary.objects.filter(user=user, pet=friend).count()
+        elif isinstance(friend, Plant):
+            total_count = Diary.objects.filter(user=user, plant=friend).count()
+        else:
+            total_count = 0
+        
+        friend_total_diary_count[friend.id] = total_count
 
     context = {
         "year_range": year_range,
@@ -160,7 +173,10 @@ def view_calendar(request, year = None, month = None):
         "total_friends": total_friends, # 반려친구 총 수
         "diary_ratios": diary_ratios, # 날짜별 작성된 일기 비율
         "friends": friends, # 반려친구 목록
+        "friend_total_diary_count": friend_total_diary_count, # 반려친구별 전체 일기 개수
     }
+
+
     return render(request, "diaries/view_calendar.html", context)
 
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
