@@ -90,9 +90,9 @@
 
     <div class="bis-l">
       <i class="bi bi-share-fill"></i>
-      <form action="#" enctype="multipart/form-data">
+      <form id="share-form" action="#" enctype="multipart/form-data">
         {% csrf_token %}
-        <button type="submit" class="bi bi-pencil-square"></button>
+        <button type="submit" class="bi bi-pencil-square" id="share-btn"></button>
       </form>
       <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -162,7 +162,33 @@
       });
     });
 
-    // 삭제 버튼 클릭 이벤트
+    // 일기 공유 버튼 클릭 이벤트
+    const shareBtn = document.getElementById("share-btn");
+
+    shareBtn.addEventListener("click", function () {
+        const currentUrl = window.location.href; // 현재 페이지 URL 가져오기
+
+        if (navigator.share) {
+            // ✅ 모바일 및 최신 브라우저의 웹 공유 API 사용 (SNS 공유 가능)
+            navigator.share({
+                title: document.title,
+                url: currentUrl
+            }).then(() => {
+                alert("링크가 성공적으로 공유되었습니다!");
+            }).catch((error) => {
+                console.error("공유 실패:", error);
+            });
+        } else {
+            // ✅ 웹 공유 API가 지원되지 않는 경우 (클립보드 복사)
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                alert("현재 페이지 링크가 클립보드에 복사되었습니다!");
+            }).catch(err => {
+                console.error("클립보드 복사 실패:", err);
+            });
+        }
+    });
+
+    // 일기 삭제 버튼 클릭 이벤트
     const deleteBtn = document.getElementById("delete-btn");
     const deleteForm = document.getElementById("delete-form");
 
