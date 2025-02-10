@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 메인</title>
+</head>
+<body>
+
+    <h1>공개된 다이어리 목록bb</h1>
+
+    {% for diary in diaries %}
+        <div class="diary-item" data-diary-id="{{ diary.id }}">
+            <a href = "{% url 'diaries:detail_diaries' diary.pk%} ">{{ diary.title }}</a>
+            <p>{{ diary.content }}</p>
+
+            <!-- 좋아요 버튼과 좋아요 개수 -->
+            <button class="like-btn" data-diary-id="{{ diary.id }}">좋아요</button>
+            <span>좋아요 개수: <span class="like-count" id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span></span>
+
+            <br>
+
+            <!-- 댓글 입력 폼 -->
+            <input type="text" class="comment-input" placeholder="댓글을 입력하세요" id="comment-input-{{ diary.id }}">
+            <button class="add-comment-btn" data-diary-id="{{ diary.id }}">댓글 등록</button>
+            <p>댓글 개수: <span class="comment-count" id="comment-count-{{ diary.id }}">0</span></p>
+
+            <!-- 댓글 리스트 -->
+            <ul class="comments-list" id="comments-list-{{ diary.id }}">
+            {% for comment in diary.comment.all %}
+                <li>{{ comment.comment_user.nickname}} : {{comment.content}}</li>
+            </ul>
+            {% endfor %}
+        </div>
+        <hr>
+    {% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // 좋아요 버튼 클릭 이벤트
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const diaryId = button.getAttribute('data-diary-id');
+
+            fetch(`/communities/toggle_like/${diaryId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('좋아요 요청 실패');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 좋아요 개수 업데이트
+                document.getElementById(`like-count-${diaryId}`).textContent = data.like_count;
+                // 버튼 텍스트 변경
+                button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
+            })
+            .catch(error => {
+                console.error('좋아요 처리 중 오류:', error);
+                alert('좋아요 처리 중 오류가 발생했습니다.');
+            });
+        });
+    });
+
+    // 댓글 등록 버튼 클릭 이벤트
+    document.querySelectorAll('.add-comment-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const diaryId = button.getAttribute('data-diary-id');
+            const commentInput = document.getElementById(`comment-input-${diaryId}`);
+            const commentContent = commentInput.value.trim();
+
+            if (!commentContent) {
+                alert('댓글을 입력하세요.');
+                return;
+            }
+
+            fetch(`/communities/add_comment/${diaryId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ comment: commentContent })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('댓글 추가 요청 실패');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 댓글 개수 업데이트
+                document.getElementById(`comment-count-${diaryId}`).textContent = data.comment_count;
+
+                // 댓글 리스트 초기화 후 다시 렌더링
+                const commentsList = document.getElementById(`comments-list-${diaryId}`);
+                commentsList.innerHTML = '';  // 기존 댓글 삭제
+                data.whole_comments.forEach(comment => {
+                    commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+                });
+
+                // 입력창 초기화
+                commentInput.value = '';
+            })
+            .catch(error => {
+                console.error('댓글 추가 중 오류:', error);
+                alert('댓글 추가 중 오류가 발생했습니다.');
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>
