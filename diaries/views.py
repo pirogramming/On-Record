@@ -258,15 +258,13 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수post 요�
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
-    if diaries.user == request.user:
-        content = {
-            'diaries': diaries,
-            'reply' : diaries.reply
-        }
-        return render(request, 'diaries/diaries_detail.html', content)
-    else:
-        # 사용자가 다를 경우 에러 메시지 출력
-        return HttpResponse('사용자가 다릅니다.')
+    content = {
+        'diaries': diaries,
+        'reply' : diaries.reply
+    }
+    
+    return render(request, 'diaries/diaries_detail.html', content)
+
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user

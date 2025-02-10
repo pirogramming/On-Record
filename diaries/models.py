@@ -85,18 +85,3 @@ class Diary(models.Model):
         return self.title
 
 
-
-
-class Like(models.Model):
-    diary = models.ForeignKey(Diary, on_delete=models.CASCADE)
-    diary_user = models.ForeignKey(User, related_name="diary_user", on_delete=models.CASCADE)
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    like_user = models.ForeignKey(User, related_name="like_user", on_delete=models.CASCADE)
-
-
-class Comment(models.Model):
-    diary = models.ForeignKey(Diary, on_delete=models.CASCADE)
-    diary_user = models.ForeignKey(User, related_name="comment_diary_user", on_delete=models.CASCADE)
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    comment_user = models.ForeignKey(User, related_name="comment_user", on_delete=models.CASCADE)
-    content = models.TextField()
