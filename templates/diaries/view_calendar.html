@@ -49,7 +49,7 @@
                         {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
                             {% if total_friends > 0 %}
                                 {% if diary_count == 0 %}
-                                    <td> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
+                                    <td style="background-color:var(--diary-empty); border-radius: 50%; transform: scale(0.8);"> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
                                 {% elif diary_ratios|get_item:day == 1 %}
                                     <td style="background-color: var(--diary-full); border-radius: 50%; transform: scale(0.8);"> {# 모든 반려친구에게 일기를 쓴 경우 #}
                                 {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
