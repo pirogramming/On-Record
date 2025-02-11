@@ -86,9 +86,12 @@
       {{ diaries.like_set.count }}
     </span>
 
-    <div class="bis-r">
-      <i class="bi bi-share-fill"></i>
-      <form action="#" enctype="multipart/form-data">
+    <div class="bis-l">
+      <form id="share-form" action="#" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="button" class="bi bi-share-fill" id="share-btn"></button>
+      </form>
+      <form action="{% url "diaries:update_diaries" diaries.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="submit" class="bi bi-pencil-square"></button>
       </form>
@@ -111,6 +114,7 @@
             <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
           </div>
           <!-- 수정/저장 버튼 -->
+           {% if comment.is_author %}
           <div class="comment-edit-del-btn">
             <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
               <i class="bi bi-pencil-square"></i>
@@ -120,6 +124,8 @@
               <i class="bi bi-trash3-fill"></i>
             </a>
           </div>
+            {% endif %}
+          
         </li>
       {% endfor %}
     </ul>
@@ -133,6 +139,7 @@
 </div>
 
 <script>
+  //좋아요 클릭이벤트
   document.addEventListener('DOMContentLoaded', function () {
     // CSRF 토큰 가져오기
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -172,8 +179,10 @@
         });
       });
     });
-
-    // 일기 공유 버튼 클릭 이벤트
+  });
+  //일기 공유버튼 클릭 이벤트
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     const shareBtn = document.getElementById("share-btn");
 
     shareBtn.addEventListener("click", function () {
@@ -198,6 +207,10 @@
             });
         }
     });
+  });
+  //일기 삭제버튼 클릭이벤트
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     // 일기 삭제 버튼 클릭 이벤트
     const deleteBtn = document.getElementById("delete-btn");
@@ -210,94 +223,100 @@
             deleteForm.submit(); // 확인을 누르면 폼 제출 (삭제 진행)
         }
     });
-
+  });
+  //댓글 등록버튼 클릭이벤트
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     // 댓글 등록 버튼 클릭 이벤트
-    document.querySelectorAll('.add-comment-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const diaryId = button.getAttribute('data-diary-id');
+    document.body.addEventListener('click', function (e) {
+      if (e.target.classList.contains('add-comment-btn')) {
+        const diaryId = e.target.getAttribute('data-diary-id');
         const commentInput = document.getElementById(`comment-input-${diaryId}`);
         const commentContent = commentInput.value.trim();
-
+    
         if (!commentContent) {
           alert('댓글을 입력하세요.');
           return;
         }
-
+    
         fetch(`/communities/add_comment/${diaryId}/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken
+            'X-CSRFToken': csrfToken,
           },
-          body: JSON.stringify({ comment: commentContent })
+          body: JSON.stringify({ comment: commentContent }),
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('댓글 추가 요청 실패');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // 댓글 리스트 초기화 후 다시 렌더링
-          const commentsList = document.getElementById(`comments-list-${diaryId}`);
-          commentsList.innerHTML = '';
-          data.whole_comments.forEach(comment => {
-            commentsList.innerHTML += `
-              <li class="comments-list-li" id="comment-item-${comment.id}">
-                <div class="comments-content">
-                  <span class="comments-list-name" id="comment-text-${comment.id}">${comment.nickname}</span>
-                  <span class="comments-list-content" id="comment-content-${comment.id}">${comment.content}</span>
-                  <input type="text" class="comment-edit-input" id="comment-edit-${comment.id}" value="${comment.content}" style="display:none;" />
-                </div>
-                <div class="comment-edit-del-btn">
-                  <button class="edit-comment-btn" data-comment-id="${comment.id}">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button class="save-comment-btn" data-comment-id="${comment.id}" style="display:none;">저장</button>
-                  <a href="${comment.delete_url}">
-                    <i class="bi bi-trash3-fill"></i>
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('댓글 추가 요청 실패');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const commentsList = document.getElementById(`comments-list-${diaryId}`);
+            commentsList.insertAdjacentHTML('beforeend', `
+            <li class="comments-list-li" id="comment-item-${data.new_comment.id}">
+              <div class="comments-content">
+                <span class="comments-list-name" id="comment-text-${data.new_comment.id}">${data.new_comment.nickname}</span>
+                <span class="comments-list-content" id="comment-content-${data.new_comment.id}">${data.new_comment.content}</span>
+                  <input type="text" class="comment-edit-input" id="comment-edit-${data.new_comment.id}" value="${data.new_comment.content}" style="display:none;" />
+              </div>
+              <div class="comment-edit-del-btn">
+                <button class="edit-comment-btn" data-comment-id="${data.new_comment.id}">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="save-comment-btn" data-comment-id="${data.new_comment.id}" style="display:none;">저장</button>
+                  <a href="${data.new_comment.delete_url}">
+                  <i class="bi bi-trash3-fill"></i>
                   </a>
-                </div>
-              </li>`;
+              </div>
+            </li>
+      `);
+  
+  
+            // 입력창 초기화
+            commentInput.value = '';
+          })
+          .catch((error) => {
+            console.error('댓글 추가 중 오류:', error);
+            alert('댓글 추가 중 오류가 발생했습니다.');
           });
-          // 입력창 초기화
-          commentInput.value = '';
-        })
-        .catch(error => {
-          console.error('댓글 추가 중 오류:', error);
-          alert('댓글 추가 중 오류가 발생했습니다.');
-        });
-      });
+      }
     });
-
-    // 댓글 수정 버튼 클릭 이벤트
-    document.querySelectorAll('.edit-comment-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const commentId = button.getAttribute('data-comment-id');
-
+  });
+  //댓글 수정버튼 클릭이벤트
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+  
+    // 댓글 수정 및 저장 버튼 이벤트 위임
+    document.body.addEventListener('click', function (e) {
+      // 댓글 수정 버튼 클릭 이벤트
+      if (e.target.classList.contains('edit-comment-btn')) {
+        const commentId = e.target.getAttribute('data-comment-id');
+  
         // 기존 댓글 텍스트 숨기기
         document.getElementById(`comment-content-${commentId}`).style.display = 'none';
-
+        console.log(document.getElementById(`comment-text-${commentId}`));
+  
         // 수정 입력창과 저장 버튼 보이기
         document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
         document.querySelector(`.save-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
-
+  
         // 수정 버튼 숨기기
-        button.style.display = 'none';
-      });
-    });
-
-    // 댓글 저장 버튼 클릭 이벤트
-    document.querySelectorAll('.save-comment-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const commentId = button.getAttribute('data-comment-id');
+        e.target.style.display = 'none';
+      }
+  
+      // 댓글 저장 버튼 클릭 이벤트
+      if (e.target.classList.contains('save-comment-btn')) {
+        const commentId = e.target.getAttribute('data-comment-id');
         const newCommentContent = document.getElementById(`comment-edit-${commentId}`).value.trim();
-
+  
         if (!newCommentContent) {
           alert('댓글 내용을 입력하세요.');
           return;
         }
-
+  
         fetch(`/communities/update_comment/${commentId}/`, {
           method: 'POST',
           headers: {
@@ -315,19 +334,21 @@
         .then(data => {
           // 댓글 텍스트 업데이트
           document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}`;
-
+          document.getElementById(`comment-content-${commentId}`).textContent = data.content;
           // 원래 상태로 되돌리기
           document.getElementById(`comment-content-${commentId}`).style.display = 'inline';
           document.getElementById(`comment-edit-${commentId}`).style.display = 'none';
-          button.style.display = 'none';
+          e.target.style.display = 'none';
           document.querySelector(`.edit-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
         })
         .catch(error => {
           console.error('댓글 수정 중 오류:', error);
           alert('댓글 수정 중 오류가 발생했습니다.');
         });
-      });
+      }
     });
   });
+  
+  
 </script>
 {% endblock %}
