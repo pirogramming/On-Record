@@ -131,6 +131,24 @@
     // CSRF 토큰 가져오기
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
+    // 이벤트 위임으로 댓글 수정 버튼 처리
+    document.querySelector('.comments-section').addEventListener('click', function (e) {
+      if (e.target.classList.contains('edit-comment-btn')) {
+          const commentId = e.target.getAttribute('data-comment-id');
+          console.log(commentId);
+
+          // 기존 댓글 텍스트 숨기기
+          document.getElementById(`comment-text-${commentId}`).style.display = 'none';
+
+          // 수정 입력창과 저장 버튼 보이기
+          document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
+          document.querySelector(`.save-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
+
+          // 수정 버튼 숨기기
+          e.target.style.display = 'none';
+    }
+
+
     // 좋아요 버튼 클릭 이벤트
     document.querySelectorAll('.like-btn').forEach(button => {
       button.addEventListener('click', () => {
@@ -217,6 +235,7 @@
     document.querySelectorAll('.edit-comment-btn').forEach(button => {
       button.addEventListener('click', () => {
         const commentId = button.getAttribute('data-comment-id');
+        console.log(commentId)
 
         // 기존 댓글 텍스트 숨기기
         document.getElementById(`comment-text-${commentId}`).style.display = 'none';
@@ -234,6 +253,7 @@
     document.querySelectorAll('.save-comment-btn').forEach(button => {
       button.addEventListener('click', () => {
         const commentId = button.getAttribute('data-comment-id');
+        
         const newCommentContent = document.getElementById(`comment-edit-${commentId}`).value.trim();
 
         if (!newCommentContent) {

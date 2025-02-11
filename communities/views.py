@@ -103,8 +103,8 @@ def update_comment(request, pk):
         # 댓글 업데이트 및 저장
         comment.content = new_content
         comment.save()
-
         # JSON 응답 반환
+
         return JsonResponse({
             'id': comment.id,
             'content': comment.content,
