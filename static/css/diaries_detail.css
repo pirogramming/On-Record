@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 135px;
+  margin-top: 600px;
 }
 
 .detail-container {
@@ -29,6 +29,7 @@
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  margin-bottom: 30px;
 }
 
 .detail-header {
@@ -110,11 +111,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: var(--white);
   padding: 30px;
-  border-radius: 50px;
+  border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-  margin-bottom: 20px;
   max-width: 900px;
 }
 
@@ -128,22 +128,125 @@
 .bis {
   display: flex;
   width: 100%;
+  align-items: center;
+  margin: 20px;
+  font-size: 25px;
 }
 
+.like-btn{
+  background: none;
+  border: none;
+}
 .bis-r {
   margin-left: auto;
   display: flex;
 }
 
-.bi {
+.bi, .comments-section-title {
   display: inline-block;
   color: var(--primary-yellow);
-  font-size: 25px;
   margin: 10px;
   background: none;
   border: none;
 }
 
-.bi:hover {
+.comments-section-title{
+  font-size: 25px;
+}
+
+.like-count{
+  margin: 0;
+  color: var(--primary-yellow);
+  font-size: 25px;
+}
+
+.comments-section-title{margin-right: auto;}
+
+.bi:hover, .save-comment-btn:hover, .add-comment-btn:hover {
   color: var(--hover-yellow);
+}
+
+/* 댓글 섹션 스타일 */
+.comments-section {
+  width: 100%;
+}
+
+
+/* 댓글 리스트 */
+.comments-list{
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list-li {
+  display: flex;      
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comments-list-name, .comments-list-content {
+  font-size: 15px;
+  color: var(--primary-yellow);
+  margin: 15px;
+}
+.comments-list-content{
+  color: var(--text-black);
+}
+
+.comment-edit-input {
+  width: 88%;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  display: none;
+}
+
+.comment-input-section{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.comment-input {
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  width: 85%;
+  background-color: var(--white);
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.add-comment-btn {
+  background-color: var(--primary-yellow);
+  color: var(--white);
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  padding: 15px;
+  border: none; 
+}
+
+.comment-edit-del-btn{
+  margin-left: auto;
+}
+.edit-comment-btn, .save-comment-btn, .delete-comment-btn {
+  background: none;
+  border: none;
+  color: var(--primary-yellow);
+  cursor: pointer;
+  font-size: 15px;
+  margin: 0;
+}
+
+.comments-list a {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
 }
