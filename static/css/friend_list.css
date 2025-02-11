@@ -102,6 +102,7 @@
     border: none; 
 }
 
+/* 슬라이더 버튼 (글래스모피즘 스타일 적용) */
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -113,18 +114,29 @@
     padding: 10px;
     cursor: pointer;
     z-index: 10;
-    border-radius: 15px;
+    border-radius: 50%; /* 완전한 원형 */
+    width: 50px; /* 크기 조정 */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px); /* 글래스모피즘 효과 */
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* 그림자 줄이기 */
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
+/* 왼쪽, 오른쪽 버튼 위치 */
 .left-btn {
-    left: 0;
+    left: 15px;
 }
 
 .right-btn {
-    right: 0;
+    right: 15px;
 }
 
-.move-form-btn:hover {
-    background-color: var(--hover-yellow);
-    transform: scale(1.05);
+/* 버튼 호버 효과 */
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 0.3); /* 호버 시 약간 더 밝아지게 */
+    transform: scale(1.01);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
 }
