@@ -31,7 +31,6 @@ def toggle_like(request, pk):
 
     # 현재 좋아요 개수
     like_count = Like.objects.filter(diary=diary).count()
-
     # 결과 반환
     return JsonResponse({'like_count': like_count, 'status': status})
 
@@ -51,7 +50,9 @@ def add_comment(request, pk):
         serialized_comment = {
             'id' : comment.id,
             'content' : comment.content,
-            'nickname' : comment.comment_user.nickname,                  }
+            'nickname' : comment.comment_user.nickname,  
+            'delete_url' : reverse('communities:delete_comment', kwargs={'pk': comment.id})    
+                                            }
         # 전체 댓글 목록 반환
         whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user').annotate(
             is_author=Case(
