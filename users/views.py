@@ -29,6 +29,9 @@ def signup(request):
       nickname = form.cleaned_data['nickname']
       password = form.cleaned_data['password1']
 
+      # 인증 토큰 초기화
+      EmailVerification.objects.filter(email=user_email).delete()
+
       # 이메일 인증 토큰 생성
       token = uuid.uuid4()
       verification = EmailVerification.objects.create(
