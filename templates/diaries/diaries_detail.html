@@ -98,32 +98,37 @@
       </form>
     </div>
   </div>
-
+  <div class="comments-section-title">댓글</div>
   <!-- 댓글 섹션 -->
   <div class="comments-section">
-    <h3>댓글</h3>
     <ul class="comments-list" id="comments-list-{{ diaries.id }}">
       {% for comment in comments %}
         <li class="comments-list-li" id="comment-item-{{ comment.id }}">
-          <span class="comments-list-span" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
-          <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
-          <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
-
+          <div class="comments-content">
+            <span class="comments-list-name" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}</span> 
+            <span class="comments-list-content">{{ comment.content }}</span>
+            <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
+            <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
+          </div>
           <!-- 수정/저장 버튼 -->
-          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
-          <a href="{% url 'communities:delete_comment' comment.id %}">
-            <i class="bi bi-trash3-fill"></i>
-          </a>
+          <div class="comment-edit-del-btn">
+            <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+            <a href="{% url 'communities:delete_comment' comment.id %}">
+              <i class="bi bi-trash3-fill"></i>
+            </a>
+          </div>
         </li>
       {% endfor %}
     </ul>
 
     <!-- 댓글 입력 폼 -->
-    <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
-    <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+     <div class="comment-input-section">
+      <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
+      <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+    </div>
   </div>
 </div>
 
