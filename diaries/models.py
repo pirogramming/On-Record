@@ -1,5 +1,19 @@
 from django.db import models
-from users.models import User   
+from users.models import User
+import os
+import uuid
+from django.utils.deconstruct import deconstructible
+
+# 파일 업로드 시 파일명을 랜덤한 UUID로 변경
+@deconstructible
+class UploadToUniqueFilename:
+    def __init__(self, subdir):
+        self.subdir = subdir
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]  # 파일 확장자 가져오기
+        filename = f"{uuid.uuid4().hex}.{ext}"  # UUID를 파일명으로 사용
+        return os.path.join(self.subdir, filename)
 
 
 class Personality(models.Model):
