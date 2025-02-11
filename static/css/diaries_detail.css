@@ -14,7 +14,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   margin-top: 600px;
+=======
+  margin-top: 500px;
+>>>>>>> 6089896 (add: communities_main css)
 }
 
 .detail-container {
@@ -89,7 +93,7 @@
 }
 
 .detail-text h3, .detail-image h3 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
     margin-right: auto;
 }
@@ -101,6 +105,12 @@
     gap: 15px;
     margin-right: auto;
     margin-bottom: 10px;
+}
+
+.diary-text-content {
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%; /* 전체 너비 유지 */
+  margin: 0; /* 추가적인 마진 없음 */
 }
 
 .diary-description {
@@ -130,7 +140,11 @@
   width: 100%;
   align-items: center;
   margin: 20px;
+<<<<<<< HEAD
   font-size: 25px;
+=======
+  font-size: 24px;
+>>>>>>> 6089896 (add: communities_main css)
 }
 
 .like-btn{
@@ -151,13 +165,21 @@
 }
 
 .comments-section-title{
+<<<<<<< HEAD
   font-size: 25px;
+=======
+  font-size: 24px;
+>>>>>>> 6089896 (add: communities_main css)
 }
 
 .like-count{
   margin: 0;
   color: var(--primary-yellow);
+<<<<<<< HEAD
   font-size: 25px;
+=======
+  font-size: 24px;
+>>>>>>> 6089896 (add: communities_main css)
 }
 
 .comments-section-title{margin-right: auto;}
@@ -191,7 +213,11 @@
 }
 
 .comments-list-name, .comments-list-content {
+<<<<<<< HEAD
   font-size: 15px;
+=======
+  font-size: 14px;
+>>>>>>> 6089896 (add: communities_main css)
   color: var(--primary-yellow);
   margin: 15px;
 }
@@ -241,7 +267,11 @@
   border: none;
   color: var(--primary-yellow);
   cursor: pointer;
+<<<<<<< HEAD
   font-size: 15px;
+=======
+  font-size: 14px;
+>>>>>>> 6089896 (add: communities_main css)
   margin: 0;
 }
 
@@ -249,4 +279,8 @@
   margin: 0;
   padding: 0;
   display: inline-block;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6089896 (add: communities_main css)

@@ -16,7 +16,7 @@ h2, p, form {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   margin-top: 40px;
   color: #333;
@@ -44,7 +44,7 @@ form button {
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   transition: background 0.3s, transform 0.2s;
   box-shadow: 0px 3px 6px rgba(255, 77, 77, 0.5);
@@ -63,7 +63,7 @@ form a {
   color: #333;
   padding: 8px 18px;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   transition: background 0.3s;
   width: 180px;

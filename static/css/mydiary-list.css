@@ -23,20 +23,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #FFFBED;
     }
 
     .header {
         width: 90%;
         max-width: 1100px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end; /* 기존 space-between → flex-end */
         align-items: center;
         margin-top: 30px;
+        gap: 15px; /* 버튼 간격 유지 */
     }
 
     .title {
-        font-size: 32px;
+        font-size: 24px;
         font-weight: bold;
         color: black;
         text-align: center;
@@ -44,34 +44,31 @@
         margin-top: 100px;
     }
 
+    /* 버튼 공통 스타일 */
+    .friend-btn, .add-diary-btn {
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    /* 반려동물 버튼 */
     .friend-btn {
         background-color: #FFC100;
         color: white;
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    .friend-btn:hover {
-        background-color: #E5B700;
-        transform: scale(1.05);
-    }
-
+    /* 온기록 남기기 버튼 */
     .add-diary-btn {
         background-color: #FFC100;
         color: white;
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-left: 30px; /* 버튼을 오른쪽으로 밀기 */
     }
 
-    .add-diary-btn:hover {
+    /* 버튼 호버 효과 */
+    .friend-btn:hover, .add-diary-btn:hover {
         background-color: #E5B700;
         transform: scale(1.05);
     }
@@ -126,7 +123,7 @@
     }
 
     .diary-preview {
-        font-size: 14px;
+        font-size: 16px;
         color: #666;
         overflow: hidden;
         display: -webkit-box;
