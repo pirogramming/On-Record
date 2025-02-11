@@ -46,7 +46,7 @@
 }
 
 .login-title {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     color: var(--primary-yellow);
     text-align: center;
@@ -99,7 +99,7 @@
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
     color: white;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 30px;
     cursor: pointer;

@@ -1,0 +1,275 @@
+/* 배경 이미지 설정 */
+.background-b {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/base-b.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFBED;
+}
+
+/* 헤더 스타일 */
+.header {
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px; /* 기존 30px → 50px으로 조정 */
+}
+
+/* 친구 선택 버튼 */
+.friend-btn {
+    background-color: #FFC100;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.friend-btn:hover {
+    background-color: #E5B700;
+    transform: scale(1.05);
+}
+
+/* 드롭다운 스타일 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 120px;
+    text-align: center;
+    z-index: 10;
+}
+
+.dropdown-content button {
+    background: none;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-content button:hover {
+    background-color: #FFC100;
+    color: white;
+}
+
+/* 온기록 남기기 버튼 */
+.add-diary-btn {
+    background-color: #FFC100;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-diary-btn:hover {
+    background-color: #E5B700;
+    transform: scale(1.05);
+}
+
+/* 제목 스타일 */
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-top: 120px; /* 기존 100px → 120px */
+}
+
+/* 다이어리 리스트 컨테이너 */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+    text-align: center;
+    margin-top: 50px; /* 기존 20px → 50px */
+}
+
+/* 다이어리 리스트 */
+.diary-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px; /* 기존 20px → 30px */
+}
+
+/* 다이어리 카드 */
+.diary-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.diary-card:hover {
+    transform: scale(1.03);
+}
+
+/* 다이어리 이미지 */
+.diary-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* 다이어리 정보 */
+.diary-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.diary-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.diary-preview {
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* 다이어리 액션 (좋아요, 댓글) */
+.diary-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    gap: 15px;
+}
+
+.like-btn, .comment-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFC100;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-btn img, .comment-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 댓글 입력창 */
+.comment-section {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.comment-input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.add-comment-btn {
+    background-color: #FFC100;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-comment-btn:hover {
+    background-color: #E5B700;
+}
+
+/* 댓글 리스트 */
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.comments-list li {
+    font-size: 14px;
+    padding: 5px 10px;
+    background: #FFF4D9;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .diary-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .title {
+        margin-top: 100px; /* 모바일에서도 살짝 조정 */
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .diary-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .title {
+        margin-top: 90px; /* 모바일에서 더 내리기 */
+    }
+}

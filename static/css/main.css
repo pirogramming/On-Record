@@ -80,7 +80,11 @@ li {
   background: linear-gradient(-60deg, var(--light-yellow), var(--white));
   border: none;
   color: #FFC003;
+<<<<<<< HEAD
   font-size: 20px;
+=======
+  font-size: 14px;
+>>>>>>> 6089896 (add: communities_main css)
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
