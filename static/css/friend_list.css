@@ -15,7 +15,7 @@
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 1200px; /* 최대 너비 조정 */
+    max-width: 1500px; /* 최대 너비 조정 */
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -40,7 +40,7 @@
 
 /* 개별 카드 */
 .homepage-container {
-    background: white;
+    background: var(--white);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(230, 190, 90, 0.6);
@@ -81,8 +81,8 @@
 }
 
 .friend-name{
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow); /* 노란색 변경 */
     margin-bottom: 10px;
 }
@@ -91,12 +91,12 @@
 .move-detail-btn, .move-write-btn {
     display: inline-block;
     background-color: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     padding: 12px 18px;
     border-radius: 30px;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 0.8rem;
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
     margin-top: 15px;
     border: none; 
@@ -107,11 +107,11 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.2); /* 반투명한 배경 */
-    color: var(--primary-yellow);
+    background: var( --primary-yellow);
+    color: var(--white);
     border: none;
-    font-size: 22px;
-    padding: 12px;
+    font-size: 1.2rem;
+    padding: 10px;
     cursor: pointer;
     z-index: 10;
     border-radius: 50%; /* 완전한 원형 */

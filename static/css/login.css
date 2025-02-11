@@ -46,11 +46,10 @@
 }
 
 .login-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     text-align: center;
-    margin-top: 50px; /* 로고와의 간격 */
 }
 
 /* Login 밑줄 */
@@ -81,7 +80,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     background-color: rgba(255, 255, 255, 0.8);
     outline: none;
     transition: border 0.3s ease-in-out;
@@ -95,12 +94,12 @@
 .login-btn {
     width: 80%;
     max-width: 320px;
-    padding: 14px;
+    padding: 10px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-normal);
     border-radius: 30px;
     cursor: pointer;
     transition: background 0.3s;
@@ -146,12 +145,31 @@
 }
 
 .google {
-    background-color: white;
+    background-color: var(--white);
     border: 1px solid #ccc;
 }
 
 .social-btn:hover {
     opacity: 0.8;
+}
+
+.form-field {
+    margin-bottom: 10px;
+    width: 40%;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    font-size: var(--font-size-normal);
+    border-radius: 50px;
+    box-shadow: 0 4px 10px 5px var( --shadow-light-yellow);
+    border: none;
+}
+
+.signup-form .form-field input:focus {
+    border: 1px solid var(--primary-yellow);
+    outline: none; 
 }
 
 /* 반응형 디자인 */

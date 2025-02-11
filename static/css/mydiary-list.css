@@ -36,9 +36,9 @@
     }
 
     .title {
-        font-size: 24px;
-        font-weight: bold;
-        color: black;
+        font-size: 1.2rem;
+        font-weight: var(--font-weight-normal);
+        color: var(--text-black);
         text-align: center;
         margin: 10px 0;
         margin-top: 100px;
@@ -48,7 +48,7 @@
     .friend-btn, .add-diary-btn {
         padding: 10px 20px;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 0.8rem;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
@@ -57,26 +57,26 @@
     /* 반려동물 버튼 */
     .friend-btn {
         background-color: #FFC100;
-        color: white;
+        color: var(--white);
     }
 
     /* 온기록 남기기 버튼 */
     .add-diary-btn {
         background-color: #FFC100;
-        color: white;
+        color: var(--white);
         margin-left: 30px; /* 버튼을 오른쪽으로 밀기 */
     }
 
     /* 버튼 호버 효과 */
     .friend-btn:hover, .add-diary-btn:hover {
-        background-color: #E5B700;
+        background-color: var(--hover-yellow);
         transform: scale(1.05);
     }
 
     .container {
         width: 90%;
         max-width: 1100px;
-        background: white;
+        background: var(--white);
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
@@ -93,7 +93,7 @@
     }
 
     .diary-card {
-        background: white;
+        background: var(--white);
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         overflow: hidden;
@@ -116,15 +116,15 @@
     }
 
     .diary-title {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 0.9rem;
+        font-weight: var(--font-weight-normal);
         color: #333;
         margin-bottom: 5px;
     }
 
     .diary-preview {
-        font-size: 16px;
-        color: #666;
+        font-size: var(--font-size-normal);
+        color: var(--text-gray);
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -145,8 +145,8 @@
         background: none;
         border: none;
         cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 0.8rem;
+        font-weight: var(--font-weight-normal);
         color: #FFC100;
         display: flex;
         align-items: center;

@@ -17,14 +17,14 @@ h2, p, form {
 
 h2 {
   font-size: 30px;
-  font-weight: bold;
+  font-weight: var(--font-weight-normal);
   margin-top: 40px;
   color: #333;
 }
 
 p {
-  font-size: 16px;
-  color: #666;
+  font-size: var(--font-size-normal);
+  color: var(--text-gray);
   margin-bottom: 20px;
 }
 
@@ -39,13 +39,13 @@ form {
 /* 탈퇴 버튼 */
 form button {
   background: #FF4D4D;
-  color: white;
+  color: var(--white);
   border: none;
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
   transition: background 0.3s, transform 0.2s;
   box-shadow: 0px 3px 6px rgba(255, 77, 77, 0.5);
   width: 180px;
@@ -63,8 +63,8 @@ form a {
   color: #333;
   padding: 8px 18px;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-normal);
   transition: background 0.3s;
   width: 180px;
   text-align: center;

@@ -30,8 +30,7 @@
   color: rgba(0,0,0,1);
   opacity: 1;
   text-align: center;
-  font-weight: normal;
-  font-size: 24px;
+  font-size: 1.6rem;
 }
 
 .form-body {
@@ -84,7 +83,7 @@
 }
 
 label {
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     margin: 5px;
 }
 
@@ -106,7 +105,7 @@ input, select {
 .personality-btn {
     padding: 5px 10px;
     border: 1px solid #ccc;
-    background: white;
+    background: var(--white);
     border-radius: 30px;
     cursor: pointer;
     width: calc(20% - 10px);
@@ -121,8 +120,7 @@ input, select {
     padding: 5px 20px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
+    color: var(--white);
     border-radius: 30px;
     cursor: pointer;
     margin: auto;

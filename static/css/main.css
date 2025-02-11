@@ -21,7 +21,7 @@ body {
   margin: 20px;
   padding: 50px;
   border-radius: 15px;
-  box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.6);
+  box-shadow: 0 4px 50px 10px var(--shadow-dark-yellow);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -52,16 +52,20 @@ body {
 
 .main-text {
   margin: 20px 0;
-  font-size: 25px;
+  font-size: 1.3rem;
+  color: var(--white);
 }
 
 .main-text h1 {
   margin-bottom: 20px; 
+  font-size: 2.3rem;
+  font-weight: var(--font-weight-bold);
 }
 
 .logo {
   width: 200px;
   height: 163px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
 }
 
 .main-btn {
@@ -77,10 +81,10 @@ li {
 .login-btn, .signup-btn {
   display: block;
   padding: 10px 20px;
-  background: linear-gradient(-60deg, var(--light-yellow), var(--white));
+  background: linear-gradient(-90deg, var(--light-yellow), var(--white));
   border: none;
   color: #FFC003;
-  font-size: 14px;
+  font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
