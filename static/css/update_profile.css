@@ -15,14 +15,14 @@
     max-width: 600px;
     margin: 50px auto;
     padding: 40px;
-    background-color: var(--white);
+    background-color: var(--var(--white));
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .mypage-header {
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -44,9 +44,9 @@ input[type="file"] {
     margin: 0 auto 20px;
     padding: 10px;
     border-radius: 30px;
-    background-color: var(--white);
+    background-color: var(--var(--white));
     cursor: pointer;
-    box-shadow: 0 4px 10px 3px rgba(229, 188, 63, 0.3);
+    box-shadow: 0 4px 10px 3px var( --shadow-light-yellow);
 }
 
 .user-name {
@@ -56,8 +56,8 @@ input[type="file"] {
     font-size: var(--font-size-normal);
     border-radius: 30px;
     text-align: center;
-    background-color: var(--white);
-    box-shadow: 0 4px 10px 3px rgba(229, 188, 63, 0.3);
+    background-color: var(--var(--white));
+    box-shadow: 0 4px 10px 3px var( --shadow-light-yellow);
 }
 
 .user-name input {
@@ -65,7 +65,7 @@ input[type="file"] {
     font-size: var(--font-size-normal);
     border-radius: 30px;
     border: none;
-    background-color: var(--white);
+    background-color: var(--var(--white));
 }
 
 .user-info p {
@@ -81,7 +81,7 @@ input[type="file"] {
     margin: 20px auto;
     padding: 10px;
     background-color: var(--primary-yellow);
-    color: var(--white);
+    color: var(--var(--white));
     font-size: 0.8rem;
     text-align: center;
     border-radius: 30px;

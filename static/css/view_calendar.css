@@ -27,8 +27,8 @@ select {
     padding: 8px 16px;
     margin-left: 30px;
     margin-top: 60px;
-    font-size: 30px;
-    font-weight: var(--font-weight-normal);;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
     border: none; 
     background-color: transparent;  
     cursor: pointer;
@@ -58,16 +58,16 @@ th{
 
 .today {
     background-color: var(--primary-yellow);
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     border-radius: 50%;
-    box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.3);
+    box-shadow: 0 4px 50px 10px var( --shadow-light-yellow);
 }
 
 .diary-day {
     display: block;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     text-decoration: none;
-    color: var(--text-black);
+    color: var(--text-var(--text-black));
     margin: 10px;
 }
 
@@ -81,8 +81,8 @@ th{
 
 /* 달력의 요일 스타일 */
 .day-name {
-    font-weight: var(--font-weight-normal);;
-    font-size: 18px;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.9rem;
     color: #333;
 }
 
@@ -103,19 +103,19 @@ th{
 
 .friends-list-title {
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn {
     background: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     border: none;
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     font-size: 0.8rem;
 }
 
@@ -137,7 +137,7 @@ th{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--white);
+    background: var(--var(--white));
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
@@ -168,7 +168,7 @@ th{
 
 .friend-name {
     font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     display: inline-block;
 }
 
@@ -186,8 +186,8 @@ th{
 /* 반려친구 이름 */
 .friend-name {
     font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-normal);;
-    color: var(--text-black);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
     text-align: center;
     display: block;
 }
@@ -199,8 +199,6 @@ th{
     color: #777;
 }
 
-<<<<<<< HEAD
-=======
 .delete-account {
     position: absolute;
     font-size: 0.8rem;
@@ -208,7 +206,6 @@ th{
     cursor: pointer;
 }
 
->>>>>>> 6089896 (add: communities_main css)
 @media (max-width: 500px) {
     .mypage-profile {
         width: 95%;

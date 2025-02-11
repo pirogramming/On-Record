@@ -47,11 +47,11 @@
   opacity: 1;
   text-align: center;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 0.9rem;
 }
 
 label {
-  font-weight: var(--font-weight-normal);;
+  font-weight: var(--font-weight-normal);
   margin: 5px;
 }
 
@@ -59,7 +59,7 @@ label {
     padding: 5px 20px; /* 패딩을 추가 */
     background-color: var(--primary-yellow);
     border: none;
-    color: white;
+    color: var(--white);
     font-size: 0.8rem;
     border-radius: 30px;
     cursor: pointer;
@@ -86,7 +86,7 @@ label {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background: var(--white);
+    background: var(--var(--white));
     box-shadow: 0 4px 50px 5px var(--shadow-yellow);
     text-align: center;
 }
@@ -97,7 +97,7 @@ label {
 
 .image-upload label {
     cursor: pointer;
-    color: var(--dark-gray);
+    color: var(--text-gray);
 }
 
 .text-input textarea {
@@ -115,7 +115,7 @@ label {
   padding: 5px 20px;
   background: var(--primary-yellow);
   border: none;
-  color: white;
+  color: var(--white);
   font-size: 0.8rem;
   border-radius: 30px;
   cursor: pointer;

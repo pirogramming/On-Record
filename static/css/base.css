@@ -26,9 +26,9 @@ body {
 }
 
 .navbar-text {
-  font-size: 18px;
+  font-size: 0.9rem;
   margin: 0 10px;
-  color: var(--white);
+  color: var(--var(--white));
   text-decoration: none;
 }
 

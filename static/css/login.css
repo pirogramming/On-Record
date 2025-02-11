@@ -47,7 +47,7 @@
 
 .login-title {
     font-size: 1.4rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     text-align: center;
 }
@@ -97,9 +97,9 @@
     padding: 10px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 18px;
-    font-weight: var(--font-weight-normal);;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-normal);
     border-radius: 30px;
     cursor: pointer;
     transition: background 0.3s;
@@ -145,7 +145,7 @@
 }
 
 .google {
-    background-color: white;
+    background-color: var(--white);
     border: 1px solid #ccc;
 }
 
@@ -163,7 +163,7 @@
     padding: 10px;
     font-size: var(--font-size-normal);
     border-radius: 50px;
-    box-shadow: 0 4px 10px 5px rgba(229, 188, 63, 0.2);
+    : 0 4px 10px 5px var( --shadow-light-yellow);
     border: none;
 }
 

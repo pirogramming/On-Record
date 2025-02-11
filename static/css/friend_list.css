@@ -40,7 +40,7 @@
 
 /* 개별 카드 */
 .homepage-container {
-    background: white;
+    background: var(--white);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(230, 190, 90, 0.6);
@@ -82,7 +82,7 @@
 
 .friend-name{
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow); /* 노란색 변경 */
     margin-bottom: 10px;
 }
@@ -91,10 +91,10 @@
 .move-detail-btn, .move-write-btn {
     display: inline-block;
     background-color: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     padding: 12px 18px;
     border-radius: 30px;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     text-decoration: none;
     font-size: 0.8rem;
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
@@ -107,7 +107,7 @@
     top: 50%;
     transform: translateY(-50%);
     background: var( --primary-yellow);
-    color: var(--white);
+    color: var(--var(--white));
     border: none;
     font-size: 1.2rem;
     padding: 10px;

@@ -84,7 +84,7 @@
 }
 
 label {
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     margin: 5px;
 }
 
@@ -106,7 +106,7 @@ input, select {
 .personality-btn {
     padding: 5px 10px;
     border: 1px solid #ccc;
-    background: white;
+    background: var(--white);
     border-radius: 30px;
     cursor: pointer;
     width: calc(20% - 10px);
@@ -121,7 +121,7 @@ input, select {
     padding: 5px 20px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
+    color: var(--white);
     font-size: 0.8rem;
     border-radius: 30px;
     cursor: pointer;

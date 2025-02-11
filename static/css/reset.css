@@ -5,8 +5,8 @@
     --hover-yellow: #e5b700; 
     --white: #FFFFFF;
     --light-gray: #d9d9d9;
-    --dark-gray: #666; 
-    --shadow-yellow: rgba(229, 188, 63, 0.8);
+    --shadow-dark-yellow: rgba(229, 188, 63, 0.6);
+    --shadow-light-yellow: rgba(229, 188, 63, 0.2);
     --red:#ff6347;
     --diary-empty: #F2EEE2;
     --diary-one: #FFF0C4;

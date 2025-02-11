@@ -33,14 +33,14 @@
 
 .mypage-title {
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
-    color: var(--text-black);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
 }
 
 /* 유저 정보 */
 .user-info {
     margin: 20px 0;
-    font-size: 18px;
+    font-size: 0.9rem;
     color: var(--primary-yellow);
     display: flex;
     flex-direction: column;
@@ -79,7 +79,7 @@
 
 .user-name {
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     max-width: 200px;
     text-align: center;
@@ -99,7 +99,7 @@ p {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0px 5px 20px var(--hover-yellow);
+    : 0px 5px 20px var(--hover-yellow);
     margin-top: 30px;
     position: relative;
 }
@@ -114,19 +114,19 @@ p {
 
 .friends-list-title {
     font-size: 1.2rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn, .edit-profile-btn {
     background: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     border: none;
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     font-size: 0.8rem;
 }
 
@@ -148,25 +148,25 @@ p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
+    background: var(--white);
     padding: 12px 20px;
     border-radius: 30px;
-    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    : 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
 }
 
 /* 반려친구 호버 효과 */
 .friend-item:hover {
     transform: scale(1.03);
-    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+    : 0px 4px 10px rgba(230, 190, 90, 0.9);
 }
 
 
 /* 반려친구 이름 */
 .friend-name {
     font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-normal);;
-    color: var(--text-black);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
     text-align: center;
     display: block;
 }
@@ -186,9 +186,9 @@ p {
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.8rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+    : 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
 .edit-btn:hover {
@@ -199,15 +199,15 @@ p {
 /* 삭제 버튼 */
 .delete-btn {
     background: #FF6B6B;
-    color: white;
+    color: var(--white);
     border: none;
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.8rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
+    : 0px 2px 5px rgba(255, 90, 90, 0.6);
 }
 
 .delete-btn:hover {
@@ -236,9 +236,9 @@ p {
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.8rem;
-    font-weight: var(--font-weight-normal);;
+    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+    : 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
 .user-del-btn:hover {

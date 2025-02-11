@@ -21,7 +21,7 @@ body {
   margin: 20px;
   padding: 50px;
   border-radius: 15px;
-  box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.6);
+  box-shadow: 0 4px 50px 10px var(--shadow-dark-yellow);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -42,7 +42,7 @@ body {
 }
 
 .main-page {
-  color: var(--white);
+  color: var(--var(--white));
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -80,15 +80,15 @@ li {
 .login-btn, .signup-btn {
   display: block;
   padding: 10px 20px;
-  background: linear-gradient(-90deg, var(--light-yellow), var(--white));
+  background: linear-gradient(-90deg, var(--light-yellow), var(--var(--white)));
   border: none;
   color: #FFC003;
-  font-size: 20px;
+  font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
 }
 
 .login-btn:hover, .signup-btn:hover {
-  background:var(--white);
+  background:var(--var(--white));
 }
