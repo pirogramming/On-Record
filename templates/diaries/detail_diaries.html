@@ -16,8 +16,8 @@
       </h1>
       <div class="detail-header-l">
         <p id="date">{{ diaries.date }}</p>
-        <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
-          {% if diaries.disclosure.value == True %}
+        <button class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
+          {% if diaries.disclosure == True %}
               전체공개
           {% else %}
               비공개
@@ -79,9 +79,15 @@
   </div>
   <!-- 좋아요 및 공유 버튼 -->
   <div class="bis">
+    {% if is_liked %}
+    <button class="like-btn" data-diary-id="{{ diaries.id }}" >
+      <i class="bi bi-heart-fill"></i>
+    </button>
+    {% else %}
     <button class="like-btn" data-diary-id="{{ diaries.id }}">
       <i class="bi bi-heart"></i>
     </button>
+    {% endif %}
     <span class="like-count" id="like-count-{{ diaries.id }}">
       {{ diaries.like_set.count }}
     </span>
@@ -350,7 +356,60 @@
       }
     });
   });
-  
+  //전체공개 비공개 토글 
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    // 이벤트 위임: 문서 전체에서 public-btn 클릭 감지
+    document.body.addEventListener('click', function (e) {
+        if (e.target.classList.contains('public-btn')) {
+            const disclosureBtn = e.target;
+            const diaryId = disclosureBtn.getAttribute('data-diary-id');
+            
+            let currentStatus = disclosureBtn.getAttribute('data-status') === 'True';
+
+            let newStatus = !currentStatus;
+
+            // UI 업데이트
+            disclosureBtn.setAttribute('data-status', newStatus ? 'True' : 'False');
+            disclosureBtn.textContent = newStatus ? "전체공개" : "비공개";
+            
+
+            // AJAX 요청
+            fetch(`/diaries/toggle_disclosure/${diaryId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                body: JSON.stringify({ disclosure: newStatus })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("상태 변경 실패");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    alert("상태 변경 실패");
+                    // 오류 발생 시 UI 복구
+                    disclosureBtn.setAttribute('data-status', currentStatus);
+                    disclosureBtn.textContent = currentStatus ? "전체공개" : "비공개";
+                }
+            })
+            .catch(error => {
+                console.error("오류 발생:", error);
+                alert("일기의 소유자가 아닙니다.");
+                // 오류 발생 시 UI 복구
+                disclosureBtn.setAttribute('data-status', currentStatus);
+                disclosureBtn.textContent = currentStatus ? "전체공개" : "비공개";
+            });
+        }
+    });
+});
+
+
   
 </script>
 {% endblock %}
