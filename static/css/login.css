@@ -46,11 +46,10 @@
 }
 
 .login-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: var(--primary-yellow);
     text-align: center;
-    margin-top: 50px; /* 로고와의 간격 */
 }
 
 /* Login 밑줄 */
@@ -95,11 +94,11 @@
 .login-btn {
     width: 80%;
     max-width: 320px;
-    padding: 14px;
+    padding: 10px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
     color: white;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 30px;
     cursor: pointer;
@@ -152,6 +151,20 @@
 
 .social-btn:hover {
     opacity: 0.8;
+}
+
+.form-field {
+    margin-bottom: 10px;
+    width: 40%;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px 5px rgba(229, 188, 63, 0.2);
+    border: none;
 }
 
 /* 반응형 디자인 */

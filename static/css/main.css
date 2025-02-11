@@ -62,6 +62,7 @@ body {
 .logo {
   width: 200px;
   height: 163px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
 }
 
 .main-btn {
@@ -77,14 +78,10 @@ li {
 .login-btn, .signup-btn {
   display: block;
   padding: 10px 20px;
-  background: linear-gradient(-60deg, var(--light-yellow), var(--white));
+  background: linear-gradient(-90deg, var(--light-yellow), var(--white));
   border: none;
   color: #FFC003;
-<<<<<<< HEAD
   font-size: 20px;
-=======
-  font-size: 14px;
->>>>>>> 6089896 (add: communities_main css)
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
