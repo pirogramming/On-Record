@@ -35,6 +35,7 @@
 
 .start-hello {
   margin-top: auto;
+  font-weight: var(--font-weight-normal);
 }
 
 .move-form-btn {

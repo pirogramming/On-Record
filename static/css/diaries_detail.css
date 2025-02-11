@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Ownglyph_ParkDaHyun';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .background-a {
   position: fixed; 
   top: 0;
@@ -39,6 +46,11 @@
   width: 100%;
 }
 
+.detail-title{
+  font-size: 2rem;
+  font-weight: var(--font-size-normal);
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
 .detail-header-l {
   display: flex;
   flex-direction: row;
@@ -70,6 +82,7 @@
   align-items: center;
   margin-top: 20px;
   width: 100%;
+  gap: 30px;
 }
 
 .detail-image, .detail-text {
@@ -103,10 +116,15 @@
     margin-bottom: 10px;
 }
 
+.mood, .weather{
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
+
 .diary-text-content {
-  text-align: left; /* 왼쪽 정렬 */
-  width: 100%; /* 전체 너비 유지 */
-  margin: 0; /* 추가적인 마진 없음 */
+  text-align: left; 
+  width: 100%; 
+  margin: 0; 
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
 }
 
 .diary-description {
@@ -122,6 +140,7 @@
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
   max-width: 900px;
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
 }
 
 @media (max-width: 600px) {
@@ -136,7 +155,6 @@
   width: 100%;
   align-items: center;
   margin: 20px;
-  font-size: 1.3rem;
 }
 
 .like-btn{
@@ -154,10 +172,8 @@
   margin: 10px;
   background: none;
   border: none;
-}
-
-.comments-section-title{
   font-size: 1.3rem;
+  font-weight: var(--font-weight-normal);
 }
 
 .like-count{
@@ -168,7 +184,7 @@
 
 .comments-section-title{margin-right: auto;}
 
-.bi:hover, .save-comment-btn:hover, .add-comment-btn:hover {
+.bi:hover, .save-comment-btn:hover {
   color: var(--hover-yellow);
 }
 
@@ -234,6 +250,11 @@
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
 }
 
+.comment-input-section .comment-input:focus {
+  border: 1px solid var(--primary-yellow);
+  outline: none; 
+}
+
 .add-comment-btn {
   background-color: var(--primary-yellow);
   color: var(--white);
@@ -242,6 +263,10 @@
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
   padding: 15px;
   border: none; 
+}
+
+.add-comment-btn:hover {
+  background-color: var(--hover-yellow);
 }
 
 .comment-edit-del-btn{
