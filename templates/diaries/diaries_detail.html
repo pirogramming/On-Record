@@ -15,7 +15,7 @@
         <p>{{ diaries.title }}</p>
       </h1>
       <div class="detail-header-l">
-        <p id="date">{{ diaries.date }}<p>
+        <p id="date">{{ diaries.date }}</p>
         <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
           {% if diaries.disclosure.value == True %}
               전체공개
@@ -74,21 +74,19 @@
       </div>
     </div>
   </div>
-  <div>
+  <div class="reply">
     {{reply.content}}
   </div>
   <!-- 좋아요 및 공유 버튼 -->
   <div class="bis">
     <button class="like-btn" data-diary-id="{{ diaries.id }}">
-      ❤️ 좋아요
+      <i class="bi bi-heart"></i>
     </button>
-    <span>
-      <span class="like-count" id="like-count-{{ diaries.id }}">
-        좋아요 개수 : {{ diaries.like_set.count }}
-      </span>
+    <span class="like-count" id="like-count-{{ diaries.id }}">
+      {{ diaries.like_set.count }}
     </span>
 
-    <div class="bis-l">
+    <div class="bis-r">
       <i class="bi bi-share-fill"></i>
       <form action="#" enctype="multipart/form-data">
         {% csrf_token %}
@@ -100,29 +98,37 @@
       </form>
     </div>
   </div>
-
+  <div class="comments-section-title">댓글</div>
   <!-- 댓글 섹션 -->
   <div class="comments-section">
-    <h3>댓글</h3>
-    <ul id="comments-list-{{ diaries.id }}">
-
+    <ul class="comments-list" id="comments-list-{{ diaries.id }}">
       {% for comment in comments %}
-        <li id="comment-item-{{ comment.id }}">
-          <span id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}: {{ comment.content }}</span>
-          <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
-          <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
-
+        <li class="comments-list-li" id="comment-item-{{ comment.id }}">
+          <div class="comments-content">
+            <span class="comments-list-name" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}</span> 
+            <span class="comments-list-content" id="comment-content-{{comment.id}}">{{ comment.content }}</span>
+            <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
+            <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
+          </div>
           <!-- 수정/저장 버튼 -->
-          <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">댓글 수정하기</button>
-          <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
-          <a href="{% url 'communities:delete_comment' comment.id %}">댓글 지우기</a>
+          <div class="comment-edit-del-btn">
+            <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+            <a href="{% url 'communities:delete_comment' comment.id %}">
+              <i class="bi bi-trash3-fill"></i>
+            </a>
+          </div>
         </li>
       {% endfor %}
     </ul>
 
     <!-- 댓글 입력 폼 -->
-    <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
-    <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+     <div class="comment-input-section">
+      <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
+      <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+    </div>
   </div>
 </div>
 
@@ -151,9 +157,14 @@
         })
         .then(data => {
           // 좋아요 개수 업데이트
-          document.getElementById(`like-count-${diaryId}`).textContent = `좋아요 개수 : ${data.like_count}`;
+          document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
           // 버튼 텍스트 변경
-          button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
+          if (data.status === 'liked') {
+            button.innerHTML = '<i class="bi bi-heart-fill"></i>';
+          } else {
+            button.innerHTML = '<i class="bi bi-heart"></i>';
+          }
+
         })
         .catch(error => {
           console.error('좋아요 처리 중 오류:', error);
@@ -194,15 +205,23 @@
           commentsList.innerHTML = '';
           data.whole_comments.forEach(comment => {
             commentsList.innerHTML += `
-            <li id="comment-item-${comment.id}">
-                <span id="comment-text-${comment.id}">${comment.nickname}: ${comment.content}</span>
-                <input type="text" class="comment-edit-input" id="comment-edit-${comment.id}" value="${comment.content}" style="display:none;" />
-                <button class="edit-comment-btn" data-comment-id="${comment.id}">댓글 수정하기</button>
-                <button class="save-comment-btn" data-comment-id="${comment.id}" style="display:none;">저장</button>
-                <a href="${comment.delete_url}">댓글 지우기</a>
-            </li>`;
-        });
-
+              <li class="comments-list-li" id="comment-item-${comment.id}">
+                <div class="comments-content">
+                  <span class="comments-list-name" id="comment-text-${comment.id}">${comment.nickname}</span>
+                  <span class="comments-list-content" id="comment-content-${comment.id}">${comment.content}</span>
+                  <input type="text" class="comment-edit-input" id="comment-edit-${comment.id}" value="${comment.content}" style="display:none;" />
+                </div>
+                <div class="comment-edit-del-btn">
+                  <button class="edit-comment-btn" data-comment-id="${comment.id}">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="save-comment-btn" data-comment-id="${comment.id}" style="display:none;">저장</button>
+                  <a href="${comment.delete_url}">
+                    <i class="bi bi-trash3-fill"></i>
+                  </a>
+                </div>
+              </li>`;
+          });
           // 입력창 초기화
           commentInput.value = '';
         })
@@ -220,6 +239,7 @@
 
         // 기존 댓글 텍스트 숨기기
         document.getElementById(`comment-text-${commentId}`).style.display = 'none';
+        document.getElementById(`comment-content-${commentId}`).style.display = 'none';
 
         // 수정 입력창과 저장 버튼 보이기
         document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
@@ -257,7 +277,8 @@
         })
         .then(data => {
           // 댓글 텍스트 업데이트
-          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}: ${data.content}`;
+          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}`;
+          document.getElementById(`comment-content-${commentId}`).textContent = `${data.content}`;
 
           // 원래 상태로 되돌리기
           document.getElementById(`comment-text-${commentId}`).style.display = 'inline';

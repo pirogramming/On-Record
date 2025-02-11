@@ -94,11 +94,19 @@
             {% for f in friends %}
             <div class="friend-item" id="friend-{{ f.id }}">
                 <div class="friend-info">
+                    <div class="friend-profile">
+                        <div class="friend_profile_img">
+                            {% if f.image %}
+                            <img src="{{  f.image.url }}" alt="반려친구 사진" />
+                            {% else %}
+                            <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                            {% endif %}
+                        </div>
+                    </div>
                     <a href="{% url 'diaries:mydiary_list' f.id %}"
-                            class="friend-name"
+                     class="friend-name"
                             data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                            {{ f.name }}
-                            <p class="friend-name">에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개 </p>
+                            {{ f.name }}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
                     </a>
                 </div>
             </div>
