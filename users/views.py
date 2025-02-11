@@ -52,7 +52,7 @@ def signup(request):
 
       encrypted_password = encrypt_password(password)
 
-      response = render(request, 'users/signup_pending.html')
+      response = render(request, 'users/signup_pending.html', {'email': user_email})
       response.set_signed_cookie('password1', encrypted_password, salt='secure_salt', max_age=300, httponly=True)  # 5분 동안 유지
       return response
 
