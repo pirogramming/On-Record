@@ -43,7 +43,7 @@ body, html {
     color: white;
     padding: 10px 20px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -77,7 +77,7 @@ body, html {
     padding: 10px;
     width: 100%;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
 .dropdown-content button:hover {
@@ -91,7 +91,7 @@ body, html {
     color: white;
     padding: 10px 20px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -105,7 +105,7 @@ body, html {
 /* 제목 스타일 */
 .title {
     font-size: 26px;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     color: black;
     text-align: center;
     margin-top: 120px; /* 기존 100px → 120px */
@@ -162,13 +162,13 @@ body, html {
 
 .diary-title {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     color: #333;
     margin-bottom: 5px;
 }
 
 .diary-preview {
-    font-size: 14px;
+    font-size: 0.8rem;
     color: #666;
     overflow: hidden;
     display: -webkit-box;
@@ -191,8 +191,8 @@ body, html {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
     color: #FFC100;
     display: flex;
     align-items: center;
@@ -240,7 +240,7 @@ body, html {
 }
 
 .comments-list li {
-    font-size: 14px;
+    font-size: 0.8rem;
     padding: 5px 10px;
     background: #FFF4D9;
     border-radius: 10px;

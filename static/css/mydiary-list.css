@@ -36,8 +36,8 @@
     }
 
     .title {
-        font-size: 24px;
-        font-weight: bold;
+        font-size: 1.2rem;
+        font-weight: var(--font-weight-normal);;
         color: black;
         text-align: center;
         margin: 10px 0;
@@ -48,7 +48,7 @@
     .friend-btn, .add-diary-btn {
         padding: 10px 20px;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 0.8rem;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
@@ -117,13 +117,13 @@
 
     .diary-title {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: var(--font-weight-normal);;
         color: #333;
         margin-bottom: 5px;
     }
 
     .diary-preview {
-        font-size: 16px;
+        font-size: var(--font-size-normal);
         color: #666;
         overflow: hidden;
         display: -webkit-box;
@@ -145,8 +145,8 @@
         background: none;
         border: none;
         cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 0.8rem;
+        font-weight: var(--font-weight-normal);;
         color: #FFC100;
         display: flex;
         align-items: center;

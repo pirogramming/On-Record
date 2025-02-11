@@ -32,8 +32,8 @@
 }
 
 .mypage-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);;
     color: var(--text-black);
 }
 
@@ -78,8 +78,8 @@
 }
 
 .user-name {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);;
     color: var(--primary-yellow);
     max-width: 200px;
     text-align: center;
@@ -113,8 +113,8 @@ p {
 }
 
 .friends-list-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);;
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
@@ -126,8 +126,8 @@ p {
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: var(--font-weight-normal);;
+    font-size: 0.8rem;
 }
 
 .add-btn:hover {
@@ -164,8 +164,8 @@ p {
 
 /* 반려친구 이름 */
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);;
     color: var(--text-black);
     text-align: center;
     display: block;
@@ -185,8 +185,8 @@ p {
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
@@ -204,8 +204,8 @@ p {
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
 }
@@ -218,7 +218,7 @@ p {
 /* 반려친구가 없을 때 메시지 */
 .no-friends {
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     color: #777;
 }
 
@@ -235,8 +235,8 @@ p {
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }

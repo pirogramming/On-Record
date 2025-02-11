@@ -51,7 +51,7 @@
   background-color: var(--primary-yellow);
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
 }
@@ -136,7 +136,7 @@
   width: 100%;
   align-items: center;
   margin: 20px;
-  font-size: 25px;
+  font-size: 1.3rem;
 }
 
 .like-btn{
@@ -157,13 +157,13 @@
 }
 
 .comments-section-title{
-  font-size: 25px;
+  font-size: 1.3rem;
 }
 
 .like-count{
   margin: 0;
   color: var(--primary-yellow);
-  font-size: 25px;
+  font-size: 1.3rem;
 }
 
 .comments-section-title{margin-right: auto;}

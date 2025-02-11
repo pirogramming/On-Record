@@ -28,7 +28,7 @@ select {
     margin-left: 30px;
     margin-top: 60px;
     font-size: 30px;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);;
     border: none; 
     background-color: transparent;  
     cursor: pointer;
@@ -48,7 +48,7 @@ table {
 th, td {
     padding: 40px;
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     width: 14.28%; /* 7일이 균등하게 나누어짐 */
 }
 
@@ -58,14 +58,14 @@ th{
 
 .today {
     background-color: var(--primary-yellow);
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);;
     border-radius: 50%;
     box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.3);
 }
 
 .diary-day {
     display: block;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);;
     text-decoration: none;
     color: var(--text-black);
     margin: 10px;
@@ -81,7 +81,7 @@ th{
 
 /* 달력의 요일 스타일 */
 .day-name {
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);;
     font-size: 18px;
     color: #333;
 }
@@ -102,8 +102,8 @@ th{
 }
 
 .friends-list-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);;
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
@@ -115,8 +115,8 @@ th{
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: var(--font-weight-normal);;
+    font-size: 0.8rem;
 }
 
 .add-btn:hover {
@@ -167,13 +167,13 @@ th{
 }
 
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);;
     display: inline-block;
 }
 
 .friend-name p {
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
 /* 반려친구 호버 효과 */
@@ -185,8 +185,8 @@ th{
 
 /* 반려친구 이름 */
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);;
     color: var(--text-black);
     text-align: center;
     display: block;
@@ -195,7 +195,7 @@ th{
 /* 반려친구가 없을 때 메시지 */
 .no-friends {
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     color: #777;
 }
 
@@ -203,7 +203,7 @@ th{
 =======
 .delete-account {
     position: absolute;
-    font-size: 14px;
+    font-size: 0.8rem;
     color: var(--primary-yellow);
     cursor: pointer;
 }

@@ -21,8 +21,8 @@
 }
 
 .mypage-header {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -53,7 +53,7 @@ input[type="file"] {
     display: block;
     margin: 0 auto 15px;
     padding: 10px;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     border-radius: 30px;
     text-align: center;
     background-color: var(--white);
@@ -62,7 +62,7 @@ input[type="file"] {
 
 .user-name input {
     width: 100%;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     border-radius: 30px;
     border: none;
     background-color: var(--white);
@@ -70,7 +70,7 @@ input[type="file"] {
 
 .user-info p {
     text-align: center;
-    font-size: 14px;
+    font-size: 0.8rem;
     color: var(--text-gray);
     margin: 20px 0;
 }
@@ -82,7 +82,7 @@ input[type="file"] {
     padding: 10px;
     background-color: var(--primary-yellow);
     color: var(--white);
-    font-size: 14px;
+    font-size: 0.8rem;
     text-align: center;
     border-radius: 30px;
     text-decoration: none;
