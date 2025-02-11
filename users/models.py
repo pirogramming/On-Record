@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager # CustomUserManager import
 from django.conf import settings
+from django.utils.timezone import now
+from django.contrib.auth import get_user_model
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=20, unique=True)
@@ -18,3 +20,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.nickname if self.nickname else self.email
+
+class EmailVerification(models.Model):
+    email = models.EmailField(unique=True) # 이메일 저장
+    nickname = models.CharField(max_length=20) # 닉네임 저장
+    token = models.UUIDField(unique=True) # 인증 토큰
+    expires_at = models.DateTimeField() # 만료 시간
+
+    def is_expired(self):
+        return now() > self.expires_at

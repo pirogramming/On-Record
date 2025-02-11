@@ -1,14 +1,21 @@
 from django.shortcuts import render, redirect
-from users.forms import SignupForm, ProfileForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from users.models import User
-from django.http import JsonResponse
-from .utils import get_kakao_token, get_kakao_user_info
-import requests
-import environ
+from users.models import User, EmailVerification
 from diaries.models import Pet, Plant
+from users.forms import SignupForm, ProfileForm
+from django.http import JsonResponse
+from .utils import get_kakao_token, get_kakao_user_info, encrypt_password, decrypt_password
+from datetime import timedelta
+from django.utils.timezone import now
+from django.core.mail import send_mail
+from django.core.signing import BadSignature
+from django.conf import settings
+from django.urls import reverse
+import requests
+import uuid
+import environ
 env = environ.Env()
 
 def main(request):
@@ -18,18 +25,69 @@ def signup(request):
   if request.method == 'POST':
     form = SignupForm(request.POST)
     if form.is_valid():
-      user = form.save()
-      user.backend = 'django.contrib.auth.backends.ModelBackend'
-      auth.login(request, user)
-      return redirect('users:main')
-    else:
-      return render(request, 'users/signup.html', {'form': form}) # 회원가입 에러 메시지 표시
-  else:
+      user_email = form.cleaned_data['email']
+      nickname = form.cleaned_data['nickname']
+      password = form.cleaned_data['password1']
+
+      # 이메일 인증 토큰 생성
+      token = uuid.uuid4()
+      verification = EmailVerification.objects.create(
+        email=user_email,
+        nickname=nickname,
+        token=token,
+        expires_at=now() + timedelta(minutes=5)
+      )
+
+      # 이메일 인증 링크 생성
+      verification_link = request.build_absolute_uri(reverse('users:verify_email', args=[token]))
+
+      # 이메일 전송
+      send_mail(
+        subject='온기록 회원가입을 위한 이메일 인증 요청',
+        message=f'아래 링크를 클릭하여 이메일 인증을 완료하세요:\n{verification_link}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[user_email],
+        fail_silently=False,
+      )
+
+      encrypted_password = encrypt_password(password)
+
+      response = render(request, 'users/signup_pending.html')
+      response.set_signed_cookie('password1', encrypted_password, salt='secure_salt', max_age=300, httponly=True)  # 5분 동안 유지
+      return response
+
+    return render(request, 'users/signup.html', {'form': form})
+
+  else: # GET 요청
     form = SignupForm()
-    context = {
-      'form': form,
-    }
-    return render(request, template_name='users/signup.html', context=context)
+    return render(request, 'users/signup.html', {'form': form})
+
+def verify_email(request, token):
+  try:
+    verification = EmailVerification.objects.get(token=token, expires_at__gte=now())
+
+    try:
+      encrypted_password = request.get_signed_cookie('password1', salt='secure_salt')
+      password = decrypt_password(encrypted_password) # 복호화
+    except (KeyError, BadSignature):
+      return render(request, 'users/verification_failed.html', {'error': '비밀번호 정보가 만료되었습니다. 다시 회원가입을 진행해주세요.'})
+    
+    user = User.objects.create(
+      email=verification.email,
+      nickname=verification.nickname,
+    )
+
+    user.set_password(password)
+    user.is_active = True
+    user.save()
+
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    auth.login(request, user)
+    
+    verification.delete() # 인증 완료 후 토큰 삭제
+    return redirect('users:main')
+  except EmailVerification.DoesNotExist:
+    return render(request, 'users/verification_failed.html')
 
 def user_login(request):
   if request.method == 'POST':

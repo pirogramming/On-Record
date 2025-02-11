@@ -222,13 +222,27 @@ p {
     color: #777;
 }
 
-.delete-account {
-    font-size: 15px;
-    color: var(--primary-yellow);
-    cursor: pointer;
-    padding: 30px 0;
-    text-align: right;
+.user-del-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
 
+.user-del-btn {
+    background: #FFD75C;
+    color: #444;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+}
+
+.user-del-btn:hover {
+    background: var(--hover-yellow);
 }
 
 /* 반응형 */
