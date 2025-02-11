@@ -304,17 +304,32 @@ def toggle_disclosure(request, diary_id):
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
 
 #06 다이어리 상세페이지
+from django.db.models import Case, When, BooleanField
+
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
-    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
+
+    # 댓글에 is_author 정보 추가
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').annotate(
+        is_author=Case(
+            When(comment_user=request.user, then=True),
+            default=False,
+            output_field=BooleanField()
+        )
+    ).values('id', 'content', 'comment_user__nickname', 'is_author')
+
+    is_author = False
+    if diaries.user == request.user:
+        is_author = True
+
     context = {
         'diaries': diaries,
-        'reply' : diaries.reply,
+        'reply': diaries.reply,
         'likes_count': likes_count,
-        'comments': comments
+        'comments': comments,
+        'is_author': is_author
     }
-    
     return render(request, 'diaries/detail_diaries.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):

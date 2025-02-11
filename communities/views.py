@@ -4,6 +4,7 @@ from .models import Like,Comment
 from django.http import JsonResponse
 import json
 from django.urls import reverse
+from django.db.models import Case, When, BooleanField
 
 
 
@@ -47,21 +48,33 @@ def add_comment(request, pk):
 
         diary = get_object_or_404(Diary, id=pk)
         comment = Comment.objects.create(diary=diary, content=comment_content, comment_user=request.user)
+        serialized_comment = {
+            'id' : comment.id,
+            'content' : comment.content,
+            'nickname' : comment.comment_user.nickname,  
+            'delete_url' : reverse('communities:delete_comment', kwargs={'pk': comment.id})    
+                                            }
+        # 전체 댓글 목록 반환
+        whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user').annotate(
+            is_author=Case(
+                When(comment_user=request.user, then=True),
+                default=False,
+                output_field=BooleanField()
+            )
+        )
 
-        # 전체 댓글 목록 반환 (URL 포함)
-        whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user')
         comment_list = [
             {
-                'id': c.id,
-                'content': c.content,
-                'nickname': c.comment_user.nickname,
-                'delete_url': reverse('communities:delete_comment', kwargs={'pk': c.id})  # URL 생성
+                'id': comment.id,
+                'content': comment.content,
+                'nickname': comment.comment_user.nickname,
+                'delete_url': reverse('communities:delete_comment', kwargs={'pk': comment.id}),
+                'is_author': comment.is_author  # 내가 쓴 댓글 여부 추가
             }
-            for c in whole_comments
+            for comment in whole_comments
         ]
 
-        return JsonResponse({'whole_comments': comment_list, 'comment_count': len(comment_list)})
-
+        return JsonResponse({'whole_comments': comment_list, 'comment_count': len(comment_list) ,'new_comment': serialized_comment})
 
 def delete_comment(request,pk):
     target_comment = Comment.objects.get(id=pk)
@@ -103,8 +116,8 @@ def update_comment(request, pk):
         # 댓글 업데이트 및 저장
         comment.content = new_content
         comment.save()
-
         # JSON 응답 반환
+
         return JsonResponse({
             'id': comment.id,
             'content': comment.content,
