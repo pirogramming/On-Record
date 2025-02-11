@@ -300,7 +300,7 @@ def toggle_disclosure(request, diary_id):
 
             return JsonResponse({"success": True, "disclosure": diary.disclosure})
         except Diary.DoesNotExist:
-            return JsonResponse({"success": False, "error": "일기를 찾을 수 없습니다."}, status=404)
+            return JsonResponse({"success": False, "error": "이 일기의 소유자가 아닙니다."}, status=404)
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
 
 #06 다이어리 상세페이지
@@ -322,13 +322,23 @@ def detail_diaries(request, pk):
     is_author = False
     if diaries.user == request.user:
         is_author = True
+    request_user_like = Like.objects.filter(
+        diary=diaries,
+        like_user=request.user
+    )
+    if request_user_like.exists():
+        is_liked = True
+    else:
+        is_liked = False
 
     context = {
         'diaries': diaries,
         'reply': diaries.reply,
         'likes_count': likes_count,
         'comments': comments,
-        'is_author': is_author
+
+        'is_author': is_author,
+        'is_liked' : is_liked
     }
     return render(request, 'diaries/detail_diaries.html', context)
 
