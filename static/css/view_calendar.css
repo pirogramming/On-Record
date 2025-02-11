@@ -108,7 +108,7 @@ th{
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
-.add-btn, .edit-profile-btn {
+.add-btn {
     background: var(--primary-yellow);
     color: white;
     border: none;
@@ -137,11 +137,43 @@ th{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    padding: 12px 20px;
+    background: var(--white);
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
+}
+
+.friend-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.friend-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary-yellow);
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.friend-profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.friend-name {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.friend-name p {
+    font-size: 14px;
 }
 
 /* 반려친구 호버 효과 */
@@ -160,62 +192,11 @@ th{
     display: block;
 }
 
-/* 수정 및 삭제 버튼 */
-.friend-actions {
-    display: flex;
-    gap: 10px;
-}
-
-/* 수정 버튼 */
-.edit-btn {
-    background: #FFD75C;
-    color: #444;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
-}
-
-.edit-btn:hover {
-    background: #FFC107;
-    transform: scale(1.05);
-}
-
-/* 삭제 버튼 */
-.delete-btn {
-    background: #FF6B6B;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
-}
-
-.delete-btn:hover {
-    background: #E54E4E;
-    transform: scale(1.05);
-}
-
 /* 반려친구가 없을 때 메시지 */
 .no-friends {
     text-align: center;
     font-size: 16px;
     color: #777;
-}
-
-.delete-account {
-    position: absolute;
-    font-size: 15px;
-    color: var(--primary-yellow);
-    cursor: pointer;
 }
 
 @media (max-width: 500px) {
