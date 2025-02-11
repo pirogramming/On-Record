@@ -129,6 +129,9 @@ def view_calendar(request, year = None, month = None):
         total_friends = Pet.objects.filter(user=user).count() + Plant.objects.filter(user=user).count()
         # 로그인한 유저의 Diary만 가져옴
         diaries = Diary.objects.filter(user=user, date__range=(first_date, last_date))
+        pets = Pet.objects.filter(user=user)
+        plants = Plant.objects.filter(user=user)
+        friends = list(pets) + list(plants)
     else:
         total_friends = 0
         diaries = Diary.objects.none()
@@ -144,6 +147,19 @@ def view_calendar(request, year = None, month = None):
     if total_friends > 0:
         for day, count in diary_map.items():
             diary_ratios[day] = count / total_friends
+    
+    friend_total_diary_count = {}
+
+    for friend in friends:
+        # 전체 일기 개수 가져오기
+        if isinstance(friend, Pet):
+            total_count = Diary.objects.filter(user=user, pet=friend).count()
+        elif isinstance(friend, Plant):
+            total_count = Diary.objects.filter(user=user, plant=friend).count()
+        else:
+            total_count = 0
+        
+        friend_total_diary_count[friend.id] = total_count
 
     context = {
         "year_range": year_range,
@@ -156,7 +172,11 @@ def view_calendar(request, year = None, month = None):
         "diary_map": diary_map, # 날짜별 작성된 일기 개수
         "total_friends": total_friends, # 반려친구 총 수
         "diary_ratios": diary_ratios, # 날짜별 작성된 일기 비율
+        "friends": friends, # 반려친구 목록
+        "friend_total_diary_count": friend_total_diary_count, # 반려친구별 전체 일기 개수
     }
+
+
     return render(request, "diaries/view_calendar.html", context)
 
 # 05 -1 : 캘린더에서 날짜를 선택했을 경우
@@ -197,6 +217,8 @@ def check_already_written(date , user , pet):
 from django.shortcuts import render
 from .forms import DiaryForm
 from datetime import date
+from communities.models import Like,Comment
+
 
 #다이어리 쓰는 화면 렌더링
 def render_diaries(request):
@@ -266,10 +288,13 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
-
+    likes_count = Like.objects.filter(diary=diaries).count()
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
     context = {
         'diaries': diaries,
-        'reply' : diaries.reply
+        'reply' : diaries.reply,
+        'likes_count': likes_count,
+        'comments': comments
     }
     
     return render(request, 'diaries/diaries_detail.html', context)

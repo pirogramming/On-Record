@@ -94,11 +94,20 @@
             {% for f in friends %}
             <div class="friend-item" id="friend-{{ f.id }}">
                 <div class="friend-info">
-                    <a href="{% url 'diaries:pet_or_plant' %}" class="friend-name">{{ f.name }}</a>
-                </div>
-                <div class="friend-actions">
-                    <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
-                    <button class="delete-btn" onclick="deleteFriend({{ f.id }}, '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
+                    <div class="friend-profile">
+                        <div class="friend_profile_img">
+                            {% if f.image %}
+                            <img src="{{  f.image.url }}" alt="반려친구 사진" />
+                            {% else %}
+                            <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{% url 'diaries:mydiary_list' f.id %}"
+                     class="friend-name"
+                            data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                            {{ f.name }}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
+                    </a>
                 </div>
             </div>
             {% empty %}
@@ -149,65 +158,6 @@
             });
         });
     });
-
-    document.getElementById("profile-upload").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("profile-image").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    function editFriend(friendId, type) {
-        if (type === "pet") {
-            window.location.href = `/diaries/update_pet/${friendId}/`;  // 동물 편집
-        } else if (type === "plant") {
-            window.location.href = `/diaries/update_plant/${friendId}/`;  // 식물 편집
-        }
-    }
-
-    function deleteFriend(friendId, type) {
-        if (confirm("정말 삭제하시겠습니까?")) {
-            if (type === "pet") {
-                fetch(`/diaries/delete_pet/${friendId}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRFToken": getCSRFToken()
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`friend-${friendId}`).remove();
-                    } else {
-                        alert("삭제 실패");
-                    }
-                });
-            } else if (type === "plant") {
-                fetch(`/diaries/delete_plant/${friendId}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRFToken": getCSRFToken()
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById(`friend-${friendId}`).remove();
-                    } else {
-                        alert("삭제 실패");
-                    }
-                });
-            }
-        }
-    }
-
-    function getCSRFToken() {
-        return document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1];
-    }
 </script>
 
 {% endblock %}
