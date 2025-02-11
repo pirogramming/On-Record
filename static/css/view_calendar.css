@@ -199,8 +199,6 @@ th{
     color: #777;
 }
 
-<<<<<<< HEAD
-=======
 .delete-account {
     position: absolute;
     font-size: 14px;
@@ -208,7 +206,6 @@ th{
     cursor: pointer;
 }
 
->>>>>>> 6089896 (add: communities_main css)
 @media (max-width: 500px) {
     .mypage-profile {
         width: 95%;

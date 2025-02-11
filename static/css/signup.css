@@ -40,7 +40,7 @@
 .signup-logo {
     position: absolute;
     top: 20px;
-    left: 70px;
+    left: 320px;
     width: 50px;
     height: auto;
 }
@@ -98,7 +98,6 @@
     font-weight: bold;
     border-radius: 30px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 .signup-btn:hover {
