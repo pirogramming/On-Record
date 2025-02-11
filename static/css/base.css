@@ -28,7 +28,7 @@ body {
 .navbar-text {
   font-size: 0.9rem;
   margin: 0 10px;
-  color: var(--var(--white));
+  color: var(--white);
   text-decoration: none;
 }
 

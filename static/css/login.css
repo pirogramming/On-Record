@@ -163,8 +163,13 @@
     padding: 10px;
     font-size: var(--font-size-normal);
     border-radius: 50px;
-    : 0 4px 10px 5px var( --shadow-light-yellow);
+    box-shadow: 0 4px 10px 5px var( --shadow-light-yellow);
     border: none;
+}
+
+.signup-form .form-field input:focus {
+    border: 1px solid var(--primary-yellow);
+    outline: none; 
 }
 
 /* 반응형 디자인 */

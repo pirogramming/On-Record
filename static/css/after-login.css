@@ -26,8 +26,11 @@
   background-position: center;
 }
 
-.container span {
+.container-span {
   margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .start-hello {

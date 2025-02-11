@@ -107,7 +107,7 @@
     top: 50%;
     transform: translateY(-50%);
     background: var( --primary-yellow);
-    color: var(--var(--white));
+    color: var(--white);
     border: none;
     font-size: 1.2rem;
     padding: 10px;

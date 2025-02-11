@@ -86,7 +86,7 @@ label {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background: var(--var(--white));
+    background: var(--white);
     box-shadow: 0 4px 50px 5px var(--shadow-yellow);
     text-align: center;
 }

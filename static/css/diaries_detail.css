@@ -117,7 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--var(--white));
+  background: var(--white);
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
@@ -188,7 +188,7 @@
   display: flex;      
   align-items: center;
   justify-content: space-between;
-  background: var(--var(--white));
+  background: var(--white);
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 50px;
@@ -230,13 +230,13 @@
   border-radius: 50px;
   border: none;
   width: 85%;
-  background-color: var(--var(--white));
+  background-color: var(--white);
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
 }
 
 .add-comment-btn {
   background-color: var(--primary-yellow);
-  color: var(--var(--white));
+  color: var(--white);
   border-radius: 50px;
   text-decoration: none;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);

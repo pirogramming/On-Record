@@ -42,7 +42,7 @@ body {
 }
 
 .main-page {
-  color: var(--var(--white));
+  color: var(--white);
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -53,6 +53,7 @@ body {
 .main-text {
   margin: 20px 0;
   font-size: 1.3rem;
+  color: var(--white);
 }
 
 .main-text h1 {
@@ -80,7 +81,7 @@ li {
 .login-btn, .signup-btn {
   display: block;
   padding: 10px 20px;
-  background: linear-gradient(-90deg, var(--light-yellow), var(--var(--white)));
+  background: linear-gradient(-90deg, var(--light-yellow), var(--white));
   border: none;
   color: #FFC003;
   font-size: var(--font-size-normal);
@@ -90,5 +91,5 @@ li {
 }
 
 .login-btn:hover, .signup-btn:hover {
-  background:var(--var(--white));
+  background:var(--white);
 }
