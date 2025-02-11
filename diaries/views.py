@@ -286,18 +286,30 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
         return render(request, 'diaries/create_diaries.html', context)
 
 #06 다이어리 상세페이지
+from django.db.models import Case, When, BooleanField
+
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
-    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
+
+    # 댓글에 is_author 정보 추가
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').annotate(
+        is_author=Case(
+            When(comment_user=request.user, then=True),
+            default=False,
+            output_field=BooleanField()
+        )
+    ).values('id', 'content', 'comment_user__nickname', 'is_author')
+
     context = {
         'diaries': diaries,
-        'reply' : diaries.reply,
+        'reply': diaries.reply,
         'likes_count': likes_count,
         'comments': comments
     }
-    
+
     return render(request, 'diaries/diaries_detail.html', context)
+
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
