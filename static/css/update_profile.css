@@ -82,7 +82,7 @@ input[type="file"] {
     padding: 10px;
     background-color: var(--primary-yellow);
     color: var(--white);
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     border-radius: 30px;
     text-decoration: none;
