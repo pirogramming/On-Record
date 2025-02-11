@@ -319,11 +319,16 @@ def detail_diaries(request, pk):
         )
     ).values('id', 'content', 'comment_user__nickname', 'is_author')
 
+    is_author = False
+    if diaries.user == request.user:
+        is_author = True
+
     context = {
         'diaries': diaries,
         'reply': diaries.reply,
         'likes_count': likes_count,
-        'comments': comments
+        'comments': comments,
+        'is_author': is_author
     }
     return render(request, 'diaries/detail_diaries.html', context)
 

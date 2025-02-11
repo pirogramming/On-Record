@@ -21,7 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 600px;
+  padding-top: 30px; /* 상단 간격을 30px로 고정 */
+  margin-top: 30px;
 }
 
 .detail-container {
@@ -154,7 +155,7 @@
   display: flex;
   width: 100%;
   align-items: center;
-  margin: 20px;
+  margin: 0 20px;
 }
 
 .like-btn{
@@ -174,6 +175,10 @@
   border: none;
   font-size: 1.3rem;
   font-weight: var(--font-weight-normal);
+}
+
+button i {
+  pointer-events: none;
 }
 
 .like-count{
@@ -217,10 +222,16 @@
   align-items: center;
 }
 
-.comments-list-name, .comments-list-content, .comment-edit-input {
+.comments-list-content, .comment-edit-input {
   font-size: 0.7rem;
-  color: var(--primary-yellow);
+  color: var(--text-black);
   margin: 15px;
+}
+
+.comments-list-name{
+  font-size: 0.7rem;
+  margin: 15px;
+  color: var(--primary-yellow);
 }
 
 .comments-list-content, .comment-edit-input{

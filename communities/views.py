@@ -51,7 +51,9 @@ def add_comment(request, pk):
         serialized_comment = {
             'id' : comment.id,
             'content' : comment.content,
-            'nickname' : comment.comment_user.nickname,                  }
+            'nickname' : comment.comment_user.nickname,  
+            'delete_url' : reverse('communities:delete_comment', kwargs={'pk': comment.id})    
+                                            }
         # 전체 댓글 목록 반환
         whole_comments = Comment.objects.filter(diary=diary).select_related('comment_user').annotate(
             is_author=Case(
