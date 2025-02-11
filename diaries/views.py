@@ -602,7 +602,7 @@ def mydiary_list(request, friend_id):
     if not friend:
         return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
 
-    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링 
     if isinstance(friend, Pet):
         diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
     else:
