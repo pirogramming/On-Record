@@ -15,7 +15,7 @@
         <p>{{ diaries.title }}</p>
       </h1>
       <div class="detail-header-l">
-        <p id="date">{{ diaries.date }}<p>
+        <p id="date">{{ diaries.date }}</p>
         <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
           {% if diaries.disclosure.value == True %}
               전체공개
@@ -106,7 +106,7 @@
         <li class="comments-list-li" id="comment-item-{{ comment.id }}">
           <div class="comments-content">
             <span class="comments-list-name" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}</span> 
-            <span class="comments-list-content">{{ comment.content }}</span>
+            <span class="comments-list-content" id="comment-content-{{comment.id}}">{{ comment.content }}</span>
             <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
             <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
           </div>
@@ -208,7 +208,7 @@
               <li class="comments-list-li" id="comment-item-${comment.id}">
                 <div class="comments-content">
                   <span class="comments-list-name" id="comment-text-${comment.id}">${comment.nickname}</span>
-                  <span class="comments-list-content">${comment.content}</span>
+                  <span class="comments-list-content" id="comment-content-${comment.id}">${comment.content}</span>
                   <input type="text" class="comment-edit-input" id="comment-edit-${comment.id}" value="${comment.content}" style="display:none;" />
                 </div>
                 <div class="comment-edit-del-btn">
@@ -239,6 +239,7 @@
 
         // 기존 댓글 텍스트 숨기기
         document.getElementById(`comment-text-${commentId}`).style.display = 'none';
+        document.getElementById(`comment-content-${commentId}`).style.display = 'none';
 
         // 수정 입력창과 저장 버튼 보이기
         document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
@@ -276,7 +277,8 @@
         })
         .then(data => {
           // 댓글 텍스트 업데이트
-          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}: ${data.content}`;
+          document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}`;
+          document.getElementById(`comment-content-${commentId}`).textContent = `${data.content}`;
 
           // 원래 상태로 되돌리기
           document.getElementById(`comment-text-${commentId}`).style.display = 'inline';
