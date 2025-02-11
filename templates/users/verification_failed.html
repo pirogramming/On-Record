@@ -1,0 +1,31 @@
+<div style="
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+">
+  <div class="container" style="
+      text-align: center; 
+      max-width: 400px; 
+      padding: 20px; 
+      background: rgba(255, 255, 255, 0.9); 
+      border-radius: 12px; 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  ">
+    <h2 style="color: #d32f2f; font-size: 22px; margin-bottom: 10px;">이메일 인증 실패</h2>
+    <p style="color: #555; font-size: 16px; margin-bottom: 10px;">유효하지 않거나 만료된 인증 링크입니다.</p>
+    <a href="{% url 'users:signup' %}" style="
+        display: inline-block; 
+        padding: 10px 15px; 
+        background-color: #1976d2; 
+        color: white; 
+        text-decoration: none; 
+        border-radius: 6px; 
+        font-size: 14px;
+        transition: background-color 0.3s, transform 0.2s;
+    " onmouseover="this.style.backgroundColor='#1565c0'; this.style.transform='scale(1.05)';"
+      onmouseout="this.style.backgroundColor='#1976d2'; this.style.transform='scale(1)';">
+      다시 회원가입하기
+    </a>
+  </div>
+</div>

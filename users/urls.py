@@ -6,6 +6,7 @@ app_name = 'users'
 urlpatterns = [
     path('', main, name='main'),
     path('signup/', signup, name='signup'),
+    path('verify_email/<uuid:token>/', verify_email, name='verify_email'),
     path('user_login/', user_login, name='user_login'),
     path('logout/', logout, name='logout'),
     path('accounts/kakao/login/callback/', kakao_callback, name='kakao_callback'),

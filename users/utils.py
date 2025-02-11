@@ -1,3 +1,6 @@
+import base64
+from cryptography.fernet import Fernet
+from django.conf import settings
 import requests
 import environ
 
@@ -76,3 +79,22 @@ def get_kakao_user_info(access_token):
     return user_info
   else:
     raise Exception(f"카카오 사용자 정보 조회 오류: {response.status_code} - {response.text}")
+
+# 1️⃣ AES 암호화 키 생성 (Django SECRET_KEY 기반)
+def get_encryption_key():
+    key = base64.urlsafe_b64encode(settings.SECRET_KEY[:32].encode())
+    return key
+
+# 2️⃣ 비밀번호 암호화
+def encrypt_password(password):
+    key = get_encryption_key()
+    cipher = Fernet(key)
+    encrypted_password = cipher.encrypt(password.encode())
+    return encrypted_password.decode()
+
+# 3️⃣ 비밀번호 복호화
+def decrypt_password(encrypted_password):
+    key = get_encryption_key()
+    cipher = Fernet(key)
+    decrypted_password = cipher.decrypt(encrypted_password.encode())
+    return decrypted_password.decode()

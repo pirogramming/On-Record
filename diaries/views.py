@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden, JsonResponse
 from .forms import PetForm, PlantForm, DiaryForm
 from .models import User, Personality, Diary, Pet, Plant
+from replies.models import Reply
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # 캘린더 관련
 from datetime import date
@@ -285,6 +288,21 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
         }
         return render(request, 'diaries/create_diaries.html', context)
 
+# 일기 생성 페이지에서 공개여부 버튼 클릭시 공개/비공개 여부를 처리하는 로직
+@csrf_exempt  # CSRF 토큰을 검사하지 않도록 설정 (AJAX 요청에서는 필요)
+def toggle_disclosure(request, diary_id):
+    if request.method == "POST":
+        try:
+            diary = Diary.objects.get(id=diary_id, user=request.user)  # 현재 로그인한 사용자의 데이터만 변경 가능
+            data = json.loads(request.body)
+            diary.disclosure = data.get("disclosure", diary.disclosure)
+            diary.save()
+
+            return JsonResponse({"success": True, "disclosure": diary.disclosure})
+        except Diary.DoesNotExist:
+            return JsonResponse({"success": False, "error": "일기를 찾을 수 없습니다."}, status=404)
+    return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
+
 #06 다이어리 상세페이지
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
@@ -297,7 +315,7 @@ def detail_diaries(request, pk):
         'comments': comments
     }
     
-    return render(request, 'diaries/diaries_detail.html', context)
+    return render(request, 'diaries/detail_diaries.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
     user = request.user
@@ -329,9 +347,56 @@ def delete_diaries(request, pk):
     else:
         return HttpResponse('해당 일기가 없습니다.')
 
-#09 다이어리 수정(미구현)
+#09 다이어리 수정
 def update_diaries(request, pk):
-    pass
+    diaries = get_object_or_404(Diary, id=pk)  # 기존 다이어리 가져오기
+
+    if request.method == 'POST':
+        form = DiaryForm(request.POST, request.FILES, instance=diaries, user=request.user)  
+        
+        if form.is_valid():
+            diaries = form.save(commit=False)  # Diary 객체 생성(저장 X)
+
+            # ✅ 선택한 반려친구 정보 가져오기
+            friends_value = request.POST.get('friends', None)  # form.cleaned_data 대신 request.POST 사용
+            if friends_value:
+                if friends_value.startswith('pet-'):
+                    diaries.pet = get_object_or_404(Pet, id=int(friends_value.split('-')[1]), user=request.user)
+                    diaries.plant = None  # Plant 필드는 None으로 설정
+                elif friends_value.startswith('plant-'):
+                    diaries.plant = get_object_or_404(Plant, id=int(friends_value.split('-')[1]), user=request.user)
+                    diaries.pet = None  # Pet 필드는 None으로 설정
+
+            diaries.user = request.user  # 현재 사용자를 연결
+
+            # ✅ 기존 date 값 유지 or 새로운 값 적용
+            date_value = request.POST.get('date', diaries.date)
+            if date_value:
+                diaries.date = datetime.strptime(date_value, "%Y-%m-%d").date()
+
+            diaries.save()  # 다이어리 저장
+
+            # ✅ 기존 Reply가 있는지 확인하고, 있으면 업데이트
+            try:
+                existing_reply = diaries.reply  # ✅ 기존 답장 가져오기 (OneToOneField 역참조)
+                existing_reply.delete()  # ✅ 기존 답장 삭제
+            except Reply.DoesNotExist:
+                pass  # ✅ 답장이 없으면 그냥 넘어감
+
+            # ✅ 새로운 답장 생성
+            create_response(diaries.pk)
+
+            return redirect('diaries:detail_diaries', pk=diaries.pk)
+        else:
+            print(form.errors)  # ❗ 폼이 유효하지 않은 경우 에러 출력
+    else:
+        form = DiaryForm(instance=diaries, user=request.user)
+
+    context = {
+        'form': form,
+        'diaries': diaries,
+    }
+    return render(request, 'diaries/update_diaries.html', context)
 
 def main(request):
     return render(request, 'users/main.html')

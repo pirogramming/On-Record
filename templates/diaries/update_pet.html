@@ -14,10 +14,14 @@
             <div class="form-body">
                 <div class="image-upload">
                     <label for="pet-image">
-                        <img id="pet-preview" src="#" alt="미리보기">
+                        <!-- ✅ 기존 이미지가 있다면 표시 -->
+                        {% if pet.image %}
+                            <img id="pet-preview" src="{{ pet.image.url }}" alt="미리보기">
+                        {% else %}
+                            <img id="pet-preview" src="{% static 'images/default_pet.png' %}" alt="미리보기">
+                        {% endif %}
                     </label>
                     <input type="file" id="pet-image" name="image" accept="image/*">
-                    {{ form.image }}
                 </div>
                 <div class="form-fields">
                     <div class="form-group">
@@ -94,6 +98,27 @@
         
                     selectedInput.value = Array.from(selectedValues).join(",");
                 });
+            });
+            
+            const petPreview = document.getElementById("pet-preview");
+
+            // ✅ 기존 이미지가 있으면 표시
+            if (petPreview.src && !petPreview.src.endsWith("#")) {
+                petPreview.style.display = "block";
+            }
+
+            document.getElementById("pet-image").addEventListener("change", function (event) {
+                var input = event.target;
+                var reader = new FileReader();
+        
+                reader.onload = function () {
+                    petPreview.src = reader.result;
+                    petPreview.style.display = "block"; // ✅ 변경 시 표시
+                };
+        
+                if (input.files && input.files[0]) {
+                    reader.readAsDataURL(input.files[0]);
+                }
             });
         });
 

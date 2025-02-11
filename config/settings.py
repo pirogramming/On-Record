@@ -225,3 +225,11 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 연결될 URL
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 요청 시 즉시 로그아웃
 SOCIALACCOUNT_LOGIN_ON_GET = True # 소셜 로그인 요청 시 즉시 로그인
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

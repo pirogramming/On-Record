@@ -103,18 +103,39 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             formatDate();
+            
             const toggleBtn = document.getElementById("toggle-disclosure");
-            const disclosureField = document.getElementById("id_disclosure"); 
+            const disclosureField = document.getElementById("id_disclosure");
         
             toggleBtn.addEventListener("click", function () {
-                let currentStatus = disclosureField.checked; 
-                let newStatus = !currentStatus; 
+                let diaryId = this.getAttribute("data-diary-id");
+                let currentStatus = disclosureField.checked;
+                let newStatus = !currentStatus;
         
-                console.log("현재 상태:", currentStatus);
-        
+                // ✅ UI 업데이트
                 toggleBtn.textContent = newStatus ? "비공개" : "전체공개";
-                disclosureField.checked = newStatus; 
-                disclosureField.value = newStatus ? "true" : "false"; 
+                disclosureField.checked = newStatus;
+                disclosureField.value = newStatus ? "true" : "false";
+        
+                // ✅ AJAX 요청을 통해 백엔드로 전송
+                fetch(`/diaries/toggle_disclosure/${diaryId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),  // CSRF 토큰 필요
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ disclosure: newStatus })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert("상태 변경 실패");
+                    }
+                })
+                .catch(error => {
+                    console.error("오류 발생:", error);
+                    alert("서버 오류");
+                });
             });
         });
         
