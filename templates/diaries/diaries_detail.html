@@ -238,7 +238,6 @@
         const commentId = button.getAttribute('data-comment-id');
 
         // 기존 댓글 텍스트 숨기기
-        document.getElementById(`comment-text-${commentId}`).style.display = 'none';
         document.getElementById(`comment-content-${commentId}`).style.display = 'none';
 
         // 수정 입력창과 저장 버튼 보이기
@@ -278,10 +277,9 @@
         .then(data => {
           // 댓글 텍스트 업데이트
           document.getElementById(`comment-text-${commentId}`).textContent = `${data.nickname}`;
-          document.getElementById(`comment-content-${commentId}`).textContent = `${data.content}`;
 
           // 원래 상태로 되돌리기
-          document.getElementById(`comment-text-${commentId}`).style.display = 'inline';
+          document.getElementById(`comment-content-${commentId}`).style.display = 'inline';
           document.getElementById(`comment-edit-${commentId}`).style.display = 'none';
           button.style.display = 'none';
           document.querySelector(`.edit-comment-btn[data-comment-id="${commentId}"]`).style.display = 'inline';
