@@ -48,7 +48,7 @@ table {
 th, td {
     padding: 40px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     width: 14.28%; /* 7일이 균등하게 나누어짐 */
 }
 
@@ -116,7 +116,7 @@ th{
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .add-btn:hover {
@@ -199,6 +199,16 @@ th{
     color: #777;
 }
 
+<<<<<<< HEAD
+=======
+.delete-account {
+    position: absolute;
+    font-size: 14px;
+    color: var(--primary-yellow);
+    cursor: pointer;
+}
+
+>>>>>>> 6089896 (add: communities_main css)
 @media (max-width: 500px) {
     .mypage-profile {
         width: 95%;

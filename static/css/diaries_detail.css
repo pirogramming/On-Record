@@ -89,7 +89,7 @@
 }
 
 .detail-text h3, .detail-image h3 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
     margin-right: auto;
 }
@@ -101,6 +101,12 @@
     gap: 15px;
     margin-right: auto;
     margin-bottom: 10px;
+}
+
+.diary-text-content {
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%; /* 전체 너비 유지 */
+  margin: 0; /* 추가적인 마진 없음 */
 }
 
 .diary-description {
@@ -194,11 +200,13 @@
   display: flex;
   align-items: center;
 }
+
 .comments-list-name, .comments-list-content, .comment-edit-input {
   font-size: 15px;
   color: var(--primary-yellow);
   margin: 15px;
 }
+
 .comments-list-content, .comment-edit-input{
   color: var(--text-black);
 }
@@ -239,17 +247,10 @@
 .comment-edit-del-btn{
   margin-left: auto;
 }
+
 .edit-comment-btn, .save-comment-btn, .delete-comment-btn {
   background: none;
   border: none;
   color: var(--primary-yellow);
   cursor: pointer;
-  font-size: 15px;
-  margin: 0;
-}
-
-.comments-list a {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
 }

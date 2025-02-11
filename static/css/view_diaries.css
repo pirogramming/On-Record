@@ -39,7 +39,7 @@
   opacity: 1;
   text-align: center;
   font-weight: bolder;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 #date {
@@ -60,7 +60,7 @@ label {
     background-color: var(--primary-yellow);
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 30px;
     cursor: pointer;
 }
@@ -116,7 +116,7 @@ label {
   background: var(--primary-yellow);
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 30px;
   cursor: pointer;
   margin-left: auto; 

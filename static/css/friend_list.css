@@ -81,7 +81,7 @@
 }
 
 .friend-name{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     color: var(--primary-yellow); /* 노란색 변경 */
     margin-bottom: 10px;
@@ -109,7 +109,7 @@
     background: var( --diary-one);
     color: var(--white);
     border: none;
-    font-size: 30px;
+    font-size: 24px;
     padding: 10px;
     cursor: pointer;
     z-index: 10;
