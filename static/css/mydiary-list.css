@@ -1,173 +1,142 @@
-    /* 배경 이미지 설정 */
-    .background-b {
-        position: fixed; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("/static/images/base-b.png");
-        background-size: cover;
-        background-position: center;
-        z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-        }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Pretendard', sans-serif;
-    }
+.header {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 30px;
+    padding: 0 30px; 
+}
 
-    body, html {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+.title {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--text-black);
+    text-align: center;
+    margin: 10px 0;
+    margin-top: 250px;
+}
 
-    .header {
-        width: 90%;
-        max-width: 1200px;
-        display: flex;
-        justify-content: space-between; /* 양쪽 정렬 */
-        align-items: center;
-        margin-top: 30px;
-        padding: 0 30px; /* 👉 좌우 여백 추가 */
-    }
+.friend-btn, .add-diary-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .title {
-        font-size: 1.5rem;
-        font-weight: var(--font-weight-normal);
-        color: var(--text-black);
-        text-align: center;
-        margin: 10px 0;
-        margin-top: 250px;
-    }
+.friend-btn {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    margin-left: 0; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: inline-block;
+    margin-left: 20px;
+}
 
-    /* 버튼 공통 스타일 */
-    .friend-btn, .add-diary-btn {
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-size: 0.8rem;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+.add-diary-btn {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    position: relative;
+    left: 90px;
+}
 
-    /* 반려동물 버튼 */
-    .friend-btn {
-        background-color: var(--primary-yellow);
-        color: var(--white);
-        margin-left: 0; /* 왼쪽 정렬 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 200px;
-        display: inline-block;
-        margin-left: 20px;
-    }
+.friend-btn:hover, .add-diary-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
+}
 
-    /* 온기록 남기기 버튼 */
-    .add-diary-btn {
-        background-color: var(--primary-yellow);
-        color: var(--white);
-        position: relative;
-        left: 90px;
-    }
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; 
+    max-height: calc(100vh - 150px); 
+}
 
-    .friend-btn:hover, .add-diary-btn:hover {
-        background-color: var(--hover-yellow);
-        transform: scale(1.05);
-    }
+.diary-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    min-height: 400px;
+}
 
-    .container {
-        width: 90%;
-        max-width: 1200px;
-        background: var(--white);
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-        text-align: center;
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto; /* 내부 스크롤 가능하도록 설정 */
-        max-height: calc(100vh - 150px); /* 화면 크기 조정 */
-    }
+.diary-card {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
 
-    .diary-list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        justify-content: center;
-        margin-top: 20px;
-        min-height: 400px;
-    }
+.diary-card:hover {
+    transform: scale(1.03);
+}
 
-    .diary-card {
-        background: var(--white);
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        transition: transform 0.3s ease;
-    }
+.diary-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
 
-    .diary-card:hover {
-        transform: scale(1.03);
-    }
+.diary-info {
+    padding: 15px;
+    text-align: left;
+}
 
-    .diary-image img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-    }
+.diary-title {
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    color: #333;
+    margin-bottom: 5px;
+}
 
-    .diary-info {
-        padding: 15px;
-        text-align: left;
-    }
+.diary-preview {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
 
-    .diary-title {
-        font-size: var(--font-size-normal);
-        font-weight: var(--font-weight-normal);
-        color: #333;
-        margin-bottom: 5px;
-    }
+.diary-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    gap: 15px;
+}
 
-    .diary-preview {
-        font-size: 0.8rem;
-        color: var(--text-gray);
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        /* 표준 속성 추가 */
-        line-clamp: 2;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .diary-actions {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-top: 10px;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-        gap: 15px;
-    }
-
-    .like-btn, .comment-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 0.8rem;
-        font-weight: var(--font-weight-normal);
-        color: #FFC100;
-        display: flex;
-        align-items: center;
-    }
+.like-btn, .comment-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
+    color: #FFC100;
+    display: flex;
+    align-items: center;
+}

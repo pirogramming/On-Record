@@ -6,9 +6,8 @@ body, html {
   align-items: center;
 }
 
-/* 네비게이션 바 */
 .header-navbar {
-  position: fixed; /* 네비게이션 바 고정 */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -30,11 +29,11 @@ body, html {
 }
 
 a {
-  color: inherit; /* 부모 요소의 색상과 동일하게 */
-  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; 
+  text-decoration: none; 
   margin: 0 15px;
 }
 
 .navbar-logo {
-  height: 40px; /* 로고 크기 설정 */
+  height: 40px; 
 }

@@ -17,7 +17,7 @@
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .after-login-container{
