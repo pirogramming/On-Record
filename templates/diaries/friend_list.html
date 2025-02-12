@@ -7,12 +7,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="background-a"></div>
-<div class="slider-container">
-    <!-- 왼쪽 버튼 -->
-    <button class="slider-btn left-btn" onclick="moveSlide(-1)">&#10094;</button>
+<div class="friend-list-container">
+    <div class="background-a"></div>
+    <div class="slider-container">
+        <!-- 왼쪽 버튼 -->
+        <button class="slider-btn left-btn" onclick="moveSlide(-1)">&#10094;</button>
 
-    <div class="slider">
+        <div class="slider">
         {% for friend in friends %}
         <div class="homepage-container">
             <div class="homepage-content">
@@ -51,10 +52,10 @@
         {% endfor %}
     </div>
 
-    <!-- 오른쪽 버튼 -->
-    <button class="slider-btn right-btn" onclick="moveSlide(1)">&#10095;</button>
+        <!-- 오른쪽 버튼 -->
+        <button class="slider-btn right-btn" onclick="moveSlide(1)">&#10095;</button>
+    </div>
 </div>
-
 <!-- JavaScript 추가 -->
 <script>
     let currentIndex = 0;

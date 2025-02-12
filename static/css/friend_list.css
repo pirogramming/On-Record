@@ -1,4 +1,12 @@
-/* 배경 스타일 */
+.friend-list-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    position: relative;
+    padding-top: 60px; 
+}
+
 .background-a {
     position: fixed; 
     top: 0;
@@ -36,7 +44,9 @@
     justify-content: flex-start;
     width: 100%;
     margin: 30px;
+    transition: transform 0.3s ease-in-out; 
 }
+
 
 /* 개별 카드 */
 .homepage-container {
@@ -50,16 +60,18 @@
     align-items: center;
     justify-content: center;
     scroll-snap-align: center;
-    transition: transform 0.4s ease, z-index 0.4s ease;
+    opacity: 0.7;
+    transition: transform 0.4s ease, z-index 0.4s ease opacity 0.3s ease; 
     z-index: 1;
     margin: 30px;
+    min-width: 300px; /* 슬라이드 항목의 최소 너비 */
 }
 
-/* 현재 선택된 카드 강조 */
 .homepage-container.active {
     transform: scale(1.05);
     z-index: 100;
     box-shadow: 0px 6px 25px rgba(230, 190, 90, 1);
+    opacity: 1; 
 }
 
 /* 반려동물 프로필 */

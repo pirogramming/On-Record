@@ -1,3 +1,13 @@
+.after-login {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+  position: relative;
+  padding-top: 60px; 
+}
+
+
 .background-a {
   position: fixed; 
   top: 0;
@@ -10,7 +20,7 @@
   z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
 }
 
-.container {
+.after-login-container{
   background-image: url("/static/images/move-form.png");
   width: 900px;
   height: 480px;
@@ -47,6 +57,7 @@
   font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
+  margin: 30px;
 }
 
 move-form-btn:hover {

@@ -1,4 +1,6 @@
-/* 배경 이미지 설정 */
+.view-calender-container{
+    padding-top: 90px; 
+}
 .background {
     position: fixed; 
     top: 0;
@@ -15,18 +17,14 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 30px;
-}
-
-.calender-container {
-    padding: 20px;
+    gap: 50px;
+    padding: 0 50px 100px;
 }
 
 /* 드롭다운 스타일 */
 select {
     padding: 8px 16px;
     margin-left: 30px;
-    margin-top: 60px;
     font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
     border: none; 
@@ -42,7 +40,6 @@ select:focus {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 th, td {
@@ -56,7 +53,7 @@ th{
     padding-bottom: 0;
 }
 
-.today {
+tr .today {
     background-color: var(--primary-yellow);
     font-weight: var(--font-weight-normal);
     border-radius: 50%;
@@ -65,9 +62,9 @@ th{
 
 .diary-day {
     display: block;
-    font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
     text-decoration: none;
-    color: var(--text-var(--text-black));
     margin: 10px;
 }
 
@@ -81,9 +78,8 @@ th{
 
 /* 달력의 요일 스타일 */
 .day-name {
-    font-weight: var(--font-weight-normal);
-    font-size: 0.9rem;
-    color: #333;
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
 }
 
 .friends-list {
