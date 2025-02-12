@@ -11,7 +11,7 @@
     <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
     
     <div class="header">
-        <button class="friend-btn">{{ friend_name }}</button>
+        <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>
         <a href="{% url 'diaries:view_calendar' %}">
             <button class="add-diary-btn">온기록 남기기</button>
         </a>

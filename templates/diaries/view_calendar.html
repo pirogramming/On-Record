@@ -104,9 +104,9 @@
                             </div>
                         </div>
                         <a href="{% url 'diaries:mydiary_list' f.id %}"
-                        class="friend-name"
+                         class="friend-name"
                                 data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                                {{ f.name }}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
+                                {{ f.name|slice:":10" }}{% if f.name|length > 10 %}...{% endif %}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
                         </a>
                     </div>
                 </div>

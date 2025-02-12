@@ -83,7 +83,10 @@ tr .today {
 }
 
 .friends-list {
-    width: 100%;
+    width: 80%;
+    max-width: 470px;
+    max-height: 700px;
+    overflow-y: auto;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
@@ -109,11 +112,11 @@ tr .today {
     background: var(--primary-yellow);
     color: var(--white);
     border: none;
-    padding: 10px;
+    padding: 5px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: var(--font-weight-normal);
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
 
 .add-btn:hover {
@@ -138,6 +141,10 @@ tr .today {
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
+    padding: 30px 10px; /* 내부 패딩을 줄여서 박스 크기 조정 */
+    height: 50px; /* 박스 높이를 적절하게 조정 */
+    min-height: 50px; /* 최소 높이 설정 */
+    max-height: 50px; /* 최대 높이 설정 */
 }
 
 .friend-info {
@@ -152,6 +159,7 @@ tr .today {
     border-radius: 50%;
     background-color: var(--primary-yellow);
     display: flex;
+    flex-shrink: 0;
     position: relative;
     overflow: hidden;
     margin: 30px auto;
@@ -168,8 +176,8 @@ img {
   }
 
 .friend-name {
-    font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-normal);
+    font-size: 0.8rem !important; /* 🔥 강제 적용 */
+    font-weight: var(--font-weight-normal) !important;
     display: inline-block;
 }
 
