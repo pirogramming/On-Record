@@ -25,10 +25,10 @@
                         {% endif %}
                     </div>
                 </div>
-                <p class="friend-name">{{ friend.name }}</p>
+                <p class="friend-name">{{ friend.name|slice:":10" }}{% if friend.name|length > 10 %}...{% endif %}</p>
                 <p class="home-description">
                     지금까지 <strong>{{ friend_total_diary_count|get_item:friend.id|default:0 }}개</strong>의 온기록을 남기셨어요!<br>
-                    {{ friend.name }}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
+                    {{ friend.name|slice:":10" }}{% if friend.name|length > 10 %}...{% endif %}와 함께 소중한 오늘을 기록하고 따뜻해지세요.
                 </p>
                     {% if friend_diary_count|get_item:friend.id > 0 %}
                     <form method="POST" action="{% url 'diaries:detail_diaries' friend_diary_pk|get_item:friend.id%}">
