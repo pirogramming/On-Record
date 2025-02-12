@@ -12,10 +12,10 @@
     <div class="detail-container">
       <div class="detail-header">
         <h1 class="detail-title">
-          <p>{{ diaries.title }}</p>
+          {{ diaries.title }}
         </h1>
         <div class="detail-header-l">
-          <p id="date">{{ diaries.date }}</p>
+          <div id="date">{{ diaries.date }}</div>
           <button class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
             {% if diaries.disclosure == True %}
                 전체공개
@@ -27,50 +27,52 @@
       </div>
 
       <div class="detail-content">
-        <div class="detail-image">
-          <h3>오늘의 사진</h3>
-          <div class="detail-image-container">
-            {% if diaries.image %}
-            <img src="{{ diaries.image.url }}" alt="일기 사진" />
-            {% else %}
-            <p>📷 이미지 없음</p>
-            {% endif %}
+        <div class="detail-image-container">
+          <div>오늘의 사진</div>
+          <div class="detail-image">
+              {% if diaries.image %}
+              <img src="{{ diaries.image.url }}" alt="일기 사진" />
+              {% else %}
+              <p>📷 이미지 없음</p>
+              {% endif %}
           </div>
         </div>
 
-        <div class="detail-text">
-          <h3>오늘의 하루</h3>
-          <div class="diary-metadata">
-            <div class="weather">
-              {% if diaries.weather == 'sunny' %}
-                  <p>날씨: ☀️</p>
-              {% elif diaries.weather == 'cloudy' %}
-                  <p>날씨: ☁️</p>
-              {% elif diaries.weather == 'rainy' %}
-                  <p>날씨: 🌧️</p>
-              {% elif diaries.weather == 'snowy' %}
-                  <p>날씨: ❄️</p>
-              {% else %}
-                  <p>🌍 날씨 정보 없음</p>
-              {% endif %}
+        <div class="detail-text-container">
+          <div>오늘의 하루</div>
+          <div class="detail-text">
+            <div class="diary-metadata">
+              <div class="weather">
+                {% if diaries.weather == 'sunny' %}
+                    <p>날씨: ☀️</p>
+                {% elif diaries.weather == 'cloudy' %}
+                    <p>날씨: ☁️</p>
+                {% elif diaries.weather == 'rainy' %}
+                    <p>날씨: 🌧️</p>
+                {% elif diaries.weather == 'snowy' %}
+                    <p>날씨: ❄️</p>
+                {% else %}
+                    <p>🌍 날씨 정보 없음</p>
+                {% endif %}
+              </div>
+              <div class="mood">
+                {% if diaries.mood == 'happy' %}
+                    <p>기분: 😄</p>
+                {% elif diaries.mood == 'sad' %}
+                    <p>기분: 😢</p>
+                {% elif diaries.mood == 'angry' %}
+                    <p>기분: 😡</p>
+                {% elif diaries.mood == 'funny' %}
+                    <p >기분: 🤣</p>
+                {% elif diaries.mood == 'tired' %}
+                    <p>기분: 😪</p>
+                {% else %}
+                    <p>🌍 기분 정보 없음</p>
+                {% endif %}
+              </div>
             </div>
-            <div class="mood">
-              {% if diaries.mood == 'happy' %}
-                  <p>기분: 😄</p>
-              {% elif diaries.mood == 'sad' %}
-                  <p>기분: 😢</p>
-              {% elif diaries.mood == 'angry' %}
-                  <p>기분: 😡</p>
-              {% elif diaries.mood == 'funny' %}
-                  <p >기분: 🤣</p>
-              {% elif diaries.mood == 'tired' %}
-                  <p>기분: 😪</p>
-              {% else %}
-                  <p>🌍 기분 정보 없음</p>
-              {% endif %}
-            </div>
+            <p class="diary-text-content">{{ diaries.content }}</p>
           </div>
-          <p class="diary-text-content">{{ diaries.content }}</p>
         </div>
       </div>
     </div>
