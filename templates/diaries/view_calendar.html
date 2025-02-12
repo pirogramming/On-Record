@@ -7,116 +7,116 @@
 {% endblock %}
 
 {% block content %}
-<div class="background"></div>
-<div class="calender-and-friends">
-    <div class="calender-container">
-        <!-- 연·월 선택 드롭다운 -->
-        <div class="dropdowns">
-            <select id="year-select">
-                {% for y in year_range %}
-                    <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
-                {% endfor %}
-            </select>
-            <select id="month-select">
-                {% for m in month_range %}
-                    <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- 캘린더 UI -->
-        <table>
-            <thead>
-                <tr>
-                    <th class="day-name">일</th>
-                    <th class="day-name">월</th>
-                    <th class="day-name">화</th>
-                    <th class="day-name">수</th>
-                    <th class="day-name">목</th>
-                    <th class="day-name">금</th>
-                    <th class="day-name">토</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>  {# 첫 번째 행 시작 #}
-                    {% for day in days %}
-                        {% if day == 1 %}
-                            {% if first_day != 7 %}
-                                <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
-                            {% endif %}
-                        {% endif %}
-
-                        {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
-                            {% if total_friends > 0 %}
-                                {% if diary_count == 0 %}
-                                    <td style="background-color:var(--diary-empty); border-radius: 50%; transform: scale(0.8);"> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
-                                {% elif diary_ratios|get_item:day == 1 %}
-                                    <td style="background-color: var(--diary-full); border-radius: 50%; transform: scale(0.8);"> {# 모든 반려친구에게 일기를 쓴 경우 #}
-                                {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
-                                    <td style="background-color: var(--diary-one); border-radius: 50%; transform: scale(0.8);">
-                                {% elif diary_ratios|get_item:day < 1 %}
-                                    <td style="background-color: var(--diary-half); border-radius: 50%; transform: scale(0.8);">
-                                {% else %}
-                                    <td> {# 그 외에는 기본 색상 #}
-                                {% endif %}
-                            {% else %}
-                                <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
-                            {% endif %}
-                        
-                            <a href="#" 
-                                class="diary-day"
-                                data-year="{{ year }}"
-                                data-month="{{ month }}"
-                                data-day="{{ day }}">
-                                {{ day }}
-                            </a>
-                            </td>
-                        
-                        {% endwith %}
-                    
-                        {% if day|add:first_day|divisibleby:7 %}
-                            </tr><tr>  {# 7일마다 줄 바꿈 #}
-                        {% endif %}
+<div class="view-calender-container">
+    <div class="background"></div>
+    <div class="calender-and-friends">
+        <div class="calender-container">
+            <!-- 연·월 선택 드롭다운 -->
+            <div class="dropdowns">
+                <select id="year-select">
+                    {% for y in year_range %}
+                        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
                     {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="friends-list">
-        <div class="friends-list-management-header">
-            <h2 class="friends-list-title">당신의 반려친구</h2>
-            <button class="add-btn" id="add-friends-list-btn">
-                <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
-            </button>
-        </div>
-
-        <div class="friends-list-list" id="friends-list-list">
-            {% for f in friends %}
-            <div class="friend-item" id="friend-{{ f.id }}">
-                <div class="friend-info">
-                    <div class="friend-profile">
-                        <div class="friend_profile_img">
-                            {% if f.image %}
-                            <img src="{{  f.image.url }}" alt="반려친구 사진" />
-                            {% else %}
-                            <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <a href="{% url 'diaries:mydiary_list' f.id %}"
-                     class="friend-name"
-                            data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                            {{ f.name }}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
-                    </a>
-                </div>
+                </select>
+                <select id="month-select">
+                    {% for m in month_range %}
+                        <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            {% empty %}
-            <p class="no-friends">등록된 반려친구가 없습니다.</p>
-            {% endfor %}
+
+            <!-- 캘린더 UI -->
+            <table>
+                <thead>
+                    <tr>
+                        <th class="day-name">일</th>
+                        <th class="day-name">월</th>
+                        <th class="day-name">화</th>
+                        <th class="day-name">수</th>
+                        <th class="day-name">목</th>
+                        <th class="day-name">금</th>
+                        <th class="day-name">토</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>  {# 첫 번째 행 시작 #}
+                        {% for day in days %}
+                            {% if day == 1 %}
+                                {% if first_day != 7 %}
+                                    <td colspan="{{ first_day }}"></td>  {# 1일 시작 요일 맞추기 #}
+                                {% endif %}
+                            {% endif %}
+
+                            {% with diary_count=diary_map|get_item:day %} {# diary_count 는 with 태그 안에서만 존재 #}
+                                {% if total_friends > 0 %}
+                                    {% if diary_count == 0 %}
+                                        <td style="background-color:var(--diary-empty); border-radius: 50%; transform: scale(0.8);"> {# 일기를 안 쓴 경우 색을 적용하지 않음 #}
+                                    {% elif diary_ratios|get_item:day == 1 %}
+                                        <td style="background-color: var(--diary-full); border-radius: 50%; transform: scale(0.8);"> {# 모든 반려친구에게 일기를 쓴 경우 #}
+                                    {% elif diary_count == 1 and diary_ratios|get_item:day != 1 %}
+                                        <td style="background-color: var(--diary-one); border-radius: 50%; transform: scale(0.8);">
+                                    {% elif diary_ratios|get_item:day < 1 %}
+                                        <td style="background-color: var(--diary-half); border-radius: 50%; transform: scale(0.8);">
+                                    {% else %}
+                                        <td> {# 그 외에는 기본 색상 #}
+                                    {% endif %}
+                                {% else %}
+                                    <td> {# 총 반려친구 수가 0일 때는 기본 색상 #}
+                                {% endif %}
+                            
+                                <a href="#" 
+                                    class="diary-day"
+                                    data-year="{{ year }}"
+                                    data-month="{{ month }}"
+                                    data-day="{{ day }}">
+                                    {{ day }}
+                                </a>
+                            
+                            {% endwith %}
+                        
+                            {% if day|add:first_day|divisibleby:7 %}
+                                </tr><tr>  {# 7일마다 줄 바꿈 #}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="friends-list">
+            <div class="friends-list-management-header">
+                <h2 class="friends-list-title">당신의 반려친구</h2>
+                <button class="add-btn" id="add-friends-list-btn">
+                    <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
+                </button>
+            </div>
+
+            <div class="friends-list-list" id="friends-list-list">
+                {% for f in friends %}
+                <div class="friend-item" id="friend-{{ f.id }}">
+                    <div class="friend-info">
+                        <div class="friend-profile">
+                            <div class="friend_profile_img">
+                                {% if f.image %}
+                                <img src="{{  f.image.url }}" alt="반려친구 사진" />
+                                {% else %}
+                                <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% url 'diaries:mydiary_list' f.id %}"
+                        class="friend-name"
+                                data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                                {{ f.name }}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="no-friends">등록된 반려친구가 없습니다.</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-
 <!-- 연·월 변경 시 GET 요청 -->
 <script>
     document.getElementById("year-select").addEventListener("change", function() {
@@ -134,7 +134,7 @@
         // 오늘 날짜 가져오기
         const today = new Date();
         today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 초기화
-    
+
         // 캘린더의 날짜 버튼을 가져오기 (날짜를 클릭할 요소의 클래스를 사용)
         const dateButtons = document.querySelectorAll(".diary-day");
         dateButtons.forEach(button => {
@@ -143,10 +143,10 @@
                 const selectedYear = this.getAttribute("data-year");
                 const selectedMonth = this.getAttribute("data-month");
                 const selectedDay = this.getAttribute("data-day");
-    
+
                 // 선택된 날짜를 Date 객체로 변환
                 const selectedDate = new Date(selectedYear, selectedMonth - 1, selectedDay); // JS는 월이 0부터 시작
-    
+
                 // ✅ 선택한 날짜가 오늘 이후라면 경고창 표시
                 if (selectedDate > today) {
                     event.preventDefault(); // 기본 동작 방지 (페이지 이동 X)
