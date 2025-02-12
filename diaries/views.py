@@ -322,7 +322,6 @@ def detail_diaries(request, pk):
     is_author = False
     if diaries.user == request.user:
         is_author = True
-
     request_user_like = Like.objects.filter(
         diary=diaries,
         like_user=request.user
@@ -337,6 +336,7 @@ def detail_diaries(request, pk):
         'reply': diaries.reply,
         'likes_count': likes_count,
         'comments': comments,
+
         'is_author': is_author,
         'is_liked' : is_liked
     }
@@ -627,7 +627,7 @@ def mydiary_list(request, friend_id):
     if not friend:
         return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
 
-    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링 
     if isinstance(friend, Pet):
         diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
     else:

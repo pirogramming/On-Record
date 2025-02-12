@@ -1,3 +1,13 @@
+.after-login {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+  position: relative;
+  padding-top: 60px; 
+}
+
+
 .background-a {
   position: fixed; 
   top: 0;
@@ -10,12 +20,12 @@
   z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
 }
 
-.container {
+.after-login-container{
   background-image: url("/static/images/move-form.png");
   width: 900px;
   height: 480px;
   border-radius: 15px;
-  box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.6);
+  box-shadow: 0 4px 50px 10px var(--shadow-dark-yellow);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -26,12 +36,16 @@
   background-position: center;
 }
 
-.container span {
+.container-span {
   margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .start-hello {
   margin-top: auto;
+  font-weight: var(--font-weight-normal);
 }
 
 .move-form-btn {
@@ -39,10 +53,11 @@
   padding: 5px 40px;
   background: linear-gradient(-60deg, var(--light-yellow), var(--primary-yellow));
   border: none;
-  color: white;
-  font-size: 16px;
+  color: var(--white);
+  font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
+  margin: 30px;
 }
 
 move-form-btn:hover {

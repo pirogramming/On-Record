@@ -5,8 +5,8 @@
     --hover-yellow: #e5b700; 
     --white: #FFFFFF;
     --light-gray: #d9d9d9;
-    --dark-gray: #666; 
-    --shadow-yellow: rgba(229, 188, 63, 0.8);
+    --shadow-dark-yellow: rgba(229, 188, 63, 0.6);
+    --shadow-light-yellow: rgba(229, 188, 63, 0.3);
     --red:#ff6347;
     --diary-empty: #F2EEE2;
     --diary-one: #FFF0C4;
@@ -14,9 +14,12 @@
     --diary-full:  #FFE083;
     --text-black: #000000;
     --text-gray: #666;
-  
-  
+
     --font-family: 'Pretendard', sans-serif;
+    --font-size-normal: 20px;
+    --font-weight-regular: 400;
+    --font-weight-normal: 700;
+    --font-weight-bold: 900;
   }
 
   * {
@@ -24,5 +27,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: var(--font-family);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-regular);
   }
   

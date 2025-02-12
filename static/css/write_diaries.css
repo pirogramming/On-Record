@@ -1,3 +1,10 @@
+.create-diaries-container{
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 80px;
+}
+
 .background-a {
   position: fixed; 
   top: 0;
@@ -22,9 +29,11 @@
 
 .write-header, .write-header-a {
   display: flex;
-  justify-content: space-between; /* 이 부분을 추가 */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 15px;
+  background: transparent; 
 }
 
 .write-header-l, .write-header-a-l {
@@ -38,8 +47,8 @@
   color: rgba(0,0,0,1);
   opacity: 1;
   text-align: center;
-  font-weight: bolder;
-  font-size: 24px;
+  font-weight: var(--font-weight-normal);
+  font-size: 1.4rem;
 }
 
 #date {
@@ -47,20 +56,48 @@
   opacity: 1;
   text-align: center;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 0.9rem;
 }
 
 label {
+  font-weight: var(--font-weight-regular);
+  display: inline-flex;  /* 변경된 부분 */
+  align-items: center;
+}
+
+
+.form-group {
+  gap: 10px; 
+}
+
+.form-group:first-child input {
+  border: none;
+  border-bottom: 2px solid black; 
+  font-size: 20px;
+  background: transparent;
   font-weight: bold;
-  margin: 5px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input, select {
+  width: 100%;
+  font-size: 16px;
+  background: transparent; 
+  transition: border 0.3s ease;
+  border: none;
+}
+
+input:focus, select:focus {
+  outline: none;
 }
 
 .public-btn {
     padding: 5px 20px; /* 패딩을 추가 */
     background-color: var(--primary-yellow);
     border: none;
-    color: white;
-    font-size: 14px;
+    color: var(--white);
+    font-size: 0.8rem;
     border-radius: 30px;
     cursor: pointer;
 }
@@ -73,8 +110,8 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 30px;
-  margin-top: 20px;
+  gap: 80px;
+  margin-top: 30px;
   width: 100%;
 }
 
@@ -87,7 +124,7 @@ label {
     align-items: center;
     border-radius: 10px;
     background: var(--white);
-    box-shadow: 0 4px 50px 5px var(--shadow-yellow);
+    box-shadow: 0 4px 50px 5px var(--shadow-dark-yellow);
     text-align: center;
     overflow: hidden;
 }
@@ -98,7 +135,7 @@ label {
 
 .image-upload label {
     cursor: pointer;
-    color: var(--dark-gray);
+    color: var(--text-gray);
 }
 #form-preview {
   width: 100%; 
@@ -120,7 +157,7 @@ label {
     outline: none;
     resize: none;
     background: transparent;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     padding: 10px;
 }
 
@@ -129,12 +166,11 @@ label {
   padding: 5px 20px;
   background: var(--primary-yellow);
   border: none;
-  color: white;
-  font-size: 14px;
+  color: var(--white);
+  font-size: 0.8rem;
   border-radius: 30px;
-  cursor: pointer;
   margin-left: auto; 
-  margin-top: 10px
+  margin-top: 20px
 }
 
 .create-btn:hover {
@@ -147,3 +183,4 @@ label {
         align-items: center;
     }
 }
+

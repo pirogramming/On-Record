@@ -8,13 +8,13 @@
 {% block content %}
     <div class="background-b"></div>
     <div class="plant-form-container">
-        <h1 class="form-title"><strong>{{ user.nickname }}님의 반려친구</strong>에 대해 알려주세요!</h1>
+        <h1 class="form-title">{{ user.nickname }}님의 반려친구에 대해 알려주세요!</h1>
         <form method="POST" action="{% url 'diaries:create_plant' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
                 <div class="image-upload">
                     <label for="pet-image">
-                        <img id="pet-preview" src="#" alt="미리보기">
+                        <img id="plant-preview" src="{% static 'images/default_plant_image.png' %}" alt="미리보기" />
                     </label>
                     <input type="file" id="pet-image" name="image" accept="image/*">
                 </div>

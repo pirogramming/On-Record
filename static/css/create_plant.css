@@ -13,7 +13,8 @@
 
 .plant-form-container {
     max-width: 800px;
-    margin-top: 220px;
+    margin-top: 100px;
+    margin-bottom: 50px;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -30,8 +31,7 @@
   color: rgba(0,0,0,1);
   opacity: 1;
   text-align: center;
-  font-weight: normal;
-  font-size: 24px;
+  font-size: 1.6rem;
 }
 
 .form-body {
@@ -60,19 +60,18 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: var(--light-gray);
     align-items: center;
     justify-content: center;
     cursor: pointer;
     overflow: hidden;
 }
 
-#pet-preview {
+#plant-preview {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  display: none; /* 기본적으로 숨김 */
+  display: block;
 }
 
 .form-fields {
@@ -83,16 +82,40 @@
   margin-left: 20px;
 }
 
+.form-group{
+  border-bottom: 1px solid black; 
+  font-size: var(--font-size-normal);
+  background: transparent;
+  font-weight: bold;
+  width: 100%;
+}
+
+.form-fields {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 20px;
+  background: transparent;
+}
+
 label {
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     margin: 5px;
 }
 
 input, select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  background: transparent; 
+  transition: border 0.3s ease;
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-normal);
+  border: none;
+  margin: 5px;
+}
+
+input:focus, select:focus {
+  outline: none;
 }
 
 #personality-buttons {
@@ -105,8 +128,8 @@ input, select {
 
 .personality-btn {
     padding: 5px 10px;
-    border: 1px solid var(--dark-gray);
-    background: white;
+    border: 1px solid var(--text-gray);
+    background: var(--white);
     border-radius: 15px;
     cursor: pointer;
 }
@@ -120,8 +143,7 @@ input, select {
     padding: 5px 20px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
+    color: var(--white);
     border-radius: 30px;
     cursor: pointer;
     margin: auto;

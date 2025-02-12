@@ -1,4 +1,10 @@
-/* 배경 이미지 설정 */
+.pet-or-plant-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
 .background-b {
   position: fixed; 
   top: 0;
