@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center; 
   align-items: center; 
-  height: 100vh; 
+  height: 100vh;
+  position: relative;
+  padding-top: 60px; 
 }
 
 
@@ -55,7 +57,7 @@
   font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
-  margin: 15px;
+  margin: 30px;
 }
 
 move-form-btn:hover {
