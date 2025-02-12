@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="pet-or-plant-container">
     <div class="background-b"></div>
     <div class="select-container">
         <a href="{% url 'diaries:create_pet' %}" class="select_pet">
@@ -18,4 +19,5 @@
             <span><strong>반려식물</strong>과 온기록하기</span>
         </a>
     </div>
+</div>
 {% endblock %}
