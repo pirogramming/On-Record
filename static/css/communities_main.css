@@ -10,21 +10,6 @@
     z-index: -1;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', sans-serif;
-}
-
-body, html {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .community-container{
     width: 100%;
     max-width: 1200px;
@@ -61,7 +46,7 @@ body, html {
     text-overflow: ellipsis;
     max-width: 200px;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: -20px;
 }
 
 .add-diary-btn {
@@ -106,41 +91,41 @@ body, html {
     color: var(--white);
 }
 
-/* 제목 스타일 */
 .title {
     font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
     color: var(--text-black);
     text-align: center;
     margin: 10px 0;
-    margin-top: 250px;
+    margin-top: 150px;
 }
 
-.diary-list-container {
-    width: 90%;
-        max-width: 1200px;
-        background: var(--white);
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-        text-align: center;
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto;
-        max-height: calc(100vh - 150px);
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* 다이어리 리스트 */
 .diary-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center;
-    margin-top: 20px;
-    min-height: 400px;
+    padding-top: 30px;
+    width: 100%;
 }
 
 .diary-card {
@@ -149,24 +134,52 @@ body, html {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease;
-    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 300px;
+    min-height: 350px;
 }
 
 .diary-card:hover {
     transform: scale(1.03);
 }
 
-.diary-image img {
+.diary-image {
     width: 100%;
     height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.diary-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .diary-info {
     padding: 15px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .diary-title {
@@ -174,23 +187,31 @@ body, html {
     font-weight: var(--font-weight-normal);
     color: #333;
     margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
 }
 
 .diary-preview {
     font-size: 0.8rem;
     color: var(--text-gray);
+    text-align: left;
+    width: 100%;
+    max-height: 2.8em;
+    line-height: 1.4em;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+    min-height: 2.8em;
 }
 
 .diary-actions {
     display: flex;
-    justify-content: stretch;
+    justify-content: flex-start;
     gap: 10px;
     margin-top: 10px;
     padding: 10px;
     border-top: 1px solid #ddd;
+    width: 100%;
 }
 
 .like-btn, .comment-btn {
@@ -210,6 +231,12 @@ body, html {
     font-size: 0.9rem;
 }
 
+@media (max-width: 1024px) {
+    .diary-list {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .diary-list {
         grid-template-columns: repeat(2, 1fr);
@@ -220,9 +247,14 @@ body, html {
     }
 
     .header {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         gap: 10px;
+    }
+
+    .friend-btn, .add-diary-btn {
+        font-size: 0.7rem;
+        padding: 8px 15px;
     }
 }
 

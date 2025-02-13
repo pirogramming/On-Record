@@ -22,14 +22,18 @@
             </a>
         </div>
 
-        <div class="diary-list-container">
+        <div class="container">
             <div class="diary-list">
                 {% if diaries %}
                     {% for diary in diaries %}
                     <div class="diary-card" data-diary-id="{{ diary.id }}">
                         <a href="{% url 'diaries:detail_diaries' diary.pk %}" class="diary-card-link">
                             <div class="diary-image">
-                                <img src="{{ diary.image_url|default:'images/default.jpg' }}" alt="오늘의 사진">
+                                {% if diary.image %}
+                                    <img src="{{ diary.image.url }}" alt="다이어리 이미지">
+                                {% else %}
+                                    <div class="no-image"></div>
+                                {% endif %}
                             </div>
                             <div class="diary-info">
                                 <h2 class="diary-title">{{ diary.title }}</h2>
