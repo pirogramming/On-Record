@@ -44,8 +44,8 @@
                     </form>
                     
                     {% else %}
-                    <form method="POST" action="{% url 'diaries:render_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}">
-                        {% csrf_token %}
+                    <form method="POST" action="{% url 'diaries:render_diaries' %}?day={{ request.GET.day }}&month={{ request.GET.month }}&year={{ request.GET.year }}&friend_id={{ friend.id }}&friend_type={% if friend in pets %}pet{% else %}plant{% endif %}">
+                                        {% csrf_token %}
                         <button type="submit" class="move-write-btn">
                             온기록 남기기
                         </button>
