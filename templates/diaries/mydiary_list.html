@@ -24,7 +24,11 @@
                 <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
                     <div class="diary-card">
                         <div class="diary-image">
+                            {% if diary.image %}
                             <img src="{% if diary.image %}{{ diary.image.url }}{% else %}/static/images/default_pet.jpg{% endif %}" alt="오늘의 사진">
+                            {% else %}
+                                <div class="no-image"></div>
+                            {% endif %}
                         </div>
                         <div class="diary-info">
                             <h2 class="diary-title">{{ diary.title }}</h2>
