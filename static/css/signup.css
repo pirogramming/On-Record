@@ -25,7 +25,7 @@
     text-align: center;
     width: 100%;
     padding: 20px;
-    margin-left: -500px; /* 왼쪽으로 이동 */
+    margin-left: -500px;
 }
 
 .signup-header {

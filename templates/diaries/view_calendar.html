@@ -99,7 +99,11 @@
                                 {% if f.image %}
                                 <img src="{{  f.image.url }}" alt="반려친구 사진" />
                                 {% else %}
-                                <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                                    {% if f.gender %}
+                                    <img src="{% static 'images/default_pet_image.png' %}" alt="기본 반려동물 프로필">
+                                    {% else %}
+                                    <img src="{% static 'images/default_plant_image.png' %}" alt="기본 반려식물 프로필">
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>

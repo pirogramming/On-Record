@@ -21,7 +21,6 @@
     padding: 0 50px 100px;
 }
 
-/* 드롭다운 스타일 */
 select {
     padding: 8px 16px;
     margin-left: 30px;
@@ -36,7 +35,6 @@ select:focus {
     outline: none;
 }
 
-/* 캘린더 테이블 스타일 */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -46,7 +44,7 @@ th, td {
     padding: 40px;
     text-align: center;
     font-size: var(--font-size-normal);
-    width: 14.28%; /* 7일이 균등하게 나누어짐 */
+    width: 14.28%;
 }
 
 th{
@@ -66,6 +64,7 @@ tr .today {
     font-size: 1.3rem;
     text-decoration: none;
     margin: 10px;
+    color: var(--text-black);
 }
 
 .diary-day:hover {
@@ -110,17 +109,21 @@ tr .today {
 
 .add-btn {
     background: var(--primary-yellow);
-    color: var(--white);
     border: none;
     padding: 5px;
     border-radius: 20px;
-    cursor: pointer;
     font-weight: var(--font-weight-normal);
     font-size: 0.6rem;
 }
 
 .add-btn:hover {
     background: var(--hover-yellow);
+}
+
+.add-btn a{
+    color: var(--white);
+    text-decoration: none; 
+    font-weight: var(--font-weight-normal);
 }
 
 .friends-list-list {
@@ -151,6 +154,7 @@ tr .today {
     padding: 10px;
     display: flex;
     align-items: center;
+    gap: 10px
 }
 
 .friend-profile {
@@ -176,9 +180,11 @@ img {
   }
 
 .friend-name {
-    font-size: 0.8rem !important; /* 🔥 강제 적용 */
+    font-size: 0.8rem !important; 
     font-weight: var(--font-weight-normal) !important;
     display: inline-block;
+    color: var(--text-black);
+    text-decoration: none; 
 }
 
 .friend-name p {
@@ -189,16 +195,6 @@ img {
 .friend-item:hover {
     transform: scale(1.03);
     box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
-}
-
-
-/* 반려친구 이름 */
-.friend-name {
-    font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-normal);
-    color: var(--text-var(--text-black));
-    text-align: center;
-    display: block;
 }
 
 /* 반려친구가 없을 때 메시지 */
