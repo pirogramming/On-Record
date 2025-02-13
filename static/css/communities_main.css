@@ -11,6 +11,21 @@
     z-index: -1;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .community-container{
     width: 100%;
     max-width: 1200px;
@@ -20,16 +35,16 @@
 }
 /* 헤더 스타일 */
 .header {
+    width: 90%;
+    max-width: 1200px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 양쪽 정렬 */
     align-items: center;
-    margin-top: 50px; /* 기존 30px → 50px으로 조정 */
+    margin-top: 30px;
+    padding: 0 30px; /* 👉 좌우 여백 추가 */
 }
 
-/* 친구 선택 버튼 */
-.friend-btn {
-    background-color: #FFC100;
-    color: var(--white);
+.friend-btn, .add-diary-btn {
     padding: 10px 20px;
     border-radius: 30px;
     font-size: 0.8rem;
@@ -38,7 +53,28 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.friend-btn:hover {
+/* 반려동물 버튼 */
+.friend-btn {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    margin-left: 0; /* 왼쪽 정렬 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+/* 온기록 남기기 버튼 */
+.add-diary-btn {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    position: relative;
+    left: 90px;
+}
+
+.friend-btn:hover, .add-diary-btn:hover {
     background-color: var(--hover-yellow);
     transform: scale(1.05);
 }
@@ -74,48 +110,41 @@
     color: var(--white);
 }
 
-/* 온기록 남기기 버튼 */
-.add-diary-btn {
-    background-color: #FFC100;
-    color: var(--white);
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.add-diary-btn:hover {
-    background-color: var(--hover-yellow);
-    transform: scale(1.05);
-}
-
 /* 제목 스타일 */
 .title {
-    font-size: 26px;
+    font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
     color: var(--text-black);
     text-align: center;
-    margin-top: 120px; /* 기존 100px → 120px */
+    margin: 10px 0;
+    margin-top: 250px;
 }
 
 .diary-list-container {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-    text-align: center;
-    margin-top: 50px; /* 기존 20px → 50px */
+    width: 90%;
+        max-width: 1200px;
+        background: var(--white);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+        text-align: center;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto; /* 내부 스크롤 가능하도록 설정 */
+        max-height: calc(100vh - 150px); /* 화면 크기 조정 */
 }
 
 /* 다이어리 리스트 */
 .diary-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     justify-content: center;
-    margin-top: 30px; /* 기존 20px → 30px */
+    margin-top: 20px;
+    min-height: 400px;
 }
 
 /* 다이어리 카드 */
@@ -127,6 +156,7 @@
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .diary-card:hover {
@@ -161,15 +191,15 @@
     -webkit-box-orient: vertical;
 }
 
-/* 다이어리 액션 (좋아요, 댓글) */
 .diary-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: auto;
+    margin-top: 10px;
     padding: 10px;
     border-top: 1px solid #ddd;
-    gap: 15px;
+    gap: 5px;
+    width: auto;
 }
 
 .like-btn, .comment-btn {
@@ -182,54 +212,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin: 0;
 }
 
 .like-btn img, .comment-btn img {
     width: 20px;
     height: 20px;
-}
-
-/* 댓글 입력창 */
-.comment-section {
-    margin-top: 20px;
-    padding: 10px;
-}
-
-.comment-input {
-    width: 80%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-.add-comment-btn {
-    background-color: #FFC100;
-    color: var(--white);
-    border-radius: 10px;
-    text-decoration: none;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-}
-
-.add-comment-btn:hover {
-    background-color: var(--hover-yellow);
-}
-
-/* 댓글 리스트 */
-.comments-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 15px;
-    text-align: left;
-}
-
-.comments-list li {
-    font-size: 0.8rem;
-    padding: 5px 10px;
-    background: #FFF4D9;
-    border-radius: 10px;
-    margin-bottom: 5px;
 }
 
 /* 반응형 */

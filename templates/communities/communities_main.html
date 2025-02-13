@@ -48,17 +48,6 @@
                                 <span class="comment-count" id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </button>
                         </div>
-                        
-                        <!-- 댓글 입력 -->
-                        <div class="comment-section">
-                            <input type="text" class="comment-input" placeholder="댓글을 입력하세요" id="comment-input-{{ diary.id }}">
-                            <button class="add-comment-btn" data-diary-id="{{ diary.id }}">댓글 등록</button>
-                            <ul class="comments-list" id="comments-list-{{ diary.id }}">
-                                {% for comment in diary.comment_set.all %}
-                                    <li>{{ comment.comment_user.nickname }}: {{ comment.content }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
                     </div>
                     {% endfor %}
                 {% else %}
