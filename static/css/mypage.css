@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-bottom: 50px;
 }
 
@@ -122,28 +122,38 @@ p {
 
 .edit-profile-btn {
     background: var(--primary-yellow);
-    color: var(--white);
+    color: var(--white); 
     border: none;
-    padding: 10px;
+    padding: 8px 20px;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: var(--font-weight-normal);
     font-size: 0.8rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-profile-btn:hover {
+    background: var(--hover-yellow);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.5);
 }
 
 .add-btn {
-    background: var(--soft-yellow);
-    padding: 5px 20px;
-    border: none;
+    display: inline-block;
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    padding: 7px 20px;
     border-radius: 50px;
-    font-weight: var(--font-weight-normal);
-    font-size: 0.6rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.add-btn a{
-    color: var(--white);
-    text-decoration: none; 
-    font-weight: var(--font-weight-normal);
+.add-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
 }
 
 .friends-list-list {
@@ -165,6 +175,13 @@ p {
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.friend-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .friend-item:hover {
@@ -179,6 +196,7 @@ p {
     display: block;
     text-decoration: none; 
     color: var(--text-black);
+    padding-left: 10px;
 }
 
 .friend-actions {
@@ -186,13 +204,14 @@ p {
 }
 
 .edit-btn, .delete-btn, .user-del-btn {
-    background: var(--soft-yellow);
+    background-color: var(--soft-yellow);
+    color: var(--white);
     border: none;
-    padding: 10px 15px;
+    padding: 6px 15px;
     border-radius: 50px;
     cursor: pointer;
     font-size: 0.8rem;
-    transition: background 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
     margin: 5px;
 }
