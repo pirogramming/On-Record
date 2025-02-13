@@ -21,7 +21,6 @@
     padding: 0 50px 100px;
 }
 
-/* 드롭다운 스타일 */
 select {
     padding: 8px 16px;
     margin-left: 30px;
@@ -36,7 +35,6 @@ select:focus {
     outline: none;
 }
 
-/* 캘린더 테이블 스타일 */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -46,7 +44,7 @@ th, td {
     padding: 40px;
     text-align: center;
     font-size: var(--font-size-normal);
-    width: 14.28%; /* 7일이 균등하게 나누어짐 */
+    width: 14.28%;
 }
 
 th{
