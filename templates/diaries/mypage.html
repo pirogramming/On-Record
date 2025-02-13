@@ -47,8 +47,12 @@
                             </span>
                         </div>
                         <div class="friend-actions">
-                            <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
-                            <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
+                            <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
                         </div>
                     </div>
                 </a>
@@ -60,9 +64,7 @@
 
         {% if user.is_authenticated %}
         <div class="user-del-btn-container">
-            <button class="user-del-btn">
-                <a href="{% url 'users:delete_user' %}">회원 탈퇴</a>
-            </button>
+            <a href="{% url 'users:delete_user' %}" class="user-del-btn">회원 탈퇴</a>
         </div>
         {% endif %}
     </div>
