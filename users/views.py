@@ -221,3 +221,9 @@ def delete_user(request):
     return redirect('users:main')
 
   return render(request, 'users/delete_confirm.html')
+
+def privacy_policy(request):
+  return render(request, 'privacy_policy.html')
+
+def terms_of_service(request):
+  return render(request, 'terms_of_service.html')
