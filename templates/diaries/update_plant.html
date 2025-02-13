@@ -8,7 +8,7 @@
 {% block content %}
     <div class="background-b"></div>
     <div class="plant-form-container">
-        <h1 class="form-title">반려동물의 특성을 변경하여 정보를 최신화하세요</h1>
+        <h1 class="form-title">반려동물의 정보를 최신화하세요</h1>
         <form method="POST" action="{% url 'diaries:update_plant' plant.id %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
@@ -18,7 +18,7 @@
                         {% if pet.image %}
                             <img id="pet-preview" src="{{ pet.image.url }}" alt="미리보기">
                         {% else %}
-                            <img id="pet-preview" src="{% static 'images/default_plant_image.png' %}" alt="미리보기">
+                            <img id="plant-preview" src="{% static 'images/default_plant_image.png' %}" alt="미리보기">
                         {% endif %}
                     </label>
                     <input type="file" id="pet-image" name="image" accept="image/*">

@@ -110,7 +110,7 @@ p {
     margin-right: auto; 
 }
 
-.add-btn, .edit-profile-btn {
+.edit-profile-btn {
     background: var(--primary-yellow);
     color: var(--white);
     border: none;
@@ -121,8 +121,19 @@ p {
     font-size: 0.8rem;
 }
 
-.add-btn:hover {
-    background: var(--hover-yellow);
+.add-btn {
+    background: var(--soft-yellow);
+    padding: 5px 20px;
+    border: none;
+    border-radius: 50px;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.6rem;
+}
+
+.add-btn a{
+    color: var(--white);
+    text-decoration: none; 
+    font-weight: var(--font-weight-normal);
 }
 
 .friends-list-list {
@@ -154,30 +165,35 @@ p {
 .friend-name {
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-normal);
-    color: var(--text-var(--text-black));
     text-align: center;
     display: block;
+    text-decoration: none; 
+    color: var(--text-black);
 }
 
 .friend-actions {
     display: flex;
 }
 
-.edit-btn, .delete-btn {
-    background: #FFD75C;
+.edit-btn, .delete-btn, .user-del-btn {
+    background: var(--soft-yellow);
     border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
+    padding: 10px 15px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 0.8rem;
-    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
     margin: 5px;
 }
 
-.edit-btn:hover {
-    background: #FFC107;
+.edit-btn a, .delete-btn a, .user-del-btn a{
+    color: var(--white);
+    text-decoration: none; 
+    font-weight: var(--font-weight-regular);
+}
+.edit-btn:hover, .user-del-btn:hover, .add-btn:hover {
+    background: var(--hover-yellow);
     transform: scale(1.05);
 }
 
@@ -202,23 +218,6 @@ p {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
-}
-
-.user-del-btn {
-    background: #FFD75C;
-    color: #444;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 0.5rem;
-    font-weight: var(--font-weight-normal);
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
-}
-
-.user-del-btn:hover {
-    background: var(--hover-yellow);
 }
 
 @media (max-width: 500px) {

@@ -205,7 +205,6 @@
     background-color: var(--hover-yellow);
 }
 
-/* 댓글 리스트 */
 .comments-list {
     list-style: none;
     padding: 0;

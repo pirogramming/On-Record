@@ -1,4 +1,4 @@
-.after-login {
+.after-login-container {
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -20,7 +20,7 @@
   z-index: -1; 
 }
 
-.after-login-container{
+.after-login{
   background-image: url("/static/images/move-form.png");
   width: 900px;
   height: 480px;
@@ -34,6 +34,19 @@
   flex-direction: column;
   background-size: cover;
   background-position: center;
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
 }
 
 .container-span {
@@ -58,10 +71,12 @@
   border-radius: 30px;
   cursor: pointer;
   margin: 30px;
+  text-decoration: none;
 }
 
-move-form-btn:hover {
+.move-form-btn:hover {
   background: var(--hover-yellow);
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {

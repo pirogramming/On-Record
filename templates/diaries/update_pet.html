@@ -8,7 +8,7 @@
 {% block content %}
     <div class="background-b"></div>
     <div class="pet-form-container">
-        <h1 class="form-title">반려식물의 특성을 변경하여 정보를 최신화하세요</h1>
+        <h1 class="form-title">반려동물의 정보를 최신화하세요</h1>
         <form method="POST" action="{% url 'diaries:update_pet' pet.id %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">
