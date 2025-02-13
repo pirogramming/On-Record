@@ -37,20 +37,17 @@
                             </p>
                         </div>
                         <div class="diary-actions">
-                            <button class="like-btn" data-diary-id="{{ diaries.id }}">
-                                {% if is_liked %}
-                                    <i class="bi bi-heart-fill"></i>
-                                {% else %}
-                                    <i class="bi bi-heart"></i>
-                                {% endif %}
-                                <span id="like-count-{{ diaries.id }}">{{ diaries.like_set.count }}</span>
+                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
+                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
                         
-                            <button class="comment-btn" data-diary-id="{{ diaries.id }}">
+                            <button class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
-                                <span id="comment-count-{{ diaries.id }}">{{ diaries.comment_set.count }}</span>
+                                <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </button>
                         </div>
+                        
                     </div>
                 </a>
                 {% endfor %}
