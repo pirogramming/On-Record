@@ -54,8 +54,8 @@
 }
 
 .profile {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: var(--light-yellow);
     display: flex;
@@ -218,7 +218,6 @@ p {
     padding: 5px;
 }
 
-/* 수정 버튼 */
 .edit-btn i {
     color: var(--primary-yellow);
     font-size: 1.2rem;
@@ -229,7 +228,6 @@ p {
     transform: scale(1.1);
 }
 
-/* 삭제 버튼 */
 .delete-btn i {
     color: var(--primary-yellow);
     font-size: 1.2rem;

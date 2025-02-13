@@ -22,7 +22,7 @@
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 1500px; 
+    max-width: 1200px; 
     overflow: hidden;
     display: flex;
     justify-content: center;
