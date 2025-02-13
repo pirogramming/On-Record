@@ -133,8 +133,8 @@ body, html {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        overflow-y: auto; /* 내부 스크롤 가능하도록 설정 */
-        max-height: calc(100vh - 150px); /* 화면 크기 조정 */
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
 }
 
 /* 다이어리 리스트 */
@@ -193,13 +193,11 @@ body, html {
 
 .diary-actions {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: stretch;
+    gap: 10px;
     margin-top: 10px;
     padding: 10px;
     border-top: 1px solid #ddd;
-    gap: 5px;
-    width: auto;
 }
 
 .like-btn, .comment-btn {
@@ -208,16 +206,15 @@ body, html {
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: var(--font-weight-normal);
-    color: #FFC100;
+    color: var(--primary-yellow);
     display: flex;
     align-items: center;
     gap: 5px;
-    margin: 0;
+    padding: 5px 10px;
 }
 
-.like-btn img, .comment-btn img {
-    width: 20px;
-    height: 20px;
+.like-btn span, .comment-btn span {
+    font-size: 0.9rem;
 }
 
 /* 반응형 */
@@ -227,7 +224,7 @@ body, html {
     }
 
     .title {
-        margin-top: 100px; /* 모바일에서도 살짝 조정 */
+        margin-top: 100px;
     }
 
     .header {
@@ -243,6 +240,6 @@ body, html {
     }
 
     .title {
-        margin-top: 90px; /* 모바일에서 더 내리기 */
+        margin-top: 90px;
     }
 }
