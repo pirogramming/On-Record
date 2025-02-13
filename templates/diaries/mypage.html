@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="mypage-container">
     <div class="background-a"></div>
     <div class="mypage-profile">
         <!-- 제목 -->
@@ -15,49 +16,46 @@
 
         <!-- 유저 정보 -->
         <div class="user-info">
-            <div class="user-profile">
-                <div class="user_profile_img">
+            <div class="profile">
+                <div class="profile-img">
                     {% if user.profile_image %}
-                    <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
+                    <img id="user-preview" src="{{  user.profile_image.url  }}" alt="프로필 사진" />
                     {% else %}
-                    <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                    <img id="user-preview" src="{% static 'images/default_user_image.png' %}" alt="기본 프로필" />
                     {% endif %}
                 </div>
-            </div>
-            
-            <div class="user-name-container">
-                <p class="user-name" id="user-name">{{ user.nickname }}</p>
-            </div>
-
+            </div>           
+            <p class="user-name" id="user-name">{{ user.nickname }}</p>
             <p>{{ user.email }}</p>
-            <button class="edit-btn" id="edit-profile-btn">
-                <a href="{% url 'users:render_profile' %}">프로필 수정</a>
+            <a href="{% url 'users:render_profile' %}" class="edit-profile-btn">프로필 수정</a>
         </div>
 
         <!-- 반려친구 리스트 -->
         <div class="friends-list">
             <div class="friends-list-management-header">
                 <h2 class="friends-list-title">반려친구 관리</h2>
-                <button class="add-btn" id="add-friends-list-btn">
-                    <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
-                </button>
+                <a href="{% url 'diaries:pet_or_plant' %}" class="add-btn" id="add-friends-list-btn">추가</a>
             </div>
 
             <div class="friends-list-list" id="friends-list-list">
                 {% for f in friends %}
-                <div class="friend-item" id="friend-{{ f.id }}">
-                    <div class="friend-info">
-                        <a href="{% url 'diaries:mydiary_list' f.id %}"
-                            class="friend-name"
-                            data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                            {{ f.name }}
-                        </a>
+                <a href="{% url 'diaries:mydiary_list' f.id %}" class="friend-item-link">
+                    <div class="friend-item" id="friend-{{ f.id }}">
+                        <div class="friend-info">
+                            <span class="friend-name" data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                                {{ f.name|slice:":20" }}{% if f.name|length > 20 %}...{% endif %}
+                            </span>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="friend-actions">
-                        <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">수정</button>
-                        <button class="delete-btn" onclick="deleteFriend({{ f.id }}, '{% if f.gender %}pet{% else %}plant{% endif %}')">삭제</button>
-                    </div>
-                </div>
+                </a>
                 {% empty %}
                 <p class="no-friends">등록된 반려친구가 없습니다.</p>
                 {% endfor %}
@@ -66,13 +64,11 @@
 
         {% if user.is_authenticated %}
         <div class="user-del-btn-container">
-            <button class="user-del-btn">
-                <a href="{% url 'users:delete_user' %}">회원 탈퇴</a>
-            </button>
+            <a href="{% url 'users:delete_user' %}" class="user-del-btn">회원 탈퇴</a>
         </div>
         {% endif %}
     </div>
-
+</div>
     <script>
         document.getElementById("profile-upload").addEventListener("change", function(event) {
             const file = event.target.files[0];
