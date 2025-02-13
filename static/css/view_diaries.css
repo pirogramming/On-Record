@@ -7,7 +7,7 @@
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .write-container {
@@ -38,7 +38,7 @@
   color: rgba(0,0,0,1);
   opacity: 1;
   text-align: center;
-  font-weight: var(--font-weight-normal);er;
+  font-weight: var(--font-weight-normal);
   font-size: 1.2rem;
 }
 

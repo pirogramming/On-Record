@@ -6,146 +6,148 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="background-a"></div>
-<div class="diaries_detail">
-  <div class="detail-container">
-    <div class="detail-header">
-      <h1 class="detail-title">
-        <p>{{ diaries.title }}</p>
-      </h1>
-      <div class="detail-header-l">
-        <p id="date">{{ diaries.date }}</p>
-        <button class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
-          {% if diaries.disclosure == True %}
-              전체공개
-          {% else %}
-              비공개
-          {% endif %}
-        </button>
+<div class="detail-diaries-container">
+  <div class="background-a"></div>
+  <div class="diaries_detail">
+    <div class="detail-container">
+      <div class="detail-header">
+        <h1 class="detail-title">
+          {{ diaries.title }}
+        </h1>
+        <div class="detail-header-l">
+          <div id="date">{{ diaries.date }}</div>
+          <button class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
+            {% if diaries.disclosure == True %}
+                전체공개
+            {% else %}
+                비공개
+            {% endif %}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="detail-content">
-      <div class="detail-image">
-        <h3>오늘의 사진</h3>
+      <div class="detail-content">
         <div class="detail-image-container">
-          {% if diaries.image %}
-          <img src="{{ diaries.image.url }}" alt="일기 사진" />
-          {% else %}
-          <p>📷 이미지 없음</p>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="detail-text">
-        <h3>오늘의 하루</h3>
-        <div class="diary-metadata">
-          <div class="weather">
-            {% if diaries.weather == 'sunny' %}
-                <p>날씨: ☀️</p>
-            {% elif diaries.weather == 'cloudy' %}
-                <p>날씨: ☁️</p>
-            {% elif diaries.weather == 'rainy' %}
-                <p>날씨: 🌧️</p>
-            {% elif diaries.weather == 'snowy' %}
-                <p>날씨: ❄️</p>
-            {% else %}
-                <p>🌍 날씨 정보 없음</p>
-            {% endif %}
-          </div>
-          <div class="mood">
-            {% if diaries.mood == 'happy' %}
-                <p>기분: 😄</p>
-            {% elif diaries.mood == 'sad' %}
-                <p>기분: 😢</p>
-            {% elif diaries.mood == 'angry' %}
-                <p>기분: 😡</p>
-            {% elif diaries.mood == 'funny' %}
-                <p >기분: 🤣</p>
-            {% elif diaries.mood == 'tired' %}
-                <p>기분: 😪</p>
-            {% else %}
-                <p>🌍 기분 정보 없음</p>
-            {% endif %}
+          <div>오늘의 사진</div>
+          <div class="detail-image">
+              {% if diaries.image %}
+              <img src="{{ diaries.image.url }}" alt="일기 사진" />
+              {% else %}
+              <p>📷 이미지 없음</p>
+              {% endif %}
           </div>
         </div>
-        <p class="diary-text-content">{{ diaries.content }}</p>
+
+        <div class="detail-text-container">
+          <div>오늘의 하루</div>
+          <div class="detail-text">
+            <div class="diary-metadata">
+              <div class="weather">
+                {% if diaries.weather == 'sunny' %}
+                    <p>날씨: ☀️</p>
+                {% elif diaries.weather == 'cloudy' %}
+                    <p>날씨: ☁️</p>
+                {% elif diaries.weather == 'rainy' %}
+                    <p>날씨: 🌧️</p>
+                {% elif diaries.weather == 'snowy' %}
+                    <p>날씨: ❄️</p>
+                {% else %}
+                    <p>🌍 날씨 정보 없음</p>
+                {% endif %}
+              </div>
+              <div class="mood">
+                {% if diaries.mood == 'happy' %}
+                    <p>기분: 😄</p>
+                {% elif diaries.mood == 'sad' %}
+                    <p>기분: 😢</p>
+                {% elif diaries.mood == 'angry' %}
+                    <p>기분: 😡</p>
+                {% elif diaries.mood == 'funny' %}
+                    <p >기분: 🤣</p>
+                {% elif diaries.mood == 'tired' %}
+                    <p>기분: 😪</p>
+                {% else %}
+                    <p>🌍 기분 정보 없음</p>
+                {% endif %}
+              </div>
+            </div>
+            <p class="diary-text-content">{{ diaries.content }}</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="reply">
-    {{reply.content}}
-  </div>
-  <!-- 좋아요 및 공유 버튼 -->
-  <div class="bis">
-    {% if is_liked %}
-    <button class="like-btn" data-diary-id="{{ diaries.id }}" >
-      <i class="bi bi-heart-fill"></i>
-    </button>
-    {% else %}
-    <button class="like-btn" data-diary-id="{{ diaries.id }}">
-      <i class="bi bi-heart"></i>
-    </button>
-    {% endif %}
-    <span class="like-count" id="like-count-{{ diaries.id }}">
-      {{ diaries.like_set.count }}
-    </span>
-
-    <div class="bis-r">
-      <form id="share-form" action="#" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="button" class="bi bi-share-fill" id="share-btn"></button>
-      </form>
-    {% if is_author %}
-      <form action="{% url "diaries:update_diaries" diaries.pk %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit" class="bi bi-pencil-square"></button>
-      </form>
-      <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit" class="bi bi-trash3-fill" id="delete-btn"></button>
-      </form>
-    {% endif %}
+    <div class="reply">
+      {{reply.content}}
     </div>
-  </div>
-  <div class="comments-section-title">댓글</div>
-  <!-- 댓글 섹션 -->
-  <div class="comments-section">
-    <ul class="comments-list" id="comments-list-{{ diaries.id }}">
-      {% for comment in comments %}
-        <li class="comments-list-li" id="comment-item-{{ comment.id }}">
-          <div class="comments-content">
-            <span class="comments-list-name" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}</span> 
-            <span class="comments-list-content" id="comment-content-{{comment.id}}">{{ comment.content }}</span>
-            <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
-            <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
-          </div>
-          <!-- 수정/저장 버튼 -->
-           {% if comment.is_author %}
-          <div class="comment-edit-del-btn">
-            <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
-            <a href="{% url 'communities:delete_comment' comment.id %}">
-              <i class="bi bi-trash3-fill"></i>
-            </a>
-          </div>
-            {% endif %}
-          
-        </li>
-      {% endfor %}
-    </ul>
+    <!-- 좋아요 및 공유 버튼 -->
+    <div class="bis">
+      {% if is_liked %}
+      <button class="like-btn" data-diary-id="{{ diaries.id }}" >
+        <i class="bi bi-heart-fill"></i>
+      </button>
+      {% else %}
+      <button class="like-btn" data-diary-id="{{ diaries.id }}">
+        <i class="bi bi-heart"></i>
+      </button>
+      {% endif %}
+      <span class="like-count" id="like-count-{{ diaries.id }}">
+        {{ diaries.like_set.count }}
+      </span>
 
-    <!-- 댓글 입력 폼 -->
-     <div class="comment-input-section">
-      <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
-      <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+      <div class="bis-r">
+        <form id="share-form" action="#" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="button" class="bi bi-share-fill" id="share-btn"></button>
+        </form>
+      {% if is_author %}
+        <form action="{% url "diaries:update_diaries" diaries.pk %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="bi bi-pencil-square"></button>
+        </form>
+        <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="bi bi-trash3-fill" id="delete-btn"></button>
+        </form>
+      {% endif %}
+      </div>
+    </div>
+    <div class="comments-section-title">댓글</div>
+    <!-- 댓글 섹션 -->
+    <div class="comments-section">
+      <ul class="comments-list" id="comments-list-{{ diaries.id }}">
+        {% for comment in comments %}
+          <li class="comments-list-li" id="comment-item-{{ comment.id }}">
+            <div class="comments-content">
+              <span class="comments-list-name" id="comment-text-{{ comment.id }}">{{ comment.comment_user__nickname }}</span> 
+              <span class="comments-list-content" id="comment-content-{{comment.id}}">{{ comment.content }}</span>
+              <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
+              <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
+            </div>
+            <!-- 수정/저장 버튼 -->
+            {% if comment.is_author %}
+            <div class="comment-edit-del-btn">
+              <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+                <i class="bi bi-pencil-square comment-edit-btn"></i>
+              </button>
+              <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
+              <a href="{% url 'communities:delete_comment' comment.id %}">
+                <i class="bi bi-trash3-fill comment-del-btn"></i>
+              </a>
+            </div>
+              {% endif %}
+            
+          </li>
+        {% endfor %}
+      </ul>
+
+      <!-- 댓글 입력 폼 -->
+      <div class="comment-input-section">
+        <input type="text" class="comment-input" id="comment-input-{{ diaries.id }}" placeholder="댓글을 입력하세요">
+        <button class="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+      </div>
     </div>
   </div>
 </div>
-
 <script>
   //좋아요 클릭이벤트
   document.addEventListener('DOMContentLoaded', function () {

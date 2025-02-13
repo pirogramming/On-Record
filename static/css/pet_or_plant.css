@@ -1,4 +1,10 @@
-/* 배경 이미지 설정 */
+.pet-or-plant-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
 .background-b {
   position: fixed; 
   top: 0;
@@ -8,7 +14,7 @@
   background-image: url("/static/images/base-b.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .select-container {

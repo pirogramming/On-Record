@@ -11,7 +11,7 @@
     <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
     
     <div class="header">
-        <button class="friend-btn">{{ friend_name }}</button>
+        <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>
         <a href="{% url 'diaries:view_calendar' %}">
             <button class="add-diary-btn">온기록 남기기</button>
         </a>
@@ -37,15 +37,17 @@
                             </p>
                         </div>
                         <div class="diary-actions">
-                            <button class="like-btn" onclick="increaseLike(this)">
-                                <img src="images/like-icon.png" alt="좋아요">
-                                <span class="like-count">{{ diary.likes }}</span>
+                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
+                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
-                            <button class="comment-btn">
-                                <img src="images/comment-icon.png" alt="댓글">
-                                <span>{{ diary.comments_count }}</span>
+                        
+                            <button class="comment-btn" data-diary-id="{{ diary.id }}">
+                                <i class="bi bi-chat-dots"></i>
+                                <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </button>
                         </div>
+                        
                     </div>
                 </a>
                 {% endfor %}
