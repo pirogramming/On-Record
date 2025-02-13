@@ -85,9 +85,7 @@
         <div class="friends-list">
             <div class="friends-list-management-header">
                 <h2 class="friends-list-title">당신의 반려친구</h2>
-                <button class="add-btn" id="add-friends-list-btn">
-                    <a href="{% url 'diaries:pet_or_plant' %}">추가</a>
-                </button>
+                <a href="{% url 'diaries:pet_or_plant' %}" class="add-btn" id="add-friends-list-btn">추가</a>
             </div>
 
             <div class="friends-list-list" id="friends-list-list">
@@ -110,7 +108,7 @@
                         <a href="{% url 'diaries:mydiary_list' f.id %}"
                          class="friend-name"
                                 data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                                {{ f.name|slice:":10" }}{% if f.name|length > 10 %}...{% endif %}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
+                                {{ f.name|slice:":5" }}{% if f.name|length > 5 %}...{% endif %}에게 남긴 온기록 {{ friend_total_diary_count|get_item:f.id|default:0 }}개
                         </a>
                     </div>
                 </div>
