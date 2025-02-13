@@ -1,0 +1,302 @@
+@font-face {
+  font-family: 'Ownglyph_ParkDaHyun';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.detail-diaries-container{
+  margin-top: 80px;
+}
+
+.background-a {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-a.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+.diaries_detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px; /* 상단 간격을 30px로 고정 */
+  margin-top: 30px;
+}
+
+.detail-container {
+  max-width: 900px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  margin-bottom: 30px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between; /* 이 부분을 추가 */
+  align-items: center;
+  width: 100%;
+}
+
+.detail-title{
+  font-size: 2rem;
+  font-weight: var(--font-size-normal);
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
+
+.detail-header-l {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.public-btn {
+  padding: 5px 20px; /* 패딩을 추가 */
+  background-color: var(--primary-yellow);
+  border: none;
+  color: var(--white);
+  font-size: var(--font-size-normal);
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#date {
+  color: var(--primary-yellow);
+  opacity: 1;
+  text-align: center;
+  font-weight: var(--font-weight-regular);
+  font-size: 0.9rem;
+}
+
+.detail-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+}
+
+.detail-image, .detail-text {
+  width: 400px; 
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  border: 2px solid #FFD75C;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.detail-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.detail-text h3, .detail-image h3 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    margin-right: auto;
+}
+
+.diary-metadata {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.diary-text-content {
+  text-align: left; 
+  width: 100%; 
+  margin: 0; 
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
+
+.mood p, .weather p{
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  margin-bottom: 0;
+}
+
+.diary-description {
+    line-height: 1.6;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  max-width: 900px;
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.bis {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.like-btn{
+  background: none;
+  border: none;
+}
+.bis-r {
+  margin-left: auto;
+  display: flex;
+}
+
+.bi, .comments-section-title {
+  display: inline-block;
+  color: var(--primary-yellow);
+  margin: 10px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-normal);
+}
+
+button i {
+  pointer-events: none;
+}
+
+.like-count{
+  margin: 0;
+  color: var(--primary-yellow);
+  font-size: 1.3rem;
+}
+
+.comments-section-title{margin-right: auto;}
+
+.bi:hover, .save-comment-btn:hover {
+  color: var(--hover-yellow);
+}
+
+/* 댓글 섹션 스타일 */
+.comments-section {
+  width: 100%;
+}
+
+
+/* 댓글 리스트 */
+.comments-list{
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list-li {
+  display: flex;      
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comments-content{
+  display: flex;
+  align-items: center;
+}
+
+.comments-list-content, .comment-edit-input {
+  font-size: 0.7rem;
+  color: var(--text-black);
+  margin: 15px;
+}
+
+.comments-list-name{
+  font-size: 0.7rem;
+  margin: 15px;
+  color: var(--primary-yellow);
+}
+
+.comments-list-content, .comment-edit-input{
+  color: var(--text-var(--text-black));
+}
+
+.comment-edit-input {
+  width: 100%;
+  border: none;
+  display: none;
+  border-bottom: 2px solid var(--primary-yellow);
+}
+
+.comment-input-section{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.comment-input {
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  width: 85%;
+  background-color: var(--white);
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comment-input-section .comment-input:focus {
+  border: 1px solid var(--primary-yellow);
+  outline: none; 
+}
+
+.add-comment-btn {
+  background-color: var(--primary-yellow);
+  color: var(--white);
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  padding: 15px;
+  border: none; 
+}
+
+.add-comment-btn:hover {
+  background-color: var(--hover-yellow);
+}
+
+.comment-edit-del-btn{
+  margin-left: auto;
+}
+
+.edit-comment-btn, .save-comment-btn, .delete-comment-btn {
+  background: none;
+  border: none;
+  color: var(--primary-yellow);
+  cursor: pointer;
+}

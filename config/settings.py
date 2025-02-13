@@ -39,9 +39,11 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 # 디버그 모드 설정
 DEBUG = env.bool("DEBUG", default=True)
+# DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['onrecord.kr', 'www.onrecord.kr', '223.130.132.219', '127.0.0.1', 'localhost']
+# ALLOWED_HOSTS를 .env에서 가져오기
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
@@ -152,8 +154,10 @@ USE_TZ = True
 # static 파일 설정
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
-  BASE_DIR / 'static',
+ 	'/root/On-Record/static'
 ]
 
 # Default primary key field type
@@ -234,3 +238,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://onrecord.kr',
+    'http://onrecord.kr',
+    'https://www.onrecord.kr',
+    'http://www.onrecord.kr',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
