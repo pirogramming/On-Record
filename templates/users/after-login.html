@@ -6,10 +6,15 @@
 {% endblock %}
 
 {% block content %}
+<div class="after-login-container">    
     <div class="background-a"></div>
-    <div class="container">
+    <div class="after-login">
         <h1 class="start-hello">당신의 첫 번째 온기록을 축하합니다!</h1>
-        <span>오늘 남긴 기록이 내일의 가장 따뜻한 위로가 될 거에요.<br>앞으로 펼쳐질 당신의 온기록을 응원합니다.</span>
+        <div class="container-span">
+            <span>오늘 남긴 기록이 내일의 가장 따뜻한 위로가 될 거에요.</span>
+            <span>앞으로 펼쳐질 당신의 온기록을 응원합니다.</span>
+        </div>
         <a href="{% url 'diaries:pet_or_plant' %}" class="move-form-btn">온기록 시작하기</a>
     </div>
+</div>
 {% endblock %}

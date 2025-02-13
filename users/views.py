@@ -114,6 +114,8 @@ def user_login(request):
       return render(request, template_name='users/login.html', context=context)
   else:
     form = AuthenticationForm()
+    form.fields['username'].widget.attrs.update({'placeholder': '이메일을 입력하세요'})
+    form.fields['password'].widget.attrs.update({'placeholder': '비밀번호를 입력하세요'})
     context = {
       'form': form,
     }
@@ -219,3 +221,9 @@ def delete_user(request):
     return redirect('users:main')
 
   return render(request, 'users/delete_confirm.html')
+
+def privacy_policy(request):
+  return render(request, 'privacy_policy.html')
+
+def terms_of_service(request):
+  return render(request, 'terms_of_service.html')

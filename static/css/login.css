@@ -1,4 +1,3 @@
-/* 로그인 컨테이너 */
 .login-container {
     position: relative;
     width: 846px;
@@ -12,22 +11,19 @@
     border-radius: 15px;
 }
 
-/* 기존 배경 스타일 제거 */
 .login-bg {
-    display: none; /* 기존 배경 이미지 요소 숨김 */
+    display: none; 
 }
 
-/* 로그인 내용 (form 등) */
 .login-content {
     position: relative;
     z-index: 2;
     text-align: center;
     width: 100%;
     padding: 20px;
-    margin-left: -300px; /* 기존과 동일한 위치 */
+    margin-left: -300px; 
 }
 
-/* 제목 영역 (로그인 + 로고) */
 .login-header {
     position: relative;
     width: 100%;
@@ -39,34 +35,29 @@
 
 .login-logo {
     position: absolute;
-    top: -15px; /* 컨테이너 상단 모서리에 배치 */
-    left: 200px; /* 왼쪽 모서리에 배치 */
+    top: -15px; 
+    left: 200px; 
     width: 50px;
     height: auto;
 }
 
 .login-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     text-align: center;
-    margin-top: 50px; /* 로고와의 간격 */
 }
 
-/* Login 밑줄 */
 .login-underline {
     width: 200px;
     height: 3px;
     background-color: var(--primary-yellow);
     border-radius: 2px;
     opacity: 30%;
-    
-    /* 중앙 정렬 */
     margin: 10px auto 20px auto;
     display: block;
 }
 
-/* 입력 필드 */
 .login-form {
     width: 100%;
     display: flex;
@@ -81,7 +72,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 30px;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     background-color: rgba(255, 255, 255, 0.8);
     outline: none;
     transition: border 0.3s ease-in-out;
@@ -91,16 +82,15 @@
     border: 2px solid var(--primary-yellow);
 }
 
-/* 로그인 버튼 */
 .login-btn {
     width: 80%;
     max-width: 320px;
-    padding: 14px;
+    padding: 10px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-normal);
     border-radius: 30px;
     cursor: pointer;
     transition: background 0.3s;
@@ -110,7 +100,6 @@
     background: var(--hover-yellow);
 }
 
-/* 소셜 로그인 */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -136,7 +125,6 @@
     border-radius: 2px;
 }
 
-/* 각 소셜 로그인 버튼 스타일 */
 .kakao {
     background-color: #FEE500;
 }
@@ -146,7 +134,7 @@
 }
 
 .google {
-    background-color: white;
+    background-color: var(--white);
     border: 1px solid #ccc;
 }
 
@@ -154,7 +142,25 @@
     opacity: 0.8;
 }
 
-/* 반응형 디자인 */
+.form-field {
+    margin-bottom: 10px;
+    width: 40%;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    font-size: var(--font-size-normal);
+    border-radius: 50px;
+    box-shadow: 0 4px 10px 5px var( --shadow-light-yellow);
+    border: none;
+}
+
+.signup-form .form-field input:focus {
+    border: 1px solid var(--primary-yellow);
+    outline: none; 
+}
+
 @media (max-width: 600px) {
     .login-container {
         width: 95%;

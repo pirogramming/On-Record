@@ -178,6 +178,7 @@ def view_calendar(request, year = None, month = None):
         "friends": friends, # 반려친구 목록
         "friend_total_diary_count": friend_total_diary_count, # 반려친구별 전체 일기 개수
     }
+    print(friend_total_diary_count)
 
 
     return render(request, "diaries/view_calendar.html", context)
@@ -231,12 +232,23 @@ def render_diaries(request):
     day = int(request.GET.get('day'))
     month = int(request.GET.get('month'))
     year = int(request.GET.get('year'))
+    friend_id = request.GET.get("friend_id")  
+    friend_type = request.GET.get("friend_type")
+
+    print(friend_id , friend_type)
+    if friend_type == "pet":
+        selected_friend = Pet.objects.filter(id=friend_id, user=request.user).first()
+        selected_friend_value = f"pet-{selected_friend.id}" if selected_friend else ""
+    elif friend_type == "plant":
+        selected_friend = Plant.objects.filter(id=friend_id, user=request.user).first()
+        selected_friend_value = f"plant-{selected_friend.id}" if selected_friend else ""
 
     selected_date = date(year, month, day)
 
     context = {
         'form': form,
         'selected_date': selected_date,
+        'selected_friend_value': selected_friend_value,
     }
     return render(request, 'diaries/create_diaries.html', context)
 
@@ -300,21 +312,46 @@ def toggle_disclosure(request, diary_id):
 
             return JsonResponse({"success": True, "disclosure": diary.disclosure})
         except Diary.DoesNotExist:
-            return JsonResponse({"success": False, "error": "일기를 찾을 수 없습니다."}, status=404)
+            return JsonResponse({"success": False, "error": "이 일기의 소유자가 아닙니다."}, status=404)
     return JsonResponse({"success": False, "error": "잘못된 요청 방식입니다."}, status=400)
 
 #06 다이어리 상세페이지
+from django.db.models import Case, When, BooleanField
+
 def detail_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
-    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').values('id' , 'content', 'comment_user__nickname')
+
+    # 댓글에 is_author 정보 추가
+    comments = Comment.objects.filter(diary=diaries).select_related('comment_user').annotate(
+        is_author=Case(
+            When(comment_user=request.user, then=True),
+            default=False,
+            output_field=BooleanField()
+        )
+    ).values('id', 'content', 'comment_user__nickname', 'is_author')
+
+    is_author = False
+    if diaries.user == request.user:
+        is_author = True
+    request_user_like = Like.objects.filter(
+        diary=diaries,
+        like_user=request.user
+    )
+    if request_user_like.exists():
+        is_liked = True
+    else:
+        is_liked = False
+
     context = {
         'diaries': diaries,
-        'reply' : diaries.reply,
+        'reply': diaries.reply,
         'likes_count': likes_count,
-        'comments': comments
+        'comments': comments,
+
+        'is_author': is_author,
+        'is_liked' : is_liked
     }
-    
     return render(request, 'diaries/detail_diaries.html', context)
 
 def detail_diaries_by_pet_date(request , pet_id , selected_date):
@@ -484,6 +521,8 @@ def friend_list(request):
         'friend_total_diary_count': friend_total_diary_count,
         'friend_diary_count': friend_diary_count,
         'friend_diary_pk': friend_diary_pk,
+        'pets': pets,
+        'plants': plants
     }
 
     return render(request, 'diaries/friend_list.html', context)
@@ -602,7 +641,7 @@ def mydiary_list(request, friend_id):
     if not friend:
         return render(request, 'diaries/mydiary_list.html', {'error': '해당 반려친구를 찾을 수 없습니다.'})
 
-    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링
+    # 반려친구가 Pet인지 Plant인지 확인 후 해당 필드로 필터링 
     if isinstance(friend, Pet):
         diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
     else:

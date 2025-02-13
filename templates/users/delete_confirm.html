@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="delete-confirm-container">
   <div class="background-a"></div>
   <h2>회원 탈퇴</h2>
   <p>정말로 탈퇴하시겠습니까?<br>탈퇴 후에는 계정을 복구할 수 없습니다.</p>
@@ -15,4 +16,5 @@
     <button type="submit">탈퇴하기</button>
     <a href="{% url 'diaries:mypage' user.pk %}">취소</a>
   </form>
+</div>
 {% endblock %}

@@ -1,4 +1,3 @@
-/* 배경 이미지 설정 */
 .background-b {
   position: fixed; 
   top: 0;
@@ -8,12 +7,13 @@
   background-image: url("/static/images/base-b.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
-}
+  z-index: -1;
+} 
 
 .pet-form-container {
     max-width: 800px;
-    margin-top: 350px;
+    margin-top: 100px;
+    margin-bottom: 50px;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -30,21 +30,21 @@
   color: rgba(0,0,0,1);
   opacity: 1;
   text-align: center;
-  font-weight: normal;
-  font-size: 24px;
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-regular);
 }
 
 .form-body {
   display: flex; 
-  flex-direction: row; /* 왼쪽 오른쪽 배치 */
-  width: 100%; /* 너비를 100%로 */
+  flex-direction: row; 
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   margin: 20px;
 }
 
 .image-upload {
-  position: relative; /* 수정된 부분 */
+  position: relative; 
   width: 200px;
   height: 200px;
   flex-shrink: 0;
@@ -60,7 +60,6 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: var(--light-gray);
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -72,7 +71,20 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  display: none; /* 기본적으로 숨김 */
+  display: block; 
+}
+
+.form-group:nth-child(1) input, 
+.form-group:nth-child(2) input, 
+.form-group:nth-child(3) input,
+.form-group:nth-child(4) input,
+.form-group:nth-child(2) select,
+.form-group:nth-child(3) select {
+  border-bottom: 1px solid black; 
+  font-size: var(--font-size-normal);
+  background: transparent;
+  font-weight: bold;
+  width: 100%;
 }
 
 .form-fields {
@@ -81,32 +93,41 @@
   flex-direction: column;
   gap: 15px;
   margin-left: 20px;
+  background: transparent;
 }
 
 label {
-    font-weight: bold;
-    margin: 5px;
+    font-weight: var(--font-weight-regular);
+    margin-bottom: 5px;
 }
 
 input, select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  background: transparent; 
+  transition: border 0.3s ease;
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-normal);
+  border: none;
+  margin: 5px;
+}
+
+input:focus, select:focus {
+  outline: none;
 }
 
 #personality-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center; /* 수정된 부분 */
-  width: 100%
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .personality-btn {
     padding: 5px 10px;
     border: 1px solid #ccc;
-    background: white;
+    background: var(--white);
     border-radius: 30px;
     cursor: pointer;
     width: calc(20% - 10px);
@@ -121,8 +142,7 @@ input, select {
     padding: 5px 20px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
+    color: var(--white);
     border-radius: 30px;
     cursor: pointer;
     margin: auto;
@@ -133,7 +153,6 @@ input, select {
     background: var(--hover-yellow);
 }
 
-/* 추가된 스타일 */
 .centered-content {
   display: flex;
   flex-direction: column;

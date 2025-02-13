@@ -1,4 +1,12 @@
-/* 배경 스타일 */
+.friend-list-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    position: relative;
+    padding-top: 60px; 
+}
+
 .background-a {
     position: fixed; 
     top: 0;
@@ -11,11 +19,10 @@
     z-index: -1;
 }
 
-/* 슬라이더 컨테이너 */
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 1000px; /* 최대 너비 조정 */
+    max-width: 1500px; 
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -23,11 +30,10 @@
     padding: 0 30px;
 }
 
-/* 슬라이더 */
 .slider {
     display: flex;
-    gap: 15px; /* 카드 간격 조정 */
-    overflow-x: auto;
+    gap: 15px; 
+    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     align-items: center;
@@ -36,11 +42,11 @@
     justify-content: flex-start;
     width: 100%;
     margin: 30px;
+    transition: transform 0.3s ease-in-out; 
 }
 
-/* 개별 카드 */
 .homepage-container {
-    background: white;
+    background: var(--white);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(230, 190, 90, 0.6);
@@ -50,19 +56,20 @@
     align-items: center;
     justify-content: center;
     scroll-snap-align: center;
-    transition: transform 0.4s ease, z-index 0.4s ease;
+    opacity: 0.7;
+    transition: transform 0.4s ease, z-index 0.4s ease opacity 0.3s ease; 
     z-index: 1;
     margin: 30px;
+    min-width: 300px; 
 }
 
-/* 현재 선택된 카드 강조 */
 .homepage-container.active {
     transform: scale(1.05);
     z-index: 100;
     box-shadow: 0px 6px 25px rgba(230, 190, 90, 1);
+    opacity: 1; 
 }
 
-/* 반려동물 프로필 */
 .friend-profile {
     width: 150px;
     height: 150px;
@@ -81,22 +88,21 @@
 }
 
 .friend-name{
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-yellow); /* 노란색 변경 */
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--primary-yellow); 
     margin-bottom: 10px;
 }
 
-/* 온기록 남기기 버튼 */
 .move-detail-btn, .move-write-btn {
     display: inline-block;
     background-color: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     padding: 12px 18px;
     border-radius: 30px;
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 0.8rem;
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
     margin-top: 15px;
     border: none; 
@@ -106,25 +112,34 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var( --diary-one);
+    background: var( --primary-yellow);
     color: var(--white);
     border: none;
-    font-size: 24px;
+    font-size: 1.2rem;
     padding: 10px;
     cursor: pointer;
     z-index: 10;
-    border-radius: 15px;
+    border-radius: 50%; 
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px); 
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); 
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .left-btn {
-    left: 0;
+    left: 15px;
 }
 
 .right-btn {
-    right: 0;
+    right: 15px;
 }
 
-.move-form-btn:hover {
-    background-color: var(--hover-yellow);
-    transform: scale(1.05);
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 0.3); 
+    transform: scale(1.01);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); 
 }

@@ -1,0 +1,223 @@
+.view-calender-container{
+    padding-top: 90px; 
+}
+.background {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:var(--background-yellow);
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+}
+
+.calender-and-friends {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 0 50px 100px;
+}
+
+/* 드롭다운 스타일 */
+select {
+    padding: 8px 16px;
+    margin-left: 30px;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
+    border: none; 
+    background-color: transparent;  
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+}
+
+/* 캘린더 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 40px;
+    text-align: center;
+    font-size: var(--font-size-normal);
+    width: 14.28%; /* 7일이 균등하게 나누어짐 */
+}
+
+th{
+    padding-bottom: 0;
+}
+
+tr .today {
+    background-color: var(--primary-yellow);
+    font-weight: var(--font-weight-normal);
+    border-radius: 50%;
+    box-shadow: 0 4px 50px 10px var( --shadow-light-yellow);
+}
+
+.diary-day {
+    display: block;
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.diary-day:hover {
+    text-decoration: underline;
+}
+
+.has-diary {
+    color: var(--red); /* 일기가 있는 날짜는 빨간색 */
+}
+
+/* 달력의 요일 스타일 */
+.day-name {
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
+}
+
+.friends-list {
+    width: 80%;
+    max-width: 470px;
+    max-height: 700px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
+    margin-top: 170px;
+}
+
+.friends-list-management-header{
+    display: flex;
+    gap: 50px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.friends-list-title {
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--primary-yellow);
+    margin-right: auto; /* 버튼과의 간격 조절 */
+}
+
+.add-btn {
+    background: var(--primary-yellow);
+    color: var(--white);
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.6rem;
+}
+
+.add-btn:hover {
+    background: var(--hover-yellow);
+}
+
+.friends-list-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    transition: transform 0.2s ease-in-out;
+    padding: 30px 10px; /* 내부 패딩을 줄여서 박스 크기 조정 */
+    height: 50px; /* 박스 높이를 적절하게 조정 */
+    min-height: 50px; /* 최소 높이 설정 */
+    max-height: 50px; /* 최대 높이 설정 */
+}
+
+.friend-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.friend-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary-yellow);
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.friend-profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+img {
+    vertical-align: baseline; 
+  }
+
+.friend-name {
+    font-size: 0.8rem !important; /* 🔥 강제 적용 */
+    font-weight: var(--font-weight-normal) !important;
+    display: inline-block;
+}
+
+.friend-name p {
+    font-size: 0.8rem;
+}
+
+/* 반려친구 호버 효과 */
+.friend-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+}
+
+
+/* 반려친구 이름 */
+.friend-name {
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
+    text-align: center;
+    display: block;
+}
+
+/* 반려친구가 없을 때 메시지 */
+.no-friends {
+    text-align: center;
+    font-size: var(--font-size-normal);
+    color: #777;
+}
+
+.delete-account {
+    position: absolute;
+    font-size: 0.8rem;
+    color: var(--primary-yellow);
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .mypage-profile {
+        width: 95%;
+        padding: 30px;
+    }
+}

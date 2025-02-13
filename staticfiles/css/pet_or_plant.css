@@ -1,0 +1,46 @@
+.pet-or-plant-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
+.background-b {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-b.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+}
+
+.select-container {
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 500px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.select_pet, .select_plant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select_pet_img, .select_plant_img {
+    width: 300px;
+    height: 300px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

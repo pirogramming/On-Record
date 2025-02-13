@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="create-diaries-container">
     <div class="background-a"></div>
     <div class="write-container">
         <!-- form을 여기서 시작 -->
@@ -14,9 +15,9 @@
             <div class="write-header">
                 <div class="today-diary">오늘의 일기</div>
                 <div class="write-header-l">
-                    <h1 id="date"></h1>
+                    <div id="date"></div>
                     <button type="button" id="toggle-disclosure" class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
-                        {% if form.disclosure.value == True %}
+                        {% if form.disclosure == True %}
                             전체공개
                         {% else %}
                             비공개
@@ -41,10 +42,11 @@
                             <label>기분</label>
                             {{ form.mood }}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label>누구에게 쓰실 건가요?</label>
                             {{ form.friends }}
                         </div>
+                        <input type="hidden" name="friends" value="{{selected_friend_value}}">
                     </div>
                 </div>
             </div>
@@ -52,7 +54,7 @@
             <div class="diary-content">
                 <div class="image-upload">
                     <label for="form-image">
-                        <img id="form-preview" src="#" alt="이미지 업로드">
+                        <img id="form-preview" src="#" alt="오늘을 기억할 소중한 장면">
                     </label>
                     <input type="file" id="form-image" name="image" accept="image/*">
                     {{ form.image }}
@@ -66,7 +68,7 @@
             <button type="submit" class="create-btn">완료</button>
         </form>
     </div>
-
+</div>
     <script>
         // ✅ URL에서 특정 파라미터 값을 가져오는 함수
         function getQueryParam(param) {

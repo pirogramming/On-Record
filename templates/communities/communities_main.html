@@ -1,30 +1,63 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>모두의 온기록</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/communities_main.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/communities_main.css' %}">
+{% endblock %}
+
+{% block content %}
     <div class="background-b"></div>
+    <div class="community-container">
+        <h1 class="title">모두의 온기록</h1>
+            <div class="header">
+            <div class="dropdown">
+                <button class="friend-btn" id="friend-btn">반려동물 ▼</button>
+                <div class="dropdown-content" id="dropdown-content">
+                    <button class="select-option" data-type="pet">반려동물</button>
+                    <button class="select-option" data-type="plant">반려식물</button>
+                </div>
+            </div>
+            <a href="{% url 'diaries:view_calendar' %}">
+                <button class="add-diary-btn">온기록 남기기</button>
+            </a>
+        </div>
 
-    <h1 class="title">모두의 온기록</h1>
-
-    <div class="header">
-        <div class="dropdown">
-            <button class="friend-btn" id="friend-btn">반려동물 ▼</button>
-            <div class="dropdown-content" id="dropdown-content">
-                <button class="select-option" data-type="pet">반려동물</button>
-                <button class="select-option" data-type="plant">반려식물</button>
+        <div class="diary-list-container">
+            <div class="diary-list">
+                {% if diaries %}
+                    {% for diary in diaries %}
+                    <div class="diary-card" data-diary-id="{{ diary.id }}">
+                        <a href="{% url 'diaries:detail_diaries' diary.pk %}" class="diary-card-link">
+                            <div class="diary-image">
+                                <img src="{{ diary.image_url|default:'images/default.jpg' }}" alt="오늘의 사진">
+                            </div>
+                            <div class="diary-info">
+                                <h2 class="diary-title">{{ diary.title }}</h2>
+                                <p class="diary-preview">
+                                    {{ diary.content|slice:":47" }}...
+                                </p>
+                            </div>
+                        </a>
+                        
+                        <div class="diary-actions">
+                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
+                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
+                            </button>
+                        
+                            <button class="comment-btn" data-diary-id="{{ diary.id }}">
+                                <i class="bi bi-chat-dots"></i>
+                                <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="text-align: center; color: #999;">등록된 온기록이 없습니다.</p>
+                {% endif %}
             </div>
         </div>
-        <a href="{% url 'diaries:view_calendar' %}">
-            <button class="add-diary-btn">온기록 남기기</button>
-        </a>
-        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -52,54 +85,7 @@
                 }
             });
         });
-        </script>
 
-    <div class="container">
-        <div class="diary-list">
-            {% if diaries %}
-                {% for diary in diaries %}
-                <div class="diary-card" data-diary-id="{{ diary.id }}">
-                    <a href="{% url 'diaries:detail_diaries' diary.pk %}" class="diary-card-link">
-                        <div class="diary-image">
-                            <img src="{{ diary.image_url|default:'images/default.jpg' }}" alt="오늘의 사진">
-                        </div>
-                        <div class="diary-info">
-                            <h2 class="diary-title">{{ diary.title }}</h2>
-                            <p class="diary-preview">
-                                {{ diary.content|slice:":47" }}...
-                            </p>
-                        </div>
-                    </a>
-                    <div class="diary-actions">
-                        <button class="like-btn" data-diary-id="{{ diary.id }}">
-                            <img src="{% static 'images/like-icon.png' %}" alt="좋아요">
-                            <span class="like-count" id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
-                        </button>
-                        <button class="comment-btn">
-                            <img src="{% static 'images/comment-icon.png' %}" alt="댓글">
-                            <span class="comment-count" id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
-                        </button>
-                    </div>
-                    
-                    <!-- 댓글 입력 -->
-                    <div class="comment-section">
-                        <input type="text" class="comment-input" placeholder="댓글을 입력하세요" id="comment-input-{{ diary.id }}">
-                        <button class="add-comment-btn" data-diary-id="{{ diary.id }}">댓글 등록</button>
-                        <ul class="comments-list" id="comments-list-{{ diary.id }}">
-                            {% for comment in diary.comment_set.all %}
-                                <li>{{ comment.comment_user.nickname }}: {{ comment.content }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p style="text-align: center; color: #999;">등록된 온기록이 없습니다.</p>
-            {% endif %}
-        </div>
-    </div>
-
-    <script>
     document.addEventListener('DOMContentLoaded', function () {
         // CSRF 토큰 가져오기
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -169,5 +155,4 @@
         });
     });
     </script>
-</body>
-</html>
+{% endblock %}

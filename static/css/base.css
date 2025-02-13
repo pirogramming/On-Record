@@ -1,18 +1,13 @@
 body, html {
-  width: 100%;
-  height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex; 
   justify-content: center;
   align-items: center;
 }
 
-body {
-    padding-top: 100px; /* 네비게이션 바의 높이만큼 여백을 추가 */
-}
-
-/* 네비게이션 바 */
 .header-navbar {
-  position: fixed; /* 네비게이션 바 고정 */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -20,24 +15,55 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  background-color: #FFD75C; 
-  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.07); /* 피그마에서 설정한 그림자 */
-  z-index: 1; /* 배경 이미지보다 위에 표시 */
+  background-color: var(--soft-yellow); 
+  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.07);
+  z-index: 2; 
 }
 
 .navbar-text {
-  font-size: 18px;
-  margin: 0 10px;
-  color: var(--white);
   text-decoration: none;
 }
 
-a {
-  color: inherit; /* 부모 요소의 색상과 동일하게 */
-  text-decoration: none; /* 밑줄 제거 */
+.navbar-text a{
+  color: var(--white);
+  text-decoration: none; 
   margin: 0 15px;
+  font-size: 1.1rem;
+}
+
+.navbar-text a:hover{
+  color: var(--hover-yellow);
+}
+
+.navbar-logo:hover{
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
 }
 
 .navbar-logo {
-  height: 40px; /* 로고 크기 설정 */
+  height: 45px; 
+}
+
+@media (max-width: 768px) {
+  .header-navbar {
+      height: 35px; 
+      padding: 5px 10px;
+  }
+
+  .navbar-logo {
+      height: 25px;
+  }
+
+  .navbar-text {
+      gap: 5px; 
+  }
+
+  .navbar-text a {
+      font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+      margin-top: 50px;
+  }
 }
