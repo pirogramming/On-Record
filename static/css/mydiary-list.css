@@ -1,5 +1,4 @@
-    /* 배경 이미지 설정 */
-    .background-b {
+ .background-b {
         position: fixed; 
         top: 0;
         left: 0;
@@ -10,21 +9,6 @@
         background-position: center;
         z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
         }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Pretendard', sans-serif;
-    }
-
-    body, html {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 
     .header {
         width: 90%;

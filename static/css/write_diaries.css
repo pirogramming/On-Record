@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center; 
   align-items: center; 
-  margin-top: 80px;
+  height: 100vh;
+  position: relative; 
 }
 
 .background-a {
@@ -14,7 +15,7 @@
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .write-container {
@@ -32,7 +33,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 15px;
+  margin: 30px 0;
   background: transparent; 
 }
 
@@ -48,26 +49,22 @@
   opacity: 1;
   text-align: center;
   font-weight: var(--font-weight-normal);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 #date {
   color: var(--primary-yellow);
   opacity: 1;
   text-align: center;
-  font-weight: normal;
-  font-size: 0.9rem;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-normal);
+  margin: 0;
 }
 
 label {
   font-weight: var(--font-weight-regular);
-  display: inline-flex;  /* 변경된 부분 */
+  display: inline-flex;  
   align-items: center;
-}
-
-
-.form-group {
-  gap: 10px; 
 }
 
 .form-group:first-child input {
@@ -81,8 +78,7 @@ label {
 }
 
 input, select {
-  width: 100%;
-  font-size: 16px;
+  font-size: 0.8rem;
   background: transparent; 
   transition: border 0.3s ease;
   border: none;
@@ -93,11 +89,10 @@ input:focus, select:focus {
 }
 
 .public-btn {
-    padding: 5px 20px; /* 패딩을 추가 */
+    padding: 5px 20px; 
     background-color: var(--primary-yellow);
     border: none;
     color: var(--white);
-    font-size: 0.8rem;
     border-radius: 30px;
     cursor: pointer;
 }
@@ -116,7 +111,7 @@ input:focus, select:focus {
 }
 
 .image-upload, .text-input {
-    width: 500px; /* 정사각형 크기 */
+    width: 500px; 
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -167,7 +162,6 @@ input:focus, select:focus {
   background: var(--primary-yellow);
   border: none;
   color: var(--white);
-  font-size: 0.8rem;
   border-radius: 30px;
   margin-left: auto; 
   margin-top: 20px
