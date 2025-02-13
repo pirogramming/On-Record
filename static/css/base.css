@@ -42,3 +42,28 @@ body, html {
 .navbar-logo {
   height: 45px; 
 }
+
+@media (max-width: 768px) {
+  .header-navbar {
+      height: 35px; 
+      padding: 5px 10px;
+  }
+
+  .navbar-logo {
+      height: 25px;
+  }
+
+  .navbar-text {
+      gap: 5px; 
+  }
+
+  .navbar-text a {
+      font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+      margin-top: 50px;
+  }
+}
