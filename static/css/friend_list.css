@@ -33,7 +33,7 @@
 .slider {
     display: flex;
     gap: 15px; 
-    overflow-x: auto;
+    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     align-items: center;
