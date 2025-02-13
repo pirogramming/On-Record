@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <div class="background-b"></div>
     <div class="community-container">
         <h1 class="title">모두의 온기록</h1>
@@ -40,10 +41,21 @@
                         </a>
                         
                         <div class="diary-actions">
-                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
-                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                            {% if is_liked %}
+                            <button class="like-btn" data-diary-id="{{ diary.id }}" >
+                                <i class="bi bi-heart-fill"></i>
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
+                            {% else %}
+                            <button class="like-btn" data-diary-id="{{ diary.id }}">
+                                <i class="bi bi-heart"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
+                            </button>
+                            {%endif%}
+{% comment %}                             <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
+                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
+                            </button> {% endcomment %}
                         
                             <button class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
@@ -88,32 +100,45 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         // CSRF 토큰 가져오기
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+        const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
 
-        // 좋아요 버튼 클릭 이벤트
         document.querySelectorAll('.like-btn').forEach(button => {
             button.addEventListener('click', () => {
-                const diaryId = button.getAttribute('data-diary-id');
-
-                fetch(`/communities/toggle_like/${diaryId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById(`like-count-${diaryId}`).textContent = data.like_count;
-                    button.textContent = data.status === 'liked' ? '좋아요 취소' : '좋아요';
-                })
-                .catch(error => {
-                    console.error('좋아요 처리 중 오류:', error);
-                    alert('좋아요 처리 중 오류가 발생했습니다.');
-                });
+              const diaryId = button.getAttribute('data-diary-id');
+      
+              fetch(`/communities/toggle_like/${diaryId}/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': csrfToken
+                }
+              })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('좋아요 요청 실패');
+                }
+                return response.json();
+              })
+              .then(data => {
+                // 좋아요 개수 업데이트
+                document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
+                console.log(data);
+                // 버튼 텍스트 변경
+                if (data.status === 'liked') {
+                  button.innerHTML = `
+                    <i class="bi bi-heart-fill"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                } else {
+                  button.innerHTML = 
+                    `<i class="bi bi-heart"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                }
+              })
+              .catch(error => {
+                console.error('좋아요 처리 중 오류:', error);
+                alert('좋아요 처리 중 오류가 발생했습니다.');
+              });
             });
-        });
-
+          });
         // 댓글 등록 버튼 클릭 이벤트
         document.querySelectorAll('.add-comment-btn').forEach(button => {
             button.addEventListener('click', () => {

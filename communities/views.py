@@ -20,7 +20,7 @@ def toggle_like(request, pk):
 
     # 좋아요를 추가하거나 가져오기
     get_like, created = Like.objects.get_or_create(diary=diary, like_user=request.user)
-
+    print(get_like, created)
     if created:
         # 좋아요가 새로 추가된 경우
         status = 'liked'
@@ -79,14 +79,14 @@ def delete_comment(request,pk):
     target_comment = Comment.objects.get(id=pk)
     target_comment.delete()
 
-
+    if request.user != target_comment.comment_user:
+        return JsonResponse({'success' : False ,'error': '권한이 없습니다.'}, status=403)
+    
     whole_comments = Comment.objects.filter(diary=target_comment.diary).select_related('comment_user').values(
         'id', 'content', 'comment_user__nickname'
     )
-    comment_count = whole_comments.count()
 
-    # ajax 구현 염두에 두고 json responser 객체 리턴return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
-    return redirect('diaries:detail_diaries', pk=target_comment.diary.pk)
+    return JsonResponse({'success' : True , 'comment_id' : target_comment.pk})
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
