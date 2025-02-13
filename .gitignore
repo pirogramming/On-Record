@@ -144,6 +144,7 @@ env.bak/
 venv.bak/
 myvenv/
 sihwanvenv/
+config/settings.py
 
 # Spyder project settings
 .spyderproject

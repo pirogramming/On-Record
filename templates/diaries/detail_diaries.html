@@ -86,18 +86,12 @@
       {{ diaries.like_set.count }}
     </span>
 
-<<<<<<< HEAD:templates/diaries/detail_diaries.html
     <div class="bis-l">
       <form id="share-form" action="#" enctype="multipart/form-data">
         {% csrf_token %}
         <button type="button" class="bi bi-share-fill" id="share-btn"></button>
       </form>
       <form action="{% url "diaries:update_diaries" diaries.pk %}" enctype="multipart/form-data">
-=======
-    <div class="bis-r">
-      <i class="bi bi-share-fill"></i>
-      <form action="#" enctype="multipart/form-data">
->>>>>>> origin/develop:templates/diaries/diaries_detail.html
         {% csrf_token %}
         <button type="submit" class="bi bi-pencil-square"></button>
       </form>
