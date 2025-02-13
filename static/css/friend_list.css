@@ -112,22 +112,27 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var( --primary-yellow);
+    background: var(--primary-yellow);
     color: var(--white);
     border: none;
     font-size: 1.2rem;
-    padding: 10px;
     cursor: pointer;
     z-index: 10;
-    border-radius: 50%; 
-    width: 50px;
-    height: 50px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px); 
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); 
-    transition: background 0.3s ease, transform 0.2s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.slider-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: translateY(calc(-50% - 1px)) scale(1.03);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .left-btn {
@@ -136,10 +141,4 @@
 
 .right-btn {
     right: 15px;
-}
-
-.slider-btn:hover {
-    background: rgba(255, 255, 255, 0.3); 
-    transform: scale(1.01);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); 
 }
