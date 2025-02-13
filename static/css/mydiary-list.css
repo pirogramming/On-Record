@@ -153,21 +153,26 @@
 
     .diary-actions {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        justify-content: stretch;
+        gap: 10px;
         margin-top: 10px;
         padding: 10px;
         border-top: 1px solid #ddd;
-        gap: 15px;
     }
-
+    
     .like-btn, .comment-btn {
         background: none;
         border: none;
         cursor: pointer;
         font-size: 0.8rem;
         font-weight: var(--font-weight-normal);
-        color: #FFC100;
+        color: var(--primary-yellow);
         display: flex;
         align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+    }
+    
+    .like-btn span, .comment-btn span {
+        font-size: 0.9rem;
     }

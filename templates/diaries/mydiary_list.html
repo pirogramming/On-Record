@@ -37,13 +37,18 @@
                             </p>
                         </div>
                         <div class="diary-actions">
-                            <button class="like-btn" onclick="increaseLike(this)">
-                                <img src="images/like-icon.png" alt="좋아요">
-                                <span class="like-count">{{ diary.likes }}</span>
+                            <button class="like-btn" data-diary-id="{{ diaries.id }}">
+                                {% if is_liked %}
+                                    <i class="bi bi-heart-fill"></i>
+                                {% else %}
+                                    <i class="bi bi-heart"></i>
+                                {% endif %}
+                                <span id="like-count-{{ diaries.id }}">{{ diaries.like_set.count }}</span>
                             </button>
-                            <button class="comment-btn">
-                                <img src="images/comment-icon.png" alt="댓글">
-                                <span>{{ diary.comments_count }}</span>
+                        
+                            <button class="comment-btn" data-diary-id="{{ diaries.id }}">
+                                <i class="bi bi-chat-dots"></i>
+                                <span id="comment-count-{{ diaries.id }}">{{ diaries.comment_set.count }}</span>
                             </button>
                         </div>
                     </div>
