@@ -178,6 +178,7 @@ def view_calendar(request, year = None, month = None):
         "friends": friends, # 반려친구 목록
         "friend_total_diary_count": friend_total_diary_count, # 반려친구별 전체 일기 개수
     }
+    print(friend_total_diary_count)
 
 
     return render(request, "diaries/view_calendar.html", context)
@@ -231,12 +232,23 @@ def render_diaries(request):
     day = int(request.GET.get('day'))
     month = int(request.GET.get('month'))
     year = int(request.GET.get('year'))
+    friend_id = request.GET.get("friend_id")  
+    friend_type = request.GET.get("friend_type")
+
+    print(friend_id , friend_type)
+    if friend_type == "pet":
+        selected_friend = Pet.objects.filter(id=friend_id, user=request.user).first()
+        selected_friend_value = f"pet-{selected_friend.id}" if selected_friend else ""
+    elif friend_type == "plant":
+        selected_friend = Plant.objects.filter(id=friend_id, user=request.user).first()
+        selected_friend_value = f"plant-{selected_friend.id}" if selected_friend else ""
 
     selected_date = date(year, month, day)
 
     context = {
         'form': form,
         'selected_date': selected_date,
+        'selected_friend_value': selected_friend_value,
     }
     return render(request, 'diaries/create_diaries.html', context)
 
@@ -509,6 +521,8 @@ def friend_list(request):
         'friend_total_diary_count': friend_total_diary_count,
         'friend_diary_count': friend_diary_count,
         'friend_diary_pk': friend_diary_pk,
+        'pets': pets,
+        'plants': plants
     }
 
     return render(request, 'diaries/friend_list.html', context)
