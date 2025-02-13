@@ -6,57 +6,42 @@
 {% endblock %}
 
 {% block content %}
-<div class="update-profile-container">
     <div class="background-a"></div>
     <div class="mypage-profile">
         <div class="mypage-header">마이프로필 수정</div>
         <div class="user-info">
-            <form method="post"  class="user-profile" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="edit-profile">
-                    <label for="profile_image">
-                        {% if user.profile_image %}
-                            <img id="user-preview" src="{{ user.profile_image.url }}" alt="프로필 사진" />
+            <div class="user-profile">
+                <form method="post" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="user_profile_img">
+                        {% if user.profile_image.url != '' %}
+                        <img src="{{user.profile_image.url}}" alt="프로필 사진" />
                         {% else %}
-                            <img id="user-preview" src="{% static 'images/default_user_image.png' %}" alt="기본 프로필" />
+                        <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
                         {% endif %}
-                    </label>
+                    </div>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">
-                </div>
-                <p class="user-name">{{ form.nickname }}</p>
-                <p>{{ user.email }}</p>
-                <button type="submit" class="complete-edit-btn">
-                    수정완료
-                </button>
-            </form>
+                    <p class="user-name">{{ form.nickname }}</p>
+                    <p>{{ user.email }}</p>
+                    <button type="submit" class="complete-edit-btn">수정완료</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var userPreview = document.getElementById("user-preview");  // 프로필 이미지 미리보기
-        var profileImageInput = document.getElementById("profile_image");
-    
-        // ✅ 기존 이미지가 있으면 표시
-        if (userPreview.src && !userPreview.src.endsWith("#")) {
-            userPreview.style.display = "block";  // 이미지가 있으면 미리보기 이미지 표시
-        }
-    
-        // 이미지 변경 시 미리보기 처리
-        profileImageInput.addEventListener("change", function (event) {
+    <script>
+        document.getElementById("profile_image").addEventListener("change", function(event) {
             var input = event.target;
             var reader = new FileReader();
     
-            reader.onload = function () {
-                userPreview.src = reader.result;  // 선택한 이미지를 미리보기로 설정
-                userPreview.style.display = "block"; // 이미지 표시
+            reader.onload = function() {
+                var imgElement = document.getElementById("profile_preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
             };
     
             if (input.files && input.files[0]) {
                 reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
             }
         });
-    });    
-</script>
+    </script>
 {% endblock %}
