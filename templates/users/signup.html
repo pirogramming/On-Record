@@ -10,7 +10,7 @@
 <div class="signup-container">      
     <div class="signup-content">
         <div class="signup-header">
-            <img src="{% static 'images/온기록-logo.png' %}" alt="온-기록 로고" class="signup-logo">
+            <img src="{% static 'images/온기록-logo-main.png' %}" alt="온-기록 로고" class="signup-logo" />
             <h1 class="signup-title">Sign Up</h1>
         </div>
 
@@ -18,8 +18,19 @@
 
         <form class="signup-form" method="POST" action="">
             {% csrf_token %}
-            {{ form }}
-            <input type="submit" class="signup-btn" value="SignUp">
+            <div class="form-field">
+                {{ form.nickname }}  
+            </div>
+            <div class="form-field">
+                {{ form.email }}  
+            </div>
+            <div class="form-field">
+                {{ form.password1 }}  
+            </div>
+            <div class="form-field">
+                {{ form.password2 }}  
+            </div>
+            <button type="submit" class="signup-btn">회원가입</button>
         </form>
 
         <div class="social-icons">

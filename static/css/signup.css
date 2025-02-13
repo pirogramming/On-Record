@@ -32,25 +32,24 @@
     position: relative;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
 .signup-logo {
-    position: absolute;
-    top: 20px;
-    left: 70px;
     width: 50px;
     height: auto;
+    position: absolute; 
+    top: -18px;        
+    left: 310px
 }
 
 .signup-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     text-align: center;
-    margin-top: 50px;
 }
 
 .signup-underline {
@@ -71,34 +70,16 @@
     align-items: center;
 }
 
-.signup-input {
-    width: 80%;
-    max-width: 320px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.8);
-    outline: none;
-    transition: border 0.3s ease-in-out;
-}
-
-.signup-input:focus {
-    border: 2px solid var(--primary-yellow);
-}
-
 .signup-btn {
-    width: 80%;
-    max-width: 320px;
+    width: 40%;
     padding: 14px;
     background: linear-gradient(60deg, var(--light-yellow), var(--primary-yellow));
     border: none;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-normal);
     border-radius: 30px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 .signup-btn:hover {
@@ -139,12 +120,31 @@
 }
 
 .google {
-    background-color: white;
+    background-color: var(--white);
     border: 1px solid #ccc;
 }
 
 .social-btn:hover {
     opacity: 0.8;
+}
+
+.form-field {
+    margin-bottom: 10px;
+    width: 40%;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    font-size: var(--font-size-normal);
+    border-radius: 50px;
+    box-shadow: 0 4px 10px 5px var( --shadow-light-yellow);
+    border: none;
+}
+
+.signup-form .form-field input:focus {
+    border: 1px solid var(--primary-yellow);
+    outline: none; 
 }
 
 @media (max-width: 600px) {

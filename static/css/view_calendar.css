@@ -1,4 +1,6 @@
-/* 배경 이미지 설정 */
+.view-calender-container{
+    padding-top: 90px; 
+}
 .background {
     position: fixed; 
     top: 0;
@@ -15,20 +17,16 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 30px;
-}
-
-.calender-container {
-    padding: 20px;
+    gap: 50px;
+    padding: 0 50px 100px;
 }
 
 /* 드롭다운 스타일 */
 select {
     padding: 8px 16px;
     margin-left: 30px;
-    margin-top: 60px;
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
     border: none; 
     background-color: transparent;  
     cursor: pointer;
@@ -42,13 +40,12 @@ select:focus {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 th, td {
     padding: 40px;
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     width: 14.28%; /* 7일이 균등하게 나누어짐 */
 }
 
@@ -56,18 +53,18 @@ th{
     padding-bottom: 0;
 }
 
-.today {
+tr .today {
     background-color: var(--primary-yellow);
-    font-weight: bold;
+    font-weight: var(--font-weight-normal);
     border-radius: 50%;
-    box-shadow: 0 4px 50px 10px rgba(229, 188, 63, 0.3);
+    box-shadow: 0 4px 50px 10px var( --shadow-light-yellow);
 }
 
 .diary-day {
     display: block;
-    font-weight: bold;
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
     text-decoration: none;
-    color: var(--text-black);
     margin: 10px;
 }
 
@@ -81,13 +78,15 @@ th{
 
 /* 달력의 요일 스타일 */
 .day-name {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
 }
 
 .friends-list {
-    width: 100%;
+    width: 80%;
+    max-width: 470px;
+    max-height: 700px;
+    overflow-y: auto;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
@@ -99,24 +98,25 @@ th{
     display: flex;
     gap: 50px;
     padding-bottom: 10px;
+    align-items: center;
 }
 
 .friends-list-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn {
     background: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     border: none;
-    padding: 10px;
+    padding: 5px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.6rem;
 }
 
 .add-btn:hover {
@@ -141,6 +141,10 @@ th{
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
     transition: transform 0.2s ease-in-out;
+    padding: 30px 10px; /* 내부 패딩을 줄여서 박스 크기 조정 */
+    height: 50px; /* 박스 높이를 적절하게 조정 */
+    min-height: 50px; /* 최소 높이 설정 */
+    max-height: 50px; /* 최대 높이 설정 */
 }
 
 .friend-info {
@@ -155,6 +159,7 @@ th{
     border-radius: 50%;
     background-color: var(--primary-yellow);
     display: flex;
+    flex-shrink: 0;
     position: relative;
     overflow: hidden;
     margin: 30px auto;
@@ -166,14 +171,18 @@ th{
     object-fit: cover;
 }
 
+img {
+    vertical-align: baseline; 
+  }
+
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 0.8rem !important; /* 🔥 강제 적용 */
+    font-weight: var(--font-weight-normal) !important;
     display: inline-block;
 }
 
 .friend-name p {
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
 /* 반려친구 호버 효과 */
@@ -185,9 +194,9 @@ th{
 
 /* 반려친구 이름 */
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--text-black);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
     text-align: center;
     display: block;
 }
@@ -195,20 +204,17 @@ th{
 /* 반려친구가 없을 때 메시지 */
 .no-friends {
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     color: #777;
 }
 
-<<<<<<< HEAD
-=======
 .delete-account {
     position: absolute;
-    font-size: 14px;
+    font-size: 0.8rem;
     color: var(--primary-yellow);
     cursor: pointer;
 }
 
->>>>>>> 6089896 (add: communities_main css)
 @media (max-width: 500px) {
     .mypage-profile {
         width: 95%;

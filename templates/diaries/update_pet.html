@@ -8,7 +8,7 @@
 {% block content %}
     <div class="background-b"></div>
     <div class="pet-form-container">
-        <h1 class="form-title"><strong>{{ user.nickname }}님의 반려친구</strong>에 대해 알려주세요!</h1>
+        <h1 class="form-title">{{ user.nickname }}님의 반려친구에 대해 알려주세요!</h1>
         <form method="POST" action="{% url 'diaries:update_pet' pet.id %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-body">

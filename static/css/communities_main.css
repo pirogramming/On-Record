@@ -8,29 +8,18 @@
     background-image: url("/static/images/base-b.png");
     background-size: cover;
     background-position: center;
-    z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+    z-index: -1;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', sans-serif;
-}
-
-body, html {
+.community-container{
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #FFFBED;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; 
+    box-sizing: border-box;
 }
-
 /* 헤더 스타일 */
 .header {
-    width: 90%;
-    max-width: 1100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,17 +29,17 @@ body, html {
 /* 친구 선택 버튼 */
 .friend-btn {
     background-color: #FFC100;
-    color: white;
+    color: var(--white);
     padding: 10px 20px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .friend-btn:hover {
-    background-color: #E5B700;
+    background-color: var(--hover-yellow);
     transform: scale(1.05);
 }
 
@@ -63,7 +52,7 @@ body, html {
 .dropdown-content {
     display: none; /* 기본적으로 숨김 */
     position: absolute;
-    background-color: white;
+    background-color: var(--white);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     width: 120px;
@@ -77,45 +66,42 @@ body, html {
     padding: 10px;
     width: 100%;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
 .dropdown-content button:hover {
     background-color: #FFC100;
-    color: white;
+    color: var(--white);
 }
 
 /* 온기록 남기기 버튼 */
 .add-diary-btn {
     background-color: #FFC100;
-    color: white;
+    color: var(--white);
     padding: 10px 20px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .add-diary-btn:hover {
-    background-color: #E5B700;
+    background-color: var(--hover-yellow);
     transform: scale(1.05);
 }
 
 /* 제목 스타일 */
 .title {
     font-size: 26px;
-    font-weight: bold;
-    color: black;
+    font-weight: var(--font-weight-normal);
+    color: var(--text-black);
     text-align: center;
     margin-top: 120px; /* 기존 100px → 120px */
 }
 
-/* 다이어리 리스트 컨테이너 */
-.container {
-    width: 90%;
-    max-width: 1100px;
-    background: white;
+.diary-list-container {
+    background: var(--white);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
@@ -134,7 +120,7 @@ body, html {
 
 /* 다이어리 카드 */
 .diary-card {
-    background: white;
+    background: var(--white);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -161,18 +147,17 @@ body, html {
 }
 
 .diary-title {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-normal);
     color: #333;
     margin-bottom: 5px;
 }
 
 .diary-preview {
-    font-size: 14px;
-    color: #666;
+    font-size: 0.8rem;
+    color: var(--text-gray);
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -191,8 +176,8 @@ body, html {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
     color: #FFC100;
     display: flex;
     align-items: center;
@@ -219,7 +204,7 @@ body, html {
 
 .add-comment-btn {
     background-color: #FFC100;
-    color: white;
+    color: var(--white);
     border-radius: 10px;
     text-decoration: none;
     padding: 10px 15px;
@@ -228,7 +213,7 @@ body, html {
 }
 
 .add-comment-btn:hover {
-    background-color: #E5B700;
+    background-color: var(--hover-yellow);
 }
 
 /* 댓글 리스트 */
@@ -240,7 +225,7 @@ body, html {
 }
 
 .comments-list li {
-    font-size: 14px;
+    font-size: 0.8rem;
     padding: 5px 10px;
     background: #FFF4D9;
     border-radius: 10px;

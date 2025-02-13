@@ -19,7 +19,6 @@
     display: block;
     position: relative;
     min-height: 600px;
-    margin-top: 80px;
 }
 
 /* 제목 */
@@ -28,19 +27,19 @@
     align-items: center;
     justify-content: center;
     margin-top: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
 }
 
 .mypage-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
     color: var(--text-black);
 }
 
 /* 유저 정보 */
 .user-info {
     margin: 20px 0;
-    font-size: 18px;
+    font-size: 0.9rem;
     color: var(--primary-yellow);
     display: flex;
     flex-direction: column;
@@ -61,7 +60,6 @@
     position: relative;
     overflow: hidden;
     margin-bottom: 15px;
-    margin-top: 80px;
 }
 
 .user-profile img {
@@ -78,8 +76,8 @@
 }
 
 .user-name {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     max-width: 200px;
     text-align: center;
@@ -113,21 +111,21 @@ p {
 }
 
 .friends-list-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     margin-right: auto; /* 버튼과의 간격 조절 */
 }
 
 .add-btn, .edit-profile-btn {
     background: var(--primary-yellow);
-    color: white;
+    color: var(--white);
     border: none;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.8rem;
 }
 
 .add-btn:hover {
@@ -148,7 +146,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
+    background: var(--white);
     padding: 12px 20px;
     border-radius: 30px;
     box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
@@ -164,9 +162,9 @@ p {
 
 /* 반려친구 이름 */
 .friend-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--text-black);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-var(--text-black));
     text-align: center;
     display: block;
 }
@@ -174,21 +172,20 @@ p {
 /* 수정 및 삭제 버튼 */
 .friend-actions {
     display: flex;
-    gap: 10px;
 }
 
 /* 수정 버튼 */
-.edit-btn {
+.edit-btn, .delete-btn {
     background: #FFD75C;
-    color: #444;
     border: none;
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+    margin: 5px;
 }
 
 .edit-btn:hover {
@@ -197,16 +194,9 @@ p {
 }
 
 /* 삭제 버튼 */
-.delete-btn {
+.delete-btn{
     background: #FF6B6B;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
+    color: var(--white);
     box-shadow: 0px 2px 5px rgba(255, 90, 90, 0.6);
 }
 
@@ -218,7 +208,7 @@ p {
 /* 반려친구가 없을 때 메시지 */
 .no-friends {
     text-align: center;
-    font-size: 16px;
+    font-size: var(--font-size-normal);
     color: #777;
 }
 
@@ -232,11 +222,11 @@ p {
     background: #FFD75C;
     color: #444;
     border: none;
-    padding: 8px 14px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.5rem;
+    font-weight: var(--font-weight-normal);
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
