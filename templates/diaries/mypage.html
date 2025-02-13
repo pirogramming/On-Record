@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="mypage-container">
     <div class="background-a"></div>
     <div class="mypage-profile">
         <!-- 제목 -->
@@ -15,20 +16,16 @@
 
         <!-- 유저 정보 -->
         <div class="user-info">
-            <div class="user-profile">
-                <div class="user_profile_img">
+            <div class="profile">
+                <div class="profile-img">
                     {% if user.profile_image %}
-                    <img src="{{ user.profile_image.url }}" alt="프로필 사진" />
+                    <img id="user-preview" src="{{  user.profile_image.url  }}" alt="프로필 사진" />
                     {% else %}
-                    <img src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
+                    <img id="user-preview" src="{% static 'images/default_user_image.png' %}" alt="기본 프로필" />
                     {% endif %}
                 </div>
-            </div>
-            
-            <div class="user-name-container">
-                <p class="user-name" id="user-name">{{ user.nickname }}</p>
-            </div>
-
+            </div>           
+            <p class="user-name" id="user-name">{{ user.nickname }}</p>
             <p>{{ user.email }}</p>
             <button class="edit-btn" id="edit-profile-btn">
                 <a href="{% url 'users:render_profile' %}">프로필 수정</a>
@@ -72,7 +69,7 @@
         </div>
         {% endif %}
     </div>
-
+</div>
     <script>
         document.getElementById("profile-upload").addEventListener("change", function(event) {
             const file = event.target.files[0];

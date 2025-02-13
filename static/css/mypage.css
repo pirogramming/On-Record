@@ -1,3 +1,11 @@
+.mypage-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    flex-direction: column; 
+}
+
 .background-a {
     position: fixed; 
     top: 0;
@@ -29,7 +37,7 @@
 }
 
 .mypage-title {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: var(--font-weight-normal);
     color: var(--text-black);
 }
@@ -45,39 +53,41 @@
     position: relative;
 }
 
-.user-profile {
-    width: 100px;
-    height: 100px;
+.profile {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background-color: var(--primary-yellow);
+    background-color: var(--light-yellow);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
     margin-bottom: 15px;
+    flex-shrink: 0;
 }
 
-.user-profile img {
+.profile-img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.user-name-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+#user-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .user-name {
     font-size: 1.2rem;
     font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
-    max-width: 200px;
     text-align: center;
     border: none;
     outline: none;
+    white-space: nowrap;
 }
 
 p {
@@ -192,6 +202,7 @@ p {
     text-decoration: none; 
     font-weight: var(--font-weight-regular);
 }
+
 .edit-btn:hover, .user-del-btn:hover, .add-btn:hover {
     background: var(--hover-yellow);
     transform: scale(1.05);

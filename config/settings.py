@@ -39,9 +39,11 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 # 디버그 모드 설정
 DEBUG = env.bool("DEBUG", default=True)
+# DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['onrecord.kr', 'www.onrecord.kr', '223.130.132.219', '127.0.0.1', 'localhost']
+# ALLOWED_HOSTS를 .env에서 가져오기
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
@@ -152,8 +154,10 @@ USE_TZ = True
 # static 파일 설정
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
-  BASE_DIR / 'static',
+    BASE_DIR / "static"
 ]
 
 # Default primary key field type
@@ -223,7 +227,6 @@ SOCIALACCOUNT_QUERY_EMAIL = True # 소셜 로그인 시 이메일 정보를 가�
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 
-SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # 로그아웃 후 연결될 URL
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 요청 시 즉시 로그아웃
 SOCIALACCOUNT_LOGIN_ON_GET = True # 소셜 로그인 요청 시 즉시 로그인
@@ -235,3 +238,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://onrecord.kr',
+    'http://onrecord.kr',
+    'https://www.onrecord.kr',
+    'http://www.onrecord.kr',
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
