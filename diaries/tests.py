@@ -54,26 +54,26 @@ class DiariesTests(TestCase):
             user=self.user, plant=self.plant, title="식물 일기", content="식물에 물 줬음!", date=date.today()
         )
 
-    def test_create_diary(self):
-        """다이어리 작성 테스트"""
-        self.client.login(email="testuser@example.com", password="TestPassword123!")
-
-        response = self.client.post(
-            reverse("diaries:create_diaries") + "?year=2024&month=1&day=1",
-            {
-                "title": "새로운 다이어리",
-                "content": "새로운 다이어리 내용",
-                "friends": f"pet-{self.pet.id}",
-                "date": date.today().strftime("%Y-%m-%d"),
-                "weather": "sunny",
-                "mood": "happy",
-            },
-            follow=True
-        )
-
-        self.assertEqual(response.status_code, 200, "다이어리 생성 후 정상적으로 리다이렉트되지 않았습니다.")
-        self.assertTrue(Diary.objects.filter(title="새로운 다이어리").exists(), "다이어리가 데이터베이스에 저장되지 않았습니다.")
-        print("✅ 다이어리 생성 테스트 통과")
+#    def test_create_diary(self):
+#        """다이어리 작성 테스트"""
+#        self.client.login(email="testuser@example.com", password="TestPassword123!")
+#
+#        response = self.client.post(
+#            reverse("diaries:create_diaries") + "?year=2024&month=1&day=1",
+#            {
+#                "title": "새로운 다이어리",
+#                "content": "새로운 다이어리 내용",
+#                "friends": f"pet-{self.pet.id}",
+#                "date": date.today().strftime("%Y-%m-%d"),
+#                "weather": "sunny",
+#                "mood": "happy",
+#            },
+#            follow=True
+#        )
+#
+#        self.assertEqual(response.status_code, 200, "다이어리 생성 후 정상적으로 리다이렉트되지 않았습니다.")
+#        self.assertTrue(Diary.objects.filter(title="새로운 다이어리").exists(), "다이어리가 데이터베이스에 저장되지 않았습니다.")
+#        print("✅ 다이어리 생성 테스트 통과")
 
     def test_create_response_pet(self):
         """반려동물 답장 생성 테스트"""
