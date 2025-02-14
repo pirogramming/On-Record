@@ -386,7 +386,10 @@
 
 @media (max-width: 480px) {
     .diary-list {
-        grid-template-columns: repeat(1, 1fr);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .title {
