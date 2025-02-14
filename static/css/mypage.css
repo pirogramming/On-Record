@@ -218,7 +218,7 @@ p {
     padding: 5px;
 }
 
-.edit-btn i, .delete-btn i {
+.edit-btn i {
     color: var(--primary-yellow);
     font-size: 1.2rem;
 }
@@ -226,6 +226,11 @@ p {
 .edit-btn:hover i {
     color: var(--hover-yellow);
     transform: scale(1.1);
+}
+
+.delete-btn i {
+    color: var(--primary-yellow);
+    font-size: 1.2rem;
 }
 
 .delete-btn:hover i {
