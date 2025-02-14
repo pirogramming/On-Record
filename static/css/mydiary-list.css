@@ -229,6 +229,7 @@
         .friend-btn, .add-diary-btn {
             font-size: 0.7rem;
             padding: 8px 15px;
+            margin-right: 20px;
         }
     }
     
