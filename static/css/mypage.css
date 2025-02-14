@@ -29,17 +29,16 @@
 }
 
 .mypage-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 100px;
+    margin-top: 60px;
     margin-bottom: 50px;
 }
 
 .mypage-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 1.7rem;
-    font-weight: var(--font-weight-normal);
-    color: var(--text-black);
+    font-weight: var(--font-weight-regular);
 }
 
 .user-info {
@@ -54,8 +53,8 @@
 }
 
 .profile {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: var(--light-yellow);
     display: flex;
@@ -102,7 +101,6 @@ p {
     padding: 30px;
     box-shadow: 0px 5px 20px var(--hover-yellow);
     margin-top: 30px;
-    position: relative;
 }
 
 .friends-list-management-header {
@@ -117,7 +115,8 @@ p {
     font-size: 1.2rem;
     font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
-    margin-right: auto; 
+    white-space: nowrap;
+    margin-bottom: 0;
 }
 
 .edit-profile-btn {
@@ -151,6 +150,7 @@ p {
     font-size: 0.8rem;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
 }
 
 .add-btn:hover {
@@ -218,8 +218,7 @@ p {
     padding: 5px;
 }
 
-/* 수정 버튼 */
-.edit-btn i {
+.edit-btn i, .delete-btn i {
     color: var(--primary-yellow);
     font-size: 1.2rem;
 }
@@ -227,12 +226,6 @@ p {
 .edit-btn:hover i {
     color: var(--hover-yellow);
     transform: scale(1.1);
-}
-
-/* 삭제 버튼 */
-.delete-btn i {
-    color: var(--primary-yellow);
-    font-size: 1.2rem;
 }
 
 .delete-btn:hover i {
@@ -246,6 +239,11 @@ p {
     color: #777;
 }
 
+.user-del-btn-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .user-del-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
@@ -256,11 +254,8 @@ p {
     font-size: 0.8rem;
     transition: background-color 0.3s, transform 0.2s ease-in-out;
     box-shadow: 0px 3px 6px rgba(230, 190, 90, 0.6);
-    margin: 5px;
-    margin-top: 20px;
-    display: inline-block;
+    margin: 20px 0;
     text-decoration: none;
-    width: auto;
 }
 
 .user-del-btn:hover {
@@ -285,9 +280,57 @@ p {
     text-align: center;
 }
 
-@media (max-width: 500px) {
-    .mypage-profile {
-        width: 95%;
-        padding: 30px;
+@media (max-width: 768px) {
+    .friends-list-management-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 100%;
+        gap: 400px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: 1.2rem; 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+
+    .friend-name{
+        font-size: 0.8rem;
+    }
+
+    .edit-btn i, .delete-btn i, .add-btn {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px){
+    .friends-list-management-header {
+        gap: 200px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .friends-list-management-header {
+        gap: 150px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: var(--font-size-normal); 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
     }
 }

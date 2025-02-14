@@ -293,8 +293,7 @@ button i {
 }
 
 .comment-edit-del-btn{
-  margin-left: auto;
-  font-size: 0.9rem;
+  margin: 0 15px;
 }
 
 .edit-comment-btn, .save-comment-btn, .delete-comment-btn {
@@ -306,4 +305,5 @@ button i {
 
 .comment-edit-btn, .comment-del-btn{
   font-size: var(--font-size-normal);
+  margin-left: 10px;
 }
