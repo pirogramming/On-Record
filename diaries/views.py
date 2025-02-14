@@ -217,33 +217,64 @@ def check_already_written(date , user , pet):
             user=user,
             pet = pet,
         ).exists()
-
-from django.shortcuts import render
 from .forms import DiaryForm
-from datetime import date
 from communities.models import Like,Comment
+from django.db.models import Q
+from datetime import date
+from django.http import JsonResponse
+from django.shortcuts import render
 
-
-#다이어리 쓰는 화면 렌더링
 def render_diaries(request):
     form = DiaryForm(user=request.user)
 
-    # GET 파라미터에서 날짜 정보 가져오기
-    day = int(request.GET.get('day'))
-    month = int(request.GET.get('month'))
-    year = int(request.GET.get('year'))
-    friend_id = request.GET.get("friend_id")  
+    try:
+        # GET 파라미터에서 날짜 정보 가져오기
+        day = int(request.GET.get('day', 0))
+        month = int(request.GET.get('month', 0))
+        year = int(request.GET.get('year', 0))
+    except ValueError:
+        return JsonResponse({'alert': "유효하지 않은 날짜입니다."}, status=400)
+
+    # 날짜 유효성 검사
+    try:
+        selected_date = date(year, month, day)
+    except ValueError:
+        return JsonResponse({'alert': "존재하지 않는 날짜입니다."}, status=400)
+
+    # 친구 정보 가져오기
+    friend_id = request.GET.get("friend_id")
     friend_type = request.GET.get("friend_type")
 
-    print(friend_id , friend_type)
+    # 친구 존재 여부 확인 및 일기 중복 검사
     if friend_type == "pet":
         selected_friend = Pet.objects.filter(id=friend_id, user=request.user).first()
-        selected_friend_value = f"pet-{selected_friend.id}" if selected_friend else ""
     elif friend_type == "plant":
         selected_friend = Plant.objects.filter(id=friend_id, user=request.user).first()
-        selected_friend_value = f"plant-{selected_friend.id}" if selected_friend else ""
+    else:
+        selected_friend = None
 
-    selected_date = date(year, month, day)
+    if not selected_friend:
+        return JsonResponse({'alert': "선택한 친구가 존재하지 않습니다."}, status=400)
+
+    if friend_type == "pet":
+        duplicate_exists = Diary.objects.filter(
+            user=request.user,
+            date=selected_date,
+            pet_id=friend_id
+        ).exists()
+    elif friend_type == "plant":
+        duplicate_exists = Diary.objects.filter(
+            user=request.user,
+            date=selected_date,
+            plant_id=friend_id
+        ).exists()
+    else:
+        return JsonResponse({'alert': "잘못된 친구 유형입니다."}, status=400)
+
+    if duplicate_exists:
+        return JsonResponse({'alert': "이미 해당 날짜에 선택한 친구에게 일기가 작성되었습니다."})
+
+    selected_friend_value = f"{friend_type}-{selected_friend.id}"
 
     context = {
         'form': form,
@@ -252,16 +283,22 @@ def render_diaries(request):
     }
     return render(request, 'diaries/create_diaries.html', context)
 
+
 # 다이어리 db에 생성하는 함수 즉, 완료버튼 누르면 실행되는 함수
 def create_diaries(request): #다이어리를 db에 생성하는 함수. post 요청으로 day,month,year를 넘겨줘야 함, 현재는 생성 시간은 지금 시간으로
     if request.method == 'POST':
         post_data = request.POST.copy()
+        
         post_data['date'] = datetime(
             year=int(request.GET.get('year')),
             month=int(request.GET.get('month')),
             day=int(request.GET.get('day'))
         ).date()
+
+        
+
         form = DiaryForm(post_data, request.FILES, user=request.user)
+        
         if form.is_valid():
             diaries = form.save(commit=False) # Diary 객체 생성(저장 x)
 
@@ -277,7 +314,7 @@ def create_diaries(request): #다이어리를 db에 생성하는 함수. post �
 
             diaries.save()  # 새로운 Diary 저장
             # 저장된 Diary의 pk로 Reply 생성
-            create_response(diaries.pk)
+            create_response(diaries.pk , request.user.nickname)
 
             return redirect('diaries:detail_diaries', pk=diaries.pk)
         else: 
