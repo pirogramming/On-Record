@@ -1,0 +1,481 @@
+@font-face {
+  font-family: 'Ownglyph_ParkDaHyun';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.detail-diaries-container{
+  height: 100vh;
+  position: relative;
+  padding-top: 60px; 
+}
+
+.background-a {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/images/base-a.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; 
+}
+
+.diaries_detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  margin-top: 30px;
+}
+
+.detail-container {
+  max-width: 1000px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  margin-bottom: 30px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+}
+
+.detail-title{
+  font-size: 2rem;
+  font-weight: var(--font-size-normal);
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+}
+
+.detail-header-l {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.public-btn {
+  padding: 5px 20px; 
+  background-color: var(--primary-yellow);
+  border: none;
+  color: var(--white);
+  font-size: var(--font-size-normal);
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#date {
+  color: var(--primary-yellow);
+  opacity: 1;
+  text-align: center;
+  font-weight: var(--font-weight-regular);
+  font-size: 0.9rem;
+}
+
+.detail-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+}
+
+.detail-image, .detail-text {
+  width: 450px; 
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  border: 2px solid var(--soft-yellow);
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 10px;
+  overflow: auto;
+}
+
+.detail-image p{
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  font-size: 1.2rem;
+}
+
+.detail-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.diary-metadata {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.diary-text-content {
+  text-align: left; 
+  width: 100%; 
+  margin: 0; 
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  font-size: 1.2rem;
+}
+
+.mood p, .weather p{
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.diary-description {
+    line-height: 1.6;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  width: 100%;
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  font-size: 1.2rem;
+  max-width: 1000px;
+}
+
+.bis {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 20px;
+}
+
+.like-btn{
+  background: none;
+  border: none;
+  margin-right: 10px;
+}
+.bis-r {
+  margin-left: auto;
+  display: flex;
+  gap: 15px;
+}
+
+.bi, .comments-section-title {
+  display: inline-block;
+  color: var(--primary-yellow);
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-normal);
+}
+
+button i {
+  pointer-events: none;
+}
+
+.like-count{
+  margin: 0;
+  color: var(--primary-yellow);
+  font-size: 1.3rem;
+}
+
+.comments-section-title{margin-right: auto;}
+
+.bi:hover, .save-comment-btn:hover {
+  color: var(--hover-yellow);
+}
+
+.comments-section {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.comments-list{
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list-li {
+  display: flex;      
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comments-content{
+  display: flex;
+  align-items: center;
+}
+
+.comments-list-name{
+  margin: 15px;
+  color: var(--primary-yellow);
+  white-space: nowrap;
+}
+
+.comments-list-content, .comment-edit-input{
+  color: var(--text-black);
+}
+
+.comment-edit-input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--primary-yellow);
+}
+
+.comment-input-section{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.comment-input {
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  width: 85%;
+  background-color: var(--white);
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comment-edit-input:focus{
+  border: none;
+}
+
+.comment-input-section .comment-input:focus {
+  border: 1px solid var(--primary-yellow);
+  outline: none; 
+}
+
+.add-comment-btn {
+  background-color: var(--primary-yellow);
+  color: var(--white);
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+  padding: 15px;
+  border: none; 
+}
+
+.add-comment-btn:hover {
+  background-color: var(--hover-yellow);
+}
+
+.comment-edit-del-btn{
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
+.edit-comment-btn, .save-comment-btn, .delete-comment-btn {
+  background: none;
+  border: none;
+  color: var(--primary-yellow);
+  cursor: pointer;
+}
+
+.comment-edit-btn, .comment-del-btn{
+  font-size: var(--font-size-normal);
+}
+
+@media screen and (max-width: 600px) {
+  .detail-diaries-container {
+      padding-top: 30px;
+  }
+
+  .diaries_detail {
+      padding-top: 20px;
+      margin-top: 20px;
+  }
+
+  .detail-container {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+  }
+
+  .detail-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+  }
+
+  .detail-title {
+      font-size: 1.5rem;
+      text-align: center;
+  }
+
+  .detail-header-l {
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .public-btn {
+      font-size: 0.8rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+  }
+
+  .detail-content {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .detail-image-container, .detail-text-container {
+    text-align: left;
+    width: 100%;
+  }
+  .detail-image, .detail-text {
+      width: 100%;
+      height: auto;
+      padding: 15px;
+      font-size: 1rem;
+  }
+
+  .detail-image img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+  }
+
+  .diary-text-content {
+      font-size: 1rem;
+  }
+
+  .mood p, .weather p {
+      font-size: 1rem;
+  }
+
+  .reply {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+  }
+
+  .bis {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .bis-r {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .like-btn, .bi {
+      font-size: 1.1rem;
+      margin-left: 15px;
+  }
+
+  .like-count {
+      font-size: 1.1rem;
+  }
+
+  .comments-section-title {
+      font-size: 1.2rem;
+      margin-left: 30px
+  }
+
+  .comments-section {
+      width: 90%;
+  }
+
+  .comments-list-li {
+    padding: 10px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .comments-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .comments-list-name {
+    font-weight: bold;
+    color: var(--primary-yellow);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+  }
+
+  .comments-list-content {
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .comment-edit-del-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .comment-edit-btn, .save-comment-btn, .delete-comment-btn {
+    background: none;
+    border: none;
+    color: var(--primary-yellow);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .comment-edit-btn:hover, .save-comment-btn:hover, .delete-comment-btn:hover {
+    color: var(--hover-yellow);
+  }
+
+  .comment-input-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .comment-input {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .add-comment-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}

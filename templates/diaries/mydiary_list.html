@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/mydiary-list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+    <div class="background-b"></div>
+    <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
+    
+    <div class="header">
+        <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>
+        <a href="{% url 'diaries:view_calendar' %}">
+            <button class="add-diary-btn">온기록 남기기</button>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="diary-list">
+            {% if diaries %}
+                {% for diary in diaries %}
+                <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
+                    <div class="diary-card">
+                        <div class="diary-image">
+                            {% if diary.image %}
+                            <img src="{% if diary.image %}{{ diary.image.url }}{% else %}/static/images/default_pet.jpg{% endif %}" alt="오늘의 사진">
+                            {% else %}
+                                <div class="no-image"></div>
+                            {% endif %}
+                        </div>
+                        <div class="diary-info">
+                            <h2 class="diary-title">{{ diary.title }}</h2>
+                            <p class="diary-preview">
+                                {% if diary.content|length > 47 %}
+                                {{ diary.content|slice:":47" }}...
+                                {% else %}
+                                {{ diary.content }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="diary-actions">
+                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
+                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
+                            </button>
+                        
+                            <button class="comment-btn" data-diary-id="{{ diary.id }}">
+                                <i class="bi bi-chat-dots"></i>
+                                <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #999; grid-column: span 3;">등록된 온기록이 없습니다.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

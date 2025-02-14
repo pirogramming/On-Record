@@ -1,0 +1,358 @@
+.mypage-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    flex-direction: column; 
+}
+
+.background-a {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/base-a.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+}
+
+.mypage-profile {
+    max-width: none;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    display: block;
+    position: relative;
+    min-height: 600px;
+}
+
+.mypage-header {
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+
+.mypage-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.7rem;
+    font-weight: var(--font-weight-regular);
+}
+
+.user-info {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: var(--primary-yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.profile {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--light-yellow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.profile-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#user-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--primary-yellow);
+    text-align: center;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
+
+.friends-list {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
+    margin-top: 30px;
+}
+
+.friends-list-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px; 
+    gap: 500px;
+}
+
+.friends-list-title {
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--primary-yellow);
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+
+.edit-profile-btn {
+    background: var(--primary-yellow);
+    color: var(--white); 
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+}
+
+.edit-profile-btn:hover {
+    background: var(--hover-yellow);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.5);
+}
+
+.add-btn {
+    display: inline-block;
+    background-color: var(--primary-yellow);
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+    color: var(--white);
+    padding: 7px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
+}
+
+.friends-list-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    padding: 5px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.friend-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.friend-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+}
+
+.friend-name {
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    text-align: center;
+    display: block;
+    text-decoration: none; 
+    color: var(--text-black);
+    padding-left: 10px;
+}
+
+.friend-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.edit-btn i {
+    color: var(--primary-yellow);
+    font-size: 1.2rem;
+}
+
+.edit-btn:hover i {
+    color: var(--hover-yellow);
+    transform: scale(1.1);
+}
+
+.delete-btn i {
+    color: var(--primary-yellow);
+    font-size: 1.2rem;
+}
+
+.delete-btn:hover i {
+    color: var(--hover-yellow);
+    transform: scale(1.1);
+}
+
+.no-friends {
+    text-align: center;
+    font-size: var(--font-size-normal);
+    color: #777;
+}
+
+.user-del-btn-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-del-btn {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    box-shadow: 0px 3px 6px rgba(230, 190, 90, 0.6);
+    margin: 20px 0;
+    text-decoration: none;
+}
+
+.user-del-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(200, 160, 60, 0.8);
+}
+
+.user-del-btn:active {
+    background-color: var(--shadow-yellow);
+    transform: scale(0.95);
+    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.user-del-btn a {
+    all: unset;
+    color: var(--white);
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .friends-list-management-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 100%;
+        gap: 400px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: 1.2rem; 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+
+    .friend-name{
+        font-size: 0.8rem;
+    }
+
+    .edit-btn i, .delete-btn i, .add-btn {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px){
+    .friends-list-management-header {
+        gap: 200px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .friends-list-management-header {
+        gap: 150px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: var(--font-size-normal); 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+}
+@media (max-width: 450px) {
+    .friends-list-management-header {
+        gap: 100px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: var(--font-size-normal); 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+}

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/diaries_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="background-a"></div>
+<div class="diaries_detail">
+  <div class="detail-container">
+    <div class="detail-header">
+      <h1 class="detail-title">
+        <p>{{ diareis.title }}</p>
+      </h1>
+      <div class="detail-header-l">
+        <p id="date">{{ diaries.date }}<p>
+        <button class="public-btn" data-status="{{ diaries.disclosure.value }}">
+          {% if diaries.disclosure.value == True %}
+              전체공개
+          {% else %}
+              비공개
+          {% endif %}
+        </button>
+      </div>
+    </div>
+    
+    <div class="detail-content">
+      <div class="detail-image">
+        <h3>오늘의 사진</h3>
+        {% if diaries.image %}
+        <p>{{ diaries.image }}</p>
+        {% else %}
+        <p>📷 이미지 없음</p>
+        {% endif %}
+      </div>
+      <div class="detail-text">
+        <h3>오늘의 하루</h3>
+        <div class="diary-metadata">
+          <div class="weather">
+            {% if diaries.weather == 'sunny' %}
+                <p>날씨: ☀️</p>
+            {% elif diaries.weather == 'cloudy' %}
+                <p>날씨: ☁️</p>
+            {% elif diaries.weather == 'rainy' %}
+                <p>날씨: 🌧️</p>
+            {% elif diaries.weather == 'snowy' %}
+                <p>날씨: ❄️</p>
+            {% else %}
+                <p>🌍 날씨 정보 없음</p>
+            {% endif %}
+          </div>
+          <div class="mood">
+            {% if diaries.mood == 'happy' %}
+                <p>기분: 😄</p>
+            {% elif diaries.mood == 'sad' %}
+                <p>기분: 😢</p>
+            {% elif diaries.mood == 'angry' %}
+                <p>기분: 😡</p>
+            {% elif diaries.mood == 'funny' %}
+                <p >기분: 🤣</p>
+            {% elif diaries.mood == 'tired' %}
+                <p>기분: 😪</p>
+            {% else %}
+                <p>🌍 기분 정보 없음</p>
+            {% endif %}
+          </div>
+        </div>
+        <p>{{ diaries.content }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 좋아요 및 공유 버튼 -->
+  <div class="bis">
+    <i class="bi bi-heart-fill"></i>
+    <div class="bis-r">
+      <i class="bi bi-share-fill"></i>
+      <form action="#" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="bi bi-pencil-square"></button>
+      </form>
+      <form action="#" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="bi bi-trash3-fill"></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 댓글 섹션 -->
+  <div class="comments-section">
+    <h3>댓글</h3>
+    <ul id="comments-list">
+      {% for comment in comments %}
+        <li>{{ comment.comment_user__nickname }}: {{ comment.content }}</li>
+      {% endfor %}
+    </ul>
+
+    <!-- 댓글 입력 폼 -->
+    <input type="text" id="comment-input" placeholder="댓글을 입력하세요">
+    <button id="add-comment-btn" data-diary-id="{{ diaries.id }}">댓글 등록</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // 좋아요 버튼 클릭 이벤트
+    document.querySelector('.like-btn').addEventListener('click', function () {
+        const diaryId = this.getAttribute('data-diary-id');
+
+        fetch(`/communities/toggle_like/${diaryId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('like-count').textContent = data.like_count;
+            this.textContent = data.status === 'liked' ? '❤️ 좋아요 취소' : '❤️ 좋아요';
+        })
+        .catch(error => console.error('좋아요 처리 중 오류:', error));
+    });
+
+    // 댓글 등록 버튼 클릭 이벤트
+    document.getElementById('add-comment-btn').addEventListener('click', function () {
+        const diaryId = this.getAttribute('data-diary-id');
+        const commentInput = document.getElementById('comment-input');
+        const commentContent = commentInput.value.trim();
+
+        if (!commentContent) {
+            alert('댓글을 입력하세요.');
+            return;
+        }
+
+        fetch(`/communities/add_comment/${diaryId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ comment: commentContent })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('comments-list').innerHTML = '';
+            data.whole_comments.forEach(comment => {
+                document.getElementById('comments-list').innerHTML += `
+                    <li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+            });
+
+            commentInput.value = '';
+        })
+        .catch(error => console.error('댓글 추가 중 오류:', error));
+    });
+});
+</script>
+
+{% endblock %}

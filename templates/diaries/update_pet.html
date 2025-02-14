@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/create_pet.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="background-b"></div>
+    <div class="pet-form-container">
+        <h1 class="form-title">반려동물의 정보를 최신화하세요</h1>
+        <form method="POST" action="{% url 'diaries:update_pet' pet.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-body">
+                <div class="image-upload">
+                    <label for="pet-image">
+                        <!-- ✅ 기존 이미지가 있다면 표시 -->
+                        {% if pet.image %}
+                            <img id="pet-preview" src="{{ pet.image.url }}" alt="미리보기">
+                        {% else %}
+                            <img id="pet-preview" src="{% static 'images/default_pet_image.png' %}" alt="미리보기">
+                        {% endif %}
+                    </label>
+                    <input type="file" id="pet-image" name="image" accept="image/*">
+                </div>
+                <div class="form-fields">
+                    <div class="form-group">
+                        <label>이름</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label>종류</label>
+                        {{ form.kind }}
+                    </div>
+                    <div class="form-group">
+                        <label>성별</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="form-group">
+                        <label>나이</label>
+                        {{ form.age }}
+                    </div>
+                </div>
+            </div>
+            <div class="centered-content">
+                <div class="form-group">
+                    <label>성격:</label>
+                    <div id="personality-buttons">
+                        {% for personality in form.personal.field.queryset %}
+                            <button type="button" class="personality-btn" data-value="{{ personality.id }}">{{ personality.type }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>반려동물이 가장 좋아하는 것이나 활동은 무엇인가요?</label>
+                    {{ form.pet_fav }}
+                </div>
+                <div class="form-group">
+                    <label>반려동물이 가장 싫어하는 것이나 활동은 무엇인가요?</label>
+                    {{ form.pet_hate }}
+                </div>
+                <div class="form-group">
+                    <label>반려동물의 특별한 특징은 무엇인가요?</label>
+                    {{ form.pet_sig }}
+                </div>
+                <input type="hidden" name="personal" id="selected-personalities" value="{{ form.personal.value|join:',' }}">
+            </div>
+            <button type="submit" class="submit-btn">수정 완료</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".personality-btn");
+            const selectedInput = document.getElementById("selected-personalities");
+        
+            // ✅ 기존 성격(personality) 값 가져오기
+            let selectedValues = new Set(selectedInput.value ? selectedInput.value.split(",") : []);
+        
+            buttons.forEach(button => {
+                const value = button.getAttribute("data-value");
+        
+                // ✅ 기존 선택된 성격 버튼 활성화
+                if (selectedValues.has(value)) {
+                    button.classList.add("selected");
+                }
+        
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+        
+                    if (selectedValues.has(value)) {
+                        selectedValues.delete(value);
+                        button.classList.remove("selected");
+                    } else {
+                        selectedValues.add(value);
+                        button.classList.add("selected");
+                    }
+        
+                    selectedInput.value = Array.from(selectedValues).join(",");
+                });
+            });
+            
+            const petPreview = document.getElementById("pet-preview");
+
+            // ✅ 기존 이미지가 있으면 표시
+            if (petPreview.src && !petPreview.src.endsWith("#")) {
+                petPreview.style.display = "block";
+            }
+
+            document.getElementById("pet-image").addEventListener("change", function (event) {
+                var input = event.target;
+                var reader = new FileReader();
+        
+                reader.onload = function () {
+                    petPreview.src = reader.result;
+                    petPreview.style.display = "block"; // ✅ 변경 시 표시
+                };
+        
+                if (input.files && input.files[0]) {
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+        });
+
+        document.getElementById("pet-image").addEventListener("change", function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+    
+            reader.onload = function() {
+                var imgElement = document.getElementById("pet-preview");
+                imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
+                imgElement.style.display = "block"; // 이미지 표시
+            };
+    
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
+            }
+        });
+    </script>
+{% endblock %}

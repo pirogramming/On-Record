@@ -1,0 +1,325 @@
+.view-calender-container{
+    padding-top: 90px; 
+    overflow-x: hidden;
+    width: 100%;
+}
+.background {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:var(--background-yellow);
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+}
+
+.calender-and-friends {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 0 50px 100px;
+}
+
+select {
+    padding: 8px 16px;
+    margin-left: 30px;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
+    border: none; 
+    background-color: transparent;  
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 40px;
+    text-align: center;
+    font-size: var(--font-size-normal);
+    width: 14.28%;
+}
+
+th{
+    padding-bottom: 0;
+}
+
+tr .today {
+    background-color: var(--primary-yellow);
+    font-weight: var(--font-weight-normal);
+    border-radius: 50%;
+    box-shadow: 0 4px 50px 10px var( --shadow-light-yellow);
+}
+
+.diary-day {
+    display: block;
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
+    text-decoration: none;
+    margin: 10px;
+    color: var(--text-black);
+}
+
+.diary-day:hover {
+    text-decoration: underline;
+}
+
+.has-diary {
+    color: var(--red);
+}
+
+.day-name {
+    font-weight: var(--font-weight-regular);
+    font-size: 1.3rem;
+}
+
+.friends-list {
+    width: 100%;
+    max-width: 500px;
+    max-height: 700px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px 10px;
+    box-shadow: 0px 5px 20px var(--hover-yellow);
+    margin-top: 100px;
+}
+
+.friends-list-management-header{
+    display: flex;
+    gap: 50px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.friends-list-title {
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--primary-yellow);
+    margin-right: auto;
+    margin-left: 20px;
+}
+
+.add-btn {
+    display: inline-block;
+    background-color: var(--primary-yellow);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: var(--font-weight-normal);
+    font-size: 0.8rem;
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.add-btn:hover {
+    background-color: var(--hover-yellow);
+    transform: scale(1.05);
+}
+
+.add-btn:active {
+    background-color: var(--shadow-yellow);
+    transform: scale(0.98);
+    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-in, background-color 0.1s ease-in;
+}
+
+.add-btn a {
+    all: unset;
+    display: inline-block;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: var(--font-weight-normal);
+    width: 100%;
+    height: 100%;
+}
+
+.friends-list-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.friend-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(230, 190, 90, 0.7);
+    transition: transform 0.2s ease-in-out;
+    padding: 30px 20px;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    text-decoration: none;
+}
+
+.friend-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.friend-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary-yellow);
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+.friend-profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+img {
+    vertical-align: baseline; 
+  }
+
+.friend-name {
+    font-size: 0.8rem !important; 
+    font-weight: var(--font-weight-normal) !important;
+    display: inline-block;
+    color: var(--text-black);
+    text-decoration: none; 
+}
+
+.friend-name p {
+    font-size: 0.8rem;
+}
+
+.friend-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
+}
+
+.no-friends {
+    text-align: center;
+    font-size: var(--font-size-normal);
+    color: #777;
+}
+
+.delete-account {
+    position: absolute;
+    font-size: 0.8rem;
+    color: var(--primary-yellow);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .view-calender-container {
+        flex-direction: column; 
+    }
+
+    select{
+        margin-left: 17px;
+        padding: 4px 7px;  
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        padding: 15px;
+        text-align: center;
+        font-size: var(--font-size-normal);
+        width: 14.28%;
+    }
+
+    .calender-and-friends {
+        flex-direction: column; 
+        flex-wrap: wrap;
+    }
+
+    .calender-container,
+    .friends-list {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .friends-list{
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-calender-container {
+        flex-direction: column;
+    }
+
+    select{
+        margin-left: 15px;  
+        padding: 0;
+        font-size: 1.3rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        padding: 5px;
+        text-align: center;
+        font-size: var(--font-size-normal);
+        width: 14.28%;
+    }
+    .day-name{
+        font-size: var(--font-size-normal);
+    }
+    .diary-day{
+        font-size: 0.9rem;
+    }
+
+    .calender-and-friends {
+        flex-direction: column; 
+        flex-wrap: wrap;
+    }
+
+    .calender-container,
+    .friends-list {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .friends-list {
+        max-height: 500px; 
+        overflow-y: auto; 
+        margin-top: 0;
+    }
+
+    .friends-list-management-header{
+        padding-bottom: 0;
+    }
+
+    .friend-item{
+        padding: 20px 15px;
+    }
+}

@@ -1,0 +1,35 @@
+{% extends "main-1.html" %}
+
+{% block content %}
+<div style="
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+">
+  <div class="container" style="
+      text-align: center; 
+      max-width: 400px; 
+      padding: 20px; 
+      background: rgba(255, 255, 255, 0.9); 
+      border-radius: 12px; 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  ">
+    <h2 style="color: #2e7d32; font-size: 22px; margin-bottom: 10px;">이메일 인증 성공!</h2>
+    <p style="color: #555; font-size: var(--font-size-normal); margin-bottom: 10px;">이제 온기록 서비스를 이용할 수 있어요.</p>
+    <a href="{% url 'users:main' %}" style="
+        display: inline-block; 
+        padding: 10px 15px; 
+        background-color: #388e3c; 
+        color: var(--white); 
+        text-decoration: none; 
+        border-radius: 6px; 
+        font-size: 0.8rem;
+        transition: background-color 0.3s, transform 0.2s;
+    " onmouseover="this.style.backgroundColor='#2e7d32'; this.style.transform='scale(1.05)';"
+      onmouseout="this.style.backgroundColor='#388e3c'; this.style.transform='scale(1)';">
+      메인 페이지로 이동
+    </a>
+  </div>
+</div>
+{% endblock %}

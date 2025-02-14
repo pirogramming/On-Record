@@ -1,0 +1,52 @@
+{% extends 'users/main-1.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+</head>
+<body>
+    <div class="login-container">
+
+        <div class="login-content">
+            <div class="login-header">
+                <a href="{% url 'users:main' %}">
+                    <img src="{% static 'images/온기록-logo-main.png' %}" alt="온-기록 로고" class="login-logo">
+                </a>
+                <h1 class="login-title">Login</h1>
+            </div>
+
+            <div class="login-underline"></div>
+
+            <form class="login-form" method="POST" action="">
+                {% csrf_token %}
+                <div class="form-field">
+                    {{ form.username }}  
+                </div>
+                <div class="form-field">
+                    {{ form.password }}  
+                </div>
+                <button type="submit" class="login-btn">로그인</button>
+            </form>
+
+            <div class="social-icons">
+                <div class="naver_login">
+                    <button type="button" class="social-btn naver" onclick="location.href='{% provider_login_url 'naver' %}'">
+                        <img src="{% static 'images/naver.png' %}" alt="네이버 로그인">
+                    </button>
+                </div>
+
+                <div class="google_login">
+                    <button type="button" class="social-btn google" onclick="location.href='{% provider_login_url 'google' %}'">
+                        <img src="{% static 'images/google.png' %}" alt="구글 로그인">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends 'users/main-1.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">      
+    <div class="signup-content">
+        <div class="signup-header">
+            <a href="{% url 'users:main' %}">
+                <img src="{% static 'images/온기록-logo-main.png' %}" alt="온-기록 로고" class="signup-logo" />
+            </a>
+            <h1 class="signup-title">Sign Up</h1>
+        </div>
+
+        <div class="signup-underline"></div>
+
+        <form class="signup-form" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-field">
+                {{ form.nickname }}  
+            </div>
+            <div class="form-field">
+                {{ form.email }}  
+            </div>
+            <div class="form-field">
+                {{ form.password1 }}  
+            </div>
+            <div class="form-field">
+                {{ form.password2 }}  
+            </div>
+            <button type="submit" class="signup-btn">회원가입</button>
+        </form>
+
+        <div class="social-icons">
+            <div class="naver_login">
+                <button type="button" class="social-btn naver" onclick="location.href='{% provider_login_url 'naver' %}'">
+                    <img src="{% static 'images/naver.png' %}" alt="네이버 로그인">
+                </button>
+            </div>
+
+            <div class="google_login">
+                <button type="button" class="social-btn google" onclick="location.href='{% provider_login_url 'google' %}'">
+                    <img src="{% static 'images/google.png' %}" alt="구글 로그인">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
