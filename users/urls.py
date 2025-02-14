@@ -13,4 +13,6 @@ urlpatterns = [
     path('render_profile/', render_profile, name='render_profile'),
     path('update_profile/', update_profile, name='update_profile'),
     path('delete_user/', delete_user, name='delete_user'),
+    path('privacy_policy/', privacy_policy, name='privacy_policy'),
+    path('terms_of_service/', terms_of_service, name='terms_of_service'),
 ]
