@@ -9,6 +9,17 @@ body, html {
   flex-direction: column;
 }
 
+.main-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 50px;
+}
+
 .header-navbar {
   position: fixed;
   top: 0;
