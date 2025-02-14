@@ -10,6 +10,10 @@ from django.db.models import Case, When, BooleanField
 
 def render_communities_main(request):
     diaries = Diary.objects.filter(disclosure = True)
+    user = request.user
+
+    for diary in diaries:
+        diary.is_liked = Like.objects.filter(diary=diary, like_user=user).exists()
     context = {
         'diaries': diaries
     }
