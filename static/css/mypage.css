@@ -1,9 +1,11 @@
-.mypage-container{
+.mypage-container {
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 100vh;
-    flex-direction: column; 
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .background-a {
