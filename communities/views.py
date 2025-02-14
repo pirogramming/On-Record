@@ -5,11 +5,17 @@ from django.http import JsonResponse
 import json
 from django.urls import reverse
 from django.db.models import Case, When, BooleanField
-
-
+from django.contrib.auth.models import AnonymousUser
 
 def render_communities_main(request):
     diaries = Diary.objects.filter(disclosure = True)
+    user = request.user
+
+    if isinstance(user, AnonymousUser):
+        user = None
+
+    for diary in diaries:
+        diary.is_liked = Like.objects.filter(diary=diary, like_user=user).exists()
     context = {
         'diaries': diaries
     }
@@ -20,7 +26,7 @@ def toggle_like(request, pk):
 
     # 좋아요를 추가하거나 가져오기
     get_like, created = Like.objects.get_or_create(diary=diary, like_user=request.user)
-
+    print(get_like, created)
     if created:
         # 좋아요가 새로 추가된 경우
         status = 'liked'
@@ -79,14 +85,14 @@ def delete_comment(request,pk):
     target_comment = Comment.objects.get(id=pk)
     target_comment.delete()
 
-
+    if request.user != target_comment.comment_user:
+        return JsonResponse({'success' : False ,'error': '권한이 없습니다.'}, status=403)
+    
     whole_comments = Comment.objects.filter(diary=target_comment.diary).select_related('comment_user').values(
         'id', 'content', 'comment_user__nickname'
     )
-    comment_count = whole_comments.count()
 
-    # ajax 구현 염두에 두고 json responser 객체 리턴return JsonResponse({'whole_comments': list(whole_comments), 'comment_count': comment_count})
-    return redirect('diaries:detail_diaries', pk=target_comment.diary.pk)
+    return JsonResponse({'success' : True , 'comment_id' : target_comment.pk})
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -124,3 +130,34 @@ def update_comment(request, pk):
         })
 
     return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
+
+from django.http import JsonResponse
+from diaries.models import Diary
+
+def filter_diaries(request):
+    diary_type = request.GET.get('type')  # "pet" 또는 "plant"
+
+    if diary_type not in ["pet", "plant"]:
+        return JsonResponse({"error": "유효하지 않은 필터 유형입니다."}, status=400)
+
+    # ✅ 반려동물/반려식물에 따라 필터링
+    if diary_type == "pet":
+        filtered_diaries = Diary.objects.filter(pet__isnull=False , disclosure = True)
+    else:
+        filtered_diaries = Diary.objects.filter(plant__isnull=False , disclosure = True)
+
+    for diary in filtered_diaries:
+        diary.is_liked = Like.objects.filter(diary=diary, like_user=request.user).exists() 
+
+    # ✅ JSON 응답 데이터 구성
+    diaries_data = [{
+        "id": diary.id,
+        "title": diary.title,
+        "content": diary.content,
+        "image_url": diary.image.url if diary.image else None,
+        "like_count": diary.like_set.count(),
+        "comment_count": diary.diary.count(),
+        "is_liked": diary.is_liked,
+    } for diary in filtered_diaries]
+
+    return JsonResponse({"diaries": diaries_data})
