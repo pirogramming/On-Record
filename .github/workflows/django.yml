@@ -2,7 +2,7 @@ name: onrecord CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   test:
@@ -21,12 +21,73 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create settings.py
+        run: |
+          mkdir -p config
+          cat << EOF > config/settings.py
+          import os
+          import environ
+          from pathlib import Path
+
+          BASE_DIR = Path(__file__).resolve().parent.parent
+
+          env = environ.Env()
+          environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+          SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key")
+          DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
+          ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
+
+          if "test" in os.getenv("GITHUB_ACTIONS", ""):
+              DATABASES = {
+                  "default": {
+                      "ENGINE": "django.db.backends.sqlite3",
+                      "NAME": ":memory:",
+                  }
+              }
+          else:
+              DATABASES = {
+                  "default": {
+                      "ENGINE": env("DB_ENGINE", default="django.db.backends.postgresql"),
+                      "NAME": env("DB_NAME"),
+                      "USER": env("DB_USER"),
+                      "PASSWORD": env("DB_PASSWORD"),
+                      "HOST": env("DB_HOST"),
+                      "PORT": env.int("DB_PORT", default=5432),
+                  }
+              }
+
+          INSTALLED_APPS = [
+              "django.contrib.admin",
+              "django.contrib.auth",
+              "django.contrib.contenttypes",
+              "django.contrib.sessions",
+              "django.contrib.messages",
+              "django.contrib.staticfiles",
+              "users",
+              "diaries",
+              "replies",
+              "communities",
+              "django.contrib.sites",
+              "allauth",
+              "allauth.account",
+              "allauth.socialaccount",
+              "allauth.socialaccount.providers.naver",
+              "allauth.socialaccount.providers.kakao",
+              "allauth.socialaccount.providers.google",
+          ]
+
+          STATIC_URL = "/static/"
+          STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+          STATICFILES_DIRS = [BASE_DIR / "static"]
+          EOF
+
       - name: Run tests
         run: python manage.py test
-  deploy:
-    needs: test  # 테스트 성공 시에만 배포 실행
-    runs-on: ubuntu-latest
 
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,32 +104,24 @@ jobs:
             set -e
             echo "배포 start❗"
 
-            # 프로젝트 디렉토리 이동
             cd /root/On-Record
-
-            # 최신 코드 가져오기
             git pull origin main
             echo "CI 완료❗"
 
-            # 가상환경 활성화 및 패키지 업데이트
             source venv/bin/activate
             pip install -r requirements.txt
             echo "패키지 업데이트 완료❗"
 
-            # DB 마이그레이션
             python manage.py migrate
             echo "DB 마이그레이션 완료❗"
 
-            # 정적 파일 수집
             rm -rf staticfiles/
             python manage.py collectstatic --noinput
             echo "정적 파일 생성 완료❗"
 
-            # 정적 파일 권한 변경
             sudo chmod -R 755 /root/On-Record/staticfiles/
             echo "정적 파일 권한 설정 완료❗"
 
-            # Gunicorn & Nginx 재시작
             sudo systemctl restart gunicorn
             sudo systemctl restart nginx
             echo "Gunicorn & Nginx 재시작 완료❗"
