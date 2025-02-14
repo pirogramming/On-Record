@@ -15,10 +15,10 @@
                 {% csrf_token %}
                 <div class="edit-profile">
                     <label for="profile_image">
-                        {% if user.profile_image %}
-                            <img id="user-preview" src="{{ user.profile_image.url }}" alt="프로필 사진" />
+                        {% if user.profile_image and user.profile_image.url != '/media/images/base_user_image.png' %}
+                        <img id="user-preview" src="{{ user.profile_image.url }}" alt="프로필 사진">
                         {% else %}
-                            <img id="user-preview" src="{% static 'images/default_user_image.png' %}" alt="기본 프로필" />
+                        <img id="user-preview" src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
                         {% endif %}
                     </label>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">

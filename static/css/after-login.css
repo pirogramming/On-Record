@@ -80,27 +80,44 @@
 }
 
 @media (max-width: 768px) {
-  .background-a {
-    background-size: cover; 
-    background-position: top; 
-    background-attachment: scroll; 
-  }
-
   .after-login {
-      width: 90%;
-      padding: 30px;
+    width: 630px;
+    height: 336px;
   }
 
   .start-hello {
-      font-size: 1.8rem;
+    font-size: 1.5rem; 
   }
 
-  .container-span span {
-      font-size: 1rem;
+  .container-span span, .move-form-btn {
+    font-size: 0.8rem; 
   }
 
   .move-form-btn {
-      font-size: 1rem;
-      padding: 10px 20px;
+    padding: 5px 20px; 
+  }
+}
+
+/* 480px 이하 화면 크기 */
+@media (max-width: 480px) {
+  .after-login {
+    width: 450px;
+    height: 240px;
+    gap: 10px;
+  }
+
+  .start-hello {
+    font-size: 1.3rem;
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+
+  .container-span span, .move-form-btn {
+    font-size: 0.6rem; 
+  }
+
+  .move-form-btn {
+    padding: 5px 15px; 
+    margin: 15px;
   }
 }

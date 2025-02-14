@@ -21,7 +21,7 @@
     }
 
     .title {
-        font-size: 1.5rem;
+        font-size: 1.7rem !important;
         font-weight: var(--font-weight-normal);
         color: var(--text-black);
         text-align: center;
@@ -150,6 +150,11 @@
         width: 100%;
     }
     
+    .diary-card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
     .diary-title {
         font-size: 0.9rem;
         font-weight: var(--font-weight-normal);
@@ -224,6 +229,7 @@
         .friend-btn, .add-diary-btn {
             font-size: 0.7rem;
             padding: 8px 15px;
+            margin-right: 20px;
         }
     }
     
