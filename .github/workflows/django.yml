@@ -7,6 +7,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DB_ENGINE: ${{ secrets.DB_ENGINE }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -88,15 +98,24 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      DB_ENGINE: ${{ secrets.DB_ENGINE }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up SSH
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_USER: ${{ secrets.SERVER_USER }}
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
