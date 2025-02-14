@@ -96,87 +96,150 @@
                 }
             });
         });
+        document.addEventListener('DOMContentLoaded', function () {
+            // CSRF 토큰 가져오기
+            const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+            const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // CSRF 토큰 가져오기
-        const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-        const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
-
-        document.querySelectorAll('.like-btn').forEach(button => {
-            button.addEventListener('click', () => {
-              const diaryId = button.getAttribute('data-diary-id');
-      
-              fetch(`/communities/toggle_like/${diaryId}/`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': csrfToken
-                }
-              })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('좋아요 요청 실패');
-                }
-                return response.json();
-              })
-              .then(data => {
-                // 좋아요 개수 업데이트
-                document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
-                console.log(data);
-                // 버튼 텍스트 변경
-                if (data.status === 'liked') {
-                  button.innerHTML = `
-                    <i class="bi bi-heart-fill"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
-                } else {
-                  button.innerHTML = 
-                    `<i class="bi bi-heart"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
-                }
-              })
-              .catch(error => {
-                console.error('좋아요 처리 중 오류:', error);
-                alert('좋아요 처리 중 오류가 발생했습니다.');
-              });
-            });
-          });
-        // 댓글 등록 버튼 클릭 이벤트
-        document.querySelectorAll('.add-comment-btn').forEach(button => {
-            button.addEventListener('click', () => {
+            document.querySelectorAll('.like-btn').forEach(button => {
+                button.addEventListener('click', () => {
                 const diaryId = button.getAttribute('data-diary-id');
-                const commentInput = document.getElementById(`comment-input-${diaryId}`);
-                const commentContent = commentInput.value.trim();
-
-                if (!commentContent) {
-                    alert('댓글을 입력하세요.');
-                    return;
-                }
-
-                fetch(`/communities/add_comment/${diaryId}/`, {
+        
+                fetch(`/communities/toggle_like/${diaryId}/`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    },
-                    body: JSON.stringify({ comment: commentContent })
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                    }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('좋아요 요청 실패');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    document.getElementById(`comment-count-${diaryId}`).textContent = data.comment_count;
-
-                    // 댓글 리스트 초기화 후 다시 렌더링
-                    const commentsList = document.getElementById(`comments-list-${diaryId}`);
-                    commentsList.innerHTML = '';
-                    data.whole_comments.forEach(comment => {
-                        commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
-                    });
-
-                    commentInput.value = '';
+                    // 좋아요 개수 업데이트
+                    document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
+                    console.log(data);
+                    // 버튼 텍스트 변경
+                    if (data.status === 'liked') {
+                    button.innerHTML = `
+                        <i class="bi bi-heart-fill"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                    } else {
+                    button.innerHTML = 
+                        `<i class="bi bi-heart"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                    }
                 })
                 .catch(error => {
-                    console.error('댓글 추가 중 오류:', error);
-                    alert('댓글 추가 중 오류가 발생했습니다.');
+                    console.error('좋아요 처리 중 오류:', error);
+                    alert('좋아요 처리 중 오류가 발생했습니다.');
+                });
+                });
+            });
+            // 댓글 등록 버튼 클릭 이벤트
+            document.querySelectorAll('.add-comment-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const diaryId = button.getAttribute('data-diary-id');
+                    const commentInput = document.getElementById(`comment-input-${diaryId}`);
+                    const commentContent = commentInput.value.trim();
+
+                    if (!commentContent) {
+                        alert('댓글을 입력하세요.');
+                        return;
+                    }
+
+                    fetch(`/communities/add_comment/${diaryId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify({ comment: commentContent })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById(`comment-count-${diaryId}`).textContent = data.comment_count;
+
+                        // 댓글 리스트 초기화 후 다시 렌더링
+                        const commentsList = document.getElementById(`comments-list-${diaryId}`);
+                        commentsList.innerHTML = '';
+                        data.whole_comments.forEach(comment => {
+                            commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+                        });
+
+                        commentInput.value = '';
+                    })
+                    .catch(error => {
+                        console.error('댓글 추가 중 오류:', error);
+                        alert('댓글 추가 중 오류가 발생했습니다.');
+                    });
                 });
             });
         });
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+            const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
+            
+            const friendBtn = document.getElementById('friend-btn');
+            const dropdownContent = document.getElementById('dropdown-content');
+            
+            // 버튼 클릭 시 드롭다운 표시/숨김
+
+        
+            // 옵션 선택 시 필터링 요청
+            document.querySelectorAll('.select-option').forEach(button => {
+                button.addEventListener('click', function () {
+                    const selectedType = this.getAttribute('data-type');  // 선택된 타입 (pet/plant)
+                    friendBtn.textContent = selectedType === 'pet' ? '반려동물 ▼' : '반려식물 ▼';
+        
+                    // ✅ AJAX 요청으로 필터링된 데이터 가져오기
+                    fetch(`/communities/filter_diaries/?type=${selectedType}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const diaryList = document.querySelector('.diary-list');
+                            diaryList.innerHTML = '';  // 기존 목록 초기화
+        
+                            if (data.diaries.length === 0) {
+                                diaryList.innerHTML = '<p style="text-align: center; color: #999;">등록된 온기록이 없습니다.</p>';
+                                return;
+                            }
+        
+                            // ✅ 새로운 다이어리 목록 추가
+                            data.diaries.forEach(diary => {
+                                diaryList.innerHTML += `
+                                    <div class="diary-card" data-diary-id="${diary.id}">
+                                        <a href="/diaries/detail/${diary.id}/" class="diary-card-link">
+                                            <div class="diary-image">
+                                                ${diary.image_url 
+                                                    ? `<img src="${diary.image_url}" alt="다이어리 이미지">`
+                                                    : '<div class="no-image"></div>'}
+                                            </div>
+                                            <div class="diary-info">
+                                                <h2 class="diary-title">${diary.title}</h2>
+                                                <p class="diary-preview">${diary.content.slice(0, 47)}...</p>
+                                            </div>
+                                        </a>
+                                        <div class="diary-actions">
+                                            <button class="like-btn" data-diary-id="${diary.id}">
+                                                <i class="bi ${diary.is_liked ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                                                <span id="like-count-${diary.id}">${diary.like_count}</span>
+                                            </button>
+                                            <button class="comment-btn" data-diary-id="${diary.id}">
+                                                <i class="bi bi-chat-dots"></i>
+                                                <span id="comment-count-${diary.id}">${diary.comment_count}</span>
+                                            </button>
+                                        </div>
+                                    </div>`;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('필터링 오류:', error);
+                            alert('필터링 중 오류가 발생했습니다.');
+                        });
+                });
+            });
+        });
+    
     </script>
 {% endblock %}

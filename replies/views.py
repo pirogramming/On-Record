@@ -60,7 +60,7 @@ def making_message(username, friend_type , pet_id):
         print(message)
         return message
 
-def create_response(pk , username):
+def create_response(pk, username):
     diary = get_object_or_404(Diary, id=pk)
 
     current_user = diary.user
@@ -106,8 +106,7 @@ def create_response(pk , username):
 
     client = OpenAI(api_key=openai_api_key)
 
-    # ✅ GPT 요청 데이터 설정 (식물과 동물에 따라 다르게 작성)
-    
+    # ✅ GPT 요청 데이터 설정
     completion = client.chat.completions.create(
         model="gpt-4o",
         store=True,
@@ -133,10 +132,14 @@ def create_response(pk , username):
     )
 
     json_response = completion.to_dict()
-
     arg_str = json_response["choices"][0]["message"]["function_call"]["arguments"]
     arg_dict = json.loads(arg_str)
     reply_text = arg_dict["reply"]
 
-    # ✅ 답장 저장
-    Reply.objects.create(diary=diary, user=current_user, content=reply_text)
+    # ✅ 기존 Reply가 있으면 업데이트, 없으면 생성
+    reply, created = Reply.objects.update_or_create(
+        diary=diary,
+        defaults={'user': current_user, 'content': reply_text}
+    )
+
+    return reply_text  # ✅ 생성된 또는 업데이트된 답장 내용 반환
