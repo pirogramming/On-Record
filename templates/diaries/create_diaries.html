@@ -136,5 +136,15 @@
                 reader.readAsDataURL(input.files[0]);  // 파일을 읽어서 미리보기로 설정
             }
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const submitBtn = document.querySelector(".create-btn");
+        
+            form.addEventListener("submit", function (event) {
+                submitBtn.disabled = true; // ✅ 버튼 비활성화
+                submitBtn.textContent = "저장 중..."; // ✅ 버튼 텍스트 변경
+            });
+        });
+        
     </script>
 {% endblock %}
