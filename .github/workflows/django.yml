@@ -17,8 +17,6 @@ jobs:
       DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
       DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
       DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
-      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,120 +31,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create settings.py
+      - name: Use local settings.py
         run: |
           mkdir -p config
-          cat << EOF > config/settings.py
-          import os
-          import environ
-          from pathlib import Path
-
-          BASE_DIR = Path(__file__).resolve().parent.parent
-
-          env = environ.Env()
-          environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-
-          SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key")
-          DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
-          ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
-
-          if "test" in os.getenv("GITHUB_ACTIONS", ""):
-              DATABASES = {
-                  "default": {
-                      "ENGINE": "django.db.backends.sqlite3",
-                      "NAME": ":memory:",
-                  }
-              }
-          else:
-              DATABASES = {
-                  "default": {
-                      "ENGINE": env("DB_ENGINE", default="django.db.backends.postgresql"),
-                      "NAME": env("DB_NAME"),
-                      "USER": env("DB_USER"),
-                      "PASSWORD": env("DB_PASSWORD"),
-                      "HOST": env("DB_HOST"),
-                      "PORT": env.int("DB_PORT", default=5432),
-                  }
-              }
-
-          INSTALLED_APPS = [
-              "django.contrib.admin",
-              "django.contrib.auth",
-              "django.contrib.contenttypes",
-              "django.contrib.sessions",
-              "django.contrib.messages",
-              "django.contrib.staticfiles",
-              "users",
-              "diaries",
-              "replies",
-              "communities",
-              "django.contrib.sites",
-              "allauth",
-              "allauth.account",
-              "allauth.socialaccount",
-              "allauth.socialaccount.providers.naver",
-              "allauth.socialaccount.providers.kakao",
-              "allauth.socialaccount.providers.google",
-          ]
-
-          MIDDLEWARE = [
-              "django.middleware.security.SecurityMiddleware",
-              "django.contrib.sessions.middleware.SessionMiddleware",
-              "django.middleware.common.CommonMiddleware",
-              "django.middleware.csrf.CsrfViewMiddleware",
-              "django.contrib.auth.middleware.AuthenticationMiddleware",
-              "django.contrib.messages.middleware.MessageMiddleware",
-              "django.middleware.clickjacking.XFrameOptionsMiddleware",
-              "allauth.account.middleware.AccountMiddleware",
-          ]
-
-          ROOT_URLCONF = "config.urls"
-
-          TEMPLATES = [
-              {
-                  "BACKEND": "django.template.backends.django.DjangoTemplates",
-                  "DIRS": [BASE_DIR / "templates"],
-                  "APP_DIRS": True,
-                  "OPTIONS": {
-                      "context_processors": [
-                          "django.template.context_processors.debug",
-                          "django.template.context_processors.request",
-                          "django.contrib.auth.context_processors.auth",
-                          "django.contrib.messages.context_processors.messages",
-                      ],
-                  },
-              },
-          ]
-
-          WSGI_APPLICATION = "config.wsgi.application"
-
-          STATIC_URL = "/static/"
-          STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-          STATICFILES_DIRS = [BASE_DIR / "static"]
-
-          MEDIA_URL = '/media/'
-          MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-          EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-          EMAIL_HOST = 'smtp.naver.com'
-          EMAIL_PORT = 587
-          EMAIL_USE_TLS = True
-          EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-          EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-          DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-          ACCOUNT_EMAIL_REQUIRED = True
-          ACCOUNT_EMAIL_VERIFICATION = 'optional'
-          ACCOUNT_AUTHENTICATION_METHOD = 'email'
-          ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-          ACCOUNT_USERNAME_REQUIRED = False
-
-          LOGIN_REDIRECT_URL = '/'
-          ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-
-          SESSION_ENGINE = "django.contrib.sessions.backends.db"
-          SESSION_COOKIE_NAME = "sessionid"
-          EOF
+          cp .github/workflows/settings.py config/settings.py  # 로컬 settings.py 복사
 
       - name: Run tests
         run: python manage.py test
