@@ -98,7 +98,6 @@
   }
 }
 
-/* 480px 이하 화면 크기 */
 @media (max-width: 480px) {
   .after-login {
     width: 450px;

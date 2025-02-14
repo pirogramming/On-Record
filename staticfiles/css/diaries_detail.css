@@ -98,7 +98,7 @@
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  border: 2px solid #FFD75C;
+  border: 2px solid var(--soft-yellow);
   border-radius: 15px;
   padding: 10px;
   margin-top: 10px;

@@ -176,7 +176,7 @@ p {
 
 /* 수정 버튼 */
 .edit-btn, .delete-btn {
-    background: #FFD75C;
+    background: var(--soft-yellow);
     border: none;
     padding: 8px 14px;
     border-radius: 20px;
@@ -219,7 +219,7 @@ p {
 }
 
 .user-del-btn {
-    background: #FFD75C;
+    background: var(--soft-yellow);
     color: #444;
     border: none;
     padding: 5px 10px;
