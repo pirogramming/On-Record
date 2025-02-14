@@ -200,15 +200,15 @@ def render_profile(request):
 
 # 프로필 수정 로직(마이페이지 -> 프로필 수정 form에서 '완료' 버튼 클릭 시 실행)
 def update_profile(request):
-    user = request.user
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)
-        if form.is_valid(): # 폼 유효성 검사
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
             form.save()
-            return redirect('diaries:mypage', pk=user.pk)
-        return redirect('diaries:mypage', pk=user.pk)
+            return redirect('diaries:mypage', pk=request.user.pk)  # 수정 완료 후 마이페이지로 이동
     else:
-      return redirect('diaries:mypage', pk=user.pk) # 프로필 수정 페이지 렌더링(html 경로 수정 필요)
+        form = ProfileForm(instance=request.user)
+
+    return render(request, 'users/update_profile.html', {'form': form})
 
 @login_required
 def delete_user(request):
@@ -221,3 +221,9 @@ def delete_user(request):
     return redirect('users:main')
 
   return render(request, 'users/delete_confirm.html')
+
+def privacy_policy(request):
+  return render(request, 'privacy_policy.html')
+
+def terms_of_service(request):
+  return render(request, 'terms_of_service.html')

@@ -4,6 +4,8 @@ body, html {
   display: flex; 
   justify-content: center;
   align-items: center;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .header-navbar {
@@ -47,10 +49,13 @@ body, html {
   .header-navbar {
       height: 35px; 
       padding: 5px 10px;
+      display: flex;
+      flex-wrap: nowrap;
   }
 
   .navbar-logo {
       height: 25px;
+      margin: 15px;
   }
 
   .navbar-text {
@@ -62,8 +67,26 @@ body, html {
   }
 }
 
-@media (max-width: 768px) {
-  .main-container {
-      margin-top: 50px;
+@media (max-width: 480px) {
+  .header-navbar {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 30px; 
+      padding: 5px;
+      overflow: hidden;
+      max-width: 100%;
+  }
+
+  .navbar-logo {
+      height: 20px;
+      margin: 5px;
+  }
+
+  .navbar-text {
+      gap: 3px;
+  }
+
+  .navbar-text a {
+      font-size: 0.6rem;
   }
 }

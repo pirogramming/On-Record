@@ -20,9 +20,7 @@
 .mypage-profile {
     max-width: 600px;
     padding: 40px;
-    background-color: var(--white);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -32,7 +30,8 @@
     align-items: center;
     font-size: 1.7rem;
     font-weight: var(--font-weight-regular);
-    margin-bottom: 40px;
+    margin: 30px;
+    margin-bottom: 0;
 }
 
 .user-profile{
@@ -114,6 +113,7 @@ input[type="file"] {
     text-decoration: none;
     border: none;
     transition: background-color 0.3s ease;
+    margin: 15px 30px;
 }
 
 .complete-edit-btn:hover {
