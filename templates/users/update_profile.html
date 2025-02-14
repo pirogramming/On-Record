@@ -10,14 +10,14 @@
     <div class="mypage-profile">
         <div class="mypage-header">마이프로필 수정</div>
         <div class="user-info">
-            <div class="user-profile">
-                <form method="post" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="user_profile_img">
-                        {% if user.profile_image.url != '' %}
-                        <img src="{{user.profile_image.url}}" alt="프로필 사진" />
+            <form method="post"  class="user-profile" action="{% url 'users:update_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="edit-profile">
+                    <label for="profile_image">
+                        {% if user.profile_image and user.profile_image.url != '/media/images/base_user_image.png' %}
+                        <img id="user-preview" src="{{ user.profile_image.url }}" alt="프로필 사진">
                         {% else %}
-                        <img src="{% static 'images/base_user_image.png' %}" alt="대체 이미지" style="background: #FFFBED;" />
+                        <img id="user-preview" src="{% static 'images/base_user_image.png' %}" alt="기본 프로필">
                         {% endif %}
                     </div>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*">
