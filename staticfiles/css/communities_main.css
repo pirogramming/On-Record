@@ -92,7 +92,7 @@
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: var(--font-weight-normal);
     color: var(--text-black);
     text-align: center;
@@ -180,6 +180,11 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+}
+
+.diary-card-link {
+    text-decoration: none;
+    color: inherit;
 }
 
 .diary-title {

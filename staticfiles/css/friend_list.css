@@ -4,7 +4,7 @@
     align-items: center; 
     height: 100vh;
     position: relative;
-    padding-top: 60px; 
+    padding-top: 80px; 
 }
 
 .background-a {
@@ -22,7 +22,7 @@
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 1500px; 
+    max-width: 1200px; 
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -142,3 +142,46 @@
 .right-btn {
     right: 15px;
 }
+
+@media (max-width: 768px) {
+    .slider-container {
+        padding: 0 20px;
+        max-width: 35%;
+    }
+
+    .home-description, .friend-name{
+        font-size: 0.8rem;
+    }
+
+    .friend-profile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .move-write-btn{
+        font-size: 0.6rem;
+        padding: 10px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        padding: 0 20px;
+        max-width: 25%;
+    }
+
+    .home-description, .friend-name{
+        font-size: 0.8rem;
+    }
+
+    .friend-profile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .move-write-btn{
+        font-size: 0.6rem;
+        padding: 8px 14px;
+    }
+}
+

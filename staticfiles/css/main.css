@@ -11,13 +11,13 @@ body {
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .container {
   background-image: url("/static/images/move-form.png");
   width: 900px;
-  height: 480px; /* 기본 크기 확보 */
+  height: 480px;
   margin: 20px;
   padding: 50px;
   border-radius: 15px;
@@ -31,14 +31,6 @@ body {
   
   background-size: cover;
   background-position: center;
-}
-
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
 }
 
 .main-page {
@@ -92,4 +84,70 @@ li {
 
 .login-btn:hover, .signup-btn:hover {
   background:var(--white);
+}
+
+/* 모바일 */
+@media screen and (max-width: 768px) {
+  .main-page {
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .main-text {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .logo {
+    width: 150px;
+    height: auto;
+  }
+
+  .main-btn {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .login-btn, .signup-btn {
+    width: auto;
+    min-width: 120px;
+    font-size: 0.8rem;
+    padding: 12px 20px;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .container {
+    width: 90%;
+    height: auto;
+    padding: 30px;
+  }
+}
+
+/* 태블릿 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .main-page {
+    margin-left: 100px;
+  }
+
+  .container {
+    width: 700px;
+    height: auto;
+    padding: 40px;
+  }
+
+  .login-btn, .signup-btn {
+    width: auto;
+    min-width: 100px;
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
 }

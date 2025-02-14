@@ -6,7 +6,9 @@
 }
 
 .detail-diaries-container{
-  margin-top: 80px;
+  height: 100vh;
+  position: relative;
+  padding-top: 60px; 
 }
 
 .background-a {
@@ -18,19 +20,19 @@
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
 .diaries_detail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px; /* 상단 간격을 30px로 고정 */
+  padding-top: 30px;
   margin-top: 30px;
 }
 
 .detail-container {
-  max-width: 900px;
+  max-width: 1000px;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
@@ -46,7 +48,7 @@
 
 .detail-header {
   display: flex;
-  justify-content: space-between; /* 이 부분을 추가 */
+  justify-content: space-between; 
   align-items: center;
   width: 100%;
 }
@@ -65,7 +67,7 @@
 }
 
 .public-btn {
-  padding: 5px 20px; /* 패딩을 추가 */
+  padding: 5px 20px; 
   background-color: var(--primary-yellow);
   border: none;
   color: var(--white);
@@ -91,17 +93,23 @@
 }
 
 .detail-image, .detail-text {
-  width: 400px; 
-  height: 400px;
+  width: 450px; 
+  height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  border: 2px solid #FFD75C;
+  border: 2px solid var(--soft-yellow);
   border-radius: 15px;
   padding: 10px;
   margin-top: 10px;
+  overflow: auto;
+}
+
+.detail-image p{
+  font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  font-size: 1.2rem;
 }
 
 .detail-image img{
@@ -109,12 +117,6 @@
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
-}
-
-.detail-text h3, .detail-image h3 {
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-    margin-right: auto;
 }
 
 .diary-metadata {
@@ -131,11 +133,13 @@
   width: 100%; 
   margin: 0; 
   font-family: 'Ownglyph_ParkDaHyun', sans-serif;
+  font-size: 1.2rem;
 }
 
 .mood p, .weather p{
   font-family: 'Ownglyph_ParkDaHyun', sans-serif;
   margin-bottom: 0;
+  font-size: 1.2rem;
 }
 
 .diary-description {
@@ -150,37 +154,33 @@
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
-  max-width: 900px;
+  width: 100%;
   font-family: 'Ownglyph_ParkDaHyun', sans-serif;
-}
-
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
+  font-size: 1.2rem;
+  max-width: 1000px;
 }
 
 .bis {
   display: flex;
   width: 100%;
   align-items: center;
-  margin: 0 20px;
+  margin: 20px;
 }
 
 .like-btn{
   background: none;
   border: none;
+  margin-right: 10px;
 }
 .bis-r {
   margin-left: auto;
   display: flex;
+  gap: 15px;
 }
 
 .bi, .comments-section-title {
   display: inline-block;
   color: var(--primary-yellow);
-  margin: 10px;
   background: none;
   border: none;
   font-size: 1.3rem;
@@ -203,13 +203,11 @@ button i {
   color: var(--hover-yellow);
 }
 
-/* 댓글 섹션 스타일 */
 .comments-section {
   width: 100%;
+  margin-top: 20px;
 }
 
-
-/* 댓글 리스트 */
 .comments-list{
   list-style: none;
   padding: 0;
@@ -232,26 +230,19 @@ button i {
   align-items: center;
 }
 
-.comments-list-content, .comment-edit-input {
-  font-size: 0.7rem;
-  color: var(--text-black);
-  margin: 15px;
-}
-
 .comments-list-name{
-  font-size: 0.7rem;
   margin: 15px;
   color: var(--primary-yellow);
+  white-space: nowrap;
 }
 
 .comments-list-content, .comment-edit-input{
-  color: var(--text-var(--text-black));
+  color: var(--text-black);
 }
 
 .comment-edit-input {
   width: 100%;
   border: none;
-  display: none;
   border-bottom: 2px solid var(--primary-yellow);
 }
 
@@ -269,6 +260,10 @@ button i {
   width: 85%;
   background-color: var(--white);
   box-shadow: 0px 4px 20px rgba(230, 190, 90, 0.8);
+}
+
+.comment-edit-input:focus{
+  border: none;
 }
 
 .comment-input-section .comment-input:focus {
@@ -292,6 +287,7 @@ button i {
 
 .comment-edit-del-btn{
   margin-left: auto;
+  font-size: 0.9rem;
 }
 
 .edit-comment-btn, .save-comment-btn, .delete-comment-btn {
@@ -299,4 +295,187 @@ button i {
   border: none;
   color: var(--primary-yellow);
   cursor: pointer;
+}
+
+.comment-edit-btn, .comment-del-btn{
+  font-size: var(--font-size-normal);
+}
+
+@media screen and (max-width: 600px) {
+  .detail-diaries-container {
+      padding-top: 30px;
+  }
+
+  .diaries_detail {
+      padding-top: 20px;
+      margin-top: 20px;
+  }
+
+  .detail-container {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+  }
+
+  .detail-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+  }
+
+  .detail-title {
+      font-size: 1.5rem;
+      text-align: center;
+  }
+
+  .detail-header-l {
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .public-btn {
+      font-size: 0.8rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+  }
+
+  .detail-content {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .detail-image-container, .detail-text-container {
+    text-align: left;
+    width: 100%;
+  }
+  .detail-image, .detail-text {
+      width: 100%;
+      height: auto;
+      padding: 15px;
+      font-size: 1rem;
+  }
+
+  .detail-image img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+  }
+
+  .diary-text-content {
+      font-size: 1rem;
+  }
+
+  .mood p, .weather p {
+      font-size: 1rem;
+  }
+
+  .reply {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+  }
+
+  .bis {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .bis-r {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .like-btn, .bi {
+      font-size: 1.1rem;
+      margin-left: 15px;
+  }
+
+  .like-count {
+      font-size: 1.1rem;
+  }
+
+  .comments-section-title {
+      font-size: 1.2rem;
+      margin-left: 30px
+  }
+
+  .comments-section {
+      width: 90%;
+  }
+
+  .comments-list-li {
+    padding: 10px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .comments-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .comments-list-name {
+    font-weight: bold;
+    color: var(--primary-yellow);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+  }
+
+  .comments-list-content {
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .comment-edit-del-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .comment-edit-btn, .save-comment-btn, .delete-comment-btn {
+    background: none;
+    border: none;
+    color: var(--primary-yellow);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .comment-edit-btn:hover, .save-comment-btn:hover, .delete-comment-btn:hover {
+    color: var(--hover-yellow);
+  }
+
+  .comment-input-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .comment-input {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .add-comment-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }

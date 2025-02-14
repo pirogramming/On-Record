@@ -25,7 +25,7 @@
     text-align: center;
     width: 100%;
     padding: 20px;
-    margin-left: -500px; /* 왼쪽으로 이동 */
+    margin-left: -500px;
 }
 
 .signup-header {
@@ -147,9 +147,106 @@
     outline: none; 
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .signup-container {
-        width: 95%;
-        padding: 30px;
+        width: 90vw;
+        max-width: 450px;
+        min-width: 320px;
+        height: auto;
+        aspect-ratio: 9/16;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        background: none;
+    }
+
+    .signup-container::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80vh;
+        height: 100vw;
+        background-image: url("/static/images/container_background.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: translate(-50%, -50%) rotate(90deg);
+        transform-origin: center;
+        z-index: -1;
+        clip-path: inset(10% 0 10% 0 round 12px);
+    }
+
+    .signup-content {
+        margin-left: 0;
+        padding: 10px;
+        position: relative;
+        top: -40px;
+    }
+
+    .signup-logo {
+        position: static;
+        width: 40px;
+        margin-bottom: 10px;
+    }
+
+    .signup-title {
+        font-size: 1.2rem;
+    }
+
+    .signup-underline {
+        width: 150px;
+        height: 2px;
+    }
+
+    .form-field {
+        width: 90%;
+    }
+
+    .form-field input {
+        font-size: 0.8rem !important;
+        padding: 8px;
+    }
+
+    .signup-input {
+        width: 100%;
+        font-size: 0.8rem !important;
+        padding: 10px;
+        border-radius: 30px;
+    }
+
+    .signup-input::placeholder {
+        font-size: 0.8rem !important;
+    }
+
+    .form-field label {
+        font-size: 0.8rem !important;
+    }
+
+    .signup-btn {
+        width: 90%;
+        font-size: 0.85rem;
+        padding: 12px;
+    }
+
+    .social-icons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .social-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-btn img {
+        width: 60%;
+        height: 60%;
     }
 }
