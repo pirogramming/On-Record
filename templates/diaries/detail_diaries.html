@@ -123,16 +123,18 @@
               <!-- 댓글 수정 입력창 (기본은 숨김 처리) -->
               <input type="text" class="comment-edit-input" id="comment-edit-{{ comment.id }}" value="{{ comment.content }}" style="display:none;" />
             </div>
-            <!-- 수정/저장 버튼 -->
+            <!-- 삭제/수정/저장 버튼 -->
             {% if comment.is_author %}
             <div class="comment-edit-del-btn">
               <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
                 <i class="bi bi-pencil-square comment-edit-btn"></i>
               </button>
-              <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">저장</button>
-              <a href="{% url 'communities:delete_comment' comment.id %}">
+              <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">
+                저장
+              </button>
+              <button class="save-comment-btn" data-comment-id="{{ comment.id }}">
                 <i class="bi bi-trash3-fill comment-del-btn"></i>
-              </a>
+              </button>
             </div>
               {% endif %}
             
@@ -273,13 +275,15 @@
                   <input type="text" class="comment-edit-input" id="comment-edit-${data.new_comment.id}" value="${data.new_comment.content}" style="display:none;" />
               </div>
               <div class="comment-edit-del-btn">
-                <button class="edit-comment-btn" data-comment-id="${data.new_comment.id}">
-                  <i class="bi bi-pencil-square"></i>
+                <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+                  <i class="bi bi-pencil-square comment-edit-btn"></i>
                 </button>
-                <button class="save-comment-btn" data-comment-id="${data.new_comment.id}" style="display:none;">저장</button>
-                  <a href="${data.new_comment.delete_url}">
-                  <i class="bi bi-trash3-fill"></i>
-                  </a>
+                <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">
+                  저장
+                </button>
+                <button class="save-comment-btn" data-comment-id="{{ comment.id }}">
+                  <i class="bi bi-trash3-fill comment-del-btn"></i>
+                </button>
               </div>
             </li>
       `);
@@ -358,6 +362,52 @@
       }
     });
   });
+  document.addEventListener("DOMContentLoaded", function () {
+    // CSRF 토큰 가져오기
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    if (!csrfToken) {
+        console.error("CSRF 토큰을 찾을 수 없습니다.");
+        return;
+    }
+
+    // 댓글 삭제 버튼 이벤트 추가 (이벤트 위임 방식 사용)
+    document.body.addEventListener("click", function (event) {
+        if (event.target.classList.contains("del-comment-btn")) {
+            const commentId = event.target.getAttribute("data-comment-id");
+            const commentItem = document.getElementById(`comment-item-${commentId}`);
+            console.log(commentId , commentItem);
+
+            if (!confirm("정말 댓글을 삭제하시겠습니까?")) {
+                return;
+            }
+
+            fetch(`/communities/delete_comment/${commentId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 댓글 목록에서 삭제
+                    console.log(commentItem)
+                    commentItem.remove();
+                } else {
+                    alert("댓글 삭제 실패: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("댓글 삭제 중 오류 발생:", error);
+                alert("댓글 삭제 중 오류가 발생했습니다.");
+            });
+        }
+    });
+});
+
+
   //전체공개 비공개 토글 
   document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
