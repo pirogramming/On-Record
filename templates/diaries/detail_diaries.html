@@ -409,7 +409,7 @@
 
 
   //전체공개 비공개 토글 
-  document.addEventListener('DOMContentLoaded', function () {
+  {% comment %} document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     // 이벤트 위임: 문서 전체에서 public-btn 클릭 감지
@@ -459,7 +459,7 @@
             });
         }
     });
-});
+}); {% endcomment %}
 
 
   

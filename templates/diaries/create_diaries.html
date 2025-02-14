@@ -16,14 +16,10 @@
                 <div class="today-diary">오늘의 일기</div>
                 <div class="write-header-l">
                     <div id="date"></div>
-                    <button type="button" id="toggle-disclosure" class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
-                        {% if form.disclosure == True %}
-                            전체공개
-                        {% else %}
-                            비공개
-                        {% endif %}
+                    <button type="button" id="toggle-disclosure" class="public-btn">
+                        {{ form.disclosure.value|yesno:"전체공개,비공개" }}
                     </button>
-                    {{ form.disclosure }}
+                    <input type="hidden" name="disclosure" id="hidden-disclosure" value="{{ form.disclosure.value|yesno:'true,false' }}">                    
                 </div>
             </div>
 
@@ -70,6 +66,11 @@
     </div>
 </div>
     <script>
+        function getCSRFToken() {
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            return csrfTokenInput ? csrfTokenInput.value : "";
+        }
+        
         // ✅ URL에서 특정 파라미터 값을 가져오는 함수
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -104,42 +105,21 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            formatDate();
-            
             const toggleBtn = document.getElementById("toggle-disclosure");
-            const disclosureField = document.getElementById("id_disclosure");
+            const hiddenDisclosure = document.getElementById("hidden-disclosure");
         
             toggleBtn.addEventListener("click", function () {
-                let diaryId = this.getAttribute("data-diary-id");
-                let currentStatus = disclosureField.checked;
+                let currentStatus = hiddenDisclosure.value === "true"; // 현재 상태 확인
                 let newStatus = !currentStatus;
         
-                // ✅ UI 업데이트
-                toggleBtn.textContent = newStatus ? "비공개" : "전체공개";
-                disclosureField.checked = newStatus;
-                disclosureField.value = newStatus ? "true" : "false";
-        
-                // ✅ AJAX 요청을 통해 백엔드로 전송
-                fetch(`/diaries/toggle_disclosure/${diaryId}/`, {
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": getCSRFToken(),  // CSRF 토큰 필요
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ disclosure: newStatus })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        alert("상태 변경 실패");
-                    }
-                })
-                .catch(error => {
-                    console.error("오류 발생:", error);
-                    alert("서버 오류");
-                });
+                // ✅ 버튼 텍스트 변경
+                toggleBtn.textContent = newStatus ? "전체공개" : "비공개";
+                
+                // ✅ hidden 필드 값 변경
+                hiddenDisclosure.value = newStatus ? "true" : "false";
             });
         });
+        
         
 
         document.getElementById("form-image").addEventListener("change", function(event) {
