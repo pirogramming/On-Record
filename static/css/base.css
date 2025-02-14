@@ -69,7 +69,6 @@ body, html {
 }
 
 footer {
-  background-color: var(--soft-yellow);
   width: 100%;
   display: flex;
   justify-content: flex-end;
