@@ -111,3 +111,13 @@
         font-size: 0.7rem;
     }
 }
+
+@media (max-width: 450px) {
+    .select-container a{
+        margin: 30px;
+    }
+
+    .select_pet span, .select_plant span, .select-container-text{
+        font-size: 0.6rem;
+    }
+}
