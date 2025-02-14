@@ -15,7 +15,7 @@
     {% endblock %}
     <title>On-Record</title>
 </head>
-  <body>
+<body>
     <header class="header-navbar">
         <a href="{% url 'diaries:view_calendar' %}">
             <img class="navbar-logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
@@ -35,9 +35,9 @@
       {% block content %}
       {% endblock %}
     </main>
-  </body>
-  <footer>
+    <footer>
       <a href="{% url 'users:privacy_policy' %}">개인정보처리방침</a>
       <a href="{% url 'users:terms_of_service' %}">서비스 이용약관</a>
-  </footer>
+    </footer>
+</body>
 </html>

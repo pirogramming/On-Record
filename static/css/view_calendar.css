@@ -1,3 +1,6 @@
+.main-container {
+    max-width: 100%;
+}
 .view-calender-container{
     padding-top: 90px; 
     overflow-x: hidden;
@@ -28,6 +31,7 @@ select {
     margin-left: 30px;
     font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
+    color: var(--text-black);
     border: none; 
     background-color: transparent;  
     cursor: pointer;
@@ -231,7 +235,7 @@ img {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .view-calender-container {
         flex-direction: column; 
     }
@@ -247,7 +251,6 @@ img {
     }
     
     th, td {
-        padding: 15px;
         text-align: center;
         font-size: var(--font-size-normal);
         width: 14.28%;
@@ -269,7 +272,7 @@ img {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 900px) {
     .view-calender-container {
         flex-direction: column;
     }
