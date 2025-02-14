@@ -160,13 +160,6 @@
   max-width: 1000px;
 }
 
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
 .bis {
   display: flex;
   width: 100%;
@@ -306,4 +299,183 @@ button i {
 
 .comment-edit-btn, .comment-del-btn{
   font-size: var(--font-size-normal);
+}
+
+@media screen and (max-width: 600px) {
+  .detail-diaries-container {
+      padding-top: 30px;
+  }
+
+  .diaries_detail {
+      padding-top: 20px;
+      margin-top: 20px;
+  }
+
+  .detail-container {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+  }
+
+  .detail-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+  }
+
+  .detail-title {
+      font-size: 1.5rem;
+      text-align: center;
+  }
+
+  .detail-header-l {
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .public-btn {
+      font-size: 0.8rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+  }
+
+  .detail-content {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .detail-image-container, .detail-text-container {
+    text-align: left;
+    width: 100%;
+  }
+  .detail-image, .detail-text {
+      width: 100%;
+      height: auto;
+      padding: 15px;
+      font-size: 1rem;
+  }
+
+  .detail-image img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+  }
+
+  .diary-text-content {
+      font-size: 1rem;
+  }
+
+  .mood p, .weather p {
+      font-size: 1rem;
+  }
+
+  .reply {
+      width: 90%;
+      max-width: 95%;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+  }
+
+  .bis {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .bis-r {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .like-btn, .bi {
+      font-size: 1.1rem;
+      margin-left: 15px;
+  }
+
+  .like-count {
+      font-size: 1.1rem;
+  }
+
+  .comments-section-title {
+      font-size: 1.2rem;
+      margin-left: 30px
+  }
+
+  .comments-section {
+      width: 90%;
+  }
+
+  .comments-list-li {
+    padding: 10px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .comments-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .comments-list-name {
+    font-weight: bold;
+    color: var(--primary-yellow);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+  }
+
+  .comments-list-content {
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .comment-edit-del-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .comment-edit-btn, .save-comment-btn, .delete-comment-btn {
+    background: none;
+    border: none;
+    color: var(--primary-yellow);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .comment-edit-btn:hover, .save-comment-btn:hover, .delete-comment-btn:hover {
+    color: var(--hover-yellow);
+  }
+
+  .comment-input-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .comment-input {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .add-comment-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }
