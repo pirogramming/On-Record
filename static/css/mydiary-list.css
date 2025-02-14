@@ -84,7 +84,6 @@
         justify-content: center;
         align-items: center;
         overflow-y: auto;
-        max-height: calc(100vh - 150px);
     }
     
     .diary-list {
@@ -122,7 +121,6 @@
         align-items: center;
         justify-content: center;
         background: var(--white);
-        border-radius: 10px;
         overflow: hidden;
     }
     
@@ -135,7 +133,7 @@
     .no-image {
         width: 100%;
         height: 100%;
-        background: var(--white);
+        background: var(--light-yellow);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -204,7 +202,7 @@
     .like-btn span, .comment-btn span {
         font-size: 0.9rem;
     }
-    
+
     @media (max-width: 1024px) {
         .diary-list {
             grid-template-columns: repeat(2, minmax(250px, 1fr));
