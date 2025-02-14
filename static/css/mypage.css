@@ -339,3 +339,20 @@ p {
         white-space: nowrap; 
     }
 }
+@media (max-width: 450px) {
+    .friends-list-management-header {
+        gap: 100px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: var(--font-size-normal); 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+}

@@ -203,19 +203,6 @@ p {
 
 .friend-actions {
     display: flex;
-    gap: 10px;
-}
-
-.edit-btn, .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
 }
 
 .edit-btn i {
@@ -252,6 +239,8 @@ p {
 .user-del-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
+    background: var(--soft-yellow);
+    color: #444;
     border: none;
     padding: 8px 18px;
     border-radius: 50px;
