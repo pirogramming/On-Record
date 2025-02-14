@@ -203,25 +203,20 @@ p {
 
 .friend-actions {
     display: flex;
-    gap: 10px;
-}
-
-.edit-btn, .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
 }
 
 /* 수정 버튼 */
-.edit-btn i {
-    color: var(--primary-yellow);
-    font-size: 1.2rem;
+.edit-btn, .delete-btn {
+    background: var(--soft-yellow);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
+    margin: 5px;
 }
 
 .edit-btn:hover i {
@@ -249,6 +244,8 @@ p {
 .user-del-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
+    background: var(--soft-yellow);
+    color: #444;
     border: none;
     padding: 8px 18px;
     border-radius: 50px;
