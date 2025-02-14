@@ -130,3 +130,34 @@ def update_comment(request, pk):
         })
 
     return JsonResponse({'error': '잘못된 요청입니다.'}, status=405)
+
+from django.http import JsonResponse
+from diaries.models import Diary
+
+def filter_diaries(request):
+    diary_type = request.GET.get('type')  # "pet" 또는 "plant"
+
+    if diary_type not in ["pet", "plant"]:
+        return JsonResponse({"error": "유효하지 않은 필터 유형입니다."}, status=400)
+
+    # ✅ 반려동물/반려식물에 따라 필터링
+    if diary_type == "pet":
+        filtered_diaries = Diary.objects.filter(pet__isnull=False , disclosure = True)
+    else:
+        filtered_diaries = Diary.objects.filter(plant__isnull=False , disclosure = True)
+
+    for diary in filtered_diaries:
+        diary.is_liked = Like.objects.filter(diary=diary, like_user=request.user).exists() 
+
+    # ✅ JSON 응답 데이터 구성
+    diaries_data = [{
+        "id": diary.id,
+        "title": diary.title,
+        "content": diary.content,
+        "image_url": diary.image.url if diary.image else None,
+        "like_count": diary.like_set.count(),
+        "comment_count": diary.diary.count(),
+        "is_liked": diary.is_liked,
+    } for diary in filtered_diaries]
+
+    return JsonResponse({"diaries": diaries_data})
