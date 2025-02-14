@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+
 <div>
     <div class="background-b"></div>
     <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
@@ -24,7 +26,11 @@
                 <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
                     <div class="diary-card">
                         <div class="diary-image">
+                            {% if diary.image %}
                             <img src="{% if diary.image %}{{ diary.image.url }}{% else %}/static/images/default_pet.jpg{% endif %}" alt="오늘의 사진">
+                            {% else %}
+                                <div class="no-image"></div>
+                            {% endif %}
                         </div>
                         <div class="diary-info">
                             <h2 class="diary-title">{{ diary.title }}</h2>
@@ -36,20 +42,27 @@
                                 {% endif %}
                             </p>
                         </div>
+                    </div>
+                </a>
                         <div class="diary-actions">
-                            <button class="like-btn {% if is_liked %}liked{% endif %}" data-diary-id="{{ diary.id }}">
-                                <i class="bi {% if is_liked %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                            {% if diary.is_liked %}
+                            <button class="like-btn" data-diary-id="{{ diary.id }}" >
+                                <i class="bi bi-heart-fill"></i>
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
+                            {% else %}
+                            <button class="like-btn" data-diary-id="{{ diary.id }}">
+                                <i class="bi bi-heart"></i>
+                                <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
+                            </button>
+                            {%endif%}
                         
                             <button class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
                                 <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </button>
-                        </div>
-                        
-                    </div>
-                </a>
+                        </div> 
+
                 {% endfor %}
             {% else %}
                 <p style="text-align: center; color: #999; grid-column: span 3;">등록된 온기록이 없습니다.</p>
@@ -57,4 +70,88 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // CSRF 토큰 가져오기
+        const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+        const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
+
+        document.querySelectorAll('.like-btn').forEach(button => {
+            button.addEventListener('click', () => {
+              const diaryId = button.getAttribute('data-diary-id');
+      
+              fetch(`/communities/toggle_like/${diaryId}/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': csrfToken
+                }
+              })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('좋아요 요청 실패');
+                }
+                return response.json();
+              })
+              .then(data => {
+                // 좋아요 개수 업데이트
+                document.getElementById(`like-count-${diaryId}`).textContent = `${data.like_count}`;
+                // 버튼 텍스트 변경
+                if (data.status === 'liked') {
+                  button.innerHTML = `
+                    <i class="bi bi-heart-fill"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                } else {
+                  button.innerHTML = 
+                    `<i class="bi bi-heart"></i><span id="like-count-${diaryId}">${data.like_count}</span>`;
+                }
+              })
+              .catch(error => {
+                console.error('좋아요 처리 중 오류:', error);
+                alert('좋아요 처리 중 오류가 발생했습니다.');
+              });
+            });
+          });
+        // 댓글 등록 버튼 클릭 이벤트
+        document.querySelectorAll('.add-comment-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const diaryId = button.getAttribute('data-diary-id');
+                const commentInput = document.getElementById(`comment-input-${diaryId}`);
+                const commentContent = commentInput.value.trim();
+
+                if (!commentContent) {
+                    alert('댓글을 입력하세요.');
+                    return;
+                }
+
+                fetch(`/communities/add_comment/${diaryId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ comment: commentContent })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById(`comment-count-${diaryId}`).textContent = data.comment_count;
+
+                    // 댓글 리스트 초기화 후 다시 렌더링
+                    const commentsList = document.getElementById(`comments-list-${diaryId}`);
+                    commentsList.innerHTML = '';
+                    data.whole_comments.forEach(comment => {
+                        commentsList.innerHTML += `<li>${comment.comment_user__nickname}: ${comment.content}</li>`;
+                    });
+
+                    commentInput.value = '';
+                })
+                .catch(error => {
+                    console.error('댓글 추가 중 오류:', error);
+                    alert('댓글 추가 중 오류가 발생했습니다.');
+                });
+            });
+        });
+    });
+
+</script>
 {% endblock %}

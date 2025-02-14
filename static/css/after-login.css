@@ -80,27 +80,43 @@
 }
 
 @media (max-width: 768px) {
-  .background-a {
-    background-size: cover; 
-    background-position: top; 
-    background-attachment: scroll; 
-  }
-
   .after-login {
-      width: 90%;
-      padding: 30px;
+    width: 630px;
+    height: 336px;
   }
 
   .start-hello {
-      font-size: 1.8rem;
+    font-size: 1.5rem; 
   }
 
-  .container-span span {
-      font-size: 1rem;
+  .container-span span, .move-form-btn {
+    font-size: 0.8rem; 
   }
 
   .move-form-btn {
-      font-size: 1rem;
-      padding: 10px 20px;
+    padding: 5px 20px; 
+  }
+}
+
+@media (max-width: 630px) {
+  .after-login {
+    width: 392px;
+    height: 192px;
+    gap: 10px;
+  }
+
+  .start-hello {
+    font-size: 1.3rem;
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+
+  .container-span span, .move-form-btn {
+    font-size: 0.6rem; 
+  }
+
+  .move-form-btn {
+    padding: 5px 15px; 
+    margin: 15px;
   }
 }
