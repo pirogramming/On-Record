@@ -146,6 +146,7 @@ env.bak/
 venv.bak/
 myvenv/
 sihwanvenv/
+config/settings.py
 
 # Spyder project settings
 .spyderproject
@@ -176,6 +177,11 @@ cython_debug/
 .env.local
 .env.production
 .env.development
+
+# 원격에 올라간 불필요한 파일
+python-apt_2.4.0ubuntu4.doc
+python-apt_2.4.0ubuntu4.tar.xz
+python-apt_2.4.0ubuntu4
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
