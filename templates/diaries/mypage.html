@@ -45,18 +45,17 @@
                             <span class="friend-name" data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
                                 {{ f.name|slice:":20" }}{% if f.name|length > 20 %}...{% endif %}
                             </span>
+                            <div class="friend-actions">
+                                <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </a>
-                        <div class="friend-actions">
-                            <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </div>
-
                 {% empty %}
                 <p class="no-friends">등록된 반려친구가 없습니다.</p>
                 {% endfor %}
