@@ -171,22 +171,14 @@
 @media (max-width: 670px) {
     .slider-container {
         padding: 0 20px;
-<<<<<<< HEAD
-        max-width: 85%;
-=======
         max-width: 75%;
->>>>>>> origin/main
     }
 }
 
 @media (max-width: 500px) {
     .slider-container {
         padding: 0 20px;
-<<<<<<< HEAD
-        max-width: 85%;
-=======
         max-width: 55%;
->>>>>>> origin/main
     }
 
     .home-description, .friend-name{
