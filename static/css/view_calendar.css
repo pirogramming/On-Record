@@ -289,7 +289,7 @@ img {
     }
     
     th, td {
-        padding: 15px;
+        padding: 30px;
         text-align: center;
         font-size: var(--font-size-normal);
         width: 14.28%;

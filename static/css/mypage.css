@@ -367,3 +367,9 @@ p {
         white-space: nowrap; 
     }
 }
+@media (max-width: 400px) {
+    .friends-list-management-header {
+        gap: 50px; 
+    }
+
+}
