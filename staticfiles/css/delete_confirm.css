@@ -1,3 +1,10 @@
+.delete-confirm-container{
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+  flex-direction: column; 
+}
 .background-a {
   position: fixed; 
   top: 0;
@@ -7,28 +14,27 @@
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
 }
 
-/* 전체 컨테이너 정렬 */
 h2, p, form {
   text-align: center;
 }
 
 h2 {
-  font-size: 30px;
-  font-weight: var(--font-weight-normal);
-  margin-top: 40px;
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 20px;
   color: #333;
 }
 
 p {
-  font-size: var(--font-size-normal);
+  font-size: 1.3rem;
   color: var(--text-gray);
-  margin-bottom: 20px;
+  font-weight: var(--font-weight-regular);
+  margin-bottom: 30px;
 }
 
-/* 버튼 컨테이너 */
 form {
   display: flex;
   flex-direction: column;
@@ -36,7 +42,6 @@ form {
   gap: 10px;
 }
 
-/* 탈퇴 버튼 */
 form button {
   background: #FF4D4D;
   color: var(--white);
@@ -45,7 +50,7 @@ form button {
   border-radius: 20px;
   cursor: pointer;
   font-size: var(--font-size-normal);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   transition: background 0.3s, transform 0.2s;
   box-shadow: 0px 3px 6px rgba(255, 77, 77, 0.5);
   width: 180px;
@@ -56,21 +61,22 @@ form button:hover {
   transform: scale(1.05);
 }
 
-/* 취소 링크 */
 form a {
   text-decoration: none;
   background: #ddd;
   color: #333;
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: var(--font-weight-normal);
-  transition: background 0.3s;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-regular);
+  transition: background 0.3s, transform 0.2s;
   width: 180px;
   text-align: center;
   margin-top: 20px;
+  box-shadow: 0px 3px 6px rgb(107, 107, 107, 0.5);
 }
 
 form a:hover {
   background: #bbb;
+  transform: scale(1.05);
 }
