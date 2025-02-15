@@ -374,7 +374,6 @@
 
     .header {
         flex-direction: row;
-        align-items: center;
         gap: 10px;
     }
 
@@ -385,6 +384,11 @@
 }
 
 @media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .diary-list {
         display: flex;
         justify-content: center;
