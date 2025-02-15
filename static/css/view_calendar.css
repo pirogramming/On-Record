@@ -335,10 +335,26 @@ img {
     }
 
     .friends-list-title{
-        font-size: VAR(--font-size-normal);
+        font-size: var(--font-size-normal);
     }
 
     .add-btn, .friend-name{
         font-size: 0.6rem;
+    }
+}
+@media (max-width: 390px) {
+    th, td {
+        padding: 1px;
+        text-align: center;
+        font-size: 0.6rem;
+        width: 14.28%;
+    }
+
+    .friends-list-title{
+        font-size: 0.8rem;
+    }
+
+    .add-btn, .friend-name{
+        font-size: 0.4rem;
     }
 }
