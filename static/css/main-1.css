@@ -4,7 +4,10 @@ body, html {
   display: flex; 
   justify-content: center; 
   align-items: center; 
+  flex-direction: column;
   font-family: 'Pretendard', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 body {
@@ -21,4 +24,21 @@ body {
   background-size: cover;
   background-position: center;
   z-index: -1; 
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: relative;
+  padding: 10px 30px;
+  margin-top: auto;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 0.5rem;
+  color: var(--text-gray);
+  padding: 10px;
 }

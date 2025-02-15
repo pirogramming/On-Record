@@ -106,7 +106,7 @@ def create_plant(request):
 
 from collections import defaultdict
 
-#04 큰 캘린더 보여주는 페이지 -> urls에 이름 두개인거 왜그런지?
+#04 큰 캘린더 보여주는 페이지
 def view_calendar(request, year = None, month = None):
     today = date.today()
 

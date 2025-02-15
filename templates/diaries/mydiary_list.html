@@ -7,7 +7,6 @@
 
 {% block content %}
 <meta name="csrf-token" content="{{ csrf_token }}">
-
 <div>
     <div class="background-b"></div>
     <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
@@ -56,11 +55,11 @@
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
                             {%endif%}
-                        
                             <button class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
                                 <span id="comment-count-{{ diary.id }}">{{ diary.diary.count }}</span>
                             </button>
+
                         </div> 
 
                 {% endfor %}

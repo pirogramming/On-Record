@@ -13,10 +13,10 @@
             {% csrf_token %}
             <div class="form-body">
                 <div class="image-upload">
-                    <label for="pet-image">
+                    <label for="plant-image">
                         <img id="plant-preview" src="{% static 'images/default_plant_image.png' %}" alt="미리보기" />
                     </label>
-                    <input type="file" id="pet-image" name="image" accept="image/*">
+                    <input type="file" id="plant-image" name="image" accept="image/*">
                 </div>
                 <div class="form-fields">
                     <div class="form-group">
@@ -74,12 +74,12 @@
             });
         });
 
-        document.getElementById("pet-image").addEventListener("change", function(event) {
+        document.getElementById("plant-image").addEventListener("change", function(event) {
             var input = event.target;
             var reader = new FileReader();
     
             reader.onload = function() {
-                var imgElement = document.getElementById("pet-preview");
+                var imgElement = document.getElementById("plant-preview");
                 imgElement.src = reader.result;  // 선택한 이미지를 미리보기로 설정
                 imgElement.style.display = "block"; // 이미지 표시
             };
