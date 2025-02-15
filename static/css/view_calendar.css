@@ -333,4 +333,12 @@ img {
         font-size: 0.6rem;
         width: 14.28%;
     }
+
+    .friends-list-title{
+        font-size: VAR(--font-size-normal);
+    }
+
+    .add-btn, .friend-name{
+        font-size: 0.6rem;
+    }
 }
