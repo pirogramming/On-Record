@@ -135,6 +135,11 @@ p {
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
+.friend-info{
+    display: flex;
+    flex-direction: row;
+}
+
 .edit-profile-btn:hover {
     background: var(--hover-yellow);
     transform: scale(1.05);
@@ -170,7 +175,17 @@ p {
     border-radius: 10px;
 }
 
-.friend-item {
+.friend-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.friend-card-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -182,13 +197,7 @@ p {
     cursor: pointer;
 }
 
-.friend-item-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.friend-item:hover {
+.friend-card-list:hover {
     transform: scale(1.03);
     box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
 }
@@ -357,4 +366,10 @@ p {
         font-size: 0.9rem;
         white-space: nowrap; 
     }
+}
+@media (max-width: 400px) {
+    .friends-list-management-header {
+        gap: 50px; 
+    }
+
 }
