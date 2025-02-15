@@ -168,7 +168,10 @@ input:focus, select:focus {
     padding: 20px;
     max-width: 90%;
   }
-
+  .personality-btn{
+    padding: 5px 5px;
+    font-size: 0.6rem;
+  }
   .centered-content{
     margin: 20px;
   }
