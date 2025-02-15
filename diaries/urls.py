@@ -18,7 +18,7 @@ urlpatterns = [
     #04 캘린더 라우팅
     path('view_calendar/', view_calendar, name='view_calendar'),
     
-    # 년 월을 받아서 calender를 업데이트하는 url 라우팅
+    # 년 월을 받아서 calendar를 업데이트하는 url 라우팅
     path('view_calendar/<int:year>/<int:month>/', view_calendar, name='calendar_view'),
 
     #05 다이어리 생성 페이지

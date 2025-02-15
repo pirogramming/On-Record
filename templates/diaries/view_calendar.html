@@ -7,10 +7,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="view-calender-container">
+<div class="view-calendar-container">
+    <div class="view-calendar-title">나의 캘린더</div>
+    <div class="view-calendar-descript">날짜를 클릭해서 온기록을 남겨보세요</div>
     <div class="background"></div>
-    <div class="calender-and-friends">
-        <div class="calender-container">
+    <div class="calendar-and-friends">
+        <div class="calendar-container">
             <!-- 연·월 선택 드롭다운 -->
             <div class="dropdowns">
                 <select id="year-select">
@@ -84,8 +86,8 @@
         </div>
         <div class="friends-list">
             <div class="friends-list-management-header">
-                <h2 class="friends-list-title">당신의 반려친구</h2>
-                <a href="{% url 'diaries:pet_or_plant' %}" class="add-btn" id="add-friends-list-btn">추가</a>
+                <div class="friends-list-title">당신의 반려친구</div>
+                <a href="{% url 'diaries:pet_or_plant' %}" class="add-btn" id="add-friends-list-btn">반려친구 추가</a>
             </div>
 
             <div class="friends-list-list" id="friends-list-list">
