@@ -195,6 +195,12 @@
         font-size: 0.4rem;
         padding: 8px 14px;
     }
+
+    
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -204,6 +210,6 @@
     }
 
     .homepage-container{
-        min-width: 300px;
+        min-width: 250px;
     }
 }
