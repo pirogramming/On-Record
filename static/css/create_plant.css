@@ -173,6 +173,7 @@ input:focus, select:focus {
   .centered-content{
     margin: 20px;
   }
+  
   .form-body {
       flex-direction: column;
   }
