@@ -86,6 +86,23 @@ li {
   background:var(--white);
 }
 
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: relative;
+  padding: 10px 30px;
+  margin-top: auto;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 0.5rem;
+  color: var(--text-gray);
+  padding: 10px;
+}
+
 /* 모바일 */
 @media screen and (max-width: 768px) {
   .main-page {
