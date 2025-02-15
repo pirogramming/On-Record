@@ -233,7 +233,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: visible;
+    overflow-y: auto;
     max-height: calc(100vh - 150px);
     margin-left: auto;
     margin-right: auto;
