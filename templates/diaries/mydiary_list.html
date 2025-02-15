@@ -55,10 +55,10 @@
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
                             {%endif%}
-                            <button class="comment-btn" data-diary-id="{{ diary.id }}">
+                            <a href="{% url 'diaries:detail_diaries' diary.id %}" class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
                                 <span id="comment-count-{{ diary.id }}">{{ diary.diary.count }}</span>
-                            </button>
+                            </a>
 
                         </div> 
 
