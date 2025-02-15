@@ -310,6 +310,15 @@ img {
 
 @media (max-width: 768px) {
     th, td {
+        padding: 25px;
+        text-align: center;
+        font-size: 0.8rem;
+        width: 14.28%;
+    }
+}
+
+@media (max-width: 768px) {
+    th, td {
         padding: 30px;
         text-align: center;
         font-size: 0.8rem;
@@ -317,9 +326,9 @@ img {
     }
 }
 
-@media (max-width: 488px) {
+@media (max-width: 480px) {
     th, td {
-        padding: 30px;
+        padding: 5px;
         text-align: center;
         font-size: 0.6rem;
         width: 14.28%;
