@@ -308,6 +308,7 @@ img {
     }
 }
 
+
 @media (max-width: 768px) {
     th, td {
         padding: 25px;
@@ -316,17 +317,16 @@ img {
         width: 14.28%;
     }
 }
-
-@media (max-width: 768px) {
+@media (max-width: 670px) {
     th, td {
-        padding: 30px;
+        padding: 20px;
         text-align: center;
         font-size: 0.8rem;
         width: 14.28%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 570px) {
     th, td {
         padding: 5px;
         text-align: center;
