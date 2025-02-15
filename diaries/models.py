@@ -95,6 +95,7 @@ class Diary(models.Model):
     weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, null=True, blank=True)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     # 누구한테 쓴건지
     def __str__(self):
         return self.title
