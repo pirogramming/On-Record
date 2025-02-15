@@ -212,6 +212,10 @@ tr .today {
     margin: 20px auto;
 }
 
+.friend_profile_img {
+    width: 100%;
+}
+
 .friend-profile img{
     width: 100%;
     height: 100%;
