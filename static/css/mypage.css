@@ -135,6 +135,11 @@ p {
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
+.friend-info{
+    display: flex;
+    flex-direction: row;
+}
+
 .edit-profile-btn:hover {
     background: var(--hover-yellow);
     transform: scale(1.05);
