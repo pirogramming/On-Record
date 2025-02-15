@@ -175,7 +175,17 @@ p {
     border-radius: 10px;
 }
 
-.friend-item {
+.friend-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.friend-card-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -187,22 +197,9 @@ p {
     cursor: pointer;
 }
 
-.friend-item-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.friend-item:hover {
+.friend-card-list:hover {
     transform: scale(1.03);
     box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
-}
-
-.friend-card-list{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .friend-name {
