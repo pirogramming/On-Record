@@ -139,8 +139,6 @@
 }
 
 .header {
-    width: 90%;
-    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -165,6 +163,7 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .friend-btn:hover, .add-diary-btn:hover {
