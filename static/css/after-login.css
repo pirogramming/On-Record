@@ -98,10 +98,10 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 630px) {
   .after-login {
-    width: 450px;
-    height: 240px;
+    width: 392px;
+    height: 192px;
     gap: 10px;
   }
 

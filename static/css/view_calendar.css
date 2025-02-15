@@ -1,8 +1,28 @@
-.view-calender-container{
+.main-container {
+    max-width: 100%;
+}
+.view-calendar-container{
     padding-top: 90px; 
     overflow-x: hidden;
     width: 100%;
 }
+
+.view-calendar-title{
+    font-size: 1.7rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--text-black);
+    text-align: center;
+    margin: 10px 0;
+}
+
+.view-calendar-description{
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-black);
+    text-align: center;
+    margin: 10px 0 40px;
+}
+
 .background {
     position: fixed; 
     top: 0;
@@ -15,7 +35,7 @@
     z-index: -1; 
 }
 
-.calender-and-friends {
+.calendar-and-friends {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -28,6 +48,7 @@ select {
     margin-left: 30px;
     font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
+    color: var(--text-black);
     border: none; 
     background-color: transparent;  
     cursor: pointer;
@@ -191,6 +212,10 @@ tr .today {
     margin: 20px auto;
 }
 
+.friend_profile_img {
+    width: 100%;
+}
+
 .friend-profile img{
     width: 100%;
     height: 100%;
@@ -231,34 +256,19 @@ img {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .view-calender-container {
-        flex-direction: column; 
-    }
-
-    select{
-        margin-left: 17px;
-        padding: 4px 7px;  
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    
+@media (max-width: 1200px) {
     th, td {
-        padding: 15px;
         text-align: center;
         font-size: var(--font-size-normal);
         width: 14.28%;
     }
 
-    .calender-and-friends {
+    .calendar-and-friends {
         flex-direction: column; 
         flex-wrap: wrap;
     }
 
-    .calender-container,
+    .calendar-container,
     .friends-list {
         width: 100%;
         max-width: 100%;
@@ -269,24 +279,18 @@ img {
     }
 }
 
-@media (max-width: 480px) {
-    .view-calender-container {
+@media (max-width: 900px) {
+    .view-calendar-container {
         flex-direction: column;
     }
 
     select{
         margin-left: 15px;  
-        padding: 0;
         font-size: 1.3rem;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
     }
     
     th, td {
-        padding: 5px;
+        padding: 30px;
         text-align: center;
         font-size: var(--font-size-normal);
         width: 14.28%;
@@ -298,12 +302,12 @@ img {
         font-size: 0.9rem;
     }
 
-    .calender-and-friends {
+    .calendar-and-friends {
         flex-direction: column; 
         flex-wrap: wrap;
     }
 
-    .calender-container,
+    .calendar-container,
     .friends-list {
         width: 100%;
         max-width: 100%;
@@ -321,5 +325,56 @@ img {
 
     .friend-item{
         padding: 20px 15px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 25px;
+        text-align: center;
+        font-size: 0.8rem;
+        width: 14.28%;
+    }
+}
+
+@media (max-width: 670px) {
+    th, td {
+        padding: 20px;
+        text-align: center;
+        width: 14.28%;
+    }
+}
+
+@media (max-width: 570px) {
+    th, td {
+        padding: 5px;
+        text-align: center;
+        font-size: 0.7rem;
+        width: 14.28%;
+    }
+
+    .friends-list-title{
+        font-size: 0.9rem;
+    }
+
+    .add-btn, .friend-name{
+        font-size: 0.6rem;
+    }
+}
+@media (max-width: 390px) {
+    th, td {
+        padding: 1px;
+        text-align: center;
+        font-size: 0.5rem;
+        width: 14.28%;
+    }
+
+    .friends-list-title{
+        font-size: 0.7rem;
+    }
+
+    .add-btn, .friend-name{
+        font-size: 0.4rem;
     }
 }

@@ -5,12 +5,16 @@ from django.http import JsonResponse
 import json
 from django.urls import reverse
 from django.db.models import Case, When, BooleanField
-
-
+from django.contrib.auth.models import AnonymousUser
 
 def render_communities_main(request):
+
     diaries = Diary.objects.filter(disclosure = True).order_by('-created_at')
+
     user = request.user
+
+    if isinstance(user, AnonymousUser):
+        user = None
 
     for diary in diaries:
         diary.is_liked = Like.objects.filter(diary=diary, like_user=user).exists()
