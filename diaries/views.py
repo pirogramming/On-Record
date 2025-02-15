@@ -356,6 +356,9 @@ def toggle_disclosure(request, diary_id):
 from django.db.models import Case, When, BooleanField
 
 def detail_diaries(request, pk):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden("로그인이 필요합니다.")
+
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
 
@@ -385,7 +388,6 @@ def detail_diaries(request, pk):
         'reply': diaries.reply,
         'likes_count': likes_count,
         'comments': comments,
-
         'is_author': is_author,
         'is_liked' : is_liked
     }
@@ -422,25 +424,31 @@ def delete_diaries(request, pk):
         return HttpResponse('해당 일기가 없습니다.')
 
 #09 다이어리 수정
+
+from datetime import datetime
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse
+from .models import Diary, Pet, Plant
+from .forms import DiaryForm
+
 def update_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)  # 기존 다이어리 가져오기
 
+    # ✅ 반려친구 유형 확인
+    friend_type = "pet" if diaries.pet else "plant"
+
+    # ✅ 기본적으로 `selected_friend_value` 설정 (GET 요청에서도 초기화)
+    selected_friend_value = None
+    if friend_type == "pet" and diaries.pet:
+        selected_friend_value = f"pet-{diaries.pet.id}"
+    elif friend_type == "plant" and diaries.plant:
+        selected_friend_value = f"plant-{diaries.plant.id}"
+
     if request.method == 'POST':
-        form = DiaryForm(request.POST, request.FILES, instance=diaries, user=request.user)  
-        
+        form = DiaryForm(request.POST, request.FILES, instance=diaries, user=request.user)
+
         if form.is_valid():
             diaries = form.save(commit=False)  # Diary 객체 생성(저장 X)
-
-            # ✅ 선택한 반려친구 정보 가져오기
-            friends_value = request.POST.get('friends', None)  # form.cleaned_data 대신 request.POST 사용
-            if friends_value:
-                if friends_value.startswith('pet-'):
-                    diaries.pet = get_object_or_404(Pet, id=int(friends_value.split('-')[1]), user=request.user)
-                    diaries.plant = None  # Plant 필드는 None으로 설정
-                elif friends_value.startswith('plant-'):
-                    diaries.plant = get_object_or_404(Plant, id=int(friends_value.split('-')[1]), user=request.user)
-                    diaries.pet = None  # Pet 필드는 None으로 설정
-
             diaries.user = request.user  # 현재 사용자를 연결
 
             # ✅ 기존 date 값 유지 or 새로운 값 적용
@@ -448,17 +456,19 @@ def update_diaries(request, pk):
             if date_value:
                 diaries.date = datetime.strptime(date_value, "%Y-%m-%d").date()
 
+            # ✅ 기존 내용과 새로운 내용 비교하여 변경 여부 확인
+            content_changed = diaries.content != Diary.objects.get(id=pk).content  # 기존과 비교
+
             diaries.save()  # 다이어리 저장
 
-            # ✅ 기존 Reply가 있는지 확인하고, 있으면 업데이트
-            try:
-                existing_reply = diaries.reply  # ✅ 기존 답장 가져오기 (OneToOneField 역참조)
-                existing_reply.delete()  # ✅ 기존 답장 삭제
-            except Reply.DoesNotExist:
-                pass  # ✅ 답장이 없으면 그냥 넘어감
-
-            # ✅ 새로운 답장 생성
-            create_response(diaries.pk)
+            # ✅ 기존 Reply가 있으면 업데이트, 없으면 새로 생성
+            if content_changed:  # ❗ 내용이 변경된 경우에만 답장 업데이트
+                try:
+                    reply = diaries.reply  # 기존 Reply 가져오기 (OneToOneField 관계)
+                    reply.content = create_response(pk, request.user.nickname)  # 기존 답장 내용 업데이트
+                    reply.save()  # 저장
+                except Reply.DoesNotExist:
+                    create_response(pk, request.user.nickname)  # 기존 Reply가 없으면 새로 생성
 
             return redirect('diaries:detail_diaries', pk=diaries.pk)
         else:
@@ -466,11 +476,17 @@ def update_diaries(request, pk):
     else:
         form = DiaryForm(instance=diaries, user=request.user)
 
+    # ✅ GET 요청에서도 `selected_friend_value`가 정의됨
     context = {
         'form': form,
         'diaries': diaries,
+        'selected_friend_value': selected_friend_value,  # 오류 발생 방지
     }
     return render(request, 'diaries/update_diaries.html', context)
+
+
+
+
 
 def main(request):
     return render(request, 'users/main.html')
@@ -672,6 +688,7 @@ from django.contrib.auth.decorators import login_required
 # 반려친구에게 쓴 일기 목록
 @login_required
 def mydiary_list(request, friend_id):
+    user = request.user
     friend = Pet.objects.filter(id=friend_id, user=request.user).first() or \
                 Plant.objects.filter(id=friend_id, user=request.user).first()
 
@@ -683,6 +700,8 @@ def mydiary_list(request, friend_id):
         diaries = Diary.objects.filter(user=request.user, pet=friend).order_by('-date')
     else:
         diaries = Diary.objects.filter(user=request.user, plant=friend).order_by('-date')
+    for diary in diaries:
+        diary.is_liked = Like.objects.filter(diary=diary, like_user=user).exists()
 
     context = {
         'diaries': diaries,
