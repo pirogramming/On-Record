@@ -47,11 +47,10 @@
                 <li><a href="{% url 'users:signup' %}" class="signup-btn">회원가입</a></li>
             </div>
         </div>
-        {% endif %}
-
         <footer>
             <a href="{% url 'users:privacy_policy' %}">개인정보처리방침</a>
             <a href="{% url 'users:terms_of_service' %}">서비스 이용약관</a>
         </footer>
+        {% endif %}
     </body>
 </html>
