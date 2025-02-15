@@ -39,26 +39,27 @@
 
             <div class="friends-list-list" id="friends-list-list">
                 {% for f in friends %}
-                <a href="{% url 'diaries:mydiary_list' f.id %}" class="friend-item-link">
-                    <div class="friend-item" id="friend-{{ f.id }}">
-                        <div class="friend-info">
-                            <span class="friend-name" data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
-                                {{ f.name|slice:":20" }}{% if f.name|length > 20 %}...{% endif %}
-                            </span>
-                            <div class="friend-actions">
-                                <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
+                <div class='friend-card-list'>
+                    <a href="{% url 'diaries:mydiary_list' f.id %}" class="friend-item-link">
+                        <div class="friend-item" id="friend-{{ f.id }}">
+                            <div class="friend-info">
+                                <span class="friend-name" data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
+                                    {{ f.name|slice:":20" }}{% if f.name|length > 20 %}...{% endif %}
+                                </span>
                             </div>
                         </div>
+                    </a>
+                    <div class="friend-actions">
+                        <button class="edit-btn" onclick="editFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="delete-btn" onclick="deleteFriend('{{ f.id }}', '{% if f.gender %}pet{% else %}plant{% endif %}')">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
                     </div>
-                </a>
+                </div>
                 {% empty %}
                 <p class="no-friends">등록된 반려친구가 없습니다.</p>
-                
                 {% endfor %}
             </div>
         </div>

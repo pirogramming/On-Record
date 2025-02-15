@@ -1,3 +1,13 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
 body {
   background: linear-gradient(60deg, #FFBF00, #FFF3CF);
 }
@@ -84,6 +94,23 @@ li {
 
 .login-btn:hover, .signup-btn:hover {
   background:var(--white);
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: relative;
+  padding: 10px 30px;
+  margin-top: auto;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 0.5rem;
+  color: var(--text-gray);
+  padding: 10px;
 }
 
 /* 모바일 */

@@ -1,4 +1,4 @@
-.view-calender-container{
+.view-calendar-container{
     padding-top: 90px; 
     overflow-x: hidden;
     width: 100%;
@@ -15,7 +15,7 @@
     z-index: -1; 
 }
 
-.calender-and-friends {
+.calendar-and-friends {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -232,7 +232,7 @@ img {
 }
 
 @media (max-width: 768px) {
-    .view-calender-container {
+    .view-calendar-container {
         flex-direction: column; 
     }
 
@@ -253,12 +253,12 @@ img {
         width: 14.28%;
     }
 
-    .calender-and-friends {
+    .calendar-and-friends {
         flex-direction: column; 
         flex-wrap: wrap;
     }
 
-    .calender-container,
+    .calendar-container,
     .friends-list {
         width: 100%;
         max-width: 100%;
@@ -270,7 +270,7 @@ img {
 }
 
 @media (max-width: 480px) {
-    .view-calender-container {
+    .view-calendar-container {
         flex-direction: column;
     }
 
@@ -298,12 +298,12 @@ img {
         font-size: 0.9rem;
     }
 
-    .calender-and-friends {
+    .calendar-and-friends {
         flex-direction: column; 
         flex-wrap: wrap;
     }
 
-    .calender-container,
+    .calendar-container,
     .friends-list {
         width: 100%;
         max-width: 100%;
