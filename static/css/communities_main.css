@@ -149,15 +149,6 @@
 }
 
 .friend-btn, .add-diary-btn {
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.friend-btn, .add-diary-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
     margin-left: 0;
@@ -167,8 +158,14 @@
     max-width: 200px;
     display: inline-block;
     margin-left: -20px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
 
 .friend-btn:hover, .add-diary-btn:hover {
     background-color: var(--hover-yellow);
