@@ -3,6 +3,7 @@ from users.models import User
 import os
 import uuid
 from django.utils.deconstruct import deconstructible
+from django.utils import timezone
 
 # 파일 업로드 시 파일명을 랜덤한 UUID로 변경
 @deconstructible
