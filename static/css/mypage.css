@@ -198,6 +198,13 @@ p {
     box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
 }
 
+.friend-card-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .friend-name {
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-normal);
