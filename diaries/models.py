@@ -55,7 +55,8 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Plant(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
