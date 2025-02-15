@@ -112,7 +112,7 @@ def create_response(pk, username):
         store=True,
         messages=[
             {"role": "system", "content": system_message},
-            {"role": "user", "content": f"{diary.content}"}
+            {"role": "user", "content": f"제목 : {diary.title} 내용 : {diary.content}"}
         ],
         functions=[{
             "name": "get_reply",
