@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -76,32 +77,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="reply">
-    {{reply.content}}
-  </div>
-  <!-- 좋아요 및 공유 버튼 -->
-  <div class="bis">
-    <button class="like-btn" data-diary-id="{{ diaries.id }}">
-      <i class="bi bi-heart"></i>
-    </button>
-    <span class="like-count" id="like-count-{{ diaries.id }}">
-      {{ diaries.like_set.count }}
-    </span>
-
-    <div class="bis-l">
-      <form id="share-form" action="#" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="button" class="bi bi-share-fill" id="share-btn"></button>
-      </form>
-      <form action="{% url "diaries:update_diaries" diaries.pk %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit" class="bi bi-pencil-square"></button>
-      </form>
-      <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit" class="bi bi-trash3-fill" id="delete-btn"></button>
-      </form>
     <div class="reply">
       {{reply.content}}
     </div>

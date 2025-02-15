@@ -8,7 +8,7 @@ from django.db.models import Case, When, BooleanField
 from django.contrib.auth.models import AnonymousUser
 
 def render_communities_main(request):
-    diaries = Diary.objects.filter(disclosure = True)
+    diaries = Diary.objects.filter(disclosure = True).order_by('-date')
     user = request.user
 
     if isinstance(user, AnonymousUser):

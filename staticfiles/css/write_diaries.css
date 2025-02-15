@@ -175,9 +175,6 @@ input:focus, select:focus {
 }
 
 @media (max-width: 1100px) {
-  .create-diaries-container{
-    padding-top: 20px;
-  }
 
   .diary-content {
     gap: 40px;
@@ -237,4 +234,3 @@ input:focus, select:focus {
   }
 
 }
-

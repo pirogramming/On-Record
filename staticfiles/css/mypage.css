@@ -1,9 +1,11 @@
-.mypage-container{
+.mypage-container {
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 100vh;
-    flex-direction: column; 
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .background-a {
@@ -133,6 +135,11 @@ p {
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
+.friend-info{
+    display: flex;
+    flex-direction: row;
+}
+
 .edit-profile-btn:hover {
     background: var(--hover-yellow);
     transform: scale(1.05);
@@ -168,7 +175,17 @@ p {
     border-radius: 10px;
 }
 
-.friend-item {
+.friend-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.friend-card-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -180,13 +197,7 @@ p {
     cursor: pointer;
 }
 
-.friend-item-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.friend-item:hover {
+.friend-card-list:hover {
     transform: scale(1.03);
     box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.9);
 }
@@ -203,6 +214,19 @@ p {
 
 .friend-actions {
     display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
 }
 
 .edit-btn i {
@@ -239,8 +263,6 @@ p {
 .user-del-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
-    background: var(--soft-yellow);
-    color: #444;
     border: none;
     padding: 8px 18px;
     border-radius: 50px;
@@ -327,4 +349,27 @@ p {
         font-size: 0.9rem;
         white-space: nowrap; 
     }
+}
+@media (max-width: 450px) {
+    .friends-list-management-header {
+        gap: 100px; 
+    }
+
+    .friends-list-title {
+        flex-grow: 1; 
+        font-size: var(--font-size-normal); 
+    }
+
+    .add-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap; 
+    }
+}
+@media (max-width: 400px) {
+    .friends-list-management-header {
+        gap: 50px; 
+    }
+
 }
