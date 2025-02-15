@@ -171,28 +171,35 @@
 @media (max-width: 670px) {
     .slider-container {
         padding: 0 20px;
-        max-width: 85%;
+        max-width: 75%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     .slider-container {
         padding: 0 20px;
-        max-width: 85%;
+        max-width: 55%;
     }
 
     .home-description, .friend-name{
-        font-size: 0.8rem;
+        font-size: 0.6rem;
     }
 
     .friend-profile {
         width: 100px;
         height: 100px;
+        margin: 20px
     }
 
     .move-write-btn{
-        font-size: 0.6rem;
+        font-size: 0.4rem;
         padding: 8px 14px;
     }
 }
 
+@media (max-width: 400px) {
+    .slider-container {
+        padding: 0 20px;
+        max-width: 40%;
+    }
+}
