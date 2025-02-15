@@ -39,7 +39,7 @@
                             <div class="diary-info">
                                 <h2 class="diary-title">{{ diary.title }}</h2>
                                 <p class="diary-preview">
-                                    {{ diary.content|slice:":47" }}{% if diary.content|length > 47 %}...{% endif %}
+                                    {{ diary.content|truncatechars:37 }}
                                 </p>
                             </div>
                         </a>
