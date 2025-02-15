@@ -188,7 +188,7 @@
     .friend-profile {
         width: 100px;
         height: 100px;
-        margin: 20px
+        margin: 20px auto;
     }
 
     .move-write-btn{
@@ -200,6 +200,10 @@
 @media (max-width: 400px) {
     .slider-container {
         padding: 0 20px;
-        max-width: 40%;
+        max-width: 50%;
+    }
+
+    .homepage-container{
+        min-width: 300px;
     }
 }

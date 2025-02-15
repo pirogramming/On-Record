@@ -333,6 +333,7 @@ img {
         width: 14.28%;
     }
 }
+
 @media (max-width: 670px) {
     th, td {
         padding: 20px;
