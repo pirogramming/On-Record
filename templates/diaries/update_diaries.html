@@ -18,14 +18,19 @@
                 <div class="write-header-l">
                     <input type="hidden" name="date" value="{{ diaries.date|date:'Y-m-d' }}">
                     <h1 id="date">{{ diaries.date }}</h1>
-                    <button type="button" id="toggle-disclosure" class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
-                        {% if diaries.disclosure.value == True %}
+{% comment %}                     <button class="public-btn" data-diary-id="{{ diaries.id }}" data-status="{{ diaries.disclosure }}">
+                        {% if diaries.disclosure == True %}
                             전체공개
                         {% else %}
                             비공개
                         {% endif %}
-                    </button>
+                      </button>
                     {{ form.disclosure }}
+ {% endcomment %}
+                    <button type="button" id="toggle-disclosure" class="public-btn">
+                        {{ form.disclosure.value|yesno:"전체공개,비공개" }}
+                    </button>
+                    <input type="hidden" name="disclosure" id="hidden-disclosure" value="{{ form.disclosure.value|yesno:'true,false' }}">    
                 </div>
             </div>
         
@@ -44,10 +49,11 @@
                             <label for="id_mood">기분</label>
                             {{ form.mood }}
                         </div>
-                        <div class="form-group">
-                            <label for="id_friends">누구에게 쓰실 건가요?</label>
+                        <div class="form-group" style="display: none;">
+                            <label>누구에게 쓰실 건가요?</label>
                             {{ form.friends }}
                         </div>
+                        <input type="hidden" name="friends" value="{{selected_friend_value}}">
                     </div>
                 </div>
             </div>
@@ -103,6 +109,23 @@
     
                 toggleBtn.textContent = newStatus ? "비공개" : "전체공개";
                 disclosureField.checked = newStatus; 
+            });
+        });
+        
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("toggle-disclosure");
+            const hiddenDisclosure = document.getElementById("hidden-disclosure");
+        
+            toggleBtn.addEventListener("click", function () {
+                let currentStatus = hiddenDisclosure.value === "true"; // 현재 상태 확인
+                let newStatus = !currentStatus;
+        
+                // ✅ 버튼 텍스트 변경
+                toggleBtn.textContent = newStatus ? "전체공개" : "비공개";
+                
+                // ✅ hidden 필드 값 변경
+                hiddenDisclosure.value = newStatus ? "true" : "false";
             });
         });
     </script>

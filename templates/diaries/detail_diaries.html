@@ -132,7 +132,7 @@
               <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">
                 저장
               </button>
-              <button class="save-comment-btn" data-comment-id="{{ comment.id }}">
+              <button class="delete-comment-btn" data-comment-id="{{ comment.id }}">
                 <i class="bi bi-trash3-fill comment-del-btn"></i>
               </button>
             </div>
@@ -275,13 +275,13 @@
                   <input type="text" class="comment-edit-input" id="comment-edit-${data.new_comment.id}" value="${data.new_comment.content}" style="display:none;" />
               </div>
               <div class="comment-edit-del-btn">
-                <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">
+                <button class="edit-comment-btn" data-comment-id="${data.new_comment.id}">
                   <i class="bi bi-pencil-square comment-edit-btn"></i>
                 </button>
-                <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">
+                <button class="save-comment-btn" data-comment-id="${data.new_comment.id}" style="display:none;">
                   저장
                 </button>
-                <button class="save-comment-btn" data-comment-id="{{ comment.id }}">
+                <button class="delete-comment-btn" data-comment-id="${data.new_comment.id}">
                   <i class="bi bi-trash3-fill comment-del-btn"></i>
                 </button>
               </div>
@@ -311,7 +311,6 @@
   
         // 기존 댓글 텍스트 숨기기
         document.getElementById(`comment-content-${commentId}`).style.display = 'none';
-        console.log(document.getElementById(`comment-text-${commentId}`));
   
         // 수정 입력창과 저장 버튼 보이기
         document.getElementById(`comment-edit-${commentId}`).style.display = 'inline';
@@ -325,7 +324,6 @@
       if (e.target.classList.contains('save-comment-btn')) {
         const commentId = e.target.getAttribute('data-comment-id');
         const newCommentContent = document.getElementById(`comment-edit-${commentId}`).value.trim();
-  
         if (!newCommentContent) {
           alert('댓글 내용을 입력하세요.');
           return;
@@ -373,10 +371,9 @@
 
     // 댓글 삭제 버튼 이벤트 추가 (이벤트 위임 방식 사용)
     document.body.addEventListener("click", function (event) {
-        if (event.target.classList.contains("del-comment-btn")) {
+        if (event.target.classList.contains("delete-comment-btn")) {
             const commentId = event.target.getAttribute("data-comment-id");
             const commentItem = document.getElementById(`comment-item-${commentId}`);
-            console.log(commentId , commentItem);
 
             if (!confirm("정말 댓글을 삭제하시겠습니까?")) {
                 return;
@@ -393,7 +390,6 @@
             .then(data => {
                 if (data.success) {
                     // 댓글 목록에서 삭제
-                    console.log(commentItem)
                     commentItem.remove();
                 } else {
                     alert("댓글 삭제 실패: " + data.error);
@@ -409,7 +405,7 @@
 
 
   //전체공개 비공개 토글 
-  document.addEventListener('DOMContentLoaded', function () {
+  {% comment %} document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     // 이벤트 위임: 문서 전체에서 public-btn 클릭 감지
@@ -459,7 +455,7 @@
             });
         }
     });
-});
+}); {% endcomment %}
 
 
   
