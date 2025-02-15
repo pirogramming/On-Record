@@ -236,20 +236,6 @@ img {
 }
 
 @media (max-width: 1200px) {
-    .view-calender-container {
-        flex-direction: column; 
-    }
-
-    select{
-        margin-left: 17px;
-        padding: 4px 7px;  
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    
     th, td {
         text-align: center;
         font-size: var(--font-size-normal);
@@ -281,11 +267,6 @@ img {
         margin-left: 15px;  
         padding: 0;
         font-size: 1.3rem;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
     }
     
     th, td {
@@ -324,5 +305,23 @@ img {
 
     .friend-item{
         padding: 20px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 30px;
+        text-align: center;
+        font-size: 0.8rem;
+        width: 14.28%;
+    }
+}
+
+@media (max-width: 488px) {
+    th, td {
+        padding: 30px;
+        text-align: center;
+        font-size: 0.6rem;
+        width: 14.28%;
     }
 }
