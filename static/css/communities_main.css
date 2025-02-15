@@ -113,7 +113,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: auto;
+    overflow-y: visible;
     max-height: calc(100vh - 150px);
     margin-left: auto;
     margin-right: auto;
@@ -266,7 +266,10 @@
 
 @media (max-width: 480px) {
     .diary-list {
-        grid-template-columns: repeat(1, 1fr);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .title {

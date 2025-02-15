@@ -81,13 +81,17 @@
     margin: 30px auto;
 }
 
-.friend-profile img{
+.friend_profile_img {
+    width: 100%;
+}
+
+.friend-profile img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.friend-name{
+.friend-name {
     font-size: 1.2rem;
     font-weight: var(--font-weight-normal);
     color: var(--primary-yellow); 
