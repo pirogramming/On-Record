@@ -4,7 +4,10 @@ body, html {
   display: flex; 
   justify-content: center; 
   align-items: center; 
+  flex-direction: column;
   font-family: 'Pretendard', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 body {
