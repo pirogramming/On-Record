@@ -19,8 +19,6 @@
 }
 
 .header {
-    width: 90%;
-    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,15 +27,6 @@
 }
 
 .friend-btn, .add-diary-btn {
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.friend-btn {
     background-color: var(--primary-yellow);
     color: var(--white);
     margin-left: 0;
@@ -47,13 +36,14 @@
     max-width: 200px;
     display: inline-block;
     margin-left: -20px;
-}
-
-.add-diary-btn {
-    background-color: var(--primary-yellow);
-    color: var(--white);
-    position: relative;
-    left: 90px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .friend-btn:hover, .add-diary-btn:hover {
@@ -69,7 +59,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--white);
+    background-color: var(--primary-yellow);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     width: 120px;
@@ -84,11 +74,12 @@
     width: 100%;
     cursor: pointer;
     font-size: 0.8rem;
+    color: var(--white);
+    text-decoration: none;
 }
 
 .dropdown-content button:hover {
     background-color: var(--primary-yellow);
-    color: var(--white);
 }
 
 .title {
@@ -117,6 +108,8 @@
     max-height: calc(100vh - 150px);
     margin-left: auto;
     margin-right: auto;
+    flex-grow: 1;
+    padding-bottom: 50px;
 }
 
 .diary-list {
@@ -154,7 +147,6 @@
     align-items: center;
     justify-content: center;
     background: var(--white);
-    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -167,7 +159,7 @@
 .no-image {
     width: 100%;
     height: 100%;
-    background: var(--white);
+    background: var(--light-yellow);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,7 +245,6 @@
 
     .header {
         flex-direction: row;
-        align-items: center;
         gap: 10px;
     }
 
@@ -264,8 +255,16 @@
 }
 
 @media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .diary-list {
-        grid-template-columns: repeat(1, 1fr);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .title {

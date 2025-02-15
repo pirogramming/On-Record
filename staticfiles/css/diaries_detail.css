@@ -5,10 +5,10 @@
   font-style: normal;
 }
 
-.detail-diaries-container{
-  height: 100vh;
+.detail-diaries-container {
+  min-height: calc(100vh - 100px);
   position: relative;
-  padding-top: 60px; 
+  padding-top: 60px;
 }
 
 .background-a {

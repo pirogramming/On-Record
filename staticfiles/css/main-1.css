@@ -4,11 +4,14 @@ body, html {
   display: flex; 
   justify-content: center; 
   align-items: center; 
+  flex-direction: column;
   font-family: 'Pretendard', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 body {
-    padding-top: 70px; /* 네비게이션 바의 높이만큼 여백을 추가 */
+    padding-top: 70px; 
 }
 
 .background-a {
@@ -20,5 +23,22 @@ body {
   background-image: url("/static/images/base-a.png");
   background-size: cover;
   background-position: center;
-  z-index: -1; /* 배경이 다른 콘텐츠 뒤에 오도록 설정 */
+  z-index: -1; 
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: relative;
+  padding: 10px 30px;
+  margin-top: auto;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 0.5rem;
+  color: var(--text-gray);
+  padding: 10px;
 }
