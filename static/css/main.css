@@ -138,7 +138,6 @@ li {
 
 .typing-text {
   display: inline-block;
-  font-size: 1rem;
   color: var(--white);
   border-right: 2px solid var(--white);
 }
