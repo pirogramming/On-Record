@@ -64,6 +64,14 @@ body {
   font-weight: var(--font-weight-bold);
 }
 
+.main-text-1{
+  font-weight: var(--font-size-normal);
+}
+
+.main-text span{
+  font-weight: var(--font-size-regular);
+}
+
 .logo {
   width: 200px;
   height: 163px;
