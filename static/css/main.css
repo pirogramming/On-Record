@@ -128,22 +128,32 @@ li {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.typing-text {
+.typing-container {
   display: inline-block;
   color: var(--white);
-  border-right: 2px solid var(--white);
-  white-space: pre-line;
+  white-space: nowrap;
   overflow: hidden;
   opacity: 1;
-  animation: blinkCursor 0.8s infinite;
   position: relative;
 }
 
-.typing-text::after {
+.typing-text {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-normal);
+  color: var(--white);
+  border-right: 2px solid var(--white);
+}
+
+.typing-text.line1 {
+  transition: border-right 0.2s ease-in-out;
+}
+
+.typing-container::after {
   content: "";
   display: inline-block;
   width: 2px;
-  height: 1em;  
+  height: 1em;
   background-color: var(--white);
   position: absolute;
   right: -2px;
