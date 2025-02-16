@@ -204,6 +204,11 @@
         justify-content: center;
         align-items: center;
         overflow-y: auto;
+        max-height: calc(100vh - 150px);
+        margin-left: auto;
+        margin-right: auto;
+        flex-grow: 1;
+        padding-bottom: 50px;
     }
     
     .diary-list {
@@ -224,7 +229,7 @@
         flex-direction: column;
         align-items: center;
         padding: 0;
-        margin: 0;
+        margin: auto;
         width: 100%;
         max-width: 300px;
         min-height: 350px;
@@ -303,7 +308,6 @@
         padding: 10px;
         border-top: 1px solid #ddd;
         width: 100%;
-        margin-top: auto;
     }
     
     .like-btn, .comment-btn {
