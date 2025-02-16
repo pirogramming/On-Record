@@ -13,14 +13,13 @@
     color: var(--text-black);
     text-align: center;
     margin: 10px 0;
+    margin-top: 150px;
 }
 
 .view-calendar-description{
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-regular);
     color: var(--text-black);
-    text-align: center;
-    margin: 10px 0 40px;
 }
 
 .background {
@@ -337,7 +336,6 @@ img {
         width: 14.28%;
     }
 }
-
 @media (max-width: 670px) {
     th, td {
         padding: 20px;
