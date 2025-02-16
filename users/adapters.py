@@ -17,10 +17,17 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
 
                 # 기존 계정과 소셜 계정 연결
                 sociallogin.user = user
+                sociallogin.is_existing = True
                 sociallogin.save(request)
 
             except User.DoesNotExist:
                 pass # 기존 계정이 없으면 새 계정을 생성
+
+    def save_user(self, request, sociallogin, form=None):
+        # 기존 유저가 있으면 소셜 계정과 연결, 없으면 새 계정을 생성
+        if sociallogin.is_existing:
+            return sociallogin.user
+        return super().save_user(request, sociallogin, form)
 
 
     def populate_user(self, request, sociallogin, data):
