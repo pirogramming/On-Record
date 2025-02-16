@@ -250,7 +250,7 @@
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin: 0;
+    margin: auto;
     width: 100%;
     max-width: 300px;
     min-height: 350px;
