@@ -19,7 +19,41 @@
             <img class="logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
             <div class="main-text">
                 <h1>온 - 기록</h1>
-                <span>반려친구와의 소중한 일상을 기록하고<br>감성 가득한 답장까지 받아보세요.</span>
+                <div class="typing-container">
+                    <span class="typing-text line1"></span>
+                    <br>
+                    <span class="typing-text line2"></span>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const text1 = "반려친구와의 소중한 일상을 기록하고";
+                        const text2 = "감성 가득한 답장까지 받아보세요.";
+                        const typingElement1 = document.querySelector(".typing-text.line1");
+                        const typingElement2 = document.querySelector(".typing-text.line2");
+                        let index1 = 0, index2 = 0;
+                    
+                        function typeEffect1() {
+                            if (index1 < text1.length) {
+                                typingElement1.innerHTML += text1[index1];
+                                index1++;
+                                setTimeout(typeEffect1, 100);
+                            } else {
+                                typingElement1.style.borderRight = "none";
+                                setTimeout(typeEffect2, 500);
+                            }
+                        }
+                    
+                        function typeEffect2() {
+                            if (index2 < text2.length) {
+                                typingElement2.innerHTML += text2[index2];
+                                index2++;
+                                setTimeout(typeEffect2, 100);
+                            }
+                        }
+                    
+                        setTimeout(typeEffect1, 500);
+                    });
+                    </script>
             </div>
             <div class="main-btn">
                 <li><a href="{% url 'users:user_login' %}" class="login-btn">로그인</a></li>
