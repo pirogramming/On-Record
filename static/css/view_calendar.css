@@ -12,7 +12,7 @@
     font-weight: var(--font-weight-normal);
     color: var(--text-black);
     text-align: center;
-    margin: 10px 0;
+    margin-top: 35px;
 }
 
 .view-calendar-description{
@@ -20,7 +20,7 @@
     font-weight: var(--font-weight-regular);
     color: var(--text-black);
     text-align: center;
-    margin: 10px 0 40px;
+    margin-bottom: 40px;
 }
 
 .background {
