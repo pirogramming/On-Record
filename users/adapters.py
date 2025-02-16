@@ -2,6 +2,8 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.utils import valid_email_or_none
 from django.contrib.auth import get_user_model
 from allauth.socialaccount.models import SocialAccount
+from django.shortcuts import redirect
+from allauth.exceptions import ImmediateHttpResponse
 
 User = get_user_model()
 
@@ -15,9 +17,10 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                 # 같은 이메일을 가진 기존 계정이 있는지 확인
                 user = User.objects.get(email=email)
 
-                # 기존 계정과 소셜 계정 연결
-                sociallogin.user = user
-                sociallogin.save(request)
+                if not user.socialaccount_set.exists():
+                    sociallogin.connect(request, user)
+
+                raise ImmediateHttpResponse(redirect('/'))
 
             except User.DoesNotExist:
                 pass # 기존 계정이 없으면 새 계정을 생성
