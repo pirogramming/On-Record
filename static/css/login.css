@@ -12,6 +12,7 @@
     opacity: 0;
     transform: scale(0.8);
     animation: fadeInScale 0.8s ease-out forwards;
+    margin-top: 80px;
 }
 
 .login-content, .login-header, .login-form, .social-icons {
