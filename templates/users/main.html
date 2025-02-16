@@ -19,10 +19,63 @@
             <img class="logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
             <div class="main-text">
                 <h1>온 - 기록</h1>
-                <span class="main-text-1">AI와 함께하는 특별한 교환일기!</span>
-                <span>반려친구와의 하루를 기록하면,</span>
-                <span>반려친구가 직접 답장해주는 듯한 감성 가득한 메시지를 받아보세요.</span>
-            </div>
+                <div class="main-text">
+                    <h1>온 - 기록</h1>
+                    <div class="typing-container">
+                        <span class="typing-text line1"></span>
+                        <br>
+                        <span class="typing-text line2"></span>
+                        <br>
+                        <span class="typing-text line3"></span>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const text1 = "AI와 함께하는 특별한 교환일기!";
+                            const text2 = "반려친구와의 하루를 기록하면,";
+                            const text3 = "반려친구가 직접 답장해주는 듯한 감성 가득한 메시지를 받아보세요.";
+                            
+                            const typingElement1 = document.querySelector(".typing-text.main-text-1");
+                            const typingElement2 = document.querySelector(".typing-text.line2");
+                            const typingElement3 = document.querySelector(".typing-text.line3");
+                            
+                            let index1 = 0, index2 = 0, index3 = 0;
+                    
+                            function typeEffect1() {
+                                if (index1 < text1.length) {
+                                    typingElement1.innerHTML += text1[index1];
+                                    index1++;
+                                    setTimeout(typeEffect1, 100);
+                                } else {
+                                    typingElement1.style.borderRight = "none";
+                                    setTimeout(typeEffect2, 500);
+                                }
+                            }
+                    
+                            function typeEffect2() {
+                                if (index2 < text2.length) {
+                                    typingElement2.innerHTML += text2[index2];
+                                    index2++;
+                                    setTimeout(typeEffect2, 100);
+                                } else {
+                                    typingElement2.style.borderRight = "none";
+                                    setTimeout(typeEffect3, 500);
+                                }
+                            }
+                    
+                            function typeEffect3() {
+                                if (index3 < text3.length) {
+                                    typingElement3.innerHTML += text3[index3];
+                                    index3++;
+                                    setTimeout(typeEffect3, 100);
+                                } else {
+                                    typingElement3.style.borderRight = "none";
+                                }
+                            }
+                    
+                            setTimeout(typeEffect1, 500);
+                        });
+                    </script>
+                </div>
             <div class="main-btn">
                 <li><a href="{% url 'users:user_login' %}" class="login-btn">로그인</a></li>
                 <li><a href="{% url 'users:signup' %}" class="signup-btn">회원가입</a></li>
