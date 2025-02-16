@@ -19,6 +19,14 @@ import environ
 env = environ.Env()
 
 def main(request):
+  if request.user.is_authenticated:
+    has_pet = Pet.objects.filter(user=request.user).exists()
+    has_plant = Plant.objects.filter(user=request.user).exists()
+
+    if has_pet or has_plant:
+      return redirect('diaries:view_calendar')
+    else:
+      return redirect('users:main')
   return render(request, 'users/main.html')
 
 def signup(request):
