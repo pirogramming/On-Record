@@ -9,7 +9,7 @@
 <meta name="csrf-token" content="{{ csrf_token }}">
 <div>
     <div class="background-b"></div>
-    <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
+    <h1 class="title">{{ friend_name }}에게 보낸 온기록</h1>
     
     <div class="header">
         <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>
