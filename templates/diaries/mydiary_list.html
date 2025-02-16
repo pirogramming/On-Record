@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/mydiary-list.css' %}">
+<link rel="stylesheet" href="{% static 'css/mydiary_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
         <img src="/static/images/ellipse.png" class="circle circle-4">
     </div>
     <div class="background-b"></div>
-    <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
+    <h1 class="title">{{ friend_name }}에게 보낸 온기록</h1>
     
     <div class="header">
         <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>

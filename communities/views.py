@@ -162,4 +162,3 @@ def filter_diaries(request):
     } for diary in filtered_diaries]
 
     return JsonResponse({"diaries": diaries_data})
-
