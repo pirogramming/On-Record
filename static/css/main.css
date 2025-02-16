@@ -54,7 +54,6 @@ body {
 
 .main-text {
   margin: 20px 0;
-  font-size: 1.3rem;
   color: var(--white);
 }
 
@@ -64,10 +63,41 @@ body {
   font-weight: var(--font-weight-bold);
 }
 
+.typing-container{
+  font-size: 1.3rem;
+  font-weight: var(--font-size-regular)
+}
+
+.line1{
+  font-weight: var(--font-size-normal);
+}
+
 .logo {
   width: 200px;
   height: 163px;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4))
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  animation: glowAnimation 2s infinite alternate ease-in-out,
+            floatAnimation 3s infinite ease-in-out;
+}
+
+@keyframes glowAnimation {
+  0% {
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4))
+              drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+  100% {
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+              drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))
+              drop-shadow(0 0 35px rgba(255, 255, 255, 0.5));
+  }
+}
+
+@keyframes floatAnimation {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
 }
 
 .main-btn {
@@ -90,10 +120,75 @@ li {
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
+  transition: all 0.6s ease-in-out;
 }
 
 .login-btn:hover, .signup-btn:hover {
-  background:var(--white);
+  background: var(--white);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+  color: var(--primary-yellow);
+}
+
+.login-btn:active, .signup-btn:active {
+  transform: scale(0.9);
+  box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.typing-container {
+  display: inline-block;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 1;
+  position: relative;
+}
+
+.typing-text {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-normal);
+  color: var(--white);
+  border-right: 2px solid var(--white);
+}
+
+.typing-text.line1 {
+  transition: border-right 0.2s ease-in-out;
+}
+
+.typing-container::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: var(--white);
+  position: absolute;
+  right: -2px;
+  animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+  50% {
+      border-color: transparent;
+  }
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: relative;
+  padding: 10px 30px;
+  margin-top: auto;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 0.5rem;
+  color: var(--text-gray);
+  padding: 10px;
 }
 
 footer {

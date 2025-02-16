@@ -60,9 +60,7 @@ urlpatterns = [
     #17 마이페이지 -> 식물 삭제 시 식물 삭제 페이지로 이동
     path('delete_plant/<int:pk>/', delete_plant, name='delete_plant'),
 
-    # path('detail_diaries_by_friend_date/<int:friend_id>/<int:selected_date>' , detail_diaries_by_friend_date , name = 'detail_diaries_by_friend_date')
-
-    # 반려친구에게 쓴 일기 목록
+    #18 반려친구에게 쓴 일기 목록
     path('mydiary_list/<int:friend_id>/', mydiary_list, name='mydiary_list'),
 ]
 

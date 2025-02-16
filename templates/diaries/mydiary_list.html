@@ -2,15 +2,24 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/mydiary-list.css' %}">
+<link rel="stylesheet" href="{% static 'css/mydiary_list.css' %}">
 {% endblock %}
 
 {% block content %}
 <meta name="csrf-token" content="{{ csrf_token }}">
-
 <div>
+    <div class="wave-container">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+    </div>
+    <div class="floating-background">
+        <img src="/static/images/ellipse.png" class="circle circle-1">
+        <img src="/static/images/ellipse.png" class="circle circle-2">
+        <img src="/static/images/ellipse.png" class="circle circle-3">
+        <img src="/static/images/ellipse.png" class="circle circle-4">
+    </div>
     <div class="background-b"></div>
-    <h1 class="title">{{ friend_name }}이와 함께 한 온기록</h1>
+    <h1 class="title">{{ friend_name }}에게 보낸 온기록</h1>
     
     <div class="header">
         <button class="friend-btn">{{ friend_name|slice:":10" }}{% if friend_name|length > 10 %}...{% endif %}</button>
@@ -23,8 +32,9 @@
         <div class="diary-list">
             {% if diaries %}
                 {% for diary in diaries %}
-                <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
-                    <div class="diary-card">
+                <div class="diary-card">
+                    <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
+                    
                         <div class="diary-image">
                             {% if diary.image %}
                             <img src="{% if diary.image %}{{ diary.image.url }}{% else %}/static/images/default_pet.jpg{% endif %}" alt="오늘의 사진">
@@ -42,8 +52,7 @@
                                 {% endif %}
                             </p>
                         </div>
-                    </div>
-                </a>
+
                         <div class="diary-actions">
                             {% if diary.is_liked %}
                             <button class="like-btn" data-diary-id="{{ diary.id }}" >
@@ -56,13 +65,14 @@
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
                             {%endif%}
-                        
+                
                             <a href="{% url 'diaries:detail_diaries' diary.id %}" class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
                                 <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </a>
                         </div> 
-
+                    </a>
+                </div>
                 {% endfor %}
             {% else %}
                 <p style="text-align: center; color: #999; grid-column: span 3;">등록된 온기록이 없습니다.</p>

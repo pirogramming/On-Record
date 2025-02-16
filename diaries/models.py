@@ -3,6 +3,7 @@ from users.models import User
 import os
 import uuid
 from django.utils.deconstruct import deconstructible
+from django.utils import timezone
 
 # 파일 업로드 시 파일명을 랜덤한 UUID로 변경
 @deconstructible
@@ -54,7 +55,8 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Plant(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -95,6 +97,7 @@ class Diary(models.Model):
     weather = models.CharField(max_length=10, choices=WEATHER_CHOICES, default='sunny')
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, null=True, blank=True)
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     # 누구한테 쓴건지
     def __str__(self):
         return self.title
