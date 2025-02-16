@@ -13,7 +13,7 @@
     <body>
         
         {% if user.is_authenticated %}
-            {% include 'users/after-login.html' %}
+            {% include 'users/after_login.html' %}
         {% else %}
         <div class="main-page">
             <img class="logo" src="{% static 'images/온기록-logo.png' %}" alt="Logo" />
