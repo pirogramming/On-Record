@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/after-login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="after-login-container">    
+    <div class="background-a"></div>
+    <div class="after-login">
+        <h1 class="start-hello">로그인 또는 회원가입을 하셔야 공유된 일기 열람이 가능합니다.</h1>
+        <a href="{% url 'users:main' %}" class="move-form-btn">온기록 시작하기</a>
+    </div>
+</div>
+{% endblock %}
