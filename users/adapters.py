@@ -16,8 +16,8 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                 user = User.objects.get(email=email)
 
                 # 기존 계정과 소셜 계정 연결
-                sociallogin.connect(user)
-                sociallogin.state['user'] = user
+                sociallogin.user = user
+                sociallogin.save(request)
 
             except User.DoesNotExist:
                 pass # 기존 계정이 없으면 새 계정을 생성
