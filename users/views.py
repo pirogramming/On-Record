@@ -18,16 +18,21 @@ import uuid
 import environ
 env = environ.Env()
 
-def main(request):
-  if request.user.is_authenticated:
-    has_pet = Pet.objects.filter(user=request.user).exists()
-    has_plant = Plant.objects.filter(user=request.user).exists()
 
-    if has_pet or has_plant:
-      return redirect('diaries:view_calendar')
-    else:
-      return redirect('users:main')
-  return render(request, 'users/main.html')
+def main(request):
+    if request.user.is_authenticated:
+        has_pet = Pet.objects.filter(user=request.user).exists()
+        has_plant = Plant.objects.filter(user=request.user).exists()
+
+        if has_pet or has_plant:
+            return redirect('diaries:view_calendar')
+        else:
+            # 현재 URL이 'users:main'인지 확인 후 리디렉트 방지
+            if request.path == reverse('users:main'):
+                return render(request, 'users/main.html')
+            return redirect('users:main')
+
+    return render(request, 'users/main.html')
 
 def signup(request):
   if request.method == 'POST':
@@ -101,33 +106,36 @@ def verify_email(request, token):
     return render(request, 'users/verification_failed.html')
 
 def user_login(request):
-  if request.method == 'POST':
-    form = AuthenticationForm(request, request.POST)
-    if form.is_valid():
-      user = form.get_user()
-      auth.login(request, user)
-    
-      has_pet = Pet.objects.filter(user=user).exists()      
-      has_plant = Plant.objects.filter(user=user).exists()
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth.login(request, user)
 
-      if has_pet or has_plant:
-        return redirect('diaries:view_calendar')
-      else:
-        return redirect('users:main')
-      
+            has_pet = Pet.objects.filter(user=user).exists()      
+            has_plant = Plant.objects.filter(user=user).exists()
+
+            if has_pet or has_plant:
+                return redirect('diaries:view_calendar')
+            else:
+                if request.path == reverse('users:main'):
+                    return render(request, 'users/main.html')
+                return redirect('users:main')
+
+        else:
+            context = {
+                'form': form,
+            }
+            return render(request, template_name='users/login.html', context=context)
+
     else:
-      context = {
-        'form': form,
-      }
-      return render(request, template_name='users/login.html', context=context)
-  else:
-    form = AuthenticationForm()
-    form.fields['username'].widget.attrs.update({'placeholder': '이메일을 입력하세요'})
-    form.fields['password'].widget.attrs.update({'placeholder': '비밀번호를 입력하세요'})
-    context = {
-      'form': form,
-    }
-    return render(request, template_name='users/login.html', context=context)
+        form = AuthenticationForm()
+        form.fields['username'].widget.attrs.update({'placeholder': '이메일을 입력하세요'})
+        form.fields['password'].widget.attrs.update({'placeholder': '비밀번호를 입력하세요'})
+        context = {
+            'form': form,
+        }
+        return render(request, template_name='users/login.html', context=context)
 
 def logout(request):
   auth.logout(request)
