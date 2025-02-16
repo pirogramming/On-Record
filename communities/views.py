@@ -142,9 +142,10 @@ def filter_diaries(request):
 
     # ✅ 반려동물/반려식물에 따라 필터링
     if diary_type == "pet":
-        filtered_diaries = Diary.objects.filter(pet__isnull=False , disclosure = True)
+        filtered_diaries = Diary.objects.filter(pet__isnull=False , disclosure = True).order_by('-created_at')
     else:
-        filtered_diaries = Diary.objects.filter(plant__isnull=False , disclosure = True)
+        filtered_diaries = Diary.objects.filter(plant__isnull=False , disclosure = True).order_by('-created_at')
+
 
     for diary in filtered_diaries:
         diary.is_liked = Like.objects.filter(diary=diary, like_user=request.user).exists() 
@@ -161,3 +162,4 @@ def filter_diaries(request):
     } for diary in filtered_diaries]
 
     return JsonResponse({"diaries": diaries_data})
+
