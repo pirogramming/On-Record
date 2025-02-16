@@ -20,6 +20,8 @@
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-regular);
     color: var(--text-black);
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .background {
