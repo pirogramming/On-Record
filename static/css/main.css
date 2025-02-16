@@ -63,15 +63,6 @@ body {
   font-weight: var(--font-weight-bold);
 }
 
-.typing-container{
-  font-size: 1.3rem;
-  font-weight: var(--font-size-regular)
-}
-
-.line1{
-  font-weight: var(--font-size-normal);
-}
-
 .logo {
   width: 200px;
   height: 163px;
@@ -148,13 +139,14 @@ li {
 .typing-text {
   display: inline-block;
   font-size: 1.2rem;
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   color: var(--white);
   border-right: 2px solid var(--white);
 }
 
 .typing-text.line1 {
   transition: border-right 0.2s ease-in-out;
+  font-weight: var(--font-weight-normal);
 }
 
 .typing-container::after {
