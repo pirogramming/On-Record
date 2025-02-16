@@ -10,20 +10,21 @@ User = get_user_model()
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
         # 소셜 로그인 시 기존 일반 로그인 이메일이 있으면 연결
-        email = sociallogin.account.extra_data.get("email")
+        email = valid_email_or_none(sociallogin.account.extra_data.get("email"))
+        provider = sociallogin.account.provider
 
-        if email:
-            try:
-                # 같은 이메일을 가진 기존 계정이 있는지 확인
-                user = User.objects.get(email=email)
+        if not email:
+            return
 
-                if not user.socialaccount_set.exists():
-                    sociallogin.connect(request, user)
+        try:
+            user = User.objects.get(email=email)
 
-                raise ImmediateHttpResponse(redirect('/'))
+            if not user.socialaccount_set.filter(provider=provider).exists():
+                sociallogin.user = user
+                sociallogin.save(request)
 
-            except User.DoesNotExist:
-                pass # 기존 계정이 없으면 새 계정을 생성
+        except User.DoesNotExist:
+            pass
 
     def save_user(self, request, sociallogin, form=None):
         # 기존 유저가 있으면 소셜 계정과 연결, 없으면 새 계정을 생성
