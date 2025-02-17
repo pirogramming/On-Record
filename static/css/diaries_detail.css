@@ -479,3 +479,14 @@ button i {
     font-size: 0.9rem;
   }
 }
+
+@media (max-width: 480px){
+  .comments-list-li {
+    padding: 0px;
+  }
+
+  .comments-list-name, .comments-list-content, .comment-edit-btn, 
+  .save-comment-btn, .comment-del-btn, .comment-input, .add-comment-btn{
+    font-size: 0.9rem;
+  }
+}
