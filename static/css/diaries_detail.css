@@ -409,6 +409,10 @@ button i {
   cursor: pointer;
 }
 
+.save-comment-btn{
+  white-space: nowrap;
+}
+
 .comment-edit-btn, .comment-del-btn{
   font-size: var(--font-size-normal);
 }
