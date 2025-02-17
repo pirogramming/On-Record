@@ -1,7 +1,7 @@
 .login-container {
     position: relative;
-    width: 846px;
-    height: 461px;
+    width: 940px;
+    height: 490px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -208,6 +208,50 @@
 .signup-form .form-field input:focus {
     border: 1px solid var(--primary-yellow);
     outline: none; 
+}
+
+.find-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.find-email-btn {
+    font-size: 12px;
+    color: var(--primary-yellow);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+}
+
+.find-email-btn:hover {
+    text-decoration: underline;
+}
+
+.find-pwd-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--primary-yellow);
+    font-weight: var(--font-weight-regular);
+    border: 1.5px solid var(--primary-yellow);
+    border-radius: 20px;
+    background-color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.find-pwd-btn:hover {
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(255, 192, 3, 0.4);
+}
+
+.find-btn-pwd:active {
+    transform: scale(0.95);
 }
 
 @media screen and (max-width: 600px) {
