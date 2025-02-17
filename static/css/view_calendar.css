@@ -330,6 +330,49 @@ img {
     }
 }
 
+@media (max-width: 850px) {
+    th, td {
+        padding: 0;
+        text-align: center;
+        font-size: 0.5rem;
+        width: 14.28%;
+    }
+
+    .friends-list-title{
+        font-size: 0.6rem;
+    }
+
+    .add-btn{
+        font-size: 0.4rem;
+    }
+    
+    .friend-name{
+        font-size: 0.5rem;
+    }
+
+    .view-calendar-title{
+        font-size: 1.4rem;
+
+    }
+    
+    .view-calendar-description{
+        font-size: 0.7rem;
+    }
+
+    select{
+        padding: 0;
+    }
+
+    .calendar-container{
+        position: relative;
+    }
+
+    table{
+        position: relative;
+        right: 0.5rem;
+    }
+}
+
 
 @media (max-width: 768px) {
     th, td {
@@ -361,6 +404,11 @@ img {
 
     .add-btn, .friend-name{
         font-size: 0.6rem;
+    }
+
+    table{
+        position: relative;
+        right: 0.5rem;
     }
 }
 @media (max-width: 390px) {
@@ -394,5 +442,14 @@ img {
 
     select{
         padding: 0;
+    }
+
+    .calendar-container{
+        position: relative;
+    }
+
+    table{
+        position: relative;
+        right: 0.5rem;
     }
 }

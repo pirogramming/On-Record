@@ -97,7 +97,7 @@ footer a {
   .header-navbar {
       display: flex;
       flex-wrap: nowrap;
-      height: 45px; 
+      height: 50px; 
       padding: 5px;
       overflow: hidden;
       max-width: 100%;
