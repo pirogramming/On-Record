@@ -64,19 +64,27 @@
 .move-form-btn {
   display: block;
   padding: 5px 40px;
-  background: linear-gradient(-60deg, var(--light-yellow), var(--primary-yellow));
-  border: none;
+  background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
   color: var(--white);
   font-size: var(--font-size-normal);
   border-radius: 30px;
   cursor: pointer;
   margin: 30px;
   text-decoration: none;
+  transition: all 0.6s ease-in-out;
 }
 
 .move-form-btn:hover {
-  background: var(--hover-yellow);
+  background: var(--white);
   transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+  color: var(--primary-yellow);
+}
+
+.move-form-btn:active {
+  transform: scale(0.9);
+  box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {

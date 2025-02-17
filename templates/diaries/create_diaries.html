@@ -13,7 +13,7 @@
         <form method="POST" action="{% url 'diaries:create_diaries' %}?day={{selected_date.day}}&month={{selected_date.month}}&year={{selected_date.year}}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="write-header">
-                <div class="today-diary">오늘의 일기</div>
+                <div class="today-diary">오늘의 온기록</div>
                 <div class="write-header-l">
                     <div id="date"></div>
                     <button type="button" id="toggle-disclosure" class="public-btn">

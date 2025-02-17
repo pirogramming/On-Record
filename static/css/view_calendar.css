@@ -13,13 +13,14 @@
     color: var(--text-black);
     text-align: center;
     margin: 10px 0;
-    margin-top: 150px;
 }
 
 .view-calendar-description{
     font-size: var(--font-size-normal);
     font-weight: var(--font-weight-regular);
     color: var(--text-black);
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .background {
@@ -131,7 +132,7 @@ tr .today {
 
 .add-btn {
     display: inline-block;
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     border: none;
     padding: 8px 15px;
     border-radius: 20px;
@@ -140,21 +141,22 @@ tr .today {
     color: var(--white);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     text-align: center;
     margin-right: 20px;
 }
 
 .add-btn:hover {
-    background-color: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
 }
 
 .add-btn:active {
-    background-color: var(--shadow-yellow);
-    transform: scale(0.98);
-    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s ease-in, background-color 0.1s ease-in;
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .add-btn a {

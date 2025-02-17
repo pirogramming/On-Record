@@ -147,7 +147,7 @@
 }
 
 .friend-btn, .add-diary-btn {
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     color: var(--white);
     margin-left: 0;
     white-space: nowrap;
@@ -162,18 +162,21 @@
     font-size: 0.8rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     text-decoration: none;
 }
 
 .friend-btn:hover, .add-diary-btn:hover {
-    background-color: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .dropdown-content {
