@@ -1,5 +1,7 @@
 .main-container {
     all: unset;
+    display: flex;
+    justify-content: center;
 }
 
 .friend-list-container {
@@ -328,7 +330,7 @@
     }
 
     .homepage-container {
-        flex: 0 0 100%;
+        flex: 0 0 60%;
         max-width: 100%;
         scroll-snap-align: center;
         transform: scale(0.9);
