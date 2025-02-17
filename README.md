@@ -10,7 +10,8 @@ html 플로우 차트(주요 기능 설명하면서)
 
 
 # 📝 On-Record(온기록)
-#### 🍀 피로그래밍 22기 최종 프로젝트
+### 🍀 피로그래밍 22기 최종 프로젝트
+📆 **개발 기간**: 2025년 01월 27일 ~ 2025년 02월 18일
 ### 📂 Contents
 1. [🔗 배포 URL](#-배포-URL)
 2. [☀️ 서비스 소개](#-서비스-소개)
@@ -20,13 +21,10 @@ html 플로우 차트(주요 기능 설명하면서)
 6. [🧱 System Architecture](#-System-Architecture)
 7. [📀 ERD](#-ERD)
 
-#### 배포 URL: ["온기록 사이트"](onrecord.kr, "온기록 이용해보기")
-
-![온기록 로고](static/images/readme/onrecord_logo(readme).png)
-
-📆 **개발 기간**: 2025년 01월 27일 ~ 2025년 02월 18일
 
 ## ☀️ 서비스 소개
+![온기록 로고](static/images/readme/onrecord_logo(readme).png)
+> #### URL: ["온기록 사이트"](onrecord.kr, "온기록 이용해보기")
 > 반려동물이나 반려식물과의 추억을 기록하면, **AI**가 반려친구의 입장에서 답장을 생성해주는 웹서비스
 
 
@@ -34,7 +32,10 @@ html 플로우 차트(주요 기능 설명하면서)
 반려동물뿐만 아니라 반려식물도 포함하여 보다 폭넓은 사용자층을 대상으로 하며, 감정과 날씨 등의 요소를 활용해 일상을 더욱 생동감 있게 기록할 수 있도록 설계되었습니다.
 
 
-## 💻 사용 툴
+## 💻 사용 툴(Tools)
+
+******
+
 #### Front-End
 <p>
     <img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"/>
@@ -76,6 +77,8 @@ html 플로우 차트(주요 기능 설명하면서)
     <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
     <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 </p>
+
+******
 
 ## 📈 Flowchart
 ![온기록 플로우차트](static/images/readme/onrecord_flowchart.png)
