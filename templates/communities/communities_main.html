@@ -83,7 +83,10 @@
         document.addEventListener('DOMContentLoaded', function () {
             const friendBtn = document.getElementById('friend-btn');
             const dropdownContent = document.getElementById('dropdown-content');
-            window.scrollTo(0, 0);
+            const firstCard = document.querySelector(".diary-card:first-child");
+            if (firstCard) {
+                firstCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
         
             // 버튼 클릭 시 드롭다운 표시/숨김
             friendBtn.addEventListener('click', function () {
