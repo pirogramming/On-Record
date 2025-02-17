@@ -330,7 +330,6 @@
     }
 
     .homepage-container {
-        flex: 0 0 60%;
         max-width: 100%;
         scroll-snap-align: center;
         transform: scale(0.9);
@@ -362,6 +361,7 @@
 @media (max-width: 500px) {
     .homepage-container {
         min-width: 100px;
+        flex: 0 0 85%;
     }
 
     .friend-profile {
