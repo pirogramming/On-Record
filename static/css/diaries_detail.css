@@ -5,22 +5,132 @@
   font-style: normal;
 }
 
-.detail-diaries-container {
-  min-height: calc(100vh - 100px);
-  position: relative;
-  padding-top: 60px;
-}
-
-.background-a {
+.background {
   position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/static/images/base-a.png");
+  background-color:var(--background-yellow);
   background-size: cover;
   background-position: center;
+  z-index: -2; 
+}
+
+.floating-background-up {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
   z-index: -1; 
+}
+
+.circle-up {
+  position: absolute;
+  opacity: 0;
+  width: 100vw;
+  height: auto;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: fadeInMoveUp 1.5s ease-in-out forwards;
+}
+
+.circle-1 {
+  top: -150px;
+  left: -100px;
+  background-image: url("/static/images/Ellipse1.png");
+  animation-delay: 0.3s;
+}
+
+.circle-2 {
+  top: -250px;
+  left: -200px;
+  background-image: url("/static/images/Ellipse2.png");
+  animation-delay: 0.6s;
+}
+
+.circle-3 {
+  top: -250px;
+  left: -300px; 
+  background-image: url("/static/images/Ellipse3.png");
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeInMoveUp {
+  0% {
+      opacity: 0;
+      transform: translate(-150px, -150px) scale(0.3);
+  }
+  100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+  }
+}
+
+.floating-background-down {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1; 
+}
+
+.circle-down {
+  position: absolute;
+  opacity: 0;
+  width: 100vw;
+  height: auto;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: fadeInMoveDown 1.5s ease-in-out forwards;
+}
+
+.circle-4 {
+  bottom: -150px;
+  right: -200px;
+  background-image: url("/static/images/Ellipse4.png");
+  animation-delay: 0.3s;
+}
+
+.circle-5 {
+  bottom: -220px;
+  right: -270px;
+  background-image: url("/static/images/Ellipse5.png");
+  animation-delay: 0.6s;
+}
+
+.circle-6 {
+  bottom: -270px;
+  right: -300px;
+  background-image: url("/static/images/Ellipse6.png");
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeInMoveDown {
+  0% {
+      opacity: 0;
+      transform: translate(150px, 150px) scale(0.3);
+  }
+  100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+  }
+}
+
+.detail-diaries-container {
+  min-height: calc(100vh - 100px);
+  position: relative;
+  padding-top: 60px;
 }
 
 .diaries_detail {
@@ -218,7 +328,7 @@ button i {
   align-items: center;
   justify-content: space-between;
   background: var(--white);
-  padding: 5px;
+  padding: 0;
   margin-bottom: 10px;
   border-radius: 50px;
   border: none;
@@ -297,6 +407,10 @@ button i {
   border: none;
   color: var(--primary-yellow);
   cursor: pointer;
+}
+
+.save-comment-btn{
+  white-space: nowrap;
 }
 
 .comment-edit-btn, .comment-del-btn{
@@ -414,7 +528,6 @@ button i {
   }
 
   .comments-list-li {
-    padding: 10px;
     font-size: 0.9rem;
     text-align: left;
   }
@@ -481,11 +594,7 @@ button i {
   }
 }
 
-@media (max-width: 480px){
-  .comments-list-li {
-    padding: 0px;
-  }
-
+@media (max-width: 500px){
   .comments-list-name, .comments-list-content, .comment-edit-btn, 
   .save-comment-btn, .comment-del-btn, .comment-input, .add-comment-btn{
     font-size: 0.9rem;

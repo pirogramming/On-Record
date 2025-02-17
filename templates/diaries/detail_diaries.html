@@ -8,7 +8,17 @@
 
 {% block content %}
 <div class="detail-diaries-container">
-  <div class="background-a"></div>
+  <div class="background"></div>
+  <div class="floating-background-up">
+      <div class="circle-up circle-1"></div>
+      <div class="circle-up circle-2"></div>
+      <div class="circle-up circle-3"></div>
+  </div>
+  <div class="floating-background-down">
+      <div class="circle-down circle-4"></div>
+      <div class="circle-down circle-5"></div>
+      <div class="circle-down circle-6"></div>
+  </div>
   <div class="diaries_detail">
     <div class="detail-container">
       <div class="detail-header">
@@ -46,7 +56,7 @@
               <div class="weather">
                 {% if diaries.weather == 'sunny' %}
                     <p>날씨: ☀️</p>
-                {% elif diaries.weather == 'windy'%}
+                {% elif diaries.weather == 'windy' %}
                     <p>날씨: 💨</p>
                 {% elif diaries.weather == 'cloudy' %}
                     <p>날씨: ☁️</p>
@@ -64,17 +74,17 @@
               </div>
               <div class="mood">
                 {% if diaries.mood == 'happy' %}
-                    <p>기분: 😄</p>
-                {% if diaries.mood == 'funny' %}
-                    <p>기분: 🤣</p>
+                    <p>기분: 🥰</p>
                 {% elif diaries.mood == 'excited' %}
                     <p>기분: 🤩</p>
                 {% elif diaries.mood == 'normal' %}
-                    <p >기분: 😌</p>
+                    <p>기분: 😌</p>
                 {% elif diaries.mood == 'sad' %}
                     <p>기분: 😢</p>
                 {% elif diaries.mood == 'angry' %}
                     <p>기분: 😡</p>
+                {% elif diaries.mood == 'funny' %}
+                    <p >기분: 🤣</p>
                 {% elif diaries.mood == 'tired' %}
                     <p>기분: 😪</p>
                 {% else %}

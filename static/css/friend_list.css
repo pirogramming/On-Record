@@ -1,5 +1,7 @@
 .main-container {
     all: unset;
+    display: flex;
+    justify-content: center;
 }
 
 .friend-list-container {
@@ -11,16 +13,124 @@
     padding-top: 80px; 
 }
 
-.background-a {
+.background {
     position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("/static/images/base-a.png");
+    background-color:var(--background-yellow);
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    z-index: -1; 
+}
+
+.floating-background-up {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.circle-up {
+    position: absolute;
+    opacity: 0;
+    width: 100vw;
+    height: auto;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: fadeInMoveUp 1.5s ease-in-out forwards;
+}
+
+.circle-1 {
+    top: -150px;
+    left: -100px;
+    background-image: url("/static/images/Ellipse1.png");
+    animation-delay: 0.3s;
+}
+
+.circle-2 {
+    top: -250px;
+    left: -200px;
+    background-image: url("/static/images/Ellipse2.png");
+    animation-delay: 0.6s;
+}
+
+.circle-3 {
+    top: -250px;
+    left: -300px; 
+    background-image: url("/static/images/Ellipse3.png");
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeInMoveUp {
+    0% {
+        opacity: 0;
+        transform: translate(-150px, -150px) scale(0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+.floating-background-down {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.circle-down {
+    position: absolute;
+    opacity: 0;
+    width: 100vw;
+    height: auto;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: fadeInMoveDown 1.5s ease-in-out forwards;
+}
+
+.circle-4 {
+    bottom: -150px;
+    right: -200px;
+    background-image: url("/static/images/Ellipse4.png");
+    animation-delay: 0.3s;
+}
+
+.circle-5 {
+    bottom: -220px;
+    right: -270px;
+    background-image: url("/static/images/Ellipse5.png");
+    animation-delay: 0.6s;
+}
+
+.circle-6 {
+    bottom: -270px;
+    right: -300px;
+    background-image: url("/static/images/Ellipse6.png");
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeInMoveDown {
+    0% {
+        opacity: 0;
+        transform: translate(150px, 150px) scale(0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
 }
 
 .slider-container {
@@ -209,6 +319,7 @@
         padding: 0;
         overflow: hidden;
         position: relative;
+        max-width: 65%;
     }
 
     .slider {
@@ -220,10 +331,11 @@
     }
 
     .homepage-container {
-        flex: 0 0 100%;
         max-width: 100%;
         scroll-snap-align: center;
         transform: scale(0.9);
+        flex: 0 0 35%;
+        max-width: 35%;
     }
 
     .slider-btn {
@@ -249,9 +361,13 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .homepage-container {
-        min-width: 100px;
+        min-width: 200px;
+    }
+
+    .slider-container {
+        max-width: 35%;
     }
 
     .friend-profile {
@@ -265,5 +381,9 @@
 
     .move-detail-btn, .move-write-btn {
         padding: 8px 15px;
+    }
+
+    .homepage-container.active {
+        transform: none;
     }
 }
