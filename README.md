@@ -10,14 +10,14 @@ html 플로우 차트(주요 기능 설명하면서)
 
 
 # 📝 On-Record(온기록)
-#### 🍀 피로그래밍 22기 최종 프로젝트
-- [🔗 배포 URL](#-배포-URL)
-- [☀️ 서비스 소개](#-서비스-소개)
-- [🐶 팀원 소개](#-팀원-소개)
-- [💻 사용 툴](#-사용-툴)
-- [📈 Flowchart](#-Flowchart)
-- [🧱 System Architecture](#-System-Architecture)
-- [📀 ERD](#-ERD)
+### 🍀 피로그래밍 22기 최종 프로젝트
+1. [🔗 배포 URL](#-배포-URL)
+2. [☀️ 서비스 소개](#-서비스-소개)
+3. [🐶 팀원 소개](#-팀원-소개)
+4. [💻 사용 툴](#-사용-툴)
+5. [📈 Flowchart](#-Flowchart)
+6. [🧱 System Architecture](#-System-Architecture)
+7. [📀 ERD](#-ERD)
 #### 배포 URL: ["온기록 사이트"](onrecord.kr, "온기록 이용해보기")
 
 ![온기록 로고](static/images/readme/onrecord_logo(readme).png)
@@ -26,17 +26,10 @@ html 플로우 차트(주요 기능 설명하면서)
 
 ## ☀️ 서비스 소개
 > 반려동물이나 반려식물과의 추억을 기록하면, **AI**가 반려친구의 입장에서 답장을 생성해주는 웹서비스
+
+
 온기록(온기 + 기록)은 반려동물 또는 반려식물을 키우는 사용자들이 자신의 반려친구와의 소중한 일상을 기록할 수 있도록 돕는 웹 서비스입니다.
 반려동물뿐만 아니라 반려식물도 포함하여 보다 폭넓은 사용자층을 대상으로 하며, 감정과 날씨 등의 요소를 활용해 일상을 더욱 생동감 있게 기록할 수 있도록 설계되었습니다.
-
-## 🐶 팀원 소개
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0HooHI](https://github.com/0HooHI "김영호 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[mangoooooo1](https://github.com/mangoooooo1 "박혜린 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[l-wanderer01](https://github.com/l-wanderer01 "장재훈 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cestjeudi](https://github.com/cestjeudi "조주영 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dosp74](https://github.com/Dosp74 "한종서 Github")
-
-![온기록 팀 소개](static/images/readme/onrecord_team.png)
 
 
 ## 💻 사용 툴
@@ -75,7 +68,7 @@ html 플로우 차트(주요 기능 설명하면서)
 
 
 ### 🌟 협업 툴
-<p align="center">
+<p>
     <img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
     <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
@@ -109,21 +102,44 @@ html 플로우 차트(주요 기능 설명하면서)
 ## 사용 예시
 1.	회원가입 및 로그인
 	•	회원가입 후, 로그인하여 반려친구를 등록할 수 있는 초기 설정 페이지로 이동
+    <img src="/static/images/readme/first_page.png">
 2.	반려친구 등록
 	•	반려동물 또는 반려식물 추가
+    <img src="/static/images/readme/create_pet_or_plant.png">
 	•	사진 업로드, 성격 설정 등의 기능을 통해 개별 맞춤 설정
+    <p>
+        <img src="/static/images/readme/create_pet.png">
+        <img src="/static/images/readme/create_plant.png">
+    </p>
 3.	캘린더 화면에서 일기 작성
 	•	원하는 날짜를 선택 후, 반려친구를 지정하여 일기 작성
-	•	감정 및 날씨 선택, 텍스트 입력 기능 제공
-4.	AI 답변 확인
+    <img src="/static/images/readme/view_calendar.png">
+4.  일기 작성
+    •	감정 및 날씨 선택, 텍스트 입력 기능 제공
+    <img src="/static/images/readme/create_diaries.png">
+5.	AI 답변 확인
 	•	작성한 일기에 대해 AI가 반려친구의 입장에서 답장을 자동 생성
 	•	감정 분석을 기반으로 자연스러운 반응 제공
-5.	일기 리스트 및 상세보기
+    <img src="/static/images/readme/detail_diaries.png">
+6.	일기 리스트 및 상세보기
 	•	기록된 일기를 캘린더 혹은 리스트 뷰에서 확인
 	•	특정 일기 클릭 시, 상세 페이지로 이동하여 전체 내용 및 AI 답장 확인 가능
-6.	반려친구 관리 및 삭제 기능
+    <img src="/static/images/readme/onrecord_list.png">
+7.	반려친구 관리 및 삭제 기능(마이페이지)
 	•	반려친구 추가/수정/삭제 가능
 	•	기존에 작성된 일기들은 유지되며, 반려친구 데이터만 삭제
+    <img src="/static/images/readme/mypage.png">
+8. 커뮤니티 기능(모두의 온기록)
+    <img src="/static/images/readme/community.png">
+
+## 🐶 팀원 소개
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0HooHI](https://github.com/0HooHI "김영호 Github")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[mangoooooo1](https://github.com/mangoooooo1 "박혜린 Github")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[l-wanderer01](https://github.com/l-wanderer01 "장재훈 Github")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cestjeudi](https://github.com/cestjeudi "조주영 Github")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dosp74](https://github.com/Dosp74 "한종서 Github")
+
+![온기록 팀 소개](static/images/readme/onrecord_team.png)
 <!-- 
 <details><summary>접고 펴는 기능
 </summary>
