@@ -218,7 +218,7 @@ button i {
   align-items: center;
   justify-content: space-between;
   background: var(--white);
-  padding: 5px;
+  padding: 0;
   margin-bottom: 10px;
   border-radius: 50px;
   border: none;
@@ -414,7 +414,6 @@ button i {
   }
 
   .comments-list-li {
-    padding: 10px;
     font-size: 0.9rem;
     text-align: left;
   }
@@ -481,11 +480,7 @@ button i {
   }
 }
 
-@media (max-width: 480px){
-  .comments-list-li {
-    padding: 0px;
-  }
-
+@media (max-width: 500px){
   .comments-list-name, .comments-list-content, .comment-edit-btn, 
   .save-comment-btn, .comment-del-btn, .comment-input, .add-comment-btn{
     font-size: 0.9rem;
