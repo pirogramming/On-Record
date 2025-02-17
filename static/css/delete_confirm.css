@@ -80,3 +80,18 @@ form a:hover {
   background: #bbb;
   transform: scale(1.05);
 }
+
+@media (max-width: 480px){
+  h2{
+    font-size: 1.7rem;
+  }
+
+  p{
+    font-size: 1rem;
+  }
+
+  form button, form a{
+    font-size: 0.7rem;
+    width: 125px;
+  }
+}
