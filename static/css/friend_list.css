@@ -363,7 +363,7 @@
 
 @media (max-width: 600px) {
     .homepage-container {
-        min-width: 100px;
+        min-width: 200px;
     }
 
     .slider-container {
