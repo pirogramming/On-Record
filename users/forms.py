@@ -32,3 +32,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['nickname', 'profile_image']
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(label='이메일', required=True, widget=forms.EmailInput(attrs={'placeholder': '이메일 입력'}), error_messages={'required': ''})
