@@ -39,9 +39,9 @@
 
             <div class="friends-list-list" id="friends-list-list">
                 {% for f in friends %}
-                <div class='friend-card-list'>
+                <div class='friend-card-list' id="friend-{{ f.id }}">
                     <a href="{% url 'diaries:mydiary_list' f.id %}" class="friend-item-link">
-                        <div class="friend-item" id="friend-{{ f.id }}">
+                        <div class="friend-item" >
                             <div class="friend-info">
                                 <span class="friend-name" data-type="{% if f.gender %}pet{% else %}plant{% endif %}">
                                     {{ f.name|slice:":20" }}{% if f.name|length > 20 %}...{% endif %}
