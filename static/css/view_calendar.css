@@ -228,8 +228,8 @@ img {
   }
 
 .friend-name {
-    font-size: 0.8rem !important; 
-    font-weight: var(--font-weight-normal) !important;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
     display: inline-block;
     color: var(--text-black);
     text-decoration: none; 
