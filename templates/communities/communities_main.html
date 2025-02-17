@@ -85,7 +85,7 @@
             const dropdownContent = document.getElementById('dropdown-content');
             const firstCard = document.querySelector(".diary-card:first-child");
             if (firstCard) {
-                firstCard.scrollIntoView({ behavior: "instant", block: "start" });
+                firstCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
             }
         
             // 버튼 클릭 시 드롭다운 표시/숨김
