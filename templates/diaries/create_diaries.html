@@ -38,11 +38,6 @@
                             <label>기분</label>
                             {{ form.mood }}
                         </div>
-                        <div class="form-group" style="display: none;">
-                            <label>누구에게 쓰실 건가요?</label>
-                            {{ form.friends }}
-                        </div>
-                        <input type="hidden" name="friends" value="{{selected_friend_value}}">
                     </div>
                 </div>
             </div>
@@ -102,6 +97,9 @@
             // ✅ HTML 요소에 날짜 출력
             document.getElementById("date").textContent = `${selectedYear}/${formattedMonth}/${formattedDay} ${dayOfWeek}`;
         }
+
+        // ✅ 페이지 로드 시 날짜 표시 실행
+        window.onload = formatDate;
 
 
         document.addEventListener("DOMContentLoaded", function () {
