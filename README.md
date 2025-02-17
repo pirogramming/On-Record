@@ -11,13 +11,15 @@ html 플로우 차트(주요 기능 설명하면서)
 
 # 📝 On-Record(온기록)
 ### 🍀 피로그래밍 22기 최종 프로젝트
-1. [🔗 배포 URL](#-배포-URL)
-2. [☀️ 서비스 소개](#-서비스-소개)
-3. [🐶 팀원 소개](#-팀원-소개)
-4. [💻 사용 툴](#-사용-툴)
-5. [📈 Flowchart](#-Flowchart)
-6. [🧱 System Architecture](#-System-Architecture)
-7. [📀 ERD](#-ERD)
+#### 개요
+    1. [🔗 배포 URL](#-배포-URL)
+    2. [☀️ 서비스 소개](#-서비스-소개)
+    3. [🐶 팀원 소개](#-팀원-소개)
+    4. [💻 사용 툴](#-사용-툴)
+    5. [📈 Flowchart](#-Flowchart)
+    6. [🧱 System Architecture](#-System-Architecture)
+    7. [📀 ERD](#-ERD)
+    
 #### 배포 URL: ["온기록 사이트"](onrecord.kr, "온기록 이용해보기")
 
 ![온기록 로고](static/images/readme/onrecord_logo(readme).png)
