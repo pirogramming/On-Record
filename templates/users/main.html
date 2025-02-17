@@ -25,18 +25,22 @@
                         <span class="typing-text line2"></span>
                         <br>
                         <span class="typing-text line3"></span>
+                        <br>
+                        <span class="typing-text line4"></span>
                     </div>
                     <script>
                         document.addEventListener("DOMContentLoaded", function () {
                             const text1 = "AI와 함께하는 특별한 교환일기!";
                             const text2 = "반려친구와의 하루를 기록하면,";
-                            const text3 = "반려친구가 직접 답장해주는 듯한 감성 가득한 메시지를 받아보세요.";
-                            
+                            const text3 = "반려친구가 직접 답장해주는 듯한";
+                            const text4 = "감성 가득한 메시지를 받아보세요.";
+
                             const typingElement1 = document.querySelector(".typing-text.line1");
                             const typingElement2 = document.querySelector(".typing-text.line2");
                             const typingElement3 = document.querySelector(".typing-text.line3");
+                            const typingElement4 = document.querySelector(".typing-text.line4");
                             
-                            let index1 = 0, index2 = 0, index3 = 0;
+                            let index1 = 0, index2 = 0, index3 = 0, index4 = 0;
                     
                             function typeEffect1() {
                                 if (index1 < text1.length) {
@@ -67,6 +71,17 @@
                                     setTimeout(typeEffect3, 100);
                                 } else {
                                     typingElement3.style.borderRight = "none";
+                                    setTimeout(typeEffect4, 500);
+                                }
+                            }
+
+                            function typeEffect4() {
+                                if (index4 < text4.length) {
+                                    typingElement4.innerHTML += text4[index4];
+                                    index4++;
+                                    setTimeout(typeEffect4, 100);
+                                } else {
+                                    typingElement4.style.borderRight = "none";
                                 }
                             }
                     

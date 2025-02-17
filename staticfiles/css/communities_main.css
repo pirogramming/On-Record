@@ -1,13 +1,133 @@
-.background-b {
-    position: fixed; 
+.wave-container {
+    position: fixed;
+    width: 100%;
     top: 0;
-    left: 0;
+    right: 0;
+    z-index: -2;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.wave {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    opacity: 0;
+    animation: waveAppear 1.5s ease-out forwards, waveMove 8s infinite ease-in-out alternate;
+}
+
+.wave-1 {
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 30vh;
+    background-image: url("/static/images/Rectangle2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top;
+    animation-delay: 0s;
+}
+
+.wave-2 {
+    top: 0;
+    right: 0;
+    width: 130vw;
+    height: 70vh;
+    background-image: url("/static/images/Rectangle1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top;
+    animation-delay: 2s;
+}
+
+@keyframes waveAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(50vw) skewX(15deg) scaleX(0.8);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateX(25vw) skewX(10deg) scaleX(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) skewX(0deg) scaleX(1);
+    }
+}
+
+@keyframes waveMove {
+    0% {
+        transform: translateY(-30px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(30px);
+    }
+}
+
+.floating-background {
+    position: fixed;
     width: 100%;
     height: 100%;
-    background-image: url("/static/images/base-b.png");
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-image: url("/static/images/Ellipse.png");
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    opacity: 0;
+    animation: fadeInFloat 2s ease-out forwards;
+}
+
+.circle-1 {
+    top: 45%; left: 5%;
+    animation: fadeInFloat 2s ease-out forwards, floatAnimation 11s linear infinite;
+}
+
+.circle-2 {
+    width: 430px; height: 430px;
+    top: 80%; left: -1%;
+    animation: fadeInFloat 2s ease-out forwards, floatAnimation 12s linear infinite;
+}
+
+.circle-3 {
+    width: 245px; height: 245px;
+    top: 92%; left: 75%;
+    animation: fadeInFloat 2s ease-out forwards, floatAnimation 9s linear infinite;
+}
+
+.circle-4 {
+    top: 75%; left: 65%;
+    animation: fadeInFloat 2s ease-out forwards, floatAnimation 8s linear infinite;
+}
+
+@keyframes fadeInFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-40px) translateX(20px); }
+    50% { transform: translateY(20px) translateX(-40px); }
+    75% { transform: translateY(-30px) translateX(10px); }
+    100% { transform: translateY(0) translateX(0); }
 }
 
 .community-container{
@@ -27,7 +147,7 @@
 }
 
 .friend-btn, .add-diary-btn {
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     color: var(--white);
     margin-left: 0;
     white-space: nowrap;
@@ -42,18 +162,21 @@
     font-size: 0.8rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     text-decoration: none;
 }
 
 .friend-btn:hover, .add-diary-btn:hover {
-    background-color: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .dropdown-content {
@@ -130,7 +253,7 @@
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin: 0;
+    margin: auto;
     width: 100%;
     max-width: 300px;
     min-height: 350px;
@@ -222,6 +345,7 @@
     align-items: center;
     gap: 5px;
     padding: 5px 10px;
+    text-decoration: none;
 }
 
 .like-btn span, .comment-btn span {

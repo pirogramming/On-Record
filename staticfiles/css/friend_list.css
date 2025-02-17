@@ -100,7 +100,7 @@
 
 .move-detail-btn, .move-write-btn {
     display: inline-block;
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     color: var(--white);
     padding: 12px 18px;
     border-radius: 30px;
@@ -110,6 +110,20 @@
     box-shadow: 0px 3px 8px rgba(230, 190, 90, 0.7);
     margin-top: 15px;
     border: none; 
+    transition: all 0.6s ease-in-out;
+}
+
+.move-detail-btn:hover, .move-write-btn:hover {
+    background: var(--white);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
+}
+
+.move-detail-btn:active, .move-write-btn:active {
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .slider-btn {
@@ -147,69 +161,87 @@
     right: 15px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .slider-container {
-        padding: 0 20px;
-        max-width: 85%;
+        max-width: 50%;
+        padding: 0;
+        overflow: hidden;
+        position: relative;
     }
 
-    .home-description, .friend-name{
-        font-size: 0.8rem;
+    .slider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.4s ease-in-out;
     }
 
-    .friend-profile {
-        width: 100px;
-        height: 100px;
+    .homepage-container {
+        flex: 0 0 45%;
+        max-width: 45%;
+        scroll-snap-align: center;
+        transform: scale(0.95);
     }
 
-    .move-write-btn{
-        font-size: 0.6rem;
-        padding: 10px 16px;
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
     }
-}
 
-@media (max-width: 670px) {
-    .slider-container {
-        padding: 0 20px;
-        max-width: 75%;
+    .slider-btn.left {
+        left: 15px;
+    }
+
+    .slider-btn.right {
+        right: 15px;
     }
 }
 
 @media (max-width: 500px) {
     .slider-container {
-        padding: 0 20px;
-        max-width: 55%;
+        padding: 0;
+        overflow: hidden;
+        position: relative;
     }
 
-    .home-description, .friend-name{
-        font-size: 0.6rem;
+    .slider {
+        display: flex;
+        flex-wrap: nowrap;
+        scroll-snap-type: x mandatory;
+        justify-content: center;
+        transition: transform 0.4s ease-in-out;
     }
 
-    .friend-profile {
-        width: 100px;
-        height: 100px;
-        margin: 20px auto;
+    .homepage-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+        scroll-snap-align: center;
+        transform: scale(0.9);
     }
 
-    .move-write-btn{
-        font-size: 0.4rem;
-        padding: 8px 14px;
-    }
-
-    
     .slider-btn {
         width: 35px;
         height: 35px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-}
 
-@media (max-width: 400px) {
-    .slider-container {
-        padding: 0 20px;
-        max-width: 50%;
+    .slider-btn.left {
+        left: 10px;
     }
 
-    .homepage-container{
-        min-width: 250px;
+    .slider-btn.right {
+        right: 10px;
     }
 }

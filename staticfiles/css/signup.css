@@ -9,6 +9,45 @@
     background-size: cover;
     background-position: center;
     border-radius: 15px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: fadeInScale 0.8s ease-out forwards;
+}
+
+.signup-content, .signup-header, .signup-form, .social-icons {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInMove 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.signup-btn {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInMove 1s ease-out forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInMove {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .signup-bg {
@@ -80,11 +119,21 @@
     font-weight: var(--font-weight-normal);
     border-radius: 30px;
     cursor: pointer;
+    transition: all 0.6s ease-in-out;
 }
 
 .signup-btn:hover {
-    background: var(--hover-yellow);
-}
+    background: var(--white);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
+  }
+  
+.signup-btn:active {
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
 
 .social-icons {
     display: flex;

@@ -1,3 +1,7 @@
+.main-container {
+    all: unset;
+}
+
 .friend-list-container {
     display: flex;
     justify-content: center; 
@@ -65,7 +69,6 @@
 
 .homepage-container.active {
     transform: scale(1.05);
-    z-index: 100;
     box-shadow: 0px 6px 25px rgba(230, 190, 90, 1);
     opacity: 1; 
 }
@@ -163,7 +166,7 @@
 
 @media (max-width: 1024px) {
     .slider-container {
-        max-width: 50%;
+        max-width: 80%;
         padding: 0;
         overflow: hidden;
         position: relative;
@@ -201,7 +204,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
     .slider-container {
         padding: 0;
         overflow: hidden;
@@ -243,5 +246,24 @@
 
     .slider-btn.right {
         right: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .homepage-container {
+        min-width: 100px;
+    }
+
+    .friend-profile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .home-description{
+        font-size: 0.8rem;
+    }
+
+    .move-detail-btn, .move-write-btn {
+        padding: 8px 15px;
     }
 }

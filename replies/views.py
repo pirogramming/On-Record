@@ -157,7 +157,4 @@ Content: {diary.content}
         defaults={'user': current_user, 'content': korean_reply}
     )
 
-    print("🔹 Final Korean Reply:")
-    print(korean_reply)
-
     return korean_reply  # ✅ 최종적으로 한국어 번역된 답변 반환

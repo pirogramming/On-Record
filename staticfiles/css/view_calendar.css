@@ -13,6 +13,7 @@
     color: var(--text-black);
     text-align: center;
     margin: 10px 0;
+    margin-top: 150px;
 }
 
 .view-calendar-description{
@@ -20,7 +21,7 @@
     font-weight: var(--font-weight-regular);
     color: var(--text-black);
     text-align: center;
-    margin: 10px 0 40px;
+    margin-bottom: 40px;
 }
 
 .background {
@@ -64,7 +65,7 @@ table {
 }
 
 th, td {
-    padding: 40px;
+    padding: 25px;
     text-align: center;
     font-size: var(--font-size-normal);
     width: 14.28%;
@@ -123,7 +124,7 @@ tr .today {
 }
 
 .friends-list-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: var(--font-weight-normal);
     color: var(--primary-yellow);
     margin-right: auto;
@@ -132,30 +133,31 @@ tr .today {
 
 .add-btn {
     display: inline-block;
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     border: none;
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: var(--font-weight-normal);
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     color: var(--white);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     text-align: center;
     margin-right: 20px;
 }
 
 .add-btn:hover {
-    background-color: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
 }
 
 .add-btn:active {
-    background-color: var(--shadow-yellow);
-    transform: scale(0.98);
-    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s ease-in, background-color 0.1s ease-in;
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .add-btn a {
@@ -290,7 +292,7 @@ img {
     }
     
     th, td {
-        padding: 30px;
+        padding: 25px;
         text-align: center;
         font-size: var(--font-size-normal);
         width: 14.28%;
@@ -331,16 +333,15 @@ img {
 
 @media (max-width: 768px) {
     th, td {
-        padding: 25px;
+        padding: 20px;
         text-align: center;
         font-size: 0.8rem;
         width: 14.28%;
     }
 }
-
 @media (max-width: 670px) {
     th, td {
-        padding: 20px;
+        padding: 15px;
         text-align: center;
         width: 14.28%;
     }
@@ -355,7 +356,7 @@ img {
     }
 
     .friends-list-title{
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .add-btn, .friend-name{
@@ -371,7 +372,7 @@ img {
     }
 
     .friends-list-title{
-        font-size: 0.7rem;
+        font-size: 0.6rem;
     }
 
     .add-btn, .friend-name{
