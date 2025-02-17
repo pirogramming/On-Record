@@ -318,6 +318,7 @@ img {
         max-height: 500px; 
         overflow-y: auto; 
         margin-top: 0;
+        padding: 15px 1px;
     }
 
     .friends-list-management-header{
@@ -364,7 +365,7 @@ img {
 }
 @media (max-width: 390px) {
     th, td {
-        padding: 1px;
+        padding: 0;
         text-align: center;
         font-size: 0.5rem;
         width: 14.28%;
@@ -374,8 +375,12 @@ img {
         font-size: 0.6rem;
     }
 
-    .add-btn, .friend-name{
+    .add-btn{
         font-size: 0.4rem;
+    }
+    
+    .friend-name{
+        font-size: 0.5rem;
     }
 
     .view-calendar-title{
@@ -385,5 +390,9 @@ img {
     
     .view-calendar-description{
         font-size: 0.7rem;
+    }
+
+    select{
+        padding: 0;
     }
 }
