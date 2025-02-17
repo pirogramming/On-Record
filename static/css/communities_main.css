@@ -233,6 +233,7 @@
     margin-right: auto;
     flex-grow: 1;
     padding-bottom: 50px;
+    scroll-padding-top: 20px;
 }
 
 .diary-list {
