@@ -46,8 +46,14 @@
               <div class="weather">
                 {% if diaries.weather == 'sunny' %}
                     <p>날씨: ☀️</p>
+                {% elif diaries.weather == 'windy'%}
+                    <p>날씨: 💨</p>
                 {% elif diaries.weather == 'cloudy' %}
                     <p>날씨: ☁️</p>
+                {% elif diaries.weather == 'hot' %}
+                    <p>날씨: 🔥</p>
+                {% elif diaries.weather == 'cold' %}
+                    <p>날씨: 🥶</p>
                 {% elif diaries.weather == 'rainy' %}
                     <p>날씨: 🌧️</p>
                 {% elif diaries.weather == 'snowy' %}
@@ -59,12 +65,16 @@
               <div class="mood">
                 {% if diaries.mood == 'happy' %}
                     <p>기분: 😄</p>
+                {% if diaries.mood == 'funny' %}
+                    <p>기분: 🤣</p>
+                {% elif diaries.mood == 'excited' %}
+                    <p>기분: 🤩</p>
+                {% elif diaries.mood == 'normal' %}
+                    <p >기분: 😌</p>
                 {% elif diaries.mood == 'sad' %}
                     <p>기분: 😢</p>
                 {% elif diaries.mood == 'angry' %}
                     <p>기분: 😡</p>
-                {% elif diaries.mood == 'funny' %}
-                    <p >기분: 🤣</p>
                 {% elif diaries.mood == 'tired' %}
                     <p>기분: 😪</p>
                 {% else %}
