@@ -380,10 +380,6 @@ img {
     .add-btn, .friend-name{
         font-size: 0.6rem;
     }
-
-    .calendar-container{
-        position: relative;
-    }
 }
 @media (max-width: 390px) {
     th, td {
