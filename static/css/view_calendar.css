@@ -362,6 +362,11 @@ img {
     .add-btn, .friend-name{
         font-size: 0.6rem;
     }
+    
+    table{
+        position: relative;
+        right: 0.5rem;
+    }
 }
 @media (max-width: 390px) {
     th, td {
