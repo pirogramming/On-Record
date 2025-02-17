@@ -207,7 +207,7 @@ input:focus, select:focus {
 
 @media (max-width: 850px) {
   .create-diaries-container{
-    padding-top: 390px;
+    padding-top: 35px;
   }
 
   .diary-content {
@@ -231,6 +231,36 @@ input:focus, select:focus {
 
   label{
     font-size: 0.8rem;
+  }
+
+}
+
+@media (max-width: 850px) {
+  .diary-content {
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .image-upload, .text-input {
+    width: 320px;
+    height: 350px;
+  }
+
+  .today-diary {
+    font-size: 1.1rem;
+  }
+  
+  #date, .create-btn, .public-btn {
+    font-size: 0.6rem;
+  }
+
+  label{
+    font-size: 0.8rem;
+  }
+
+  .write-header-l, .write-header-a-l {
+    gap: 5px;
   }
 
 }
