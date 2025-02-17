@@ -327,6 +327,7 @@
         scroll-snap-type: x mandatory;
         justify-content: center;
         transition: transform 0.4s ease-in-out;
+        max-width: 75%;
     }
 
     .homepage-container {
@@ -362,6 +363,10 @@
     .homepage-container {
         min-width: 100px;
         flex: 0 0 85%;
+    }
+
+    .slider-container {
+        max-width: 50%;
     }
 
     .friend-profile {
