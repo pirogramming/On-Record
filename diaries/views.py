@@ -357,7 +357,7 @@ from django.db.models import Case, When, BooleanField
 
 def detail_diaries(request, pk):
     if not request.user.is_authenticated:
-        return HttpResponseForbidden("로그인이 필요합니다.")
+        return render(request, 'users/fail_share.html')
 
     diaries = get_object_or_404(Diary, id=pk)
     likes_count = Like.objects.filter(diary=diaries).count()
