@@ -377,4 +377,13 @@ img {
     .add-btn, .friend-name{
         font-size: 0.4rem;
     }
+
+    .view-calendar-title{
+        font-size: 1.4rem;
+
+    }
+    
+    .view-calendar-description{
+        font-size: 0.7rem;
+    }
 }
