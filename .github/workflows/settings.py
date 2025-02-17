@@ -229,6 +229,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 LOGIN_REDIRECT_URL = '/' # 로그인 후 연결될 URL
 
+ACCOUNT_ADAPTER = 'users.adapters.MyAccountAdapter'
+
 SOCIALACCOUNT_QUERY_EMAIL = True # 소셜 로그인 시 이메일 정보를 가져오도록 설정
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'

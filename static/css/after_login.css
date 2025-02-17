@@ -61,6 +61,12 @@
   font-weight: var(--font-weight-normal);
 }
 
+.fali-share{
+  font-size: 1.7rem;
+  margin-bottom: 25px;
+  font-weight: var(--font-weight-normal);
+}
+
 .move-form-btn {
   display: block;
   padding: 5px 40px;
@@ -72,6 +78,8 @@
   margin: 30px;
   text-decoration: none;
   transition: all 0.6s ease-in-out;
+  bottom: 10px;
+  position: absolute;
 }
 
 .move-form-btn:hover {
