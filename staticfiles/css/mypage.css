@@ -122,7 +122,7 @@ p {
 }
 
 .edit-profile-btn {
-    background: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     color: var(--white); 
     border: none;
     padding: 8px 20px;
@@ -131,7 +131,7 @@ p {
     font-size: 0.8rem;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
 }
 
@@ -141,14 +141,21 @@ p {
 }
 
 .edit-profile-btn:hover {
-    background: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
-    box-shadow: 0px 4px 10px rgba(230, 190, 90, 0.5);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
+}
+
+.edit-profile-btn:active {
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .add-btn {
     display: inline-block;
-    background-color: var(--primary-yellow);
+    background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     box-shadow: 0px 2px 5px rgba(255, 215, 90, 0.6);
     color: var(--white);
     padding: 7px 20px;
@@ -156,13 +163,21 @@ p {
     text-decoration: none;
     font-size: 0.8rem;
     text-align: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.6s ease-in-out;
     white-space: nowrap;
 }
 
 .add-btn:hover {
-    background-color: var(--hover-yellow);
+    background: var(--white);
     transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 192, 3, 0.6);
+    color: var(--primary-yellow);
+}
+
+.add-btn:active {
+    transform: scale(0.9);
+    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .friends-list-list {
@@ -177,6 +192,7 @@ p {
 
 .friend-item-link {
     display: block;
+    width: 100%;
     text-decoration: none;
     color: inherit;
 }
@@ -371,4 +387,5 @@ p {
     .friends-list-management-header {
         gap: 50px; 
     }
+
 }
