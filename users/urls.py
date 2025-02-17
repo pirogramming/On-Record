@@ -15,4 +15,8 @@ urlpatterns = [
     path('delete_user/', delete_user, name='delete_user'),
     path('privacy_policy/', privacy_policy, name='privacy_policy'),
     path('terms_of_service/', terms_of_service, name='terms_of_service'),
+    path('find-email/', FindEmailView.as_view(), name='find-email'),
+    path('password_reset/', password_reset_request, name='password_reset_request'),
+    path('password_reset/done/', password_reset_done, name='password_reset_done'),
+    path('reset/<uuid:token>/', verify_email_reset, name='verify_email_reset'),
 ]

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib import auth
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import auth, messages
 from users.models import User, EmailVerification
 from diaries.models import Pet, Plant
-from users.forms import SignupForm, ProfileForm
+from users.forms import SignupForm, ProfileForm, PasswordResetRequestForm
 from django.http import JsonResponse
 from .utils import get_kakao_token, get_kakao_user_info, encrypt_password, decrypt_password
 from datetime import timedelta
@@ -12,6 +14,7 @@ from django.utils.timezone import now
 from django.core.mail import send_mail
 from django.core.signing import BadSignature
 from django.conf import settings
+from django.views import View
 from django.urls import reverse
 import requests
 import uuid
@@ -243,3 +246,74 @@ def privacy_policy(request):
 
 def terms_of_service(request):
   return render(request, 'terms_of_service.html')
+
+class FindEmailView(View):
+  def get(self, request):
+    return render(request, 'users/find_email.html')  # 이메일 찾기 폼을 렌더링
+
+  def post(self, request):
+    nickname = request.POST.get('nickname')  # 폼에서 닉네임 받아오기
+
+    try:
+      user = User.objects.get(nickname=nickname)  # 닉네임으로 사용자 찾기
+      email = user.email  # 해당 사용자의 이메일
+
+      return JsonResponse({'email': email})  # 이메일 반환
+    except User.DoesNotExist:
+      return JsonResponse({'error': '이 닉네임에 해당하는 이메일이 없습니다.'}, status=404)
+
+def password_reset_request(request):
+  if request.method == 'POST':
+    form = PasswordResetRequestForm(request.POST)
+    if form.is_valid():
+      user_email = form.cleaned_data['email']
+
+      EmailVerification.objects.filter(email=user_email).delete()
+
+      token = uuid.uuid4()
+      verification = EmailVerification.objects.create(
+        email=user_email,
+        token=token,
+        expires_at=now() + timedelta(minutes=5)
+      )
+
+      verification_link = request.build_absolute_uri(reverse('users:verify_email_reset', args=[token]))
+
+      send_mail(
+        subject='비밀번호 재설정을 위한 이메일 인증 요청',
+        message=f'아래 링크를 클릭하여 비밀번호를 재설정하세요:\n{verification_link}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[user_email],
+        fail_silently=False,
+      )
+
+      return redirect('users:password_reset_done')
+
+  else:
+    form = PasswordResetRequestForm()
+
+  return render(request, 'users/password_reset_request.html', {'form': form})
+
+def verify_email_reset(request, token):
+  try:
+    verification = EmailVerification.objects.get(token=token, expires_at__gte=now())
+
+    if request.method == 'POST':
+      new_password = request.POST.get('new_password')
+
+      # 비밀번호 설정
+      user = User.objects.get(email=verification.email)
+      user.set_password(new_password)
+      user.save()
+
+      verification.delete()
+
+      messages.success(request, '비밀번호가 성공적으로 변경되었습니다.')
+
+      return redirect('users:user_login')
+    return render(request, 'users/password_reset_form.html', {'token': token})
+  except EmailVerification.DoesNotExist:
+    return render(request, 'users/verification_failed.html', {'error': '잘못된 링크입니다.'})
+
+def password_reset_done(request):
+  return render(request, 'users/password_reset_done.html')
