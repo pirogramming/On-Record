@@ -61,10 +61,10 @@
   font-weight: var(--font-weight-normal);
 }
 
-.fail-share{
-  font-size: 0.7rem;
+.fali-share{
+  font-size: 1.7rem;
   margin-bottom: 25px;
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-normal);
 }
 
 .move-form-btn {
@@ -78,6 +78,8 @@
   margin: 30px;
   text-decoration: none;
   transition: all 0.6s ease-in-out;
+  bottom: 10px;
+  position: absolute;
 }
 
 .move-form-btn:hover {
