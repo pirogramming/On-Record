@@ -61,6 +61,12 @@
   font-weight: var(--font-weight-normal);
 }
 
+.fail-share{
+  font-size: 0.7rem;
+  margin-bottom: 25px;
+  font-weight: var(--font-weight-regular);
+}
+
 .move-form-btn {
   display: block;
   padding: 5px 40px;
