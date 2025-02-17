@@ -332,35 +332,10 @@ img {
 
 @media (max-width: 850px) {
     th, td {
-        padding: 0;
+        padding: 23px;
         text-align: center;
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         width: 14.28%;
-    }
-
-    .friends-list-title{
-        font-size: 0.6rem;
-    }
-
-    .add-btn{
-        font-size: 0.4rem;
-    }
-    
-    .friend-name{
-        font-size: 0.5rem;
-    }
-
-    .view-calendar-title{
-        font-size: 1.4rem;
-
-    }
-    
-    .view-calendar-description{
-        font-size: 0.7rem;
-    }
-
-    select{
-        padding: 0;
     }
 
     .calendar-container{
@@ -369,7 +344,7 @@ img {
 
     table{
         position: relative;
-        right: 0.5rem;
+        right: 1rem;
     }
 }
 
@@ -406,9 +381,8 @@ img {
         font-size: 0.6rem;
     }
 
-    table{
+    .calendar-container{
         position: relative;
-        right: 0.5rem;
     }
 }
 @media (max-width: 390px) {
@@ -442,14 +416,5 @@ img {
 
     select{
         padding: 0;
-    }
-
-    .calendar-container{
-        position: relative;
-    }
-
-    table{
-        position: relative;
-        right: 0.5rem;
     }
 }
