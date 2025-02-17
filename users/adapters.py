@@ -1,10 +1,27 @@
+from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.socialaccount.models import SocialAccount
 from allauth.utils import valid_email_or_none
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class MyAccountAdapter(DefaultAccountAdapter):
+    pass
+
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
+
+    def pre_social_login(self, request, sociallogin):
+        # 기존 이메일을 가진 사용자가 소셜 로그인을 시도하면 자동으로 연결
+        email = sociallogin.account.extra_data.get("email")
+
+        if email:
+            try:
+                user = User.objects.get(email=email)
+                sociallogin.connect(request, user)
+            except User.DoesNotExist:
+                pass
+
     def populate_user(self, request, sociallogin, data):
         user = super().populate_user(request, sociallogin, data)
 

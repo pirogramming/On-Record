@@ -72,18 +72,25 @@ class Plant(models.Model):
         return self.name
 
 class Diary(models.Model):
+    # 날씨
     WEATHER_CHOICES = [
         ( 'sunny', '☀️' ),
+        ( 'windy', '💨' ),
         ( 'cloudy', '☁️' ),
+        ( 'hot', '🔥' ),
+        ( 'cold', '🥶' ),
         ( 'rainy', '🌧' ),
         ( 'snowy', '❄️' ),
     ]
 
+    # 감정
     MOOD_CHOICES = [
         ( 'happy' ,  '🥰' ),
+        ( 'funny' ,  '🤣' ),
+        ( 'excited', '🤩' ),
+        ( 'normal', '😌' ),
         ( 'sad'   ,  '😢' ),
         ( 'angry' ,  '😡' ),
-        ( 'funny' ,  '🤣' ),
         ( 'tired' ,  '😪' ),
     ]
 
