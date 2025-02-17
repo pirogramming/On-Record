@@ -175,7 +175,6 @@
 
 .dropdown {
     transform: scale(0.9);
-    box-shadow: 0 5px 15px rgba(255, 192, 3, 0.4);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
