@@ -61,7 +61,7 @@
   font-weight: var(--font-weight-normal);
 }
 
-.fali-share{
+.fail-share{
   font-size: 1.7rem;
   margin-bottom: 25px;
   font-weight: var(--font-weight-normal);
@@ -105,6 +105,10 @@
     font-size: 1.5rem; 
   }
 
+  .fail-share{
+    font-size: 1.2rem;
+  }
+
   .container-span span, .move-form-btn {
     font-size: 0.8rem; 
   }
@@ -127,6 +131,9 @@
     margin-bottom: 0;
   }
 
+  .fail-share{
+    font-size: var(--font-size-normal);
+  }
   .container-span span, .move-form-btn {
     font-size: 0.6rem; 
   }
