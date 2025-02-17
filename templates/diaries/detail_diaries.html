@@ -107,6 +107,9 @@
         </form>
         <form id="delete-form" action="{% url 'diaries:delete_diaries' diaries.pk %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
+          <input type="hidden" name="next" value="{{request.GET.next}}">
+          <input type="hidden" name="type" value="{{request.GET.type}}">
+          <input type="hidden" name="id" value="{{request.GET.id}}">
           <button type="submit" class="bi bi-trash3-fill" id="delete-btn"></button>
         </form>
       {% endif %}
@@ -133,7 +136,7 @@
               <button class="save-comment-btn" data-comment-id="{{ comment.id }}" style="display:none;">
                 저장
               </button>
-              <button class="delete-comment-btn" data-comment-id="{{ comment.id }}">
+              <button class="delete-comment-btn" data-comment-id="{{ commentgit.id }}">
                 <i class="bi bi-trash3-fill comment-del-btn"></i>
               </button>
             </div>

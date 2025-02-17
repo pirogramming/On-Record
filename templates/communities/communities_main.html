@@ -37,7 +37,7 @@
                 {% if diaries %}
                     {% for diary in diaries %}
                     <div class="diary-card" data-diary-id="{{ diary.id }}">
-                        <a href="{% url 'diaries:detail_diaries' diary.id %}" class="diary-card-link">
+                        <a href="{% url 'diaries:detail_diaries' diary.id %}?next=communities" class="diary-card-link">
                             <div class="diary-image">
                                 {% if diary.image %}
                                     <img src="{{ diary.image.url }}" alt="다이어리 이미지">
@@ -65,7 +65,7 @@
                                 <span id="like-count-{{ diary.id }}">{{ diary.like_set.count }}</span>
                             </button>
                             {%endif%}
-                            <a href="{% url 'diaries:detail_diaries' diary.id %}" class="comment-btn" data-diary-id="{{ diary.id }}">
+                            <a href="{% url 'diaries:detail_diaries' diary.id %}?next=communities" class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
                                 <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
                             </a>

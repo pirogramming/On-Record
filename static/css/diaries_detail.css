@@ -244,6 +244,7 @@ button i {
   width: 100%;
   border: none;
   border-bottom: 2px solid var(--primary-yellow);
+  margin-right: 10px
 }
 
 .comment-input-section{
@@ -288,6 +289,7 @@ button i {
 .comment-edit-del-btn{
   margin-left: auto;
   font-size: 0.9rem;
+  margin-right: 20px;
 }
 
 .edit-comment-btn, .save-comment-btn, .delete-comment-btn {
@@ -447,7 +449,6 @@ button i {
     flex-direction: row;
     align-items: center;
     margin-left: auto;
-    margin-right: 20px;
   }
 
   .comment-edit-btn, .save-comment-btn, .delete-comment-btn {

@@ -411,17 +411,32 @@ def detail_diaries_by_pet_date(request , pet_id , selected_date):
     return render(request, 'diaries/diaries_detail.html', context)
 
 #08 다이어리 삭제
+
+
 def delete_diaries(request, pk):
     diaries = get_object_or_404(Diary, id=pk)
 
     if diaries:
         if diaries.user == request.user:
             diaries.delete()
-            return redirect('users:main')
+
+            # ✅ POST 요청에서 값 가져오기 (🔥 GET이 아니라 POST에서 가져와야 함!)
+            next_page = request.POST.get('next')
+
+
+            if next_page == "mydiary_list":
+                friend_type = request.POST.get('type')
+                friend_id = request.POST.get('id')
+                return redirect('diaries:mydiary_list', friend_id)  # 🔥 올바르게 friend_id를 전달
+            if next_page == "communities":
+                return redirect("communities:render_communities_main")
+            else:
+                return redirect('users:main')
         else:
             return HttpResponse('사용자가 다릅니다.')
     else:
         return HttpResponse('해당 일기가 없습니다.')
+
 
 #09 다이어리 수정
 
