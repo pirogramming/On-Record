@@ -1,3 +1,7 @@
+.main-container {
+    all: unset;
+}
+
 .friend-list-container {
     display: flex;
     justify-content: center; 
