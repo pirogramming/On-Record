@@ -330,45 +330,7 @@ img {
     }
 }
 
-
-@media (max-width: 768px) {
-    th, td {
-        padding: 20px;
-        text-align: center;
-        font-size: 0.8rem;
-        width: 14.28%;
-    }
-}
-@media (max-width: 670px) {
-    th, td {
-        padding: 15px;
-        text-align: center;
-        width: 14.28%;
-    }
-}
-
-@media (max-width: 570px) {
-    th, td {
-        padding: 5px;
-        text-align: center;
-        font-size: 0.7rem;
-        width: 14.28%;
-    }
-
-    .friends-list-title{
-        font-size: 0.8rem;
-    }
-
-    .add-btn, .friend-name{
-        font-size: 0.6rem;
-    }
-
-    table{
-        position: relative;
-        right: 0.5rem;
-    }
-}
-@media (max-width: 390px) {
+@media (max-width: 850px) {
     th, td {
         padding: 0;
         text-align: center;
@@ -411,7 +373,45 @@ img {
     }
 }
 
-@media (max-width: 350px) {
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 20px;
+        text-align: center;
+        font-size: 0.8rem;
+        width: 14.28%;
+    }
+}
+@media (max-width: 670px) {
+    th, td {
+        padding: 15px;
+        text-align: center;
+        width: 14.28%;
+    }
+}
+
+@media (max-width: 570px) {
+    th, td {
+        padding: 5px;
+        text-align: center;
+        font-size: 0.7rem;
+        width: 14.28%;
+    }
+
+    .friends-list-title{
+        font-size: 0.8rem;
+    }
+
+    .add-btn, .friend-name{
+        font-size: 0.6rem;
+    }
+
+    table{
+        position: relative;
+        right: 0.5rem;
+    }
+}
+@media (max-width: 390px) {
     th, td {
         padding: 0;
         text-align: center;
