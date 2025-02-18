@@ -361,6 +361,33 @@
     }
 }
 
+@media (max-width: 600px) {
+    .homepage-container {
+        min-width: 200px;
+    }
+
+    .slider-container {
+        max-width: 35%;
+    }
+
+    .friend-profile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .home-description{
+        font-size: 0.8rem;
+    }
+
+    .move-detail-btn, .move-write-btn {
+        padding: 8px 15px;
+    }
+
+    .homepage-container.active {
+        transform: none;
+    }
+}
+
 @media (max-width: 400px) {
     .slider-container {
         max-width: 90vw;
