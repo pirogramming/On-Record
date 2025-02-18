@@ -553,6 +553,7 @@ button i {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 30%;
+    margin-right: 0;
   }
 
   .comments-list-content {
@@ -599,8 +600,16 @@ button i {
 }
 
 @media (max-width: 500px){
-  .comments-list-name, .comments-list-content, .comment-edit-btn, 
+  .comment-edit-btn, 
   .save-comment-btn, .comment-del-btn, .comment-input, .add-comment-btn{
     font-size: 0.9rem;
+  }
+
+  .comments-list-name, .comments-list-content{
+    font-size: 0.7rem;
+  }
+
+  .delete-comment-btn {
+    margin-left: 0px;
   }
 }
