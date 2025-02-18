@@ -342,6 +342,11 @@ img {
         width: 14.28%;
     }
 
+    /* .dropdowns{
+        position: relative;
+        right: 1rem;
+    } */
+
     .calendar-container{
         position: relative;
     }
