@@ -210,12 +210,16 @@
     outline: none; 
 }
 
-.find-buttons {
+.find-buttons-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     margin-top: 15px;
+}
+
+.find-buttons{
+    display: flex;
 }
 
 .find-email-btn {

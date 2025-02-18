@@ -29,6 +29,16 @@
                 <div class="form-field">
                     {{ form.password }}  
                 </div>
+                
+                <div class-"find-buttons-container">
+                    <div class="find-buttons">
+                        <a href="{% url 'users:find-email' %}" class="find-email-btn">이메일 찾기</a>
+                        <form action="{% url 'users:password_reset_request' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="find-pwd-btn">비밀번호를 잊으셨나요?</button>
+                        </form>
+                    </div>
+                </div>
                 <button type="submit" class="login-btn">로그인</button>
             </form>
 
@@ -44,14 +54,6 @@
                         <img src="{% static 'images/google.png' %}" alt="구글 로그인">
                     </button>
                 </div>
-            </div>
-
-            <div class="find-buttons">
-                <a href="{% url 'users:find-email' %}" class="find-email-btn">이메일 찾기</a>
-                <form action="{% url 'users:password_reset_request' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="find-pwd-btn">비밀번호를 잊으셨나요?</button>
-                </form>
             </div>
         </div>
 
