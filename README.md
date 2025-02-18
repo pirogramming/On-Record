@@ -13,13 +13,12 @@ html 플로우 차트(주요 기능 설명하면서)
 ### 🍀 피로그래밍 22기 최종 프로젝트
 📆 **개발 기간**: 2025년 01월 27일 ~ 2025년 02월 18일
 ### 📂 Contents
-1. [🔗 배포 URL](#-배포-URL)
-2. [☀️ 서비스 소개](#-서비스-소개)
-3. [🐶 팀원 소개](#-팀원-소개)
-4. [💻 사용 툴](#-사용-툴)
-5. [📈 Flowchart](#-Flowchart)
-6. [🧱 System Architecture](#-System-Architecture)
-7. [📀 ERD](#-ERD)
+1. [☀️ 서비스 소개](#-서비스-소개)
+2. [💻 사용 툴](#-사용-툴)
+3. [📈 Flowchart](#-Flowchart)
+4. [🧱 System Architecture](#-System-Architecture)
+5. [📀 ERD](#-ERD)
+6. [🐶 팀원 소개](#-팀원-소개)
 
 
 ## ☀️ 서비스 소개
@@ -65,6 +64,10 @@ html 플로우 차트(주요 기능 설명하면서)
 <p>
     <img src="https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white">
 </p>
+<br>
+**AI 답변 생성 방식**  
+- OpenAI의 **GPT 모델**을 사용하여 사용자의 일기에 대한 답변을 생성  
+- 작성한 일기와 반려친구의 정보 데이터를 반영하여 맞춤형 AI 응답 제공
 
 
 ******
@@ -82,6 +85,13 @@ html 플로우 차트(주요 기능 설명하면서)
 
 ## 📈 Flowchart
 ![온기록 플로우차트](static/images/readme/onrecord_flowchart.png)
+<br>
+**온기록 서비스의 동작 흐름**
+1. 사용자가 **회원가입 후 로그인**
+2. 반려동물 또는 반려식물을 **등록**
+3. 캘린더에서 **날짜를 선택하여 일기 작성**
+4. AI가 **반려친구의 입장에서 자동으로 답장 생성**
+5. 사용자는 **AI 응답을 확인하고 감정 교류 가능**
 
 ## 🧱 System Architecture
 ![온기록 시스템아키텍쳐](static/images/readme/onrecord_systemarchitecture.png)
