@@ -220,38 +220,36 @@
 
 .find-buttons{
     display: flex;
+    align-items: center;
+    gap: 150px;
+    margin-bottom: 10px;
 }
 
 .find-email-btn {
     font-size: 12px;
     color: var(--primary-yellow);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-regular);
     text-decoration: none;
-}
-
-.find-email-btn:hover {
-    text-decoration: underline;
 }
 
 .find-pwd-btn {
     display: inline-block;
     padding: 8px 15px;
     font-size: 12px;
-    font-weight: bold;
     text-align: center;
     color: var(--primary-yellow);
     font-weight: var(--font-weight-regular);
-    border: 1.5px solid var(--primary-yellow);
+    border: none;
     border-radius: 20px;
     background-color: var(--white);
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
 }
 
-.find-pwd-btn:hover {
-    background-color: var(--primary-yellow);
-    color: var(--white);
-    box-shadow: 0 4px 10px rgba(255, 192, 3, 0.4);
+.find-pwd-btn:hover, .find-email-btn:hover {
+    text-decoration: underline;
+    color: var(--primary-yellow);
+    background: var(--white);
+    box-shadow: none;
 }
 
 .find-btn-pwd:active {
