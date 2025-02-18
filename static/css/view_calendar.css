@@ -43,6 +43,10 @@
     padding: 0 50px 100px;
 }
 
+.dropdowns {
+    text-align: center;
+}
+
 select {
     padding: 8px 16px;
     margin-left: 30px;
@@ -337,6 +341,11 @@ img {
         font-size: 0.8rem;
         width: 14.28%;
     }
+
+    /* .dropdowns{
+        position: relative;
+        right: 1rem;
+    } */
 
     .calendar-container{
         position: relative;

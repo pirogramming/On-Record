@@ -367,25 +367,63 @@
         min-width: 200px;
     }
 
-    .slider-container {
-        max-width: 35%;
+    .slider {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start; 
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        white-space: nowrap;
+        padding: 10px 0;
+    }
+
+    .homepage-container {
+        min-width: 160px;
+        max-width: 75%;
+        flex: 0 0 auto;
+        margin: 10px;
+        padding: 15px;
+        scroll-snap-align: center;
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .friend-profile {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
 
-    .home-description{
-        font-size: 0.8rem;
+    .home-description {
+        font-size: 0.75rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 90%;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.2;
+        display: block;
+        overflow: hidden;
     }
 
-    .move-detail-btn, .move-write-btn {
-        padding: 8px 15px;
+    .slider-btn {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
     }
 
-    .homepage-container.active {
-        transform: none;
+    .slider-btn.left-btn {
+        left: 5px;
+    }
+
+    .slider-btn.right-btn {
+        right: 5px;
     }
 }
 */
