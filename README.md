@@ -179,9 +179,3 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dosp74](https://github.com/Dosp74 "한종서 Github")
 
 ![온기록 팀 소개](static/images/readme/onrecord_team.png)
-<!-- 
-<details><summary>접고 펴는 기능
-</summary>
-
-*Write here!*
-</details> -->
