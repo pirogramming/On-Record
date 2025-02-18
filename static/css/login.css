@@ -237,6 +237,8 @@
     background-color: transparent;
     cursor: pointer;
     white-space: nowrap;
+    position: absolute;
+    bottom: 1px;
 }
 
 .find-pwd-btn:hover, .find-email-btn:hover {
@@ -368,10 +370,5 @@
     .find-buttons {
         gap: 60px;
         left: 40px;
-    }
-
-    .find-pwd-btn{
-        position: absolute;
-        bottom: 1px;
     }
 }
