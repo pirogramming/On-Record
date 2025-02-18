@@ -361,7 +361,6 @@
     }
 }
 
-<<<<<<< HEAD
 @media (max-width: 899px) {
     .slider-container {
         max-width: 90vw;
@@ -379,9 +378,6 @@
         padding: 10px 0;
     }
 
-=======
-@media (max-width: 600px) {
->>>>>>> origin/main
     .homepage-container {
         min-width: 200px;
     }
