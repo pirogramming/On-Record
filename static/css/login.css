@@ -124,7 +124,7 @@
 
 .login-btn {
     width: 80%;
-    max-width: 320px;
+    max-width: 365px;
     padding: 10px;
     background: linear-gradient(-90deg, var(--primary-yellow), var(--light-yellow));
     border: none;
@@ -215,7 +215,6 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-top: 15px;
 }
 
 .find-buttons{
@@ -230,26 +229,24 @@
     color: var(--primary-yellow);
     font-weight: var(--font-weight-regular);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .find-pwd-btn {
     display: inline-block;
-    padding: 8px 15px;
     font-size: 12px;
     text-align: center;
     color: var(--primary-yellow);
     font-weight: var(--font-weight-regular);
     border: none;
-    border-radius: 20px;
-    background-color: var(--white);
+    background-color: transparent;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .find-pwd-btn:hover, .find-email-btn:hover {
     text-decoration: underline;
-    color: var(--primary-yellow);
-    background: var(--white);
-    box-shadow: none;
+    background-color: transparent;
 }
 
 .find-btn-pwd:active {
@@ -295,7 +292,7 @@
         margin-left: 0;
         padding: 10px;
         position: relative;
-        top: -40px;
+        top: -15px;
     }
 
     .login-logo {
@@ -363,5 +360,12 @@
     .social-btn img {
         width: 60%;
         height: 60%;
+    }
+}
+
+@media screen and (max-width: 450px)
+{
+    .find-buttons {
+        gap: 80px;
     }
 }
