@@ -366,7 +366,7 @@
 @media screen and (max-width: 400px)
 {
     .find-buttons {
-        gap: 50px;
+        gap: 80px;
         left: 40px;
     }
 
