@@ -137,6 +137,16 @@
         const today = new Date();
         today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 초기화
 
+        const todayYear = today.getFullYear();
+        const todayMonth = today.getMonth() + 1;
+        const todayDay = today.getDate();
+    
+        // 캘린더에서 오늘 날짜에 해당하는 요소 찾기
+        const todayElement = document.querySelector(`.diary-day[data-year="${todayYear}"][data-month="${todayMonth}"][data-day="${todayDay}"]`);
+        
+        if (todayElement) {
+            todayElement.style.fontWeight = "bold";
+        }
         // 캘린더의 날짜 버튼을 가져오기 (날짜를 클릭할 요소의 클래스를 사용)
         const dateButtons = document.querySelectorAll(".diary-day");
         dateButtons.forEach(button => {
