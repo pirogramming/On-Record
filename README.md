@@ -106,36 +106,48 @@ html 플로우 차트(주요 기능 설명하면서)
 
 ## 사용 예시
 1.	회원가입 및 로그인
-	•	회원가입 후, 로그인하여 반려친구를 등록할 수 있는 초기 설정 페이지로 이동
-    <img src="/static/images/readme/first_page.png">
+	•	회원가입 후, 로그인하여 반려친구를 등록할 수 있는 초기 설정 페이지로 이동<br>
+    <img src="/static/images/readme/first_page.png" width="50%">
 2.	반려친구 등록
 	•	반려동물 또는 반려식물 추가
-    <img src="/static/images/readme/create_pet_or_plant.png">
-	•	사진 업로드, 성격 설정 등의 기능을 통해 개별 맞춤 설정
-    <p>
-        <img src="/static/images/readme/create_pet.png">
-        <img src="/static/images/readme/create_plant.png">
+	<br>
+    <img src="/static/images/readme/create_pet_or_plant.png" width="50%">
+    <br>
+	•	사진 업로드, 성격 설정, 특징 등의 기능을 통해 개별 맞춤 설정
+    <br>
+    <p align="center">
+	<img src="/static/images/readme/create_pet.png" width="45%">
+	<img src="/static/images/readme/create_plant.png" width="45%">
     </p>
-3.	캘린더 화면에서 일기 작성
-	•	원하는 날짜를 선택 후, 반려친구를 지정하여 일기 작성
-    <img src="/static/images/readme/view_calendar.png">
-4.  일기 작성
-    •	감정 및 날씨 선택, 텍스트 입력 기능 제공
-    <img src="/static/images/readme/create_diaries.png">
-5.	AI 답변 확인
+    <br>
+4.	캘린더 화면에서 일기 작성
+	•	원하는 날짜를 선택 후, 반려친구를 지정하여 일기 작성<br>
+    <img src="/static/images/readme/view_calendar.png" width="50%">
+    <br>
+5.  일기 작성
+    •	감정 및 날씨 선택, 텍스트 입력 기능 제공<br>
+    <img src="/static/images/readme/create_diaries.png" width="50%">
+    <br>
+6.	AI 답변 확인
 	•	작성한 일기에 대해 AI가 반려친구의 입장에서 답장을 자동 생성
-	•	감정 분석을 기반으로 자연스러운 반응 제공
-    <img src="/static/images/readme/detail_diaries.png">
-6.	일기 리스트 및 상세보기
-	•	기록된 일기를 캘린더 혹은 리스트 뷰에서 확인
+	•	감정 분석을 기반으로 자연스러운 반응 제공<br>
+    <img src="/static/images/readme/detail_diaries.png" width="50%">
+    <br>
+7.	일기 리스트 및 상세보기<br>
+	•	기록된 일기를 캘린더 혹은 리스트 뷰에서 확인<br>
 	•	특정 일기 클릭 시, 상세 페이지로 이동하여 전체 내용 및 AI 답장 확인 가능
-    <img src="/static/images/readme/onrecord_list.png">
-7.	반려친구 관리 및 삭제 기능(마이페이지)
+    <br>
+    <img src="/static/images/readme/onrecord_list.png" width="50%">
+    <br>
+9.	반려친구 관리 및 삭제 기능(마이페이지)
 	•	반려친구 추가/수정/삭제 가능
 	•	기존에 작성된 일기들은 유지되며, 반려친구 데이터만 삭제
-    <img src="/static/images/readme/mypage.png">
-8. 커뮤니티 기능(모두의 온기록)
-    <img src="/static/images/readme/community.png">
+    <br>
+    <img src="/static/images/readme/mypage.png" width="50%">
+    <br>
+10. 커뮤니티 기능(모두의 온기록)
+    <br>
+    <img src="/static/images/readme/community.png" width="50%">
 
 ## 🐶 팀원 소개
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0HooHI](https://github.com/0HooHI "김영호 Github")
