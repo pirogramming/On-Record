@@ -1,14 +1,3 @@
-<!--
-프로젝트 개요(기획 배경, 목적 등)
-팀원 소개(FE, BE) + 팀원 깃허브 링크 연결
-ERD
-html 플로우 차트(주요 기능 설명하면서)
-+ 사용법?
-사용 예시(웹사이트 캡처 화면 포함)
-사용 도구(언어, 협업 툴 - 링크 포함)
--->
-
-
 # 📝 On-Record(온기록)
 ### 🍀 피로그래밍 22기 최종 프로젝트
 📆 **개발 기간**: 2025년 01월 27일 ~ 2025년 02월 18일
@@ -65,9 +54,10 @@ html 플로우 차트(주요 기능 설명하면서)
     <img src="https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white">
 </p>
 <br>
+
 **AI 답변 생성 방식**  
-- OpenAI의 **GPT 모델**을 사용하여 사용자의 일기에 대한 답변을 생성  
-- 작성한 일기와 반려친구의 정보 데이터를 반영하여 맞춤형 AI 응답 제공
+> - OpenAI의 **GPT 모델**을 사용하여 사용자의 일기에 대한 답변을 생성  
+> - 작성한 일기와 반려친구의 정보 데이터를 반영하여 맞춤형 AI 응답 제공
 
 
 ******
@@ -79,7 +69,11 @@ html 플로우 차트(주요 기능 설명하면서)
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
     <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
     <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
-</p>
+</p><br>
+
+> [🐶 온기록 피그마](https://www.figma.com/design/UegG1gocuWCnORJeMuLayB/%EC%98%A8%EA%B8%B0%EB%A1%9D?node-id=0-1&p=f&t=MrHQne5S9sjzOato-0)
+&nbsp;&nbsp;&nbsp;[🌸 온기록 노션](https://arrow-battery-d95.notion.site/18a0464afcbc81dfa1cac08ba4e57ffa)
+
 
 ******
 
@@ -87,11 +81,13 @@ html 플로우 차트(주요 기능 설명하면서)
 ![온기록 플로우차트](static/images/readme/onrecord_flowchart.png)
 <br>
 **온기록 서비스의 동작 흐름**
-1. 사용자가 **회원가입 후 로그인**
-2. 반려동물 또는 반려식물을 **등록**
-3. 캘린더에서 **날짜를 선택하여 일기 작성**
-4. AI가 **반려친구의 입장에서 자동으로 답장 생성**
-5. 사용자는 **AI 응답을 확인하고 감정 교류 가능**
+> 1. 사용자가 **회원가입 후 로그인**
+> 2. 반려동물 또는 반려식물을 **등록**
+> 3. 캘린더에서 **날짜를 선택하여 일기 작성**
+> 4. AI가 **반려친구의 입장에서 자동으로 답장 생성**
+> 5. 사용자는 **AI 응답을 확인하고 감정 교류 가능**
+> 6. 작성한 일기를 공개여부를 통해 다른 사람들과 **공유 가능**
+> 7. 다른 사람들의 일기에 좋아요, 댓글로 **소통 가능**
 
 ## 🧱 System Architecture
 ![온기록 시스템아키텍쳐](static/images/readme/onrecord_systemarchitecture.png)
@@ -100,63 +96,79 @@ html 플로우 차트(주요 기능 설명하면서)
 ![온기록 ERD](static/images/readme/onrecord_erd.png)
 
 ## 핵심 기능
-1.	캘린더 기반 일기 작성
+> 1.	캘린더 기반 일기 작성
 	•	반려동물 및 반려식물을 대상으로 날짜별 일기 작성
 	•	감정(이모지) 및 날씨 선택 기능
 	•	다이어리 리스트 및 개별 일기 상세 보기 가능
-2.	AI 답변 생성 기능
+> 2.	AI 답변 생성 기능
 	•	사용자가 작성한 일기에 대해 AI가 반려친구(동물/식물)의 입장에서 답장을 생성
 	•	AI 응답을 통해 사용자와 반려친구 간의 인터랙션을 강화
-3.	반려친구 관리 기능
+> 3.	반려친구 관리 기능
 	•	반려동물 및 반려식물 등록 및 삭제 기능
 	•	반려친구의 사진, 이름, 성격 등을 추가하여 맞춤형 관리 가능
-4.	공개/비공개 설정
+> 4.	공개/비공개 설정
 	•	일기별로 전체 공개/비공개 설정이 가능하여 프라이버시 보호
 	•	향후 커뮤니티 기능과 연계 가능
 
 ## 사용 예시
-1.	회원가입 및 로그인
+#### 1.	회원가입 및 로그인
+<br>
 	•	회원가입 후, 로그인하여 반려친구를 등록할 수 있는 초기 설정 페이지로 이동<br>
     <img src="/static/images/readme/first_page.png" width="50%">
-2.	반려친구 등록
+<br>
+
+#### 2.	반려친구 등록
+<br>
 	•	반려동물 또는 반려식물 추가
 	<br>
     <img src="/static/images/readme/create_pet_or_plant.png" width="50%">
     <br>
-	•	사진 업로드, 성격 설정, 특징 등의 기능을 통해 개별 맞춤 설정
+	•	사진 업로드, 특징, 성격 설정 등의 기능을 통해 개별 맞춤 설정
     <br>
     <p align="center">
 	<img src="/static/images/readme/create_pet.png" width="45%">
 	<img src="/static/images/readme/create_plant.png" width="45%">
     </p>
     <br>
-4.	캘린더 화면에서 일기 작성
+    
+#### 3.	캘린더 화면에서 일기 작성
+<br>
 	•	원하는 날짜를 선택 후, 반려친구를 지정하여 일기 작성<br>
     <img src="/static/images/readme/view_calendar.png" width="50%">
     <br>
-5.  일기 작성
+    
+#### 4.  일기 작성
+<br>
     •	감정 및 날씨 선택, 텍스트 입력 기능 제공<br>
     <img src="/static/images/readme/create_diaries.png" width="50%">
     <br>
-6.	AI 답변 확인
+    
+#### 5.	AI 답변 확인
+<br>
 	•	작성한 일기에 대해 AI가 반려친구의 입장에서 답장을 자동 생성
 	•	감정 분석을 기반으로 자연스러운 반응 제공<br>
     <img src="/static/images/readme/detail_diaries.png" width="50%">
     <br>
-7.	일기 리스트 및 상세보기<br>
+    
+#### 6.	일기 리스트 및 상세보기
+<br>
 	•	기록된 일기를 캘린더 혹은 리스트 뷰에서 확인<br>
 	•	특정 일기 클릭 시, 상세 페이지로 이동하여 전체 내용 및 AI 답장 확인 가능
     <br>
     <img src="/static/images/readme/onrecord_list.png" width="50%">
     <br>
-9.	반려친구 관리 및 삭제 기능(마이페이지)
+    
+#### 7.	반려친구 관리 및 삭제 기능(마이페이지)
+<br>
 	•	반려친구 추가/수정/삭제 가능
-	•	기존에 작성된 일기들은 유지되며, 반려친구 데이터만 삭제
+ <br>
+	•	반려친구 데이터와 함께 기존의 작성된 일기들도 함께 삭제
     <br>
     <img src="/static/images/readme/mypage.png" width="50%">
     <br>
-10. 커뮤니티 기능(모두의 온기록)
-    <br>
+    
+#### 8. 커뮤니티 기능(모두의 온기록)
+<br>
     <img src="/static/images/readme/community.png" width="50%">
 
 ## 🐶 팀원 소개
