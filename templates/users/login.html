@@ -30,8 +30,16 @@
                     {{ form.password }}  
                 </div>
                 <button type="submit" class="login-btn">로그인</button>
-            </form>
-
+            </form>         
+            <div class-"find-buttons-container">
+                <div class="find-buttons">
+                    <a href="{% url 'users:find-email' %}" class="find-email-btn">이메일 찾기</a>
+                    <form action="{% url 'users:password_reset_request' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="find-pwd-btn">비밀번호를 잊으셨나요?</button>
+                    </form>
+                </div>
+            </div>
             <div class="social-icons">
                 <div class="naver_login">
                     <button type="button" class="social-btn naver" onclick="location.href='{% provider_login_url 'naver' %}'">
@@ -44,20 +52,6 @@
                         <img src="{% static 'images/google.png' %}" alt="구글 로그인">
                     </button>
                 </div>
-            </div>
-
-            <div>
-                <a href="{% url 'users:find-email' %}"
-                style="text-decoration: none; color: inherit; font-size: 12px;">
-                이메일 찾기
-                </a>
-                <form action="{% url 'users:password_reset_request' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit"
-                    style="padding: 4px 10px; color:rgb(65, 64, 65); border: 1px solid rgb(65, 64, 65); font-size: 11px; border-radius: 4px; background: none; cursor: pointer;">
-                    비밀번호를 잊으셨나요?
-                    </button>
-                </form>
             </div>
         </div>
 
