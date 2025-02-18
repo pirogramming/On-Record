@@ -361,7 +361,23 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 899px) {
+    .slider-container {
+        max-width: 90vw;
+        padding: 0 10px;
+        overflow-x: auto;
+    }
+
+    .slider {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start; 
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        white-space: nowrap;
+        padding: 10px 0;
+    }
+
     .homepage-container {
         min-width: 200px;
     }
