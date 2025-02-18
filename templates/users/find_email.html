@@ -1,0 +1,63 @@
+{% extends 'users/main_1.html' %}
+
+{% block content %}
+
+<div style="
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+">
+  <form method="post" id="find-email-form">
+    {% csrf_token %}
+    <input type="text" id="nickname" name="nickname" placeholder="닉네임 입력" required
+    style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+    <button type="submit" style="
+      width: 100%;
+      padding: 10px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    ">이메일 찾기</button>
+  </form>
+  <p id="result" style="margin-top: 10px; font-weight: bold;"></p>
+</div>
+
+<script>
+  const form = document.getElementById('find-email-form');
+  form.onsubmit = async (event) => {
+      event.preventDefault();
+
+      const nickname = document.getElementById('nickname').value;
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // CSRF 토큰 가져오기
+
+      const response = await fetch("{% url 'users:find-email' %}", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'X-CSRFToken': csrfToken // CSRF 토큰을 헤더에 포함
+          },
+          body: `nickname=${nickname}`,
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+          document.getElementById('result').innerText = `이메일: ${data.email}`;
+      } else {
+          document.getElementById('result').innerText = data.error;
+      }
+  };
+</script>
+
+{% endblock %}
