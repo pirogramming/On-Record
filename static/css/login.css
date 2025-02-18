@@ -212,6 +212,8 @@
 }
 
 .find-buttons{
+    display: flex;
+    align-items: center;
     gap: 181px;
     position: absolute;
     left: 300px;
@@ -366,5 +368,10 @@
     .find-buttons {
         gap: 50px;
         left: 40px;
+    }
+
+    .find-pwd-btn{
+        position: absolute;
+        bottom: 1px;
     }
 }
