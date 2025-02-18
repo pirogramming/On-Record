@@ -361,11 +361,7 @@
     }
 }
 
-<<<<<<< HEAD
 @media (max-width: 899px) {
-=======
-@media (max-width: 400px) {
->>>>>>> origin/main
     .slider-container {
         max-width: 90vw;
         padding: 0 10px;
