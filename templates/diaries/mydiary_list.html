@@ -66,7 +66,7 @@
                 
                             <a href="{% url 'diaries:detail_diaries' diary.id %}" class="comment-btn" data-diary-id="{{ diary.id }}">
                                 <i class="bi bi-chat-dots"></i>
-                                <span id="comment-count-{{ diary.id }}">{{ diary.comment_set.count }}</span>
+                                <span id="comment-count-{{ diary.id }}">{{ diary.diary.count }}</span>
                             </a>
                         </div> 
                 </div>
