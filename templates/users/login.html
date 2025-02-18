@@ -31,12 +31,14 @@
                 </div>
                 <button type="submit" class="login-btn">로그인</button>
             </form>         
-            <div class="find-buttons">
-                <a href="{% url 'users:find-email' %}" class="find-email-btn">이메일 찾기</a>
-                <form action="{% url 'users:password_reset_request' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="find-pwd-btn">비밀번호를 잊으셨나요?</button>
-                </form>
+            <div class-"find-buttons-container">
+                <div class="find-buttons">
+                    <a href="{% url 'users:find-email' %}" class="find-email-btn">이메일 찾기</a>
+                    <form action="{% url 'users:password_reset_request' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="find-pwd-btn">비밀번호를 잊으셨나요?</button>
+                    </form>
+                </div>
             </div>
             <div class="social-icons">
                 <div class="naver_login">
