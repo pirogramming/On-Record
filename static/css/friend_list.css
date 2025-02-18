@@ -361,10 +361,11 @@
     }
 }
 
-/*
-@media (max-width: 600px) {
-    .homepage-container {
-        min-width: 200px;
+@media (max-width: 400px) {
+    .slider-container {
+        max-width: 90vw;
+        padding: 0 10px;
+        overflow-x: auto;
     }
 
     .slider {
@@ -426,4 +427,3 @@
         right: 5px;
     }
 }
-*/
