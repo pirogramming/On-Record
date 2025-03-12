@@ -2,17 +2,17 @@
 ### 🍀 피로그래밍 22기 최종 프로젝트
 📆 **개발 기간**: 2025년 01월 27일 ~ 2025년 02월 18일
 ### 📂 Contents
-1. [☀️ 서비스 소개](#-서비스-소개)
-2. [💻 사용 툴](#-사용-툴)
-3. [📈 Flowchart](#-Flowchart)
-4. [🧱 System Architecture](#-System-Architecture)
-5. [📀 ERD](#-ERD)
-6. [🐶 팀원 소개](#-팀원-소개)
+1. [☀️ 서비스 소개](#서비스-소개)
+2. [💻 사용 툴](#사용-툴)
+3. [📈 Flowchart](#Flowchart)
+4. [🧱 System Architecture](#System-Architecture)
+5. [📀 ERD](#ERD)
+6. [🐶 팀원 소개](#팀원-소개)
 
 
 ## ☀️ 서비스 소개
 ![온기록 로고](static/images/readme/onrecord_logo(readme).png)
-> #### URL: ["온기록 사이트"](onrecord.kr, "온기록 이용해보기")
+> #### URL: [온기록 사이트](https://onrecord.kr "온기록 이용해보기")
 > 반려동물이나 반려식물과의 추억을 기록하면, **AI**가 반려친구의 입장에서 답장을 생성해주는 웹서비스
 
 
@@ -71,8 +71,8 @@
     <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 </p><br>
 
-> [🐶 온기록 피그마](https://www.figma.com/design/UegG1gocuWCnORJeMuLayB/%EC%98%A8%EA%B8%B0%EB%A1%9D?node-id=0-1&p=f&t=MrHQne5S9sjzOato-0)
-&nbsp;&nbsp;&nbsp;[🌸 온기록 노션](https://arrow-battery-d95.notion.site/18a0464afcbc81dfa1cac08ba4e57ffa)
+> [🐶 온기록 노션](https://arrow-battery-d95.notion.site/18a0464afcbc81dfa1cac08ba4e57ffa)
+&nbsp;&nbsp;&nbsp;[🌸 온기록 피그마](https://www.figma.com/design/UegG1gocuWCnORJeMuLayB/%EC%98%A8%EA%B8%B0%EB%A1%9D?node-id=0-1&p=f&t=MrHQne5S9sjzOato-0)
 
 
 ******
@@ -96,18 +96,18 @@
 ![온기록 ERD](static/images/readme/onrecord_erd.png)
 
 ## 핵심 기능
-> 1.	캘린더 기반 일기 작성
-	•	반려동물 및 반려식물을 대상으로 날짜별 일기 작성
-	•	감정(이모지) 및 날씨 선택 기능
+> 1.	캘린더 기반 일기 작성<br>
+	•	반려동물 및 반려식물을 대상으로 날짜별 일기 작성<br>
+	•	감정(이모지) 및 날씨 선택 기능<br>
 	•	다이어리 리스트 및 개별 일기 상세 보기 가능
-> 2.	AI 답변 생성 기능
-	•	사용자가 작성한 일기에 대해 AI가 반려친구(동물/식물)의 입장에서 답장을 생성
+> 2.	AI 답변 생성 기능<br>
+	•	사용자가 작성한 일기에 대해 AI가 반려친구(동물/식물)의 입장에서 답장을 생성<br>
 	•	AI 응답을 통해 사용자와 반려친구 간의 인터랙션을 강화
-> 3.	반려친구 관리 기능
-	•	반려동물 및 반려식물 등록 및 삭제 기능
+> 3.	반려친구 관리 기능<br>
+	•	반려동물 및 반려식물 등록 및 삭제 기능<br>
 	•	반려친구의 사진, 이름, 성격 등을 추가하여 맞춤형 관리 가능
-> 4.	공개/비공개 설정
-	•	일기별로 전체 공개/비공개 설정이 가능하여 프라이버시 보호
+> 4.	공개/비공개 설정<br>
+	•	일기별로 전체 공개/비공개 설정이 가능하여 프라이버시 보호<br>
 	•	향후 커뮤니티 기능과 연계 가능
 
 ## 사용 예시
@@ -145,7 +145,7 @@
     
 #### 5.	AI 답변 확인
 <br>
-	•	작성한 일기에 대해 AI가 반려친구의 입장에서 답장을 자동 생성
+	•	작성한 일기에 대해 AI가 반려친구의 입장에서 답장을 자동 생성<br>
 	•	감정 분석을 기반으로 자연스러운 반응 제공<br>
     <img src="/static/images/readme/detail_diaries.png" width="50%">
     <br>
@@ -172,10 +172,12 @@
     <img src="/static/images/readme/community.png" width="50%">
 
 ## 🐶 팀원 소개
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0HooHI](https://github.com/0HooHI "김영호 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[mangoooooo1](https://github.com/mangoooooo1 "박혜린 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[l-wanderer01](https://github.com/l-wanderer01 "장재훈 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cestjeudi](https://github.com/cestjeudi "조주영 Github")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dosp74](https://github.com/Dosp74 "한종서 Github")
+| 역할 | 이름 | 깃허브 |
+|-------|-------|-------|
+| **TL / FE** | 박혜린 | [mangoooooo1](https://github.com/mangoooooo1 "박혜린 Github") |
+| **FE** | 조주영 | [cestjeudi](https://github.com/cestjeudi "조주영 Github") |
+| **BE** | 김영호 | [0HooHI](https://github.com/0HooHI "김영호 Github") |
+| **BE** | 장재훈 | [l-wanderer01](https://github.com/l-wanderer01 "장재훈 Github") |
+| **BE** | 한종서 | [Dosp74](https://github.com/Dosp74 "한종서 Github") |
 
 ![온기록 팀 소개](static/images/readme/onrecord_team.png)
